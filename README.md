@@ -17,7 +17,7 @@ This program is for finding and executing various vulnerabilities. It scavenges 
 + Brand new, just outta the box!
 + Free and Open /src/
 + Linux Edition :]
-+ 05/13/2013 - v.2.8
++ 10/22/2013 - v.2.8
 + Licensed under GPLv2
 + Tested on: Linux 3.2.6 Ubuntu/Debian, CentOS 6 (with some errors)
 
@@ -89,3 +89,6 @@ This program is for finding and executing various vulnerabilities. It scavenges 
 + Dat ASCII
 + Transformed README to Markdown for advanced readability
 + Included a copy of the usage
++ Bug fixes
++ Fixed search engine cycling, now checks all engines correctly
++ Fixed search functions for non .com domains, now functions correctly
