@@ -72,19 +72,19 @@ This program is for finding and executing various vulnerabilities. It scavenges 
     - greetz for all members of ex darkc0de.com, ljuska.org
 
 ## New To This Addition:
----To be Done --Partially implemented -Done
-  -Fix engines search parameters
----Increase LFI/RFI/XSS Lists if possible
----Implement SQL Database dumping tweaks
----Implement SQLi Post Method attack
-  -Removed ToRSledgehammer attack. Only skids DoS
- --Update Banner
- --Generalised "Tweaks" required
----Build and Implement Admin page finder
----Commenting
----Improve Md5 check to not use Static method
----Prepare code for Hash cracking feature
----Live logging
- --Prepare coding for Admin page finder
----Pause Scanning option
----Add MD5 and SHA1 Detection/Cracking
+    ---To be Done --Partially implemented -Done
+      -Fix engines search parameters
+    ---Increase LFI/RFI/XSS Lists if possible
+    ---Implement SQL Database dumping tweaks
+    ---Implement SQLi Post Method attack
+      -Removed ToRSledgehammer attack. Only skids DoS
+     --Update Banner
+     --Generalised "Tweaks" required
+    ---Build and Implement Admin page finder
+    ---Commenting
+    ---Improve Md5 check to not use Static method
+    ---Prepare code for Hash cracking feature
+    ---Live logging
+     --Prepare coding for Admin page finder
+    ---Pause Scanning option
+    ---Add MD5 and SHA1 Detection/Cracking
