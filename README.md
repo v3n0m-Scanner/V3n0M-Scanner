@@ -58,8 +58,8 @@ This program is for finding and executing various vulnerabilities. It scavenges 
     [ baltazar  ] - <b4ltazar@gmail.com>
     [ NovaCygni ] - <novacygni@hotmail.co.uk>
     [ Architect ] - <t3h4rch1t3ct@riseup.net>
-**Website** Visit b4ltazar.us for prev. versions
-**Website** IRC: irc.rootd.it +6697 (SSL) #rootd.it
+**Website**: Visit b4ltazar.us for prev. versions
+**IRC**: irc.rootd.it +6697 (SSL) #rootd.it
 
 ## Original Header:
 
