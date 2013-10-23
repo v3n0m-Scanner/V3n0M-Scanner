@@ -17,7 +17,7 @@ This program is for finding and executing various vulnerabilities. It scavenges 
 + Brand new, just outta the box!
 + Free and Open /src/
 + Linux Edition :]
-+ 10/22/2013 - v.2.8
++ 10/23/2013 - v3.2.1
 + Licensed under GPLv2
 + Tested on: Linux 3.2.6 Ubuntu/Debian, CentOS 6 (with some errors)
 
