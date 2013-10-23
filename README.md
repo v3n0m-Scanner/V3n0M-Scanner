@@ -59,6 +59,7 @@ This program is for finding and executing various vulnerabilities. It scavenges 
     [ NovaCygni ] - <novacygni@hotmail.co.uk>
     [ Architect ] - <t3h4rch1t3ct@riseup.net>
 **Website** Visit b4ltazar.us for prev. versions
+**Website** IRC: irc.rootd.it +6697 (SSL) #rootd.it
 
 ## Original Header:
 
@@ -71,24 +72,19 @@ This program is for finding and executing various vulnerabilities. It scavenges 
     - greetz for all members of ex darkc0de.com, ljuska.org
 
 ## New To This Addition:
-+ added dork array (~30 new dorks to be added in a little while)
-+ added input for number of random dorks
-+ added bugfix for over tor (it crashed a lot over TOR)
-+ added optimization, 1 page with 0 results, skip to next dork
-+ added extra check for links to comply with target (makes it a lot more target-specific)
-+ put main instructions together, added 12 - new scan option
-+ added Column Finder
-+ added column and table fuzzer
-+ added superlarge Dork list
-+ added new headers
-+ added lots of new XSS detectors
-+ rewrite done by levi
-+ mad propz to the original author for making a script that's easily modified!!!
-+ Shit ton of beta testing was done to get this version working
-+ Neat, a README!
-+ Dat ASCII
-+ Transformed README to Markdown for advanced readability
-+ Included a copy of the usage
-+ Bug fixes
-+ Fixed search engine cycling, now checks all engines correctly
-+ Fixed search functions for non .com domains, now functions correctly
+---To be Done --Partially implemented -Done
+  -Fix engines search parameters
+---Increase LFI/RFI/XSS Lists if possible
+---Implement SQL Database dumping tweaks
+---Implement SQLi Post Method attack
+  -Removed ToRSledgehammer attack. Only skids DoS
+ --Update Banner
+ --Generalised "Tweaks" required
+---Build and Implement Admin page finder
+---Commenting
+---Improve Md5 check to not use Static method
+---Prepare code for Hash cracking feature
+---Live logging
+ --Prepare coding for Admin page finder
+---Pause Scanning option
+---Add MD5 and SHA1 Detection/Cracking
