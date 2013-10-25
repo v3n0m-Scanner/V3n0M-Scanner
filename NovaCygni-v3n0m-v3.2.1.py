@@ -70,6 +70,7 @@ import urlparse
 import itertools
 import Queue
 import statics
+d0rk = [line.strip() for line in open("d0rks", 'r')]
 
 #Multithreading implementation and queueing prepared and ready, Debug support required for stability and testing
 #if __debug__:  
@@ -479,7 +480,7 @@ while True:
 		else:
 			i = 0
 			while i < int(dorks):
-				go.append(choice(d0rk))
+				go.append(d0rk[i])
 				i += 1
 			for g in go:
 				print "dork: ", g
