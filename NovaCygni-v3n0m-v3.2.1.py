@@ -70,7 +70,10 @@ import urlparse
 import itertools
 import Queue
 import statics
+
 d0rk = [line.strip() for line in open("d0rks", 'r')]
+header = [line.strip() for line in open("header", 'r')]
+xsses = [line.strip() for line in open("xsses", 'r')]
 
 #Multithreading implementation and queueing prepared and ready, Debug support required for stability and testing
 #if __debug__:  
