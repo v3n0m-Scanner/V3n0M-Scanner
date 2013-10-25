@@ -71,9 +71,10 @@ import itertools
 import Queue
 import statics
 
-d0rk = [line.strip() for line in open("d0rks", 'r')]
-header = [line.strip() for line in open("header", 'r')]
-xsses = [line.strip() for line in open("xsses", 'r')]
+d0rk = [line.strip() for line in open("statics/d0rks", 'r')]
+header = [line.strip() for line in open("statics/header", 'r')]
+xsses = [line.strip() for line in open("statics/xsses", 'r')]
+lfis = [line.strip() for line in open("statics/lfi", 'r')]
 
 #Multithreading implementation and queueing prepared and ready, Debug support required for stability and testing
 #if __debug__:  

