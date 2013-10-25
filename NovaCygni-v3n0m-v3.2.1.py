@@ -382,8 +382,9 @@ def ClassicXSS(url):
 			                                                                            source) or re.findall(
 					"XSS Javascript Escapes Vulnerability Detected", source) or re.findall(
 					"XSS End Title Tag Vulnerability Detected", source) or re.findall(
-					"XSS Style Tags with Broken Javascript Vulnerability Detected", source):
-				print R + "[!] w00t!,w00t!: ", O + url + xss, R + " ---> XSS Found (might be false, responce tested positive to 'source' inspection)"
+					"XSS Style Tags with Broken Javascript Vulnerability Detected", source) or re.findall("<OY1Py", source) or re.findall(
+					"<LOY2PyTRurb1c", source):
+				print R + "[!] w00t!,w00t!: ", O + url + xss, R + " ---> XSS Found (manual verification required)"
 				xss_log_file.write("\n" + url + xss)
 				vuln.append(url + xss)
 		except:
