@@ -75,6 +75,33 @@ header = [line.strip() for line in open("statics/header", 'r')]
 xsses = [line.strip() for line in open("statics/xsses", 'r')]
 lfis = [line.strip() for line in open("statics/lfi", 'r')]
 
+sqlerrors = {'MySQL': 'error in your SQL syntax',
+             'MiscError': 'mysql_fetch',
+             'MiscError2': 'num_rows',
+             'Oracle': 'ORA-01756',
+             'JDBC_CFM': 'Error Executing Database Query',
+             'JDBC_CFM2': 'SQLServer JDBC Driver',
+             'MSSQL_OLEdb': 'Microsoft OLE DB Provider for SQL Server',
+             'MSSQL_Uqm': 'Unclosed quotation mark',
+             'MS-Access_ODBC': 'ODBC Microsoft Access Driver',
+             'MS-Access_JETdb': 'Microsoft JET Database',
+             'Error Occurred While Processing Request': 'Error Occurred While Processing Request',
+             'Server Error': 'Server Error',
+             'Microsoft OLE DB Provider for ODBC Drivers error': 'Microsoft OLE DB Provider for ODBC Drivers error',
+             'Invalid Querystring': 'Invalid Querystring',
+             'OLE DB Provider for ODBC': 'OLE DB Provider for ODBC',
+             'VBScript Runtime': 'VBScript Runtime',
+             'ADODB.Field': 'ADODB.Field',
+             'BOF or EOF': 'BOF or EOF',
+             'ADODB.Command': 'ADODB.Command',
+             'JET Database': 'JET Database',
+             'mysql_fetch_array()': 'mysql_fetch_array()',
+             'Syntax error': 'Syntax error',
+             'mysql_numrows()': 'mysql_numrows()',
+             'GetArray()': 'GetArray()',
+             'FetchRow()': 'FetchRow()',
+             'Input string was not in a correct format': 'Input string was not in a correct format'}
+
 #Multithreading implementation and queueing prepared and ready, Debug support required for stability and testing
 #if __debug__:  
 #   import threading as parcomp  
