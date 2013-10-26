@@ -71,6 +71,11 @@ import itertools
 import Queue
 import statics
 
+d0rk = [line.strip() for line in open("statics/d0rks", 'r')]
+header = [line.strip() for line in open("statics/header", 'r')]
+xsses = [line.strip() for line in open("statics/xsses", 'r')]
+lfis = [line.strip() for line in open("statics/lfi", 'r')]
+
 #Multithreading implementation and queueing prepared and ready, Debug support required for stability and testing
 #if __debug__:  
 #   import threading as parcomp  
@@ -382,8 +387,9 @@ def ClassicXSS(url):
 			                                                                            source) or re.findall(
 					"XSS Javascript Escapes Vulnerability Detected", source) or re.findall(
 					"XSS End Title Tag Vulnerability Detected", source) or re.findall(
-					"XSS Style Tags with Broken Javascript Vulnerability Detected", source):
-				print R + "[!] w00t!,w00t!: ", O + url + xss, R + " ---> XSS Found (might be false, responce tested positive to 'source' inspection)"
+					"XSS Style Tags with Broken Javascript Vulnerability Detected", source) or re.findall("<OY1Py", source) or re.findall(
+					"<LOY2PyTRurb1c", source):
+				print R + "[!] w00t!,w00t!: ", O + url + xss, R + " ---> XSS Found (manual verification required)"
 				xss_log_file.write("\n" + url + xss)
 				vuln.append(url + xss)
 		except:
@@ -478,7 +484,7 @@ while True:
 		else:
 			i = 0
 			while i < int(dorks):
-				go.append(choice(d0rk))
+				go.append(d0rk[i])
 				i += 1
 			for g in go:
 				print "dork: ", g
