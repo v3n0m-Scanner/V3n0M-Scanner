@@ -69,7 +69,6 @@ import urllib
 import urlparse
 import itertools
 import Queue
-import statics
 
 d0rk = [line.strip() for line in open("statics/d0rks", 'r')]
 header = [line.strip() for line in open("statics/header", 'r')]
