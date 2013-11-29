@@ -151,7 +151,7 @@ def logo():
 	print "|----------------------------------------------------------------|\n"
 
 
-if sys.platform == 'linux' or sys.platform == 'linux2':
+if sys.platform.startswith('linux') or sys.platform.startswith('linux2'):
 	subprocess.call("clear", shell=True)
 	logo()
 
