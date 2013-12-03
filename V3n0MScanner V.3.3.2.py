@@ -725,7 +725,7 @@ while True:
 		afsite = raw_input("Enter the site: ")
 		print B
 		pwd = os.path.dirname(str(os.path.realpath(__file__)))
-		findadmin = subprocess.Popen(pwd + "/adminfinder.py -w adminlist.txt -u " + str(afsite), shell=True)
+		findadmin = subprocess.Popen(pwd + "/modules/adminfinder.py -w modules/adminlist.txt -u " + str(afsite), shell=True)
 		findadmin.communicate()
 
 	if chce == '0':
