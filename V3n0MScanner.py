@@ -62,15 +62,15 @@ def logo():
 	print R + "\n|----------------------------------------------------------------|"
 	print "|     V3n0M-Scanner.py                                           |"
 	print "|     Release Date 02/12/2013  - Release Version V.3.3.2         |"
-	print "|          										                |"
-	print "|             NovaCygni  Architect  d4rkcat                      |"
+	print "|          						         |"
+	print "|          " + B + "   NovaCygni  Architect  d4rkcat" + R + "                      |"
 	print "|                    _____       _____                           |"
 	print "|                   |____ |     |  _  |                          |"
 	print "|             __   __   / /_ __ | |/' |_ __ ___                  |"
 	print "|             \ \ / /   \ \ '_ \|  /| | '_ ` _ \                 |"
 	print "|              \ V /.___/ / | | \ |_/ / | | | | |                |"
 	print "|    Official   \_/ \____/|_| |_|\___/|_| |_| |_|  Release       |"
-	print "|    													        |"
+	print "|    							         |"
 	print "|----------------------------------------------------------------|\n"
 
 def killpid(signum = 0, frame = 0):
@@ -573,34 +573,34 @@ def fmenu():
 	if chce == '1':
 		injtest()
 
-	if chce == '2':
+	elif chce == '2':
 		injtest()
 		colfinder()
 
-	if chce == '3':
+	elif chce == '3':
 		lfitest()
 
-	if chce == '4':
+	elif chce == '4':
 		xsstest()
 
-	if chce == '5':
+	elif chce == '5':
 		injtest()
 		lfitest()
 
-	if chce == '6':
+	elif chce == '6':
 		injtest()
 		xsstest()
 
-	if chce == '7':
+	elif chce == '7':
 		lfitest()
 		xsstest()
 
-	if chce == '8':
+	elif chce == '8':
 		injtest()
 		lfitest()
 		xsstest()
 
-	if chce == '9':
+	elif chce == '9':
 		print B + "\nSaving valid urls (" + str(len(finallist)) + ") to file"
 		listname = raw_input("Filename: ")
 		list_name = open(listname, "w")
@@ -610,31 +610,32 @@ def fmenu():
 		list_name.close()
 		print "Urls saved, please check", listname
 
-	if chce == '10':
+	elif chce == '10':
 		print W + "\nPrinting valid urls:\n"
 		finallist.sort()
 		for t in finallist:
 			print B + t
 
-	if chce == '11':
+	elif chce == '11':
 		print B + "\nVuln found ", len(vuln)
 
-	if chce == '12':
+	elif chce == '12':
 		print W + ""
 		fscan()
 
-	if chce == '13':
+	elif chce == '13':
 		afsite = raw_input("Enter the site eg target.com: ")
 		print B
 		pwd = os.path.dirname(str(os.path.realpath(__file__)))
 		findadmin = subprocess.Popen(pwd + "/modules/adminfinder.py -w modules/adminlist.txt -u " + str(afsite), shell=True)
 		findadmin.communicate()
 
-	if chce == '0':
+	elif chce == '0':
 		print R + "\n Exiting ..."
 		mnu = False
 		print W
 		sys.exit(0)
+		
 
 signal.signal(signal.SIGINT, killpid)
 d0rk = [line.strip() for line in open("statics/d0rks", 'r')]
@@ -722,10 +723,6 @@ arg_eva = "+"
 colMax = 60 # Change this at your will
 gets = 0
 file = "/etc/passwd"
-threads = []
-darkurl = []
-vuln = []
-col = []
 timeout = 75
 socket.setdefaulttimeout(timeout)
 menu = True
