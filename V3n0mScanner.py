@@ -309,6 +309,7 @@ def classicxss(url):
 
 
 def injtest():
+	global logfile
 	log = "v3n0m-sqli.txt"
 	logfile = open(log, "a")
 	print B + "\n[+] Preparing for SQLi scanning ..."
@@ -726,7 +727,7 @@ arg_end = "--"
 arg_eva = "+"
 colMax = 60 # Change this at your will
 gets = 0
-timeout = 75
+timeout = 5
 file = "/etc/passwd"
 socket.setdefaulttimeout(timeout)
 menu = True
