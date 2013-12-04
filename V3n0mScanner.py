@@ -278,6 +278,8 @@ def classiclfi(url):
 
 
 def classicxss(url):
+	global xsscnt
+	xsscnt = 0
 	for xss in xsses:
 		if url not in vuln:
 			try:
@@ -285,6 +287,7 @@ def classicxss(url):
 				if re.findall("<OY1Py", source) or re.findall("<LOY2PyTRurb1c", source):
 					print R + "\r\x1b[K[XSS]: ", O + url + xss, R + " ---> XSS Found"
 					xss_log_file.write("\n" + url + xss)
+					xsscnt += 1
 					vuln.append(url)
 			except:
 				if len(xss + url) < 147:
@@ -559,34 +562,44 @@ def vulnscan():
 	chce = raw_input(":")
 	if chce == '1':
 		injtest()
-		print "Scan complete, " + str(len(col)) + " vuln sites found."
+		print B + "\r\x1b[K [*] Scan complete, " + O + str(len(col)) + B + " vuln sites found."
+		print
 
 	elif chce == '2':
 		injtest()
 		colfinder()
+		endsub = 0
 
 	elif chce == '3':
 		lfitest()
+		endsub = 0
 
 	elif chce == '4':
 		xsstest()
+		print B + "\r\x1b[K [*] Scan complete, " + O + str(xsscnt) + B + " vuln sites found."
+		print
+		endsub = 0
 
 	elif chce == '5':
 		injtest()
 		lfitest()
+		endsub = 0
 
 	elif chce == '6':
 		injtest()
 		xsstest()
+		endsub = 0
 
 	elif chce == '7':
 		lfitest()
 		xsstest()
+		endsub = 0
 
 	elif chce == '8':
 		injtest()
 		lfitest()
 		xsstest()
+		endsub = 0
 
 	elif chce == '9':
 		print B + "\nSaving valid urls (" + str(len(finallist)) + ") to file"
@@ -597,15 +610,18 @@ def vulnscan():
 			list_name.write(t + "\n")
 		list_name.close()
 		print "Urls saved, please check", listname
+		endsub = 0
 
 	elif chce == '10':
 		print W + "\nPrinting valid urls:\n"
 		finallist.sort()
 		for t in finallist:
 			print B + t
+		endsub = 0
 
 	elif chce == '11':
 		print B + "\nVuln found ", len(vuln)
+		endsub = 0
 	
 	elif chce == '12':
 		endsub = 1
