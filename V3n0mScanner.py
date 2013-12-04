@@ -3,7 +3,7 @@
 #              --- To be Done     --Partially implemented     -Done
 # V3n0MScanner.py - V.3.2.2
 #   -Fix engines search parameters
-#   ---Increase LFI/RFI/XSS Lists if possible
+#   -Increase LFI/RFI/XSS Lists if possible
 #   ---Implement SQL Database dumping tweaks
 #   ---Implement SQLi Post Method attack
 #   - Removed ToRSledgehammer attack. Only skids DoS
@@ -14,7 +14,7 @@
 #	---Improve Md5 check to not use Static method
 #	---Prepare code for Hash cracking feature
 #   ---Live logging
-#	--Prepare coding for Admin page finder
+#	-Prepare coding for Admin page finder
 #   ---Pause Scanning option
 #   ---Add MD5 and SHA1 Detection/Cracking
 #	---Remove "Dark" naming conventions, provide more accurate names
@@ -159,8 +159,6 @@ def search(maxc):
 		return finallist
 
 
-
-
 class Injthread(threading.Thread):
 	def __init__(self, hosts):
 		self.hosts = hosts
@@ -243,8 +241,6 @@ def classicinj(url):
 				vuln.append(host)
 				col.append(host)
 				break
-
-
 			else:
 				pass
 	except:
@@ -283,29 +279,19 @@ def classiclfi(url):
 
 def classicxss(url):
 	for xss in xsses:
-		try:
-			source = urllib2.urlopen(url + xss.replace("\n", "")).read()
-			if re.findall("XSS Vuln FromCharCode filter bypass detected", source) or re.findall(
-					"Basic XSS Vuln Detected", source) or re.findall("Case Sensitive XSS Vector", source) or re.findall(
-					"Malformed A Tag Attack Vuln", source) or re.findall("UTF8 Unicode XSS Vuln Detected",
-																		 source) or re.findall(
-					"XSS BodyTag Vuln Detected", source) or re.findall("US-ASCII XSS Bypass Vuln Detected",
-																	   source) or re.findall(
-					"XSS Embedded Tab Vulnerability", source) or re.findall("XSS Hex Vulnerability",
-																			source) or re.findall(
-					"XSS Embedded Encoded Tab Vulnerability", source) or re.findall(
-					"XSS Extraneous Open Brackets Vulnerability", source) or re.findall("XSS Base 64 Encoding Bypass",
-																						source) or re.findall(
-					"XSS Javascript Escapes Vulnerability Detected", source) or re.findall(
-					"XSS End Title Tag Vulnerability Detected", source) or re.findall(
-					"XSS Style Tags with Broken Javascript Vulnerability Detected", source) or re.findall("<OY1Py",
-																										  source) or re.findall(
-					"<LOY2PyTRurb1c", source):
-				print R + "[XSS]: ", O + url + xss, R + " ---> XSS Found (manual verification required)"
-				xss_log_file.write("\n" + url + xss)
-				vuln.append(url + xss)
-		except:
-			pass
+		if url not in vuln:
+			try:
+				source = urllib2.urlopen(url + xss.replace("\n", "")).read()
+				if re.findall("<OY1Py", source) or re.findall("<LOY2PyTRurb1c", source):
+					print R + "\r\x1b[K[XSS]: ", O + url + xss, R + " ---> XSS Found"
+					xss_log_file.write("\n" + url + xss)
+					vuln.append(url)
+			except:
+				if len(xss + url) < 147:
+					sys.stdout.write(
+					B + "\r\x1b[K [*] Testing %s%s" % (
+					url, xss))
+					sys.stdout.flush()
 
 
 def injtest():
@@ -552,8 +538,11 @@ def fscan():
 	print ""
 	
 	usearch = search(maxc)
+	vulnscan()
 
-def fmenu():		
+def vulnscan():
+	global endsub
+	endsub = 0		
 	print R + "\n[1] SQLi Testing"
 	print "[2] SQLi Testing Auto Mode"
 	print "[3] LFI - RCE Testing"
@@ -564,14 +553,13 @@ def fmenu():
 	print "[8] SQLi,LFI - RCE and XSS Testing"
 	print "[9] Save valid urls to file"
 	print "[10] Print valid urls"
-	print "[11] Found vuln in last scan"
-	print "[12] New scan"
-	print "[13] Admin page finder"
-	print "[14] FTP crawler"
-	print "[0] Exit\n"
+	print "[11] Print Found vuln in last scan"
+	print "[12] Back to main menu"
+	
 	chce = raw_input(":")
 	if chce == '1':
 		injtest()
+		print "Scan complete, " + str(len(col)) + " vuln sites found."
 
 	elif chce == '2':
 		injtest()
@@ -618,24 +606,46 @@ def fmenu():
 
 	elif chce == '11':
 		print B + "\nVuln found ", len(vuln)
-
+	
 	elif chce == '12':
+		endsub = 1
+		fmenu()
+	
+def fmenu():
+	if endsub != 1:
+		vulnscan()
+	logo()
+	print "[1] Dork and vuln scan"
+	print "[2] Admin page finder"
+	print "[3] FTP crawler"
+	print "[4] DNS brute"
+	print "[0] Exit\n"
+	chce = raw_input(":")
+
+	if chce == '1':
 		print W + ""
 		fscan()
 
-	elif chce == '13':
+	elif chce == '2':
 		afsite = raw_input("Enter the site eg target.com: ")
 		print B
 		pwd = os.path.dirname(str(os.path.realpath(__file__)))
 		findadmin = subprocess.Popen(pwd + "/modules/adminfinder.py -w modules/adminlist.txt -u " + str(afsite), shell=True)
 		findadmin.communicate()
 		
-	elif chce == '14':
+	elif chce == '3':
 		randips = raw_input("How many IP addresses do you want to scan: ")
 		print B
 		pwd = os.path.dirname(str(os.path.realpath(__file__)))
 		ftpcrawl = subprocess.Popen(pwd + "/modules/ftpcrawler.py -i " + str(randips), shell=True)
 		ftpcrawl.communicate()
+		
+	elif chce == '4':
+		dnstarg = raw_input("Enter the site eg target.com: ")
+		print B
+		pwd = os.path.dirname(str(os.path.realpath(__file__)))
+		dnsbrute = subprocess.Popen(pwd + "/modules/dnsbrute.py -w modules/subdomainsmid.txt -u " + str(dnstarg), shell=True)
+		dnsbrute.communicate()
 
 	elif chce == '0':
 		print R + "\n Exiting ..."
@@ -646,12 +656,11 @@ def fmenu():
 
 signal.signal(signal.SIGINT, killpid)
 d0rk = [line.strip() for line in open("statics/d0rks", 'r')]
-random.shuffle(d0rk)
 header = [line.strip() for line in open("statics/header", 'r')]
-random.shuffle(header)
 xsses = [line.strip() for line in open("statics/xsses", 'r')]
-random.shuffle(xsses)
 lfis = [line.strip() for line in open("statics/lfi", 'r')]
+random.shuffle(d0rk)
+random.shuffle(header)
 random.shuffle(lfis)
 
 sqlerrors = {'MySQL': 'error in your SQL syntax',
@@ -708,13 +717,7 @@ G = "\033[32m"
 O = "\033[33m"
 B = "\033[34m"
 
-if sys.platform == 'linux' or sys.platform == 'linux2':
-	subprocess.call("clear", shell=True)
-	logo()
-else:
-	subprocess.call("cls", shell=True)
-	logo()
-
+subprocess.call("clear", shell=True)
 lfi_log = "v3n0m-lfi.txt"
 rce_log = "v3n0m-rce.txt"
 xss_log = "v3n0m-xss.txt"
@@ -726,12 +729,12 @@ admin_log_file = open(admin_log, "a")
 arg_end = "--"
 arg_eva = "+"
 colMax = 60 # Change this at your will
+endsub = 1
 gets = 0
-timeout = 5
+timeout = 8
 file = "/etc/passwd"
 socket.setdefaulttimeout(timeout)
 menu = True
-fscan()
 
 while True:
 	fmenu()
