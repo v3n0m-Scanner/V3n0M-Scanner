@@ -75,6 +75,7 @@ This program is for finding and executing various vulnerabilities. It scavenges 
 
 ## New To This Addition:
     ---To be Done --Partially implemented -Done
+      -FTP Crawler thanks Sam for code
       -Fix engines search parameters
 	  -Increase LFI/RFI/XSS Lists if possible
     ---Implement SQL Database dumping tweaks
