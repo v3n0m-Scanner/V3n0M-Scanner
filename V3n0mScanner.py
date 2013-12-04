@@ -545,7 +545,17 @@ def fscan():
 
 def vulnscan():
 	global endsub
-	endsub = 0		
+	global lfi_log
+	global rce_log
+	global xss_log_file
+	global admin_log_file
+
+	lfi_log_file = open("v3n0m-lfi.txt", "a")
+	rce_log_file = open("v3n0m-rce.txt", "a")
+	xss_log_file = open("v3n0m-xss.txt", "a")
+	admin_log_file = open("v3n0m-admin.txt", "a")
+	endsub = 0
+	
 	print R + "\n[1] SQLi Testing"
 	print "[2] SQLi Testing Auto Mode"
 	print "[3] LFI - RCE Testing"
@@ -734,14 +744,6 @@ O = "\033[33m"
 B = "\033[34m"
 
 subprocess.call("clear", shell=True)
-lfi_log = "v3n0m-lfi.txt"
-rce_log = "v3n0m-rce.txt"
-xss_log = "v3n0m-xss.txt"
-admin_log = "v3n0m-admin.txt"
-lfi_log_file = open(lfi_log, "a")
-rce_log_file = open(rce_log, "a")
-xss_log_file = open(xss_log, "a")
-admin_log_file = open(admin_log, "a")
 arg_end = "--"
 arg_eva = "+"
 colMax = 60 # Change this at your will
