@@ -278,8 +278,6 @@ def classiclfi(url):
 
 
 def classicxss(url):
-	global xsscnt
-	xsscnt = 0
 	for xss in xsses:
 		if url not in vuln:
 			try:
@@ -287,7 +285,6 @@ def classicxss(url):
 				if re.findall("<OY1Py", source) or re.findall("<LOY2PyTRurb1c", source):
 					print R + "\r\x1b[K[XSS]: ", O + url + xss, R + " ---> XSS Found"
 					xss_log_file.write("\n" + url + xss)
-					xsscnt += 1
 					vuln.append(url)
 			except:
 				if len(xss + url) < 147:
@@ -492,7 +489,6 @@ def fscan():
 	global numthreads
 	global threads
 	global finallist
-	global vuln
 	global col
 	global darkurl
 	global sitearray
@@ -638,6 +634,8 @@ def vulnscan():
 		fmenu()
 	
 def fmenu():
+	global vuln
+	vuln = []
 	if endsub != 1:
 		vulnscan()
 	logo()
