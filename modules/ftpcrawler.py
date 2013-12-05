@@ -84,12 +84,13 @@ def ftpscan(threadName, q):
 			try:
 				connection = FTP(data, timeout=2)
 				wlcmMsg = connection.getwelcome()
-				print "Found FTP @ :" + str(data) + "  >  " + str(wlcmMsg)
+				wlcmMsg2 = wlcmMsg.split('\n', 1)[0]
 				loginftp = True
 				FTPs.append(data)
 				FCheck = False
-				iphead = str(data) + "%" + str(wlcmMsg)
+				iphead = str(data) + "%" + str(wlcmMsg2)
 				headers.append(str(iphead))
+				print "Found FTP @ :" + str(data) + "  >  " + str(wlcmMsg2)
 				if loginftp:
 					try:
 						connection.login()
@@ -171,18 +172,18 @@ def vulnscan(queries, accuracy):
 
 			if result:
 				log(result, ip, banner)
-				print 'Banner: ' + O + banner
+				print R + 'Banner: ' + O + banner
 				print B + 'IP: ' + O + ip
 				print O + "\n[+]" + B + " Bingo! Found (possible) matching exploits for " + O + str(ip) + B
 				for r in result:
 					print R + r
-				print '-----------------  NEXT  ------------------------'
+				print '-----------------  NEXT  ------------------------\n'
 			else:
 				pass
 		except:
 			pass
 
-parser = argparse.ArgumentParser(prog='ftpcrawler', usage='ftpcrawler [options]')
+parser = argparse.ArgumentParser(prog='ftpscanner', usage='ftpscanner [options]')
 parser.add_argument('-t', "--threads", type=int, help='number of threads (default: 1000)')
 parser.add_argument('-i', "--ips", type=int, help='number of random ips to scan')
 args = parser.parse_args()
