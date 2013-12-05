@@ -163,7 +163,6 @@ def vulnscan(queries, accuracy):
 			results = []
 			queryls = []
 			queryls = query.split('%')
-			print "!!!!!!" + str(queryls)
 			ip = queryls[0]
 			banner = queryls[1]
 			result = scan_string(banner)
