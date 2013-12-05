@@ -88,8 +88,8 @@ def ftpscan(threadName, q):
 				loginftp = True
 				FTPs.append(data)
 				FCheck = False
-				iphead = str(data) + ":" + str(wlcmMsg)
-				writeheaders(iphead)
+				iphead = str(data) + "%" + str(wlcmMsg)
+				headers.append(str(iphead))
 				if loginftp:
 					try:
 						connection.login()
@@ -107,9 +107,6 @@ def ftpscan(threadName, q):
 				pass
 		else:
 			queueLock.release()
-			
-def headersladd(header):
-		headersl.append(str(header))
 
 def killpid(signum = 0, frame = 0):
 	print "\r\x1b[K"
@@ -160,26 +157,31 @@ def log(result, ip, banner):
     output.close()
 
 def vulnscan(queries, accuracy):
-    global banner
-    for query in queries:
-        results = []
-        index = query.find(':')
-        ip = query[:index]
-        banner = query[index+1:]
-        print 'Banner: ' + banner
-        print 'IP: ' + ip
-        result = scan_string(banner)
-        result = confirm_vuln(result, banner, accuracy)
-        result = list(set(result)) 
-        
-        if result:
-            log(result, ip, banner)
-            print O + "\n[+]" + B + " Bingo! Found (possible) matching exploits:"
-            for r in result:
-                print R + r
-            print '-----------------  NEXT  ------------------------'
-        else:
-        	pass
+	global banner
+	for query in queries:
+		try:
+			results = []
+			queryls = []
+			queryls = query.split('%')
+			print "!!!!!!" + str(queryls)
+			ip = queryls[0]
+			banner = queryls[1]
+			result = scan_string(banner)
+			result = confirm_vuln(result, banner, accuracy)
+			result = list(set(result)) 
+
+			if result:
+				log(result, ip, banner)
+				print 'Banner: ' + O + banner
+				print B + 'IP: ' + O + ip
+				print O + "\n[+]" + B + " Bingo! Found (possible) matching exploits for " + O + str(ip) + B
+				for r in result:
+					print R + r
+				print '-----------------  NEXT  ------------------------'
+			else:
+				pass
+		except:
+			pass
 
 parser = argparse.ArgumentParser(prog='ftpcrawler', usage='ftpcrawler [options]')
 parser.add_argument('-t', "--threads", type=int, help='number of threads (default: 1000)')
@@ -214,6 +216,7 @@ R = "\033[31m"
 G = "\033[32m"
 O = "\033[33m"
 B = "\033[34m"
+headers = []
 
 if args.threads:
 	maxthreads = args.threads
@@ -253,6 +256,5 @@ with Timer():
 print "\r\x1b[K\n [*] All threads complete, " + str(len(FTPs)) + " IPs found. Starting Vuln Scan.."
 
 if FTPs:
-	headers = [line.strip() for line in open("headers.txt", 'r')]
 	vulnscan(headers, 2)
 
