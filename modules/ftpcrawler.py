@@ -81,6 +81,9 @@ def ftpscan(threadName, q):
 			data = q.get()
 			queueLock.release()
 			loginftp = False
+			progdone = len(IPList) - workQueue.qsize()
+			livelog = " [>] Trying " + str(progdone) + "/" + str(len(IPList)) + " " + data
+			Printer(livelog)
 			try:
 				connection = FTP(data, timeout=2)
 				wlcmMsg = connection.getwelcome()
@@ -90,7 +93,7 @@ def ftpscan(threadName, q):
 				FCheck = False
 				iphead = str(data) + "%" + str(wlcmMsg2)
 				headers.append(str(iphead))
-				print "Found FTP @ :" + str(data) + "  >  " + str(wlcmMsg2)
+				print "\r\x1b[K [*] Found FTP @ " + O + str(data) + B + "  >  " + str(wlcmMsg2)
 				if loginftp:
 					try:
 						connection.login()
@@ -113,71 +116,54 @@ def killpid(signum = 0, frame = 0):
 	print "\r\x1b[K"
 	kill(getpid(), 9)
 	
-def confirm_vuln(results, teststring, accuracy):
-    results_confirmed = []
-    results_final = []
-    testquery = teststring.split()
-    for result in results:
-        r_split = result.split()
-        for r in r_split:
-            for test_string in testquery:
-                if findall(r, test_string):    
-                    results_confirmed.append(result)
-    if accuracy == 1: 
-        for result in results_confirmed:
-            result_tmp = result.split()
-            if result_tmp[3] in testquery:
-                results_final.append(result)
-            elif not result_tmp[3] in testquery:
-                pass
-        return results_final
-    else:
-        return results_confirmed
- 
-def scan_string(searchquery):
-    global banner
-    pwd = path.dirname(str(path.realpath(__file__)))
-    metavulns = open(str(pwd) + '/metasploit-vulns.txt', 'r')
-    bads = ['FTP', '200',  '-', 'BUILT', 'ON', 'SERVER']
-    result = []
-    for meta in metavulns:
-        searchquery = meta.split()
-        for query in searchquery:
-            if query.upper() in bads:
-                pass
-            elif banner.find(query) != -1:
-                result.append(meta.strip('\n'))
-    return result
 
 def log(result, ip, banner):
     output = open('banner-output.txt', 'a')
     output.write('IP: %s\nBanner: %s\nExploits: \n' % (ip, banner))
     for r in result:
-        output.write(r + '\n')
-    output.write("-----------------  NEXT  ------------------------\n")
+        output.write('\t' + r + '\n')
+    output.write('-----------------  NEXT  ------------------------\n')
     output.close()
 
-def vulnscan(queries, accuracy):
-	global banner
+def scan_string(header):
+        result = []
+	pwd = path.join(path.dirname(str(path.realpath(__file__))), 'metasploit-vulns.txt')
+	vuln_banners = open(pwd, 'r')
+	for banner in vuln_banners:
+		b = banner.split('\t')
+		try:
+			if any("/driver/" in s for s in b):  
+				c = b[0].split('/driver/')
+      			if not any("/driver/" in s for s in b):    
+                		c = b[0].split('/ftp/')
+        	except:
+        		pass
+        	payload = str(c[1]).split('_')[0]
+        	if payload == 'ms09':
+            		payload = 'microsoft'
+        	if payload.lower() in header.lower():
+            		result.append(banner)
+	return result
+
+
+def vulnscan(queries):
+        global banner
 	for query in queries:
 		try:
-			results = []
+		        results = []
 			queryls = []
 			queryls = query.split('%')
 			ip = queryls[0]
 			banner = queryls[1]
-			result = scan_string(banner)
-			result = confirm_vuln(result, banner, accuracy)
-			result = list(set(result)) 
-
-			if result:
-				log(result, ip, banner)
+			results = scan_string(banner)
+			if results:
+				log(results, ip, banner)
 				print R + 'Banner: ' + O + banner
-				print B + "IP: " + O + ip
+				print B + 'IP: ' + O + ip
 				print O + "\n[+]" + B + " Bingo! Found (possible) matching exploits for " + O + str(ip) + B
-				for r in result:
+				for r in results:
 					print R + r
-				print "-----------------  NEXT  ------------------------\n"
+				print '-----------------  NEXT  ------------------------\n'
 			else:
 				pass
 		except:
@@ -210,7 +196,7 @@ FTPs = []
 exitFlag = 0
 chekhed = 0
 threadID = 1
-maxthreads = 1000
+maxthreads = 800
 W = "\033[0m"
 R = "\033[31m"
 G = "\033[32m"
@@ -256,5 +242,5 @@ with Timer():
 print "\r\x1b[K\n [*] All threads complete, " + str(len(FTPs)) + " IPs found. Starting Vuln Scan.."
 
 if FTPs:
-	vulnscan(headers, 2)
+	vulnscan(headers)
 

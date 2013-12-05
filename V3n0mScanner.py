@@ -534,7 +534,6 @@ def fscan():
 	print "Encrypted SE    : 3"
 	print ""
 	print ""
-	print ""
 	
 	usearch = search(maxc)
 	vulnscan()
@@ -557,14 +556,10 @@ def vulnscan():
 	print "[2] SQLi Testing Auto Mode"
 	print "[3] LFI - RCE Testing"
 	print "[4] XSS Testing"
-	print "[5] SQLi and LFI - RCE Testing"
-	print "[6] SQLi and XSS Testing"
-	print "[7] LFI -RCE and XSS Testing"
-	print "[8] SQLi,LFI - RCE and XSS Testing"
-	print "[9] Save valid urls to file"
-	print "[10] Print valid urls"
-	print "[11] Print Found vuln in last scan"
-	print "[12] Back to main menu"
+	print "[5] Save valid urls to file"
+	print "[6] Print valid urls"
+	print "[7] Print Found vuln in last scan"
+	print "[8] Back to main menu"
 	
 	chce = raw_input(":")
 	if chce == '1':
@@ -574,15 +569,20 @@ def vulnscan():
 		print
 
 	elif chce == '2':
+		vuln = []
 		injtest()
 		colfinder()
 		endsub = 0
+		print B + "\r\x1b[K [*] Scan complete, " + O + str(len(vuln)) + B + " vuln sites found."
+		print
 
 	elif chce == '3':
 		vuln = []
 		lfitest()
 		endsub = 0
-
+		print B + "\r\x1b[K [*] Scan complete, " + O + str(len(vuln)) + B + " vuln sites found."
+		print
+		
 	elif chce == '4':
 		vuln = []
 		xsstest()
@@ -591,31 +591,6 @@ def vulnscan():
 		endsub = 0
 
 	elif chce == '5':
-		vuln = []
-		injtest()
-		lfitest()
-		endsub = 0
-
-	elif chce == '6':
-		vuln = []
-		injtest()
-		xsstest()
-		endsub = 0
-
-	elif chce == '7':
-		vuln = []
-		lfitest()
-		xsstest()
-		endsub = 0
-
-	elif chce == '8':
-		vuln = []
-		injtest()
-		lfitest()
-		xsstest()
-		endsub = 0
-
-	elif chce == '9':
 		print B + "\nSaving valid urls (" + str(len(finallist)) + ") to file"
 		listname = raw_input("Filename: ")
 		list_name = open(listname, "w")
@@ -626,18 +601,19 @@ def vulnscan():
 		print "Urls saved, please check", listname
 		endsub = 0
 
-	elif chce == '10':
+	elif chce == '6':
 		print W + "\nPrinting valid urls:\n"
 		finallist.sort()
 		for t in finallist:
 			print B + t
 		endsub = 0
 
-	elif chce == '11':
+	elif chce == '7':
 		print B + "\nVuln found ", len(vuln)
+		print vulns
 		endsub = 0
 	
-	elif chce == '12':
+	elif chce == '8':
 		endsub = 1
 		fmenu()
 	
