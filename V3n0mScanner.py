@@ -545,6 +545,7 @@ def vulnscan():
 	global rce_log
 	global xss_log_file
 	global admin_log_file
+	global vuln
 
 	lfi_log_file = open("v3n0m-lfi.txt", "a")
 	rce_log_file = open("v3n0m-rce.txt", "a")
@@ -567,6 +568,7 @@ def vulnscan():
 	
 	chce = raw_input(":")
 	if chce == '1':
+		vuln = []
 		injtest()
 		print B + "\r\x1b[K [*] Scan complete, " + O + str(len(col)) + B + " vuln sites found."
 		print
@@ -577,31 +579,37 @@ def vulnscan():
 		endsub = 0
 
 	elif chce == '3':
+		vuln = []
 		lfitest()
 		endsub = 0
 
 	elif chce == '4':
+		vuln = []
 		xsstest()
-		print B + "\r\x1b[K [*] Scan complete, " + O + str(xsscnt) + B + " vuln sites found."
+		print B + "\r\x1b[K [*] Scan complete, " + O + str(len(vuln)) + B + " vuln sites found."
 		print
 		endsub = 0
 
 	elif chce == '5':
+		vuln = []
 		injtest()
 		lfitest()
 		endsub = 0
 
 	elif chce == '6':
+		vuln = []
 		injtest()
 		xsstest()
 		endsub = 0
 
 	elif chce == '7':
+		vuln = []
 		lfitest()
 		xsstest()
 		endsub = 0
 
 	elif chce == '8':
+		vuln = []
 		injtest()
 		lfitest()
 		xsstest()
