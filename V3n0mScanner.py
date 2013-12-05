@@ -643,7 +643,7 @@ def fmenu():
 	logo()
 	print "[1] Dork and vuln scan"
 	print "[2] Admin page finder"
-	print "[3] FTP crawler"
+	print "[3] FTP crawler and vuln scan"
 	print "[4] DNS brute"
 	print "[0] Exit\n"
 	chce = raw_input(":")

@@ -3,8 +3,9 @@
 import argparse, subprocess, signal, Queue, time, random
 from threading import Thread, Lock
 from sys import argv, stdout
-from os import getpid, kill
+from os import getpid, kill, system, path
 from ftplib import FTP
+from re import findall
 
 class myThread (Thread):
     def __init__(self, threadID, name, q):
@@ -16,19 +17,20 @@ class myThread (Thread):
         ftpscan(self.name, self.q)
 
 class Timer():
-	def __enter__(self): self.start = time.time()
-	def __exit__(self, *args):
-		taken = time.time() - self.start
-		seconds = int(time.strftime('%S', time.gmtime(taken)))
-		minutes = int(time.strftime('%M', time.gmtime(taken)))
-		hours = int(time.strftime('%H', time.gmtime(taken)))
-		if minutes > 0:
-			if hours > 0:
-				print " [*] Time elapsed " + str(hours) + " hours, " + str(minutes) + " minutes and " + str(seconds) + " seconds at " + str(round(len(IPList) / taken,2)) + " lookups per second."
-			else:
-				print " [*] Time elapsed " + str(minutes) + " minutes and " + str(seconds) + " seconds at " + str(round(len(IPList) / taken,2)) + " lookups per second."
-		else:
-			print " [*] Time elapsed " + str(seconds) + " seconds at " + str(round(len(IPList) / taken,2)) + " scans per second."
+    def __enter__(self): 
+        self.start = time.time()
+    def __exit__(self, *args):
+	    taken = time.time() - self.start
+	    seconds = int(time.strftime('%S', time.gmtime(taken)))
+	    minutes = int(time.strftime('%M', time.gmtime(taken)))
+	    hours = int(time.strftime('%H', time.gmtime(taken)))
+	    if minutes > 0:
+		    if hours > 0:
+			    print " [*] Time elapsed " + str(hours) + " hours, " + str(minutes) + " minutes and " + str(seconds) + " seconds at " + str(round(len(IPList) / taken,2)) + " scans per second."
+		    else:
+			    print " [*] Time elapsed " + str(minutes) + " minutes and " + str(seconds) + " seconds at " + str(round(len(IPList) / taken,2)) + " scans per second."
+	    else:
+		    print " [*] Time elapsed " + str(seconds) + " seconds at " + str(round(len(IPList) / taken,2)) + " scans per second."
 
 class Printer():
     def __init__(self,data):
@@ -47,8 +49,15 @@ def writeLog(iLogIP, wlcmMsg, anon):
         FTPLogFile = open('FTPPrivateLogFile.txt', 'a')
         FTPLogFile.write('\nFTP found @' + iLogIP + '\n' + 'Welcome message from FTP:\n' + wlcmMsg + '\n' + anon)
         FTPLogFile.close()  
+        
+def writeheaders(header):
+        headerlog = open('headers.txt', 'a')
+        headerlog.write(header)
+        headerlog.close()    
 
 def makeips(amt):
+	global headersl
+	headersl = []
 	IPPart = 0
 	IPString = ""
 	for num in xrange(amt):
@@ -75,10 +84,12 @@ def ftpscan(threadName, q):
 			try:
 				connection = FTP(data, timeout=2)
 				wlcmMsg = connection.getwelcome()
-				print "Found FTP @ :" + str(data)
+				print "Found FTP @ :" + str(data) + "  >  " + str(wlcmMsg)
 				loginftp = True
 				FTPs.append(data)
 				FCheck = False
+				iphead = str(data) + ":" + str(wlcmMsg)
+				writeheaders(iphead)
 				if loginftp:
 					try:
 						connection.login()
@@ -97,23 +108,92 @@ def ftpscan(threadName, q):
 		else:
 			queueLock.release()
 			
+def headersladd(header):
+		headersl.append(str(header))
+
 def killpid(signum = 0, frame = 0):
 	print "\r\x1b[K"
 	kill(getpid(), 9)
+	
+def confirm_vuln(results, teststring, accuracy):
+    results_confirmed = []
+    results_final = []
+    testquery = teststring.split()
+    for result in results:
+        r_split = result.split()
+        for r in r_split:
+            for test_string in testquery:
+                if findall(r, test_string):    
+                    results_confirmed.append(result)
+    if accuracy == 1: 
+        for result in results_confirmed:
+            result_tmp = result.split()
+            if result_tmp[3] in testquery:
+                results_final.append(result)
+            elif not result_tmp[3] in testquery:
+                pass
+        return results_final
+    else:
+        return results_confirmed
+ 
+def scan_string(searchquery):
+    global banner
+    pwd = path.dirname(str(path.realpath(__file__)))
+    metavulns = open(str(pwd) + '/metasploit-vulns.txt', 'r')
+    bads = ['FTP', '200',  '-', 'BUILT', 'ON', 'SERVER']
+    result = []
+    for meta in metavulns:
+        searchquery = meta.split()
+        for query in searchquery:
+            if query.upper() in bads:
+                pass
+            elif banner.find(query) != -1:
+                result.append(meta.strip('\n'))
+    return result
+
+def log(result, ip, banner):
+    output = open('banner-output.txt', 'a')
+    output.write('IP: %s\nBanner: %s\nExploits: \n' % (ip, banner))
+    for r in result:
+        output.write(r + '\n')
+    output.write('-----------------  NEXT  ------------------------')
+    output.close()
+
+def vulnscan(queries, accuracy):
+    global banner
+    for query in queries:
+        results = []
+        index = query.find(':')
+        ip = query[:index]
+        banner = query[index+1:]
+        print 'Banner: ' + banner
+        print 'IP: ' + ip
+        result = scan_string(banner)
+        result = confirm_vuln(result, banner, accuracy)
+        result = list(set(result)) 
+        
+        if result:
+            log(result, ip, banner)
+            print O + "\n[+]" + B + " Bingo! Found (possible) matching exploits:"
+            for r in result:
+                print R + r
+            print '-----------------  NEXT  ------------------------'
+        else:
+        	pass
 
 parser = argparse.ArgumentParser(prog='ftpcrawler', usage='ftpcrawler [options]')
 parser.add_argument('-t', "--threads", type=int, help='number of threads (default: 1000)')
 parser.add_argument('-i', "--ips", type=int, help='number of random ips to scan')
 args = parser.parse_args()
 
-print '''  __ _                                 _           
- / _| |_ _ __   ___ _ __ __ ___      _| | ___ _ __ 
-| |_| __| '_ \ / __| '__/ _` \ \ /\ / / |/ _ \ '__|
-|  _| |_| |_) | (__| | | (_| |\ V  V /| |  __/ |   
-|_|  \__| .__/ \___|_|  \__,_| \_/\_/ |_|\___|_|   
-        |_|                                          
-                                                         
-                                          By d4rkcat
+print '''  __ _                                             
+ / _| |_ _ __  ___  ___ __ _ _ __  _ __   ___ _ __ 
+| |_| __| '_ \/ __|/ __/ _` | '_ \| '_ \ / _ \ '__|
+|  _| |_| |_) \__ \ (_| (_| | | | | | | |  __/ |   
+|_|  \__| .__/|___/\___\__,_|_| |_|_| |_|\___|_|   
+        |_|                                        
+                                                        
+                                          By Sam & d4rkcat
 '''
 
 if len(argv) == 1:
@@ -126,8 +206,14 @@ IPList = []
 threads = []
 FTPs = []
 exitFlag = 0
+chekhed = 0
 threadID = 1
 maxthreads = 1000
+W = "\033[0m"
+R = "\033[31m"
+G = "\033[32m"
+O = "\033[33m"
+B = "\033[34m"
 
 if args.threads:
 	maxthreads = args.threads
@@ -164,4 +250,9 @@ with Timer():
 	for t in threads:
 		t.join()
 
-	print "\r\x1b[K\n [*] All threads complete, " + str(len(FTPs)) + " IPs found."
+print "\r\x1b[K\n [*] All threads complete, " + str(len(FTPs)) + " IPs found. Starting Vuln Scan.."
+
+if FTPs:
+	headers = [line.strip() for line in open("headers.txt", 'r')]
+	vulnscan(headers, 2)
+
