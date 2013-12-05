@@ -154,7 +154,7 @@ def log(result, ip, banner):
     output.write('IP: %s\nBanner: %s\nExploits: \n' % (ip, banner))
     for r in result:
         output.write(r + '\n')
-    output.write('-----------------  NEXT  ------------------------')
+    output.write("-----------------  NEXT  ------------------------\n")
     output.close()
 
 def vulnscan(queries, accuracy):
@@ -173,11 +173,11 @@ def vulnscan(queries, accuracy):
 			if result:
 				log(result, ip, banner)
 				print R + 'Banner: ' + O + banner
-				print B + 'IP: ' + O + ip
+				print B + "IP: " + O + ip
 				print O + "\n[+]" + B + " Bingo! Found (possible) matching exploits for " + O + str(ip) + B
 				for r in result:
 					print R + r
-				print '-----------------  NEXT  ------------------------\n'
+				print "-----------------  NEXT  ------------------------\n"
 			else:
 				pass
 		except:
