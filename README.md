@@ -6,9 +6,10 @@ This program is for finding and executing various vulnerabilities. It scavenges 
 **Use at your own risk.**<br />
 
 ## Very useful for executing:
-+Cross Site Scripting [XSS]
+
 + Remote Code Execution [RCE]
 + Local File Inclusion [LFI]
++ Cross Site Scripting [XSS]
 + SQL Injection [SQLi]
 + Extremely Large D0rk Target Lists
 + FTP Crawler
