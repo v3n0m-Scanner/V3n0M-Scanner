@@ -10,16 +10,21 @@ This program is for finding and executing various vulnerabilities. It scavenges 
 + Remote Code Execution [RCE]
 + Local File Inclusion [LFI]
 + SQL Injection [SQLi]
++FTP Crawler
++DNS BruteForcer
++MITM Detection
+
 
 ## What You Hold:
 
 **A modified smartd0rk3r**
 + Brand new, just outta the box!
++ Largest and most powerful d0rker online, 18k+d0rks searched over 13 Engines at once.
 + Free and Open /src/
-+ Linux Edition :]
-+ 10/23/2013 - v3.2.1
++ CrossPlatform Python based toolkit
++07/01/14 - v3.4.0
 + Licensed under GPLv2
-+ Tested on: Linux 3.2.6 Ubuntu/Debian, CentOS 6 (with some errors)
++ Tested on: Linux 3.2.6 Ubuntu/Debian, CentOS 6 (with some errors), Win7 (with some errors)
 
 ## Usage:
 
@@ -54,8 +59,8 @@ This program is for finding and executing various vulnerabilities. It scavenges 
 
 ## Contact Information:
 
-    [ levi      ] - <l3v1athan@tormail.org>
-    [ baltazar  ] - <b4ltazar@gmail.com>
+    [ levi      ] - <l3v1athan@tormail.org>(Retired From Project)
+    [ baltazar  ] - <b4ltazar@gmail.com>(Retired From Project)
     [ NovaCygni ] - <novacygni@hotmail.co.uk>
     [ Architect ] - <t3h4rch1t3ct@riseup.net>
     [ d4rkcat   ] - <d4rkcat@yandex.com>
@@ -84,12 +89,12 @@ This program is for finding and executing various vulnerabilities. It scavenges 
      --Update Banner
      --Generalised "Tweaks" required
       -Build and Implement Admin page finder
-    ---Commenting
+    --Commenting
     ---Improve Md5 check to not use Static method
     ---Prepare code for Hash cracking feature
     ---Live logging
       -Prepare coding for Admin page finder
     ---Pause Scanning option
     ---Add MD5 and SHA1 Detection/Cracking
-    -Add code to skip all payloads once positive if found
+    -Add code to skip all sayloads once positive if found
     
