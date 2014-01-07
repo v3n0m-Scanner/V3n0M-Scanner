@@ -10,9 +10,9 @@ This program is for finding and executing various vulnerabilities. It scavenges 
 + Remote Code Execution [RCE]
 + Local File Inclusion [LFI]
 + SQL Injection [SQLi]
-+FTP Crawler
-+DNS BruteForcer
-+MITM Detection
++ FTP Crawler
++ DNS BruteForcer
++ MITM Detection
 
 
 ## What You Hold:
