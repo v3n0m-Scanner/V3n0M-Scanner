@@ -23,8 +23,8 @@ This program is for finding and executing various vulnerabilities. It scavenges 
 + Brand new, just outta the box!
 + Largest and most powerful d0rker online, 18k+d0rks searched over 13 Engines at once.
 + Free and Open /src/
-+ CrossPlatform Python based toolkit
-+07/01/14 - v3.4.0
++ CrossPlatform Python based toolkit 
++ Version 3.4.0 Released on 7th Jan 2014
 + Licensed under GPLv2
 + Tested on: Linux 3.2.6 Ubuntu/Debian, CentOS 6 (with some errors), Win7 (with some errors)
 
