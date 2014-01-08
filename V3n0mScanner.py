@@ -51,14 +51,10 @@
 #                       but in no way is this the sole work of NovaCygni, and credit is due
 #                       to every person who has worked on this tool. Thanks people. NovaCygni
 
-
+import re, random, threading, socket, urllib2, cookielib, subprocess, codecs, signal, time, sys, os, math, itertools, hashlib, Queue
 
 try:
-	import re, random, threading, socket, urllib2, cookielib, subprocess, codecs, signal, time, sys, os, math, itertools, hashlib, Queue, paramiko
-
-	print " please make sure you have all of the following modules: re, random, threading, socket, urllib2, cookielib, subprocess, codecs, signal, time, sys, os, math, itertools"
-	exit()
-
+	import paramiko
 	PARAMIKO_IMPORTED = True
 except ImportError:
 	PARAMIKO_IMPORTED = False
