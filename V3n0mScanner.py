@@ -102,7 +102,7 @@ def logo():
 	print "|     V3n0m-Toolkit                                              |"
 	print "|     Release Date 07/01/2014  - Release Version V.3.4.0         |"
 	print "|          			                       Promoting BlackArch   |"
-	print "|          " + B + "   NovaCygni  Architect  d4rkcat" + R + "                      |"
+	print "|          " + B + "   NovaCygni  Architect" + R + "                      |"
 	print "|                    _____       _____                           |"
 	print '|          ' + G + "         |____ |     |  _  |    " + R + "                      |"
 	print "|             __   __   / /_ __ | |/' |_ _" + G + "_ ___             " + R + "     |"
