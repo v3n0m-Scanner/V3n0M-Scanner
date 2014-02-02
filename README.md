@@ -100,3 +100,5 @@ This program is for finding and executing various vulnerabilities. It scavenges 
     ---Add MD5 and SHA1 Detection/Cracking
     -Add code to skip all sayloads once positive if found
     
+#### Footnote ####
+It would appear https://www.facebook.com/pages/Anti-sec/1419632864927090?hc_location=stream Is pretending to be affiliated with AntiSec, this is not true, the group, are skids, nothing more. Thanks to "High6" for bringing this to our attention.This group and its Admins are fairgame for anything, not just d0xing.
