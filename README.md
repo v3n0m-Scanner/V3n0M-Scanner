@@ -67,8 +67,7 @@ This program is for finding and executing various vulnerabilities. It scavenges 
     [ Architect ] - <t3h4rch1t3ct@riseup.net>
     [ d4rkcat   ] - <d4rkcat@yandex.com>
     
-**Website**: Visit b4ltazar.us for prev. versions
-**IRC**: irc.rootd.it +6697 (SSL) #rootd.it
+
 
 ## Original Header:
 
@@ -101,4 +100,4 @@ This program is for finding and executing various vulnerabilities. It scavenges 
     -Add code to skip all sayloads once positive if found
     
 #### Footnote ####
-It would appear https://www.facebook.com/pages/Anti-sec/1419632864927090?hc_location=stream Is pretending to be affiliated with AntiSec, this is not true, the group, are skids, nothing more. Thanks to "High6" for bring this to our attention.
+It would appear https://www.facebook.com/pages/Anti-sec/1419632864927090?hc_location=stream Is pretending to be affiliated with AntiSec, this is not true, the group, are skids, nothing more. Thanks to High6 for bringing this to our attention.
