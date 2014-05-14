@@ -1,5 +1,8 @@
+# This file is part of v3n0m
+# See LICENSE for license details.
+
    exploit/windows/driver/dlink_wifi_rates             2006-11-13       low        D-Link DWL-G132 Wireless Driver Beacon Rates Overflow
-   exploit/windows/ftp/32bitftp_list_reply             2010-10-12       good       32bit FTP Client Stack Buffer Overflow 
+   exploit/windows/ftp/32bitftp_list_reply             2010-10-12       good       32bit FTP Client Stack Buffer Overflow
    exploit/windows/ftp/3cdaemon_ftp_user               2005-01-04       average    3Com 3CDaemon 2.0 FTP Username Overflow
    exploit/windows/ftp/aasync_list_reply               2010-10-12       good       AASync v2.2.1.0 (Win32) Stack Buffer Overflow (LIST)
    exploit/windows/ftp/ability_server_stor             2004-10-22       normal     Ability Server 2.34 STOR Command Stack Buffer Overflow

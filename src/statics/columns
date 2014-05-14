@@ -1,3 +1,7 @@
+# This file is part of v3n0m
+# See LICENSE for license details.
+
+
 user
 username
 password
@@ -114,7 +118,7 @@ my_name
 my_password
 my_email
 korisnicko
-cvvnumber 
+cvvnumber
 about
 access
 accnt

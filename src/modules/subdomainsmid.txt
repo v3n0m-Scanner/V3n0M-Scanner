@@ -1,3 +1,6 @@
+# This file is part of v3n0m
+# See LICENSE for license details.
+
 0
 01
 02
@@ -810,7 +813,7 @@ gg
 gh
 gi
 giga
-git 
+git
 gl
 glendale
 global
@@ -821,7 +824,7 @@ go
 gold
 goldmine
 golf
-google 
+google
 gopher
 gordon
 gp
@@ -917,7 +920,7 @@ im
 images
 imail
 imap
-imap 
+imap
 imap4
 img
 img0
@@ -1946,7 +1949,7 @@ supplier
 suppliers
 support
 sv
-svn 
+svn
 sw
 sw0
 sw01
@@ -32040,6 +32043,6 @@ _ftp
 _nfs
 _pptp
 _ntp
-_snmp	
+_snmp
 _xmpp-server
 _jabber

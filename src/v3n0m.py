@@ -20,9 +20,9 @@
 #	---Remove "Dark" naming conventions, provide more accurate names
 #
 # V3n0MScanner.py - V.3.0.2
-#    -Increased headers list to include mobile devices headers 
+#    -Increased headers list to include mobile devices headers
 #    -Increased XSS Detection by almost double, Detects Actual Bypass required for the attack to progress
-#    -Increased LFI Detection rates 
+#    -Increased LFI Detection rates
 #    -Increased URL Detection rate for valid Vuln sites
 #    -New Banner Style promoting V3n0M Scanner and Version details
 #    -New method for identifying Version make: V.x.y.z Where x is the main release version, y is amount of Beta release
@@ -355,7 +355,7 @@ def xsstest():
 			threads.append(thread)
 		for thread in threads:
 			thread.join()
-			
+
 def colfinder():
 	print B + "\n[+] Preparing for Column Finder ..."
 	print "[+] Can take a while ..."
@@ -493,7 +493,7 @@ def fscan():
 	global darkurl
 	global sitearray
 	global go
-	
+
 	threads = []
 	finallist = []
 	vuln = []
@@ -519,7 +519,7 @@ def fscan():
 			i += 1
 		for g in go:
 			print "dork: ", g
-	
+
 	numthreads = raw_input('\nEnter no. of threads : ')
 	maxc = raw_input('Enter no. of pages   : ')
 	print "\nNumber of SQL errors :", len(sqlerrors)
@@ -534,7 +534,7 @@ def fscan():
 	print "Encrypted SE    : 3"
 	print ""
 	print ""
-	
+
 	usearch = search(maxc)
 	vulnscan()
 
@@ -551,7 +551,7 @@ def vulnscan():
 	xss_log_file = open("v3n0m-xss.txt", "a")
 	admin_log_file = open("v3n0m-admin.txt", "a")
 	endsub = 0
-	
+
 	print R + "\n[1] SQLi Testing"
 	print "[2] SQLi Testing Auto Mode"
 	print "[3] LFI - RCE Testing"
@@ -560,7 +560,7 @@ def vulnscan():
 	print "[6] Print valid urls"
 	print "[7] Print Found vuln in last scan"
 	print "[8] Back to main menu"
-	
+
 	chce = raw_input(":")
 	if chce == '1':
 		vuln = []
@@ -582,7 +582,7 @@ def vulnscan():
 		endsub = 0
 		print B + "\r\x1b[K [*] Scan complete, " + O + str(len(vuln)) + B + " vuln sites found."
 		print
-		
+
 	elif chce == '4':
 		vuln = []
 		xsstest()
@@ -612,11 +612,11 @@ def vulnscan():
 		print B + "\nVuln found ", len(vuln)
 		print vulns
 		endsub = 0
-	
+
 	elif chce == '8':
 		endsub = 1
 		fmenu()
-	
+
 def fmenu():
 	global vuln
 	vuln = []
@@ -640,14 +640,14 @@ def fmenu():
 		pwd = os.path.dirname(str(os.path.realpath(__file__)))
 		findadmin = subprocess.Popen(pwd + "/modules/adminfinder.py -w modules/adminlist.txt -u " + str(afsite), shell=True)
 		findadmin.communicate()
-		
+
 	elif chce == '3':
 		randips = raw_input("How many IP addresses do you want to scan: ")
 		print B
 		pwd = os.path.dirname(str(os.path.realpath(__file__)))
 		ftpcrawl = subprocess.Popen(pwd + "/modules/ftpcrawler.py -i " + str(randips), shell=True)
 		ftpcrawl.communicate()
-		
+
 	elif chce == '4':
 		dnstarg = raw_input("Enter the site eg target.com: ")
 		print B
@@ -660,7 +660,7 @@ def fmenu():
 		mnu = False
 		print W
 		sys.exit(0)
-		
+
 
 signal.signal(signal.SIGINT, killpid)
 d0rk = [line.strip() for line in open("statics/d0rks", 'r')]
@@ -699,16 +699,16 @@ sqlerrors = {'MySQL': 'error in your SQL syntax',
 			 'Input string was not in a correct format': 'Input string was not in a correct format'}
 
 #Multithreading implementation and queueing prepared and ready, Debug support required for stability and testing
-#if __debug__:  
-#   import threading as parcomp  
-#   queueclass=Queue.Queue  
-#   workerclass=threading.Thread  
-#   NUMWORKERS=1  
-#else:  
-#   import multiprocessing as parcomp  
-#   queueclass=parcomp.Queue  
-#   workerclass=parcomp.Process  
-#   NUMWORKERS=parcomp.cpu_count()  
+#if __debug__:
+#   import threading as parcomp
+#   queueclass=Queue.Queue
+#   workerclass=threading.Thread
+#   NUMWORKERS=1
+#else:
+#   import multiprocessing as parcomp
+#   queueclass=parcomp.Queue
+#   workerclass=parcomp.Process
+#   NUMWORKERS=parcomp.cpu_count()
 
 #This is the MBCS Encoding Bypass for making MBCS encodings work on Linux - NovaCygni
 try:

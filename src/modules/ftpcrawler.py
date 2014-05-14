@@ -1,3 +1,6 @@
+# This file is part of v3n0m
+# See LICENSE for license details.
+
 #!/usr/bin/python
 
 import argparse, subprocess, signal, Queue, time, random
@@ -17,7 +20,7 @@ class myThread (Thread):
         ftpscan(self.name, self.q)
 
 class Timer():
-    def __enter__(self): 
+    def __enter__(self):
         self.start = time.time()
     def __exit__(self, *args):
 	    taken = time.time() - self.start
@@ -38,22 +41,22 @@ class Printer():
         stdout.flush()
 
 def writeLog(iLogIP, wlcmMsg, anon):
- 
+
     if anon == 1:
         anon = "Anonymous login allowed!\n\n---------------------------------------"
         FTPLogFile = open('FTPAnonLogFile.txt', 'a')
         FTPLogFile.write('\nFTP found @' + iLogIP + '\n' + 'Welcome message from FTP:\n' + wlcmMsg + '\n' + anon)
-        FTPLogFile.close()    
+        FTPLogFile.close()
     if anon == 0:
         anon = "Anonymous login NOT allowed!\n\n---------------------------------------"
         FTPLogFile = open('FTPPrivateLogFile.txt', 'a')
         FTPLogFile.write('\nFTP found @' + iLogIP + '\n' + 'Welcome message from FTP:\n' + wlcmMsg + '\n' + anon)
-        FTPLogFile.close()  
-        
+        FTPLogFile.close()
+
 def writeheaders(header):
         headerlog = open('headers.txt', 'a')
         headerlog.write(header)
-        headerlog.close()    
+        headerlog.close()
 
 def makeips(amt):
 	global headersl
@@ -69,7 +72,7 @@ def makeips(amt):
 						IPS = random.randint(1, 255)
 				IPString = str(IPS)
 			else:
-				IPString +=  "." + str(IPS)  
+				IPString +=  "." + str(IPS)
 			IPPart += 1
 		IPPart = 0
 		IPList.append(IPString)
@@ -115,7 +118,7 @@ def ftpscan(threadName, q):
 def killpid(signum = 0, frame = 0):
 	print "\r\x1b[K"
 	kill(getpid(), 9)
-	
+
 
 def log(result, ip, banner):
     output = open('banner-output.txt', 'a')
@@ -132,9 +135,9 @@ def scan_string(header):
 	for banner in vuln_banners:
 		b = banner.split('\t')
 		try:
-			if any("/driver/" in s for s in b):  
+			if any("/driver/" in s for s in b):
 				c = b[0].split('/driver/')
-      			if not any("/driver/" in s for s in b):    
+      			if not any("/driver/" in s for s in b):
                 		c = b[0].split('/ftp/')
         	except:
         		pass
@@ -174,13 +177,13 @@ parser.add_argument('-t', "--threads", type=int, help='number of threads (defaul
 parser.add_argument('-i', "--ips", type=int, help='number of random ips to scan')
 args = parser.parse_args()
 
-print '''  __ _                                             
- / _| |_ _ __  ___  ___ __ _ _ __  _ __   ___ _ __ 
+print '''  __ _
+ / _| |_ _ __  ___  ___ __ _ _ __  _ __   ___ _ __
 | |_| __| '_ \/ __|/ __/ _` | '_ \| '_ \ / _ \ '__|
-|  _| |_| |_) \__ \ (_| (_| | | | | | | |  __/ |   
-|_|  \__| .__/|___/\___\__,_|_| |_|_| |_|\___|_|   
-        |_|                                        
-                                                        
+|  _| |_| |_) \__ \ (_| (_| | | | | | | |  __/ |
+|_|  \__| .__/|___/\___\__,_|_| |_|_| |_|\___|_|
+        |_|
+
                                           By Sam & d4rkcat
 '''
 

@@ -1,3 +1,6 @@
+# This file is part of v3n0m
+# See LICENSE for license details.
+
 #!/usr/bin/python
 
 import argparse, subprocess, signal, Queue, time
@@ -78,7 +81,7 @@ def getresponse(threadName, q):
 					pass
 		else:
 			queueLock.release()
-			
+
 def killpid(signum = 0, frame = 0):
 	print "\r\x1b[K"
 	kill(getpid(), 9)
@@ -92,13 +95,13 @@ parser.add_argument('-f', "--follow", action="store_true", help='follow and reso
 parser.add_argument('-b', "--forbidden", action="store_true", help='show forbidden pages')
 args = parser.parse_args()
 
-print '''           _           _        __ _           _           
-  __ _  __| |_ __ ___ (_)_ __  / _(_)_ __   __| | ___ _ __ 
+print '''           _           _        __ _           _
+  __ _  __| |_ __ ___ (_)_ __  / _(_)_ __   __| | ___ _ __
  / _` |/ _` | '_ ` _ \| | '_ \| |_| | '_ \ / _` |/ _ \ '__|
-| (_| | (_| | | | | | | | | | |  _| | | | | (_| |  __/ |   
- \__,_|\__,_|_| |_| |_|_|_| |_|_| |_|_| |_|\__,_|\___|_|   
-                                                                       
-                                                                                                          
+| (_| | (_| | | | | | | | | | |  _| | | | | (_| |  __/ |
+ \__,_|\__,_|_| |_| |_|_|_| |_|_| |_|_| |_|\__,_|\___|_|
+
+
                                           By d4rkcat
 '''
 
@@ -124,15 +127,15 @@ if args.proxy:
 		print "Error proxy must be in the form of type:host:port"
 		parser.print_help()
 		exit()
-		
-	if proxytype == "socks4":	
+
+	if proxytype == "socks4":
 		socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS4, str(proxyip), int(proxyport), True)
 	elif proxytype == "socks5":
 		socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS5, str(proxyip), int(proxyport), True)
 	else:
 		print "Error Unknown proxy type: " + str(proxytype)
 		exit()
-		
+
 	socket.socket = socks.socksocket
 	socket.create_connection = create_connection
 

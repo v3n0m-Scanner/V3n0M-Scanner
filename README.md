@@ -23,14 +23,14 @@ This program is for finding and executing various vulnerabilities. It scavenges 
 + Brand new, just outta the box!
 + Largest and most powerful d0rker online, 18k+d0rks searched over 13 Engines at once.
 + Free and Open /src/
-+ CrossPlatform Python based toolkit 
++ CrossPlatform Python based toolkit
 + Version 3.4.0 Released on 7th Jan 2014
 + Licensed under GPLv2
 + Tested on: Linux 3.2.6 Ubuntu/Debian, CentOS 6 (with some errors), Win7 (with some errors)
 
 ## Usage:
 
-    root@bt:~# python2.7 Linux-v3n0m.py
+    root@bt:~# python2.7 v3n0m.py
 
     Now you may follow the simple prompts.
 
@@ -66,7 +66,7 @@ This program is for finding and executing various vulnerabilities. It scavenges 
     [ NovaCygni ] - <novacygni@hotmail.co.uk>
     [ Architect ] - <t3h4rch1t3ct@riseup.net>
     [ d4rkcat   ] - <d4rkcat@yandex.com>
-    
+
 
 
 ## Original Header:
@@ -98,6 +98,6 @@ This program is for finding and executing various vulnerabilities. It scavenges 
     ---Pause Scanning option
     ---Add MD5 and SHA1 Detection/Cracking
     -Add code to skip all sayloads once positive if found
-    
+
 #### Footnote ####
 It would appear https://www.facebook.com/pages/Anti-sec/1419632864927090?hc_location=stream Is pretending to be affiliated with AntiSec, this is not true, the group, are skids, nothing more. Thanks to High6 for bringing this to our attention.

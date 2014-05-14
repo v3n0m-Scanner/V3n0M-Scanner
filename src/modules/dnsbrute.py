@@ -1,3 +1,6 @@
+# This file is part of v3n0m
+# See LICENSE for license details.
+
 #!/usr/bin/python
 
 import dns.resolver, signal, Queue, subprocess, time, argparse
@@ -14,12 +17,12 @@ class myThread (Thread):
         self.q = q
     def run(self):
         process_data(self.name, self.q)
-        
+
 class Printer():
     def __init__(self,data):
         stdout.write("\r\x1b[K"+data.__str__())
         stdout.flush()
-        
+
 class Timer():
 	def __enter__(self): self.start = time.time()
 	def __exit__(self, *args):
@@ -37,9 +40,9 @@ class Timer():
 def killpid(signum = 0, frame = 0):
 	writeout("bad")
 	kill(getpid(), 9)
-    
+
 def writeout(state):
-	logfile = open("logs/" + domain + ".log", 'w') 	
+	logfile = open("logs/" + domain + ".log", 'w')
 	for item in found:
 		logfile.write("%s\n" % item)
 	if state == "good":
@@ -86,11 +89,11 @@ parser.add_argument('-u', "--url", type=str, help='url eg. target.com')
 parser.add_argument("-w", "--wordlist", type=str, help="wordlist")
 parser.add_argument('-t', "--threads", type=int, help='number of threads')
 args = parser.parse_args()
-	
-print '''     _           _                _       
-  __| |_ __  ___| |__  _ __ _   _| |_ ___ 
- / _` | '_ \/ __| '_ \| '__| | | | __/ _ \ 
-| (_| | | | \__ \ |_) | |  | |_| | ||  __/ 
+
+print '''     _           _                _
+  __| |_ __  ___| |__  _ __ _   _| |_ ___
+ / _` | '_ \/ __| '_ \| '__| | | | __/ _ \
+| (_| | | | \__ \ |_) | |  | |_| | ||  __/
  \__,_|_| |_|___/_.__/|_|   \__,_|\__\___|
 
 			By d4rkcat
@@ -154,8 +157,8 @@ with Timer():
 			progstart = time.time()
 		else:
 			pass
-	
-	taken = time.time() - startcnt	
+
+	taken = time.time() - startcnt
 	stdout.write("\r\x1b[K")
 	stdout.flush()
 	exitFlag = 1
