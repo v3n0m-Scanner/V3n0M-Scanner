@@ -1,0 +1,65 @@
+   exploit/windows/driver/dlink_wifi_rates             2006-11-13       low        D-Link DWL-G132 Wireless Driver Beacon Rates Overflow
+   exploit/windows/ftp/32bitftp_list_reply             2010-10-12       good       32bit FTP Client Stack Buffer Overflow 
+   exploit/windows/ftp/3cdaemon_ftp_user               2005-01-04       average    3Com 3CDaemon 2.0 FTP Username Overflow
+   exploit/windows/ftp/aasync_list_reply               2010-10-12       good       AASync v2.2.1.0 (Win32) Stack Buffer Overflow (LIST)
+   exploit/windows/ftp/ability_server_stor             2004-10-22       normal     Ability Server 2.34 STOR Command Stack Buffer Overflow
+   exploit/windows/ftp/absolute_ftp_list_bof           2011-11-09       normal     AbsoluteFTP 1.9.6 - 2.2.10 LIST Command Remote Buffer Overflow
+   exploit/windows/ftp/cesarftp_mkd                    2006-06-12       average    Cesar FTP 0.99g MKD Command Buffer Overflow
+   exploit/windows/ftp/comsnd_ftpd_fmtstr              2012-06-08       good       ComSndFTP v1.3.7 Beta USER Format String (Write4) Vulnerability
+   exploit/windows/ftp/dreamftp_format                 2004-03-03       good       BolinTech Dream FTP Server 1.02 Format String
+   exploit/windows/ftp/easyfilesharing_pass            2006-07-31       average    Easy File Sharing FTP Server 2.0 PASS Overflow
+   exploit/windows/ftp/easyftp_cwd_fixret              2010-02-16       great      EasyFTP Server <= 1.7.0.11 CWD Command Stack Buffer Overflow
+   exploit/windows/ftp/easyftp_list_fixret             2010-07-05       great      EasyFTP Server <= 1.7.0.11 LIST Command Stack Buffer Overflow
+   exploit/windows/ftp/easyftp_mkd_fixret              2010-04-04       great      EasyFTP Server <= 1.7.0.11 MKD Command Stack Buffer Overflow
+   exploit/windows/ftp/filecopa_list_overflow          2006-07-19       average    FileCopa FTP Server Pre 18 Jul Version
+   exploit/windows/ftp/filewrangler_list_reply         2010-10-12       good       FileWrangler 5.30 Stack Buffer Overflow
+   exploit/windows/ftp/freefloatftp_user               2012-06-12       normal     Free Float FTP Server USER Command Buffer Overflow
+   exploit/windows/ftp/freefloatftp_wbem               2012-12-07       excellent  FreeFloat FTP Server Arbitrary File Upload
+   exploit/windows/ftp/freeftpd_pass                   2013-08-20       normal     freeFTPd PASS Command Buffer Overflow
+   exploit/windows/ftp/freeftpd_user                   2005-11-16       average    freeFTPd 1.0 Username Overflow
+   exploit/windows/ftp/ftpgetter_pwd_reply             2010-10-12       good       FTPGetter Standard v3.55.0.05 Stack Buffer Overflow (PWD)
+   exploit/windows/ftp/ftppad_list_reply               2010-10-12       good       FTPPad 1.2.0 Stack Buffer Overflow
+   exploit/windows/ftp/ftpshell51_pwd_reply            2010-10-12       good       FTPShell 5.1 Stack Buffer Overflow
+   exploit/windows/ftp/ftpsynch_list_reply             2010-10-12       good       FTP Synchronizer Professional 4.0.73.274 Stack Buffer Overflow
+   exploit/windows/ftp/gekkomgr_list_reply             2010-10-12       good       Gekko Manager FTP Client Stack Buffer Overflow
+   exploit/windows/ftp/globalscapeftp_input            2005-05-01       great      GlobalSCAPE Secure FTP Server Input Overflow
+   exploit/windows/ftp/goldenftp_pass_bof              2011-01-23       average    GoldenFTP PASS Stack Buffer Overflow
+   exploit/windows/ftp/httpdx_tolog_format             2009-11-17       great      HTTPDX tolog() Function Format String Vulnerability
+   exploit/windows/ftp/leapftp_list_reply              2010-10-12       good       LeapFTP 3.0.1 Stack Buffer Overflow
+   exploit/windows/ftp/leapftp_pasv_reply              2003-06-09       normal     LeapWare LeapFTP v2.7.3.600 PASV Reply Client Overflow
+   exploit/windows/ftp/ms09_053_ftpd_nlst              2009-08-31       great      Microsoft IIS FTP Server NLST Response Overflow
+   exploit/windows/ftp/netterm_netftpd_user            2005-04-26       great      NetTerm NetFTPD USER Buffer Overflow
+   exploit/windows/ftp/odin_list_reply                 2010-10-12       good       Odin Secure FTP 4.1 Stack Buffer Overflow (LIST)
+   exploit/windows/ftp/open_ftpd_wbem                  2012-06-18       excellent  Open-FTPD 1.2 Arbitrary File Upload
+   exploit/windows/ftp/oracle9i_xdb_ftp_pass           2003-08-18       great      Oracle 9i XDB FTP PASS Overflow (win32)
+   exploit/windows/ftp/oracle9i_xdb_ftp_unlock         2003-08-18       great      Oracle 9i XDB FTP UNLOCK Overflow (win32)
+   exploit/windows/ftp/pcman_stor                      2013-06-27       normal     PCMAN FTP Server Post-Authentication STOR Command Stack Buffer Overflow
+   exploit/windows/ftp/proftp_banner                   2009-08-25       normal     ProFTP 2.9 Banner Remote Buffer Overflow
+   exploit/windows/ftp/quickshare_traversal_write      2011-02-03       excellent  QuickShare File Server 1.2.1 Directory Traversal Vulnerability
+   exploit/windows/ftp/ricoh_dl_bof                    2012-03-01       normal     Ricoh DC DL-10 SR10 FTP USER Command Buffer Overflow
+   exploit/windows/ftp/sami_ftpd_list                  2013-02-27       low        Sami FTP Server LIST Command Buffer Overflow
+   exploit/windows/ftp/sami_ftpd_user                  2006-01-24       normal     KarjaSoft Sami FTP Server v2.02 USER Overflow
+   exploit/windows/ftp/sasser_ftpd_port                2004-05-10       average    Sasser Worm avserve FTP PORT Buffer Overflow
+   exploit/windows/ftp/scriptftp_list                  2011-10-12       good       ScriptFTP <= 3.3 Remote Buffer Overflow (LIST)
+   exploit/windows/ftp/seagull_list_reply              2010-10-12       good       Seagull FTP v3.3 Build 409 Stack Buffer Overflow
+   exploit/windows/ftp/servu_chmod                     2004-12-31       normal     Serv-U FTP Server < 4.2 Buffer Overflow
+   exploit/windows/ftp/servu_mdtm                      2004-02-26       good       Serv-U FTPD MDTM Overflow
+   exploit/windows/ftp/slimftpd_list_concat            2005-07-21       great      SlimFTPd LIST Concatenation Overflow
+   exploit/windows/ftp/trellian_client_pasv            2010-04-11       normal     Trellian FTP Client 3.01 PASV Remote Buffer Overflow
+   exploit/windows/ftp/turboftp_port                   2012-10-03       great      Turbo FTP Server 1.30.823 PORT Overflow
+   exploit/windows/ftp/vermillion_ftpd_port            2009-09-23       great      Vermillion FTP Daemon PORT Command Memory Corruption
+   exploit/windows/ftp/warftpd_165_pass                1998-03-19       average    War-FTPD 1.65 Password Overflow
+   exploit/windows/ftp/warftpd_165_user                1998-03-19       average    War-FTPD 1.65 Username Overflow
+   exploit/windows/ftp/wftpd_size                      2006-08-23       average    Texas Imperial Software WFTPD 3.23 SIZE Overflow
+   exploit/windows/ftp/wsftp_server_503_mkd            2004-11-29       great      WS-FTP Server 5.03 MKD Overflow
+   exploit/windows/ftp/wsftp_server_505_xmd5           2006-09-14       average    Ipswitch WS_FTP Server 5.05 XMD5 Overflow
+   exploit/windows/ftp/xftp_client_pwd                 2010-04-22       normal     Xftp FTP Client 3.0 PWD Remote Buffer Overflow
+   exploit/windows/ftp/xlink_client                    2009-10-03       normal     Xlink FTP Client Buffer Overflow
+   exploit/windows/ftp/xlink_server                    2009-10-03       good       Xlink FTP Server Buffer Overflow
+   exploit/osx/ftp/webstar_ftp_user                    2004-07-13       average    WebSTAR FTP Server USER Overflow
+   exploit/unix/ftp/proftpd_133c_backdoor              2010-12-02       excellent  ProFTPD-1.3.3c Backdoor Command Execution
+   exploit/unix/ftp/vsftpd_234_backdoor                2011-07-03       excellent  VSFTPD v2.3.4 Backdoor Command Execution
+   exploit/multi/ftp/wuftpd_site_exec_format           2000-06-22       great      WU-FTPD SITE EXEC/INDEX Format String Vulnerability
+   exploit/freebsd/ftp/proftp_telnet_iac               2010-11-01       great      ProFTPD 1.3.2rc3 - 1.3.3b Telnet IAC Buffer Overflow (FreeBSD)
+   exploit/linux/ftp/proftp_sreplace                   2006-11-26       great      ProFTPD 1.2 - 1.3.0 sreplace Buffer Overflow (Linux)
+   exploit/linux/ftp/proftp_telnet_iac                 2010-11-01       great      ProFTPD 1.3.2rc3 - 1.3.3b Telnet IAC Buffer Overflow (Linux)

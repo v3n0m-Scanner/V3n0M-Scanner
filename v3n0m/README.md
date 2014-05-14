@@ -1,0 +1,103 @@
+![v3n0m Scanner](http://i.imgur.com/A96CipT.png "hax")
+v3n0m is a free and open source scanner. Evolved from baltazar's scanner, it has adapted several new features that improve fuctionality and usability. It is _mostly_ experimental software.<br />
+
+This program is for finding and executing various vulnerabilities. It scavenges the web using dorks and organizes the URLs it finds.<br />
+
+**Use at your own risk.**<br />
+
+## Very useful for executing:
+
++ Remote Code Execution [RCE]
++ Local File Inclusion [LFI]
++ Cross Site Scripting [XSS]
++ SQL Injection [SQLi]
++ Extremely Large D0rk Target Lists
++ FTP Crawler
++ DNS BruteForcer
++ MITM Detection
+
+
+## What You Hold:
+
+**A modified smartd0rk3r**
++ Brand new, just outta the box!
++ Largest and most powerful d0rker online, 18k+d0rks searched over 13 Engines at once.
++ Free and Open /src/
++ CrossPlatform Python based toolkit 
++ Version 3.4.0 Released on 7th Jan 2014
++ Licensed under GPLv2
++ Tested on: Linux 3.2.6 Ubuntu/Debian, CentOS 6 (with some errors), Win7 (with some errors)
+
+## Usage:
+
+    root@bt:~# python2.7 Linux-v3n0m.py
+
+    Now you may follow the simple prompts.
+
+    [0x100] Choose your target (domain) :
+            Example : .com
+            AND
+            it is necessary to add you can also use a specific website (www.example.com)
+
+    [0x200] Choose the number of random dorks (0 for all.. may take awhile!) :
+            Example : 0 = This will choose all of the XSS, File Inclusion, RCE and SQLi dorks
+
+    [0x300] Choose the number of threads :
+            Example : 50
+
+    [0x400] Enter the number of pages to search through :
+            Example : 50
+
+        The program will print out your desired settings and start searching.
+        It then creates files for the collected and valid URLs for later.
+        It takes a while to scan because it utilizes either TOR, which you can specify
+        if you wish to do so, or regular HTTP requests over a long period of time.
+
+        After a while, it will feed you the percentage of the scan until completion.
+        At this point, it will have saved the valid URLs in the files it created earlier.
+        The program utilizes over 10k dorks now, be careful how you use them!
+        Enjoy. :]
+                                                                    ~/ Dev Team
+
+## Contact Information:
+
+    [ levi      ] - <l3v1athan@tormail.org>(Retired From Project)
+    [ baltazar  ] - <b4ltazar@gmail.com>(Retired From Project)
+    [ NovaCygni ] - <novacygni@hotmail.co.uk>
+    [ Architect ] - <t3h4rch1t3ct@riseup.net>
+    [ d4rkcat   ] - <d4rkcat@yandex.com>
+    
+
+
+## Original Header:
+
+    - This was written for educational purpose and pentest only. Use it at your own risk.
+    - Author will be not responsible for any damage!
+    - !!! Special greetz for my friend sinner_01 !!!
+    - Toolname        : darkd0rk3r.py
+    - Coder           : baltazar a.k.a b4ltazar <b4ltazar@gmail.com>
+    - Version         : 1.0
+    - greetz for all members of ex darkc0de.com, ljuska.org
+
+## New To This Addition:
+    ---To be Done --Partially implemented -Done
+      -FTP Crawler thanks Sam for code
+      -Fix engines search parameters
+	  -Increase LFI/RFI/XSS Lists if possible
+    ---Implement SQL Database dumping tweaks
+    ---Implement SQLi Post Method attack
+      -Removed ToRSledgehammer attack. Only skids DoS
+     --Update Banner
+     --Generalised "Tweaks" required
+      -Build and Implement Admin page finder
+    --Commenting
+    ---Improve Md5 check to not use Static method
+    ---Prepare code for Hash cracking feature
+    ---Live logging
+      -Prepare coding for Admin page finder
+    ---Pause Scanning option
+    ---Add MD5 and SHA1 Detection/Cracking
+    -Add code to skip all sayloads once positive if found
+    
+#### Footnote ####
+It would appear https://www.facebook.com/pages/Anti-sec/1419632864927090?hc_location=stream Is pretending to be affiliated with AntiSec, this is not true, the group, are skids, nothing more. Thanks to High6 for bringing this to our attention.
