@@ -3,6 +3,16 @@ v3n0m is a free and open source scanner. Evolved from baltazar's scanner, it has
 
 This program is for finding and executing various vulnerabilities. It scavenges the web using dorks and organizes the URLs it finds.<br />
 
+## PyPi:
+
+You can now install the software via `pip install V3n0m`
+
+Always verify the PGP signature of the package:
+
+    gpg: Signature made Fri 18 Jul 2014 02:59:48 AM UTC
+    gpg:                using RSA key 0x8F2B5CBD711F1326
+    gpg: Good signature from "Grand Architect <unload@cryptolab.net>"
+
 **Use at your own risk.**<br />
 
 ## Very useful for executing:
