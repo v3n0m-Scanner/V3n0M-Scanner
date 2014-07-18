@@ -1,7 +1,8 @@
 ![v3n0m Scanner](http://i.imgur.com/A96CipT.png "hax")
-v3n0m is a free and open source scanner. Evolved from baltazar's scanner, it has adapted several new features that improve fuctionality and usability. It is _mostly_ experimental software.<br />
 
-This program is for finding and executing various vulnerabilities. It scavenges the web using dorks and organizes the URLs it finds.<br />
+v3n0m is a free and open source scanner. Evolved from baltazar's scanner, it has adapted several new features that improve fuctionality and usability. It is _mostly_ experimental software.
+
+This program is for finding and executing various vulnerabilities. It scavenges the web using dorks and organizes the URLs it finds.
 
 ## PyPi:
 
@@ -13,7 +14,7 @@ Always verify the PGP signature of the package:
     gpg:                using RSA key 0x8F2B5CBD711F1326
     gpg: Good signature from "Grand Architect <unload@cryptolab.net>"
 
-**Use at your own risk.**<br />
+**Use at your own risk.**
 
 ## Very useful for executing:
 
@@ -25,7 +26,6 @@ Always verify the PGP signature of the package:
 + FTP Crawler
 + DNS BruteForcer
 + MITM Detection
-
 
 ## What You Hold:
 
@@ -67,7 +67,7 @@ Always verify the PGP signature of the package:
         At this point, it will have saved the valid URLs in the files it created earlier.
         The program utilizes over 10k dorks now, be careful how you use them!
         Enjoy. :]
-                                                                    ~/ Dev Team
+                                                                ~/ Dev Team
 
 ## Contact Information:
 
@@ -76,8 +76,6 @@ Always verify the PGP signature of the package:
     [ NovaCygni ] - <novacygni@hotmail.co.uk>
     [ Architect ] - <t3h4rch1t3ct@riseup.net>
     [ d4rkcat   ] - <d4rkcat@yandex.com>
-
-
 
 ## Original Header:
 
@@ -93,7 +91,7 @@ Always verify the PGP signature of the package:
     ---To be Done --Partially implemented -Done
       -FTP Crawler thanks Sam for code
       -Fix engines search parameters
-	  -Increase LFI/RFI/XSS Lists if possible
+      -Increase LFI/RFI/XSS Lists if possible
     ---Implement SQL Database dumping tweaks
     ---Implement SQLi Post Method attack
       -Removed ToRSledgehammer attack. Only skids DoS
@@ -108,6 +106,3 @@ Always verify the PGP signature of the package:
     ---Pause Scanning option
     ---Add MD5 and SHA1 Detection/Cracking
     -Add code to skip all sayloads once positive if found
-
-#### Footnote ####
-It would appear https://www.facebook.com/pages/Anti-sec/1419632864927090?hc_location=stream Is pretending to be affiliated with AntiSec, this is not true, the group, are skids, nothing more. Thanks to High6 for bringing this to our attention.
