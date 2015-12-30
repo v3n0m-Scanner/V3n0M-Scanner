@@ -95,17 +95,7 @@ def search(maxc):
                     try:
                         jar = http.cookiejar.FileCookieJar("cookies")
                         query = dork + "+site:" + site
-                        results_web = 'http://www.galaxy.com/search/gsite?cx=partner-pub-7997125561256657%3Aihfdd571hqo&cof=FORID%3A10&ie=UTF-8&q=' + query + 'hl=en&page=' + repr(
-                                page) + '&src=hmp' and 'http://www.search-results.com/web?o=&tpr=1&q=' + query + '&hl=en&page=' + repr(
-                                page) + '&src=hmp' and 'http://blekko.com/#?q=' + query + '&hl=en&page=' + repr(
-                                page) + '&src=hmp' and 'http://search.lycos.com/web?q=' + query + '&hl=en&page=' + repr(
-                                page) + '&src=hmp' and 'http://www.webcrawler.com/search/web?fcoid=421&fcop=topnav&fpid=27&aid=ab8d8d87-cd66-4573-898b-e2585c92c0ba&ridx=1&q=' + query + '&hl=en&page=' + repr(
-                                page) + '&src=hmp' and 'http://msxml.excite.com/search/web?q=' + query + '&hl=en&page=' + repr(
-                                page) + '&src=hmp' and 'https://duckduckgo.com/?q=' + query + '&hl=en&page=' + repr(
-                                page) + '&src=hmp' and 'https://www.gigablast.com/search?k8c=17319&q=' + query + '&hl=en&page=' + repr(
-                                page) + '&src=hmp' and 'http://www.gibiru.com/?cx=partner-pub-5956360965567042%3A8627692578&cof=FORID%3A11&ie=UTF-8&q=' + query + '&hl=en&page=' + repr(
-                                page) + '&src=hmp' and 'http://www.dogpile.com/info.dogpl.t10.5/search/web?fcoid=417&fcop=topnav&fpid=27&q=' + query + '&hl=en&page=' + repr(
-                                page) + '&src=hmp' and 'http://www.bing.com/search?q=' + query + '&hl=en&page=' + repr(
+                        results_web = 'http://www.bing.com/search?q=' + query + '&hl=en&page=' + repr(
                                 page) + '&src=hmp'
                         request_web = urllib.request.Request(results_web)
                         agent = random.choice(header)
