@@ -9,6 +9,7 @@
 #   -- add scans for known Metasploitable Vulns (* dork based and Nmap style *)
 #   - Fixed SQLi Injection scanner.
 #
+#
 # V3n0MScanner.py - V.3.2.2
 #   -Fix engines search parameters
 #   -Increase LFI/RFI/XSS Lists if possible
@@ -89,32 +90,66 @@ def killpid(signum=0, frame=0):
     print("\r\x1b[K")
     os.kill(os.getpid(), 9)
 
+##    The Following is the method I want to use for the current Search I just need to work out how the data flow 
+##    of the information returned to be handled and how to dislay and handle it correctly.
+##
+# utility - spawn a thread to execute target for each args
+#def run_parallel_in_threads(target, args_list):
+#    result = Queue.Queue()
+#    # wrapper to collect return value in a Queue
+#    def task_wrapper(*args):
+#        result.put(target(*args))
+#    threads = [threading.Thread(target=task_wrapper, args=args) for args in args_list]
+#    for t in threads:
+#        t.start()
+#    for t in threads:
+#        t.join()
+#   return result
+#
+#def dummy_task(n):
+#    for i in xrange(n):
+#        time.sleep(0.1)
+#    return n
+#
+# below is the application code
+#urls = [
+#    ('http://www.google.com/',),
+#    ('http://www.lycos.com/',),
+#    ('http://www.bing.com/',),
+#    ('http://www.altavista.com/',),
+#    ('http://achewood.com/',),
+#]
+#
+#def fetch(url):
+#    return urllib.Request(url).read()
+#
+#run_parallel_in_threads(fetch, urls)
 
-def search(maxc): #maxc is threads selected
+def search(maxc): 
     urls = []
     urls_len_last = 0
     for site in sitearray:
         dark = 0
-        for dork in go:
+        for dork in go: # load dorks selected earlier to run checks with
             dark += 1
             page = 0
             try:
                 while page < int(maxc):
-                    try:
-                        jar = http.cookiejar.FileCookieJar("cookies")
-                        query = dork + "+site:" + site
+                    try #build urllib request for search engine and the dork in question
+                        jar = http.cookiejar.FileCookieJar("cookies") #cookie handler
+                        query = dork + "+site:" + site # d0rk to check, domain/site selected
                         results_web = 'http://www.bing.com/search?q=' + query + '&hl=en&page=' + repr(
                                 page) + '&src=hmp'
-                        request_web = urllib.request.Request(results_web)
-                        agent = random.choice(header)
-                        request_web.add_header('User-Agent', agent)
+                        request_web = urllib.request.Request(results_web) #get the data back from search engine
+                        agent = random.choice(header) #header handler
+                        request_web.add_header('User-Agent', agent) #custom user-agents to use for scans
                         opener_web = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(jar))
-                        text = opener_web.open(request_web).read()
-                        decoder = text.decode('utf-8')
+                        text = opener_web.open(request_web).read() #handle the data retrieved
+                        decoder = text.decode('utf-8') #decode data to utf-8
                         stringreg = re.compile('(?<=href=")(.*?)(?=")')
-                        names = stringreg.findall(decoder)
+                        names = stringreg.findall(decoder) #find the target URLs for links list
                         page += 1
-                        for name in names:
+                        for name in names: #following section checks for sites and removes there links from list
                             if name not in urls:
                                 if re.search(r'\(', name) or re.search("<", name) or re.search("\A/",
                                                                                                name) or re.search(
@@ -131,7 +166,7 @@ def search(maxc): #maxc is threads selected
                                         "wordpress", name) or re.search("github", name):
                                     pass
                                 elif re.search(site, name):
-                                    urls.append(name)
+                                    urls.append(name) #saves the cleaned list of urls with filterd ones removed
                         darklen = len(go)
                         percent = int((1.0 * dark / int(darklen)) * 100)
                         urls_len = len(urls)
@@ -142,7 +177,7 @@ def search(maxc): #maxc is threads selected
                         if urls_len == urls_len_last:
                             page = int(maxc)
                         urls_len_last = len(urls)
-                    except(KeyboardInterrupt, SystemExit):
+                    except(KeyboardInterrupt, SystemExit): #following except throws me connection debug info it it breaks
                         raise
             except(urllib.error.URLError, socket.gaierror, socket.error, socket.timeout,): KeyboardInterrupt
             pass
