@@ -135,7 +135,7 @@ def search(maxc):
             page = 0
             try:
                 while page < int(maxc):
-                    try #build urllib request for search engine and the dork in question
+                    try: #build urllib request for search engine and the dork in question
                         jar = http.cookiejar.FileCookieJar("cookies") #cookie handler
                         query = dork + "+site:" + site # d0rk to check, domain/site selected
                         results_web = 'http://www.bing.com/search?q=' + query + '&hl=en&page=' + repr(
