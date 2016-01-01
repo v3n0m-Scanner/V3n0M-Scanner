@@ -1,6 +1,13 @@
 #!/usr/bin/python
 # -*- coding: latin-1 -*-
 #              --- To be Done     --Partially implemented     -Done
+#V3n0MScanner.py - V.4.0.0a
+#   ---Redo entire search engine function to run 100 checks per engine at once
+#   - Python 3 upgrade
+#   --- Strip out all old code including redundent SQLi dumper
+#   -- add piping for SQLMap 
+#   -- add scans for known Metasploitable Vulns (* dork based and Nmap style *)
+#
 # V3n0MScanner.py - V.3.2.2
 #   -Fix engines search parameters
 #   -Increase LFI/RFI/XSS Lists if possible
@@ -64,9 +71,9 @@ except:
 def logo():
     print(R + "\n|----------------------------------------------------------------|")
     print("|     V3n0mScanner.py                                            |")
-    print("|     Release Date 02/12/2013  - Release Version V.3.3.2         |")
+    print("|     Release Date 02/12/2013  - Release Version V.4.0.0a        |")
     print("|          						         |")
-    print("|          " + B + "   NovaCygni  Architect  d4rkcat" + R + "                      |")
+    print("|          " + B + "   NovaCygni  Architect         " + R + "                      |")
     print("|                    _____       _____                           |")
     print("|          " + G + "         |____ |     |  _  |    " + R + "                      |")
     print("|             __   __   / /_ __ | |/' |_ _" + G + "_ ___             " + R + "     |")
