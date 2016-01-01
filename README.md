@@ -1,5 +1,5 @@
 ![v3n0m Scanner](http://i.imgur.com/A96CipT.png "hax")
-
+V3n0M runs on Python3
 v3n0m is a free and open source scanner. Evolved from baltazar's scanner, it has adapted several new features that improve fuctionality and usability. It is _mostly_ experimental software.
 
 This program is for finding and executing various vulnerabilities. It scavenges the web using dorks and organizes the URLs it finds.
