@@ -1,12 +1,13 @@
 #!/usr/bin/python
 # -*- coding: latin-1 -*-
 #              --- To be Done     --Partially implemented     -Done
-#V3n0MScanner.py - V.4.0.0a
+#V3n0MScanner.py - V.4.0.0b
 #   ---Redo entire search engine function to run 100 checks per engine at once
 #   - Python 3 upgrade
 #   --- Strip out all old code including redundent SQLi dumper
-#   -- add piping for SQLMap 
+#   -- add piping for SQLMap
 #   -- add scans for known Metasploitable Vulns (* dork based and Nmap style *)
+#   - Fixed SQLi Injection scanner.
 #
 # V3n0MScanner.py - V.3.2.2
 #   -Fix engines search parameters
@@ -60,7 +61,7 @@
 
 try:
     import re, random, threading, socket, urllib.request, urllib.error, urllib.parse, http.cookiejar, subprocess, \
-        codecs, signal, time, sys, os, math, itertools
+        codecs, signal, time, sys, os, math, itertools, Queue
 except:
     print(
             " please make sure you have all of the following modules: re, random, threading, socket, urllib2, cookielib, subprocess, codecs, signal, time, sys, os, math, itertools")
@@ -71,7 +72,7 @@ except:
 def logo():
     print(R + "\n|----------------------------------------------------------------|")
     print("|     V3n0mScanner.py                                            |")
-    print("|     Release Date 02/12/2013  - Release Version V.4.0.0a        |")
+    print("|     Release Date 01/01/2016  - Release Version V.4.0.0b        |")
     print("|          						         |")
     print("|          " + B + "   NovaCygni  Architect         " + R + "                      |")
     print("|                    _____       _____                           |")
@@ -89,7 +90,7 @@ def killpid(signum=0, frame=0):
     os.kill(os.getpid(), 9)
 
 
-def search(maxc):
+def search(maxc): #maxc is threads selected
     urls = []
     urls_len_last = 0
     for site in sitearray:
@@ -306,7 +307,7 @@ def injtest():
     i = len(usearch) / int(numthreads)
     m = len(usearch) % int(numthreads)
     z = 0
-    if len(threads) <= numthreads:
+    if len(threads) <= int(numthreads):
         for x in range(0, int(numthreads)):
             sliced = usearch[x * i:(x + 1) * i]
             if z < m:
@@ -522,7 +523,7 @@ def fscan():
             go.append(d0rk[i])
             i += 1
         for g in go:
-            print("dork: ", g)
+            print("dork: = ", g)
 
     numthreads = input('\nEnter no. of threads : ')
     maxc = input('Enter no. of pages   : ')
@@ -535,7 +536,6 @@ def fscan():
     print("Pages           :", maxc)
     print("Timeout         :", timeout)
     print("Search Engines  : 11")
-    print("Encrypted SE    : 3")
     print("")
     print("")
 
