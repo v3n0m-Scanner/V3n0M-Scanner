@@ -1,5 +1,5 @@
 ![v3n0m Scanner](http://i.imgur.com/A96CipT.png "hax")
-
+V3n0M runs on Python3
 v3n0m is a free and open source scanner. Evolved from baltazar's scanner, it has adapted several new features that improve fuctionality and usability. It is _mostly_ experimental software.
 
 This program is for finding and executing various vulnerabilities. It scavenges the web using dorks and organizes the URLs it finds.
@@ -18,25 +18,22 @@ Always verify the PGP signature of the package:
 
 ## Very useful for executing:
 
-+ Remote Code Execution [RCE]
-+ Local File Inclusion [LFI]
-+ Cross Site Scripting [XSS]
-+ SQL Injection [SQLi]
++ Metasploit Modules Scans
++ SQL Injection Vuln Scanner[SQLi]
 + Extremely Large D0rk Target Lists
 + FTP Crawler
 + DNS BruteForcer
-+ MITM Detection
 
 ## What You Hold:
 
 **A modified smartd0rk3r**
 + Brand new, just outta the box!
-+ Largest and most powerful d0rker online, 18k+d0rks searched over 13 Engines at once.
++ Largest and most powerful d0rker online, 18k+d0rks searched over ~ Engines at once.
 + Free and Open /src/
 + CrossPlatform Python based toolkit
-+ Version 3.4.0 Released on 7th Jan 2014
++ Version 4.0.0a Released on 1th Jan 2016
 + Licensed under GPLv2
-+ Tested on: Linux 3.2.6 Ubuntu/Debian, CentOS 6 (with some errors), Win7 (with some errors)
++ Tested on: Linux 4.3.1 Ubuntu/Debian, CentOS 6 (with some errors), Win7 (with some errors)
 
 ## Usage:
 
@@ -71,11 +68,8 @@ Always verify the PGP signature of the package:
 
 ## Contact Information:
 
-    [ levi      ] - <l3v1athan@tormail.org>(Retired From Project)
-    [ baltazar  ] - <b4ltazar@gmail.com>(Retired From Project)
     [ NovaCygni ] - <novacygni@hotmail.co.uk>
     [ Architect ] - <t3h4rch1t3ct@riseup.net>
-    [ d4rkcat   ] - <d4rkcat@yandex.com>
 
 ## Original Header:
 
