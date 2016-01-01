@@ -56,7 +56,7 @@ try:
         codecs, signal, time, sys, os, math, itertools
 except:
     print(
-        " please make sure you have all of the following modules: re, random, threading, socket, urllib2, cookielib, subprocess, codecs, signal, time, sys, os, math, itertools")
+            " please make sure you have all of the following modules: re, random, threading, socket, urllib2, cookielib, subprocess, codecs, signal, time, sys, os, math, itertools")
     exit()
 
 
@@ -102,8 +102,9 @@ def search(maxc):
                         request_web.add_header('User-Agent', agent)
                         opener_web = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(jar))
                         text = opener_web.open(request_web).read()
+                        decoder = text.decode('utf-8')
                         stringreg = re.compile('(?<=href=")(.*?)(?=")')
-                        names = stringreg.findall(text)
+                        names = stringreg.findall(decoder)
                         page += 1
                         for name in names:
                             if name not in urls:
@@ -133,25 +134,24 @@ def search(maxc):
                         if urls_len == urls_len_last:
                             page = int(maxc)
                         urls_len_last = len(urls)
+                    except(KeyboardInterrupt, SystemExit):
+                        raise
+            except(urllib.error.URLError, socket.gaierror, socket.error, socket.timeout,): KeyboardInterrupt
+            pass
+    tmplist = []
+    print("\n\n[+] URLS (unsorted): ", len(urls))
+    for url in urls:
+        try:
+            host = url.split("/", 3)
+            domain = host[2]
+            if domain not in tmplist and "=" in url:
+                finallist.append(url)
+                tmplist.append(domain)
 
-                    except:
-                        pass
-            except KeyboardInterrupt:
-                pass
-        tmplist = []
-        print("\n\n[+] URLS (unsorted): ", len(urls))
-        for url in urls:
-            try:
-                host = url.split("/", 3)
-                domain = host[2]
-                if domain not in tmplist and "=" in url:
-                    finallist.append(url)
-                    tmplist.append(domain)
-
-            except:
-                pass
-        print("[+] URLS (sorted)  : ", len(finallist))
-        return finallist
+        except:
+            pass
+    print("[+] URLS (sorted)  : ", len(finallist))
+    return finallist
 
 
 class Injthread(threading.Thread):
