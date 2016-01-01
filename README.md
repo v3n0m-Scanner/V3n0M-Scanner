@@ -1,5 +1,6 @@
 ![v3n0m Scanner](http://i.imgur.com/A96CipT.png "hax")
 V3n0M runs on Python3
+
 v3n0m is a free and open source scanner. Evolved from baltazar's scanner, it has adapted several new features that improve fuctionality and usability. It is _mostly_ experimental software.
 
 This program is for finding and executing various vulnerabilities. It scavenges the web using dorks and organizes the URLs it finds.
@@ -31,13 +32,13 @@ Always verify the PGP signature of the package:
 + Largest and most powerful d0rker online, 18k+d0rks searched over ~ Engines at once.
 + Free and Open /src/
 + CrossPlatform Python based toolkit
-+ Version 4.0.0a Released on 1th Jan 2016
++ Version 4.0.0a Released on 1st Jan 2016
 + Licensed under GPLv2
 + Tested on: Linux 4.3.1 Ubuntu/Debian, CentOS 6 (with some errors), Win7 (with some errors)
 
 ## Usage:
 
-    root@bt:~# python2.7 v3n0m.py
+    root@bt:~# python3 v3n0m.py
 
     Now you may follow the simple prompts.
 
@@ -83,20 +84,7 @@ Always verify the PGP signature of the package:
 
 ## New To This Addition:
     ---To be Done --Partially implemented -Done
-      -FTP Crawler thanks Sam for code
-      -Fix engines search parameters
-      -Increase LFI/RFI/XSS Lists if possible
-    ---Implement SQL Database dumping tweaks
-    ---Implement SQLi Post Method attack
-      -Removed ToRSledgehammer attack. Only skids DoS
-     --Update Banner
-     --Generalised "Tweaks" required
-      -Build and Implement Admin page finder
-    --Commenting
-    ---Improve Md5 check to not use Static method
-    ---Prepare code for Hash cracking feature
-    ---Live logging
-      -Prepare coding for Admin page finder
-    ---Pause Scanning option
-    ---Add MD5 and SHA1 Detection/Cracking
-    -Add code to skip all sayloads once positive if found
+    - Upgrade to Python3 from Python2
+    -- Starting upgrade for Search engines
+    --- Implement SQLi D0rk Seed Generation option
+    --- Implement Metasploit Exploits scan / Nmap style option + Dork option
