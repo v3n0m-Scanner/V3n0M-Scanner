@@ -32,7 +32,7 @@ Always verify the PGP signature of the package:
 + Largest and most powerful d0rker online, 18k+d0rks searched over ~ Engines at once.
 + Free and Open /src/
 + CrossPlatform Python based toolkit
-+ Version 4.0.0a Released on 1st Jan 2016
++ Version 4.0.0b Released on 1st Jan 2016
 + Licensed under GPLv2
 + Tested on: Linux 4.3.1 Ubuntu/Debian, CentOS 6 (with some errors), Win7 (with some errors)
 
