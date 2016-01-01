@@ -90,41 +90,6 @@ def killpid(signum=0, frame=0):
     print("\r\x1b[K")
     os.kill(os.getpid(), 9)
 
-##    The Following is the method I want to use for the current Search I just need to work out how the data flow 
-##    of the information returned to be handled and how to dislay and handle it correctly.
-##
-# utility - spawn a thread to execute target for each args
-#def run_parallel_in_threads(target, args_list):
-#    result = Queue.Queue()
-#    # wrapper to collect return value in a Queue
-#    def task_wrapper(*args):
-#        result.put(target(*args))
-#    threads = [threading.Thread(target=task_wrapper, args=args) for args in args_list]
-#    for t in threads:
-#        t.start()
-#    for t in threads:
-#        t.join()
-#   return result
-#
-#def dummy_task(n):
-#    for i in xrange(n):
-#        time.sleep(0.1)
-#    return n
-#
-# below is the application code
-#urls = [
-#    ('http://www.google.com/',),
-#    ('http://www.lycos.com/',),
-#    ('http://www.bing.com/',),
-#    ('http://www.altavista.com/',),
-#    ('http://achewood.com/',),
-#]
-#
-#def fetch(url):
-#    return urllib.Request(url).read()
-#
-#run_parallel_in_threads(fetch, urls)
-
 def search(maxc): 
     urls = []
     urls_len_last = 0
