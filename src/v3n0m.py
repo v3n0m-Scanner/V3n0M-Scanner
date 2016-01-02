@@ -62,7 +62,7 @@
 
 try:
     import re, random, threading, socket, urllib.request, urllib.error, urllib.parse, http.cookiejar, subprocess, \
-        codecs, signal, time, sys, os, math, itertools, queue, multiprocessing
+        codecs, signal, time, sys, os, math, itertools, queue, multiprocessing, tomorrow
 except:
     print(
             " please make sure you have all of the following modules: >>tomorrow<<, urllib2, cookielib, subprocess, codecs, signal, time, sys, os, math, itertools")
@@ -82,7 +82,7 @@ def logo():
     print("|             \ \ / /  " + G + " \ \ '" + R + "_ \|  /| | '_ ` _ \                 |")
     print("|              \ V" + G + " /.___/ / | | \ |_" + R + "/ / | | | | |                |")
     print("|    Official   \_/" + G + " \____/|_" + R + "| |_|" + G + "\___/|_| |_| " + R + "|_|  Release       |")
-    print("|    							         |")
+    print("|    							                                 |")
     print("|----------------------------------------------------------------|\n")
 
 
