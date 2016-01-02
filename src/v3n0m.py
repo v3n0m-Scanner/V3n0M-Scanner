@@ -62,8 +62,7 @@
 
 try:
     import re, random, threading, socket, urllib.request, urllib.error, urllib.parse, http.cookiejar, subprocess, \
-        codecs, signal, time, sys, os, math, itertools, queue
-    from tomorrow import threads
+        codecs, signal, time, sys, os, math, itertools, queue, multiprocessing
 except:
     print(
             " please make sure you have all of the following modules: >>tomorrow<<, urllib2, cookielib, subprocess, codecs, signal, time, sys, os, math, itertools")
@@ -92,7 +91,6 @@ def killpid(signum=0, frame=0):
     os.kill(os.getpid(), 9)
 
 
-@tomorrow.threads(5)
 def search(maxc):
     urls = []
     urls_len_last = 0
@@ -100,7 +98,7 @@ def search(maxc):
         dark = 0
         for dork in go:  # load dorks selected earlier to run checks with
             dark += 1
-            page = 0
+            page = 0 #
             try:
                 while page < int(maxc):
                     try:  # build urllib request for search engine and the dork in question
