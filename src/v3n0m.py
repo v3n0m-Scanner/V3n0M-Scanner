@@ -62,7 +62,9 @@
 
 try:
     import re, random, threading, socket, urllib.request, urllib.error, urllib.parse, http.cookiejar, subprocess, \
-        codecs, signal, time, sys, os, math, itertools, queue, multiprocessing, tomorrow
+        time, sys, os, math, itertools, queue, asyncio, aiohttp
+    from signal import SIGINT, signal
+    from codecs import lookup, register
 except:
     print(
             " please make sure you have all of the following modules: >>tomorrow<<, urllib2, cookielib, subprocess, codecs, signal, time, sys, os, math, itertools")
@@ -311,7 +313,7 @@ def injtest():
     i = len(usearch) / int(numthreads)
     m = len(usearch) % int(numthreads)
     z = 0
-    if len(tomorrow.threads) <= int(numthreads):
+    if len(threads) <= int(numthreads):
         for x in range(0, int(numthreads)):
             sliced = usearch[x * i:(x + 1) * i]
             if z < m:
@@ -319,8 +321,8 @@ def injtest():
                 z += 1
             thread = Injthread(sliced)
             thread.start()
-            tomorrow.threads.append(thread)
-        for thread in tomorrow.threads:
+            threads.append(thread)
+        for thread in threads:
             thread.join()
 
 
@@ -331,7 +333,7 @@ def lfitest():
     i = len(usearch) / int(numthreads)
     m = len(usearch) % int(numthreads)
     z = 0
-    if len(tomorrow.threads) <= numthreads:
+    if len(threads) <= numthreads:
         for x in range(0, int(numthreads)):
             sliced = usearch[x * i:(x + 1) * i]
             if z < m:
@@ -339,8 +341,8 @@ def lfitest():
                 z += 1
             thread = Lfithread(sliced)
             thread.start()
-            tomorrow.threads.append(thread)
-        for thread in tomorrow.threads:
+            threads.append(thread)
+        for thread in threads:
             thread.join()
 
 
@@ -351,7 +353,7 @@ def xsstest():
     i = len(usearch) / int(numthreads)
     m = len(usearch) % int(numthreads)
     z = 0
-    if len(tomorrow.threads) <= numthreads:
+    if len(threads) <= numthreads:
         for x in range(0, int(numthreads)):
             sliced = usearch[x * i:(x + 1) * i]
             if z < m:
@@ -359,8 +361,8 @@ def xsstest():
                 z += 1
             thread = Xssthread(sliced)
             thread.start()
-            tomorrow.threads.append(thread)
-        for thread in tomorrow.threads:
+            threads.append(thread)
+        for thread in threads:
             thread.join()
 
 
@@ -674,7 +676,7 @@ def fmenu():
         sys.exit(0)
 
 
-signal.signal(signal.SIGINT, killpid)
+signal(SIGINT, killpid)
 d0rk = [line.strip() for line in open("statics/d0rks", 'r')]
 header = [line.strip() for line in open("statics/header", 'r')]
 xsses = [line.strip() for line in open("statics/xsses", 'r')]
@@ -724,11 +726,11 @@ sqlerrors = {'MySQL': 'error in your SQL syntax',
 
 # This is the MBCS Encoding Bypass for making MBCS encodings work on Linux - NovaCygni
 try:
-    codecs.lookup('mbcs')
+    lookup('mbcs')
 except LookupError:
-    ascii = codecs.lookup('latin-1')
+    ascii = lookup('latin-1')
     func = lambda name, enc=ascii: {True: enc}.get(name == 'mbcs')
-    codecs.register(func)
+    register(func)
 
 # Colours
 W = "\033[0m"

@@ -8,5 +8,5 @@ setup(name = 'V3n0m',
       author_email = 'novacygni@hotmail.co.uk, t3h4rch1t3ct@riseup.net, d4rkcat@yandex.com',
       url = 'https://github.com/v3n0m-Scanner/V3n0M-Scanner',
       package_dir = {'v3n0m': 'src'},
-      packages = ['v3n0m'], requires=['tomorrow']
+      packages=['v3n0m'], requires=['tomorrow', 'aiohttp']
       )
