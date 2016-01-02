@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: latin-1 -*-
 #              --- To be Done     --Partially implemented     -Done
-#V3n0MScanner.py - V.4.0.0b
+# V3n0MScanner.py - V.4.0.0b
 #   ---Redo entire search engine function to run 100 checks per engine at once
 #   - Python 3 upgrade
 #   --- Strip out all old code including redundent SQLi dumper
@@ -63,9 +63,10 @@
 try:
     import re, random, threading, socket, urllib.request, urllib.error, urllib.parse, http.cookiejar, subprocess, \
         codecs, signal, time, sys, os, math, itertools, queue
+    from tomorrow import threads
 except:
     print(
-            " please make sure you have all of the following modules: re, random, threading, socket, urllib2, cookielib, subprocess, codecs, signal, time, sys, os, math, itertools")
+            " please make sure you have all of the following modules: >>tomorrow<<, urllib2, cookielib, subprocess, codecs, signal, time, sys, os, math, itertools")
     exit()
 
 
@@ -90,31 +91,33 @@ def killpid(signum=0, frame=0):
     print("\r\x1b[K")
     os.kill(os.getpid(), 9)
 
-def search(maxc): 
+
+@tomorrow.threads(5)
+def search(maxc):
     urls = []
     urls_len_last = 0
     for site in sitearray:
         dark = 0
-        for dork in go: # load dorks selected earlier to run checks with
+        for dork in go:  # load dorks selected earlier to run checks with
             dark += 1
             page = 0
             try:
                 while page < int(maxc):
-                    try: #build urllib request for search engine and the dork in question
-                        jar = http.cookiejar.FileCookieJar("cookies") #cookie handler
-                        query = dork + "+site:" + site # d0rk to check, domain/site selected
+                    try:  # build urllib request for search engine and the dork in question
+                        jar = http.cookiejar.FileCookieJar("cookies")  # cookie handler
+                        query = dork + "+site:" + site  # d0rk to check, domain/site selected
                         results_web = 'http://www.bing.com/search?q=' + query + '&hl=en&page=' + repr(
                                 page) + '&src=hmp'
-                        request_web = urllib.request.Request(results_web) #get the data back from search engine
-                        agent = random.choice(header) #header handler
-                        request_web.add_header('User-Agent', agent) #custom user-agents to use for scans
+                        request_web = urllib.request.Request(results_web)  # get the data back from search engine
+                        agent = random.choice(header)  # header handler
+                        request_web.add_header('User-Agent', agent)  # custom user-agents to use for scans
                         opener_web = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(jar))
-                        text = opener_web.open(request_web).read() #handle the data retrieved
-                        decoder = text.decode('utf-8') #decode data to utf-8
+                        text = opener_web.open(request_web).read()  # handle the data retrieved
+                        decoder = text.decode('utf-8')  # decode data to utf-8
                         stringreg = re.compile('(?<=href=")(.*?)(?=")')
-                        names = stringreg.findall(decoder) #find the target URLs for links list
+                        names = stringreg.findall(decoder)  # find the target URLs for links list
                         page += 1
-                        for name in names: #following section checks for sites and removes there links from list
+                        for name in names:  # following section checks for sites and removes there links from list
                             if name not in urls:
                                 if re.search(r'\(', name) or re.search("<", name) or re.search("\A/",
                                                                                                name) or re.search(
@@ -131,7 +134,7 @@ def search(maxc):
                                         "wordpress", name) or re.search("github", name):
                                     pass
                                 elif re.search(site, name):
-                                    urls.append(name) #saves the cleaned list of urls with filterd ones removed
+                                    urls.append(name)  # saves the cleaned list of urls with filterd ones removed
                         darklen = len(go)
                         percent = int((1.0 * dark / int(darklen)) * 100)
                         urls_len = len(urls)
@@ -142,9 +145,12 @@ def search(maxc):
                         if urls_len == urls_len_last:
                             page = int(maxc)
                         urls_len_last = len(urls)
-                    except(KeyboardInterrupt, SystemExit): #following except throws me connection debug info it it breaks
+                    except(
+                            KeyboardInterrupt,
+                            SystemExit):  # following except throws me connection debug info it it breaks
                         raise
-            except(urllib.error.URLError, socket.gaierror, socket.error, socket.timeout,): KeyboardInterrupt
+            except(urllib.error.URLError, socket.gaierror, socket.error, socket.timeout,):
+                KeyboardInterrupt
             pass
     tmplist = []
     print("\n\n[+] URLS (unsorted): ", len(urls))
@@ -307,7 +313,7 @@ def injtest():
     i = len(usearch) / int(numthreads)
     m = len(usearch) % int(numthreads)
     z = 0
-    if len(threads) <= int(numthreads):
+    if len(tomorrow.threads) <= int(numthreads):
         for x in range(0, int(numthreads)):
             sliced = usearch[x * i:(x + 1) * i]
             if z < m:
@@ -315,8 +321,8 @@ def injtest():
                 z += 1
             thread = Injthread(sliced)
             thread.start()
-            threads.append(thread)
-        for thread in threads:
+            tomorrow.threads.append(thread)
+        for thread in tomorrow.threads:
             thread.join()
 
 
@@ -327,7 +333,7 @@ def lfitest():
     i = len(usearch) / int(numthreads)
     m = len(usearch) % int(numthreads)
     z = 0
-    if len(threads) <= numthreads:
+    if len(tomorrow.threads) <= numthreads:
         for x in range(0, int(numthreads)):
             sliced = usearch[x * i:(x + 1) * i]
             if z < m:
@@ -335,8 +341,8 @@ def lfitest():
                 z += 1
             thread = Lfithread(sliced)
             thread.start()
-            threads.append(thread)
-        for thread in threads:
+            tomorrow.threads.append(thread)
+        for thread in tomorrow.threads:
             thread.join()
 
 
@@ -347,7 +353,7 @@ def xsstest():
     i = len(usearch) / int(numthreads)
     m = len(usearch) % int(numthreads)
     z = 0
-    if len(threads) <= numthreads:
+    if len(tomorrow.threads) <= numthreads:
         for x in range(0, int(numthreads)):
             sliced = usearch[x * i:(x + 1) * i]
             if z < m:
@@ -355,8 +361,8 @@ def xsstest():
                 z += 1
             thread = Xssthread(sliced)
             thread.start()
-            threads.append(thread)
-        for thread in threads:
+            tomorrow.threads.append(thread)
+        for thread in tomorrow.threads:
             thread.join()
 
 
