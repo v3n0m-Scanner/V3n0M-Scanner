@@ -61,7 +61,7 @@
 
 try:
     import re, random, threading, socket, urllib.request, urllib.error, urllib.parse, http.cookiejar, subprocess, \
-        codecs, signal, time, sys, os, math, itertools, Queue
+        codecs, signal, time, sys, os, math, itertools, queue
 except:
     print(
             " please make sure you have all of the following modules: re, random, threading, socket, urllib2, cookielib, subprocess, codecs, signal, time, sys, os, math, itertools")
