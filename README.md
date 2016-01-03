@@ -1,3 +1,4 @@
+CURRENTLY BEING UPDATED: OFFICIAL VERSION BROKEN WILL UPLOAD NEW VERSION PRE "7th of January 2016".
 ![v3n0m Scanner](http://i.imgur.com/A96CipT.png "hax")
 V3n0M runs on Python3
 
