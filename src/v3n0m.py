@@ -157,90 +157,90 @@ def classicinj(url):
         if str("an error in your SQL syntax") in host:
             print(url) + " is vulnerable --> MySQL Classic"
             logfile.write("\n" + url)
-        elif "mysql_fetch" in host:
+        elif str("mysql_fetch") in host:
             print(url) + " is Vulnerable --> MiscError"
             logfile.write("\n" + url)
-        elif "num_rows" in host:
+        elif str("num_rows") in host:
             print(url) + " is Vulnerable --> MiscError2"
             logfile.write("\n" + url)
-        elif "ORA-01756" in host:
+        elif str("ORA-01756") in host:
             print(url) + " is Vulnerable --> Oracle"
             logfile.write("\n" + url)
-        elif "Error Executing Database Query" in host:
+        elif str("Error Executing Database Query") in host:
             print(url) + " is Vulnerable --> JDBC_CFM"
             logfile.write("\n" + url)
-        elif "SQLServer JDBC Driver" in host:
+        elif str("SQLServer JDBC Driver") in host:
             print(url) + " is Vulnerable --> JDBC_CFM2"
             logfile.write("\n" + url)
-        elif "OLE DB Provider for SQL Server" in host:
+        elif str("OLE DB Provider for SQL Server") in host:
             print(url) + " is Vulnerable --> MSSQL_OLEdb"
             logfile.write("\n" + url)
-        elif "Unclosed quotation mark" in host:
+        elif str("Unclosed quotation mark") in host:
             print(url) + " is Vulnerabe --> MSSQL_Uqm"
             logfile.write("\n" + url)
-        elif "ODBC Microsoft Access Driver" in host:
+        elif str("ODBC Microsoft Access Driver") in host:
             print(url) + " is Vulnerable --> MS-Access_ODBC"
             logfile.write("\n" + url)
-        elif "Microsoft JET Database" in host:
+        elif str("Microsoft JET Database") in host:
             print(url) + " is Vulnerable --> MS-Access_JETdb"
             logfile.write("\n" + url)
-        elif "Error Occurred While Processing Request" in host:
+        elif str("Error Occurred While Processing Request") in host:
             print(url) + " is Vulnerabe --> Processing Request"
             logfile.write("\n" + url)
-        elif "Microsoft JET Database" in host:
+        elif str("Microsoft JET Database") in host:
             print(url) + " is Vulnerable --> MS-Access JetDb"
             logfile.write("\n" + url)
-        elif "Error Occurred While Processing Request" in host:
+        elif str("Error Occurred While Processing Request") in host:
             print(url) + " is Vulnerable --> Processing Request "
             logfile.write("\n" + url)
-        elif "Server Error" in host:
+        elif str("Server Error") in host:
             print(url) + " is Vulnerable --> Server Error"
             logfile.write("\n" + url)
-        elif "ODBC Drivers error" in host:
+        elif str("ODBC Drivers error") in host:
             print(url) + " is Vulnerable --> ODBC Drivers error"
             logfile.write("\n" + url)
-        elif "Invalid Querystring" in host:
+        elif str("Invalid Querystring") in host:
             print(url) + " is Vulnerable --> Invalid Querystring"
             logfile.write("\n" + url)
-        elif "OLE DB Provider for ODBC" in host:
+        elif str("OLE DB Provider for ODBC") in host:
             print(url) + " is Vulnerable --> OLE DB Provider for ODBC"
             logfile.write("\n" + url)
-        elif "VBScript Runtime" in host:
+        elif str("VBScript Runtime") in host:
             print(url) + " is Vulnerable --> VBScript Runtime"
             logfile.write("\n" + url)
-        elif "ADODB.Field" in host:
+        elif str("ADODB.Field") in host:
             print(url) + " is Vulnerable --> ADODB.Field"
             logfile.write("\n" + url)
-        elif "BOF or EOF" in host:
+        elif str("BOF or EOF") in host:
             print(url) + " is Vulnerable --> BOF or EOF"
             logfile.write("\n" + url)
-        elif "ADODB.Command" in host:
+        elif str("ADODB.Command") in host:
             print(url) + " is Vulnerable --> ADODB.Command"
             logfile.write("\n + url")
-        elif "JET Database" in host:
+        elif str("JET Database") in host:
             print(url) + " is Vulnerable --> JET Database"
             logfile.write("\n" + url)
-        elif "mysql_fetch_array" in host:
+        elif str("mysql_fetch_array") in host:
             print(url) + " is Vulnerabe --> mysql_fetch_array"
             logfile.write("\n" + url)
-        elif "Syntax error" in host:
+        elif str("Syntax error") in host:
             print(url) + " is Vulnerable --> Syntax error"
             logfile.write("\n" + url)
-        elif "mysql_numrows()" in host:
+        elif str("mysql_numrows()") in host:
             print(url) + " is Vulnerable --> mysql_numrows()"
             logfile.write("\n" + url)
-        elif "GetArray()" in host:
+        elif str("GetArray()") in host:
             print(url) + " is Vulnerable --> GetArray()"
             logfile.write("\n" + url)
-        elif "FetchRow()" in host:
+        elif str("FetchRow()") in host:
             print(url) + " is Vulnerable --> FetchRow()"
             logfile.write("\n" + url)
-        elif "Input string was not in a correct format" in host:
+        elif str("Input string was not in a correct format") in host:
             print(url) + " is Vulnerable --> Input String Error"
             logfile.write("\n" + url)
         else:
             pass
-    except:
+    except(urllib.error.URLError, socket.gaierror, socket.error, socket.timeout,):
         pass
 
 
