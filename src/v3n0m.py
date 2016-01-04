@@ -1,57 +1,14 @@
 #!/usr/bin/python
 # -*- coding: latin-1 -*-
 #              --- To be Done     --Partially implemented     -Done
-# V3n0MScanner.py - V.4.0.0b
+# V3n0MScanner.py - V.4.0.1
 #   ---Redo entire search engine function to run 100 checks per engine at once
 #   - Python 3 upgrade
-#   --- Strip out all old code including redundent SQLi dumper
+#   - Strip out all old code including redundent SQLi dumper
 #   -- add piping for SQLMap
 #   -- add scans for known Metasploitable Vulns (* dork based and Nmap style *)
 #   - Fixed SQLi Injection scanner.
-#
-#
-# V3n0MScanner.py - V.3.2.2
-#   -Fix engines search parameters
-#   -Increase LFI/RFI/XSS Lists if possible
-#   ---Implement SQL Database dumping tweaks
-#   ---Implement SQLi Post Method attack
-#   - Removed ToRSledgehammer attack. Only skids DoS
-#   --Update Banner
-#   --Generalised "Tweaks" required
-#	---Build and Implement Admin page finder
-#	---Commenting
-#	---Improve Md5 check to not use Static method
-#	---Prepare code for Hash cracking feature
-#   ---Live logging
-#	-Prepare coding for Admin page finder
-#   ---Pause Scanning option
-#   ---Add MD5 and SHA1 Detection/Cracking
-#	---Remove "Dark" naming conventions, provide more accurate names
-#
-# V3n0MScanner.py - V.3.0.2
-#    -Increased headers list to include mobile devices headers
-#    -Increased XSS Detection by almost double, Detects Actual Bypass required for the attack to progress
-#    -Increased LFI Detection rates
-#    -Increased URL Detection rate for valid Vuln sites
-#    -New Banner Style promoting V3n0M Scanner and Version details
-#    -New method for identifying Version make: V.x.y.z Where x is the main release version, y is amount of Beta release
-#     versions and z is the
-#     amount of alpha release versions. ie, V.3.0.2 is Main release build 3 that has had 0 Beta test phases and 2 Alpha
-#     release phases
-#    -New Search Engine's powering the scanner so should give alot more results.
-#    -Intergrated DoS Feature, now you can select to [1] Scan as you used to for vulnerabilitys or [2] TorSledgehammer
-#     DoS Attack
-#    -New MultiPlatform version instead of the old Linux/Windows seperate releases
-#    -TorSledgehammer DoS tool rotates attacks through multiple detected Internet connections to spread attack workload
-#     and increase DoS success rate.
-#
-#
-# V3n0MScanner.py - a modified smartd0rk3r
-#    - added superlarge Dork list
-#    - added new headers
-#    - added lots of new XSS detectors and XSS Filter Bypass Detection to for spotting those trickier XSS sites
-#    - added mbcs encoding support and linux mbcs encoding bypass to make the program multi-platform again
-#
+#   -- Recode error detection from scratch.
 #
 #                       This program has been based upon the smartd0rk3r and darkd0rker
 #                       It has been heavily edited, updated and improved upon by Novacygni
@@ -67,7 +24,7 @@ try:
     from codecs import lookup, register
 except:
     print(
-            " please make sure you have all of the following modules: >>tomorrow<<, urllib2, cookielib, subprocess, codecs, signal, time, sys, os, math, itertools")
+            " please make sure you have all of the following modules: asyncio, aiohttp")
     exit()
 
 
@@ -75,7 +32,7 @@ except:
 def logo():
     print(R + "\n|----------------------------------------------------------------|")
     print("|     V3n0mScanner.py                                            |")
-    print("|     Release Date 01/01/2016  - Release Version V.4.0.0b        |")
+    print("|     Release Date 01/01/2016  - Release Version V.4.0.1         |")
     print("|          						         |")
     print("|          " + B + "   NovaCygni  Architect         " + R + "                      |")
     print("|                    _____       _____                           |")
