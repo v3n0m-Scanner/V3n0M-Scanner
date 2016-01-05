@@ -89,7 +89,7 @@ def search(maxc):
                                                                                                 name) or re.search(
                                         "twitter", name) or re.search("hackforums", name) or re.search("askjeeves",
                                                                                                        name) or re.search(
-                                        "wordpress", name) or re.search("github", name):
+                                        "wordpress", name) or re.search("github", name) or re.search("microsoft", name):
                                     pass
                                 elif re.search(site, name):
                                     urls.append(name)  # saves the cleaned list of urls with filterd ones removed
@@ -150,14 +150,10 @@ class Injthread(threading.Thread):
 
 
 def classicinj(url):
-
-    global aug_url
-    urllist=[url]
-    for url in urllist:
-        aug_url=url + "'"
-    resp=urllib.request.urlopen(aug_url)
-    Hits=str(resp.read())
+    aug_url=url + "'"
     try:
+        resp=urllib.request.urlopen(aug_url)
+        Hits=str(resp.read())
         if str("error in your SQL syntax") in Hits:
             print(url + " is vulnerable --> MySQL Classic")
             pass
