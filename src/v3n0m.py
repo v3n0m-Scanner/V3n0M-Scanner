@@ -108,8 +108,7 @@ def search(maxc):
                             SystemExit):  # following except throws me connection debug info it it breaks
                         raise
             except(urllib.error.URLError, socket.gaierror, socket.error, socket.timeout):
-                KeyboardInterrupt
-            pass
+                pass
     tmplist = []
     print("\n\n[+] URLS (unsorted): ", len(urls))
     for url in urls:
@@ -151,149 +150,176 @@ class Injthread(threading.Thread):
 
 def classicinj(url):
     aug_url=url + "'"
-    holder = url
     try:
         resp=urllib.request.urlopen(aug_url)
         Hits=str(resp.read())
         if str("error in your SQL syntax") in Hits:
             print(url + " is vulnerable --> MySQL Classic")
-            logfile.write("\n" + holder)
+            logfile.write("\n" + url)
             vuln.append(Hits)
+            col.append(Hits)
             pass
         elif str("mysql_fetch") in Hits:
             print(url + " is Vulnerable --> MiscError")
-            logfile.write("\n" + holder)
+            logfile.write("\n" + url)
             vuln.append(Hits)
+            col.append(Hits)
             pass
         elif str("num_rows") in Hits:
             print(url + " is Vulnerable --> MiscError2")
-            logfile.write("\n" + holder)
+            logfile.write("\n" + url)
             vuln.append(Hits)
+            col.append(Hits)
             pass
         elif str("ORA-01756") in Hits:
             print(url + " is Vulnerable --> Oracle")
-            logfile.write("\n" + holder)
+            logfile.write("\n" + url)
             vuln.append(Hits)
+            col.append(Hits)
             pass
         elif str("Error Executing Database Query") in Hits:
             print(url + " is Vulnerable --> JDBC_CFM")
-            logfile.write("\n" + holder)
+            logfile.write("\n" + url)
             vuln.append(Hits)
+            col.append(Hits)
             pass
         elif str("SQLServer JDBC Driver") in Hits:
             print(url + " is Vulnerable --> JDBC_CFM2")
-            logfile.write("\n" + holder)
+            logfile.write("\n" + url)
             vuln.append(Hits)
+            col.append(Hits)
             pass
         elif str("OLE DB Provider for SQL Server") in Hits:
             print(url + " is Vulnerable --> MSSQL_OLEdb")
-            logfile.write("\n" + holder)
+            logfile.write("\n" + url)
             vuln.append(Hits)
+            col.append(Hits)
             pass
         elif str("Unclosed quotation mark") in Hits:
             print(url + " is Vulnerabe --> MSSQL_Uqm")
-            logfile.write("\n" + holder)
+            logfile.write("\n" + url)
             vuln.append(Hits)
+            col.append(Hits)
             pass
         elif str("ODBC Microsoft Access Driver") in Hits:
             print(url + " is Vulnerable --> MS-Access_ODBC")
-            logfile.write("\n" + holder)
+            logfile.write("\n" + url)
             vuln.append(Hits)
+            col.append(Hits)
             pass
         elif str("Microsoft JET Database") in Hits:
             print(url + " is Vulnerable --> MS-Access_JETdb")
-            logfile.write("\n" + holder)
+            logfile.write("\n" + url)
             vuln.append(Hits)
+            col.append(Hits)
             pass
         elif str("Error Occurred While Processing Request") in Hits:
             print(url + " is Vulnerabe --> Processing Request")
-            logfile.write("\n" + holder)
+            logfile.write("\n" + url)
             vuln.append(Hits)
+            col.append(Hits)
             pass
         elif str("Microsoft JET Database") in Hits:
             print(url + " is Vulnerable --> MS-Access JetDb")
-            logfile.write("\n" + holder)
+            logfile.write("\n" + url)
             vuln.append(Hits)
+            col.append(Hits)
             pass
         elif str("Error Occurred While Processing Request") in Hits:
             print(url + " is Vulnerable --> Processing Request ")
-            logfile.write("\n" + holder)
+            logfile.write("\n" + url)
             vuln.append(Hits)
+            col.append(Hits)
             pass
         elif str("Server Error") in Hits:
             print(url + " is Vulnerable --> Server Error")
-            logfile.write("\n" + holder)
+            logfile.write("\n" + url)
             vuln.append(Hits)
+            col.append(Hits)
             pass
         elif str("ODBC Drivers error") in Hits:
             print(url + " is Vulnerable --> ODBC Drivers error")
-            logfile.write("\n" + holder)
+            logfile.write("\n" + url)
             vuln.append(Hits)
+            col.append(Hits)
             pass
         elif str("Invalid Querystring") in Hits:
             print(url + " is Vulnerable --> Invalid Querystring")
-            logfile.write("\n" + holder)
+            logfile.write("\n" + url)
             vuln.append(Hits)
+            col.append(Hits)
             pass
         elif str("OLE DB Provider for ODBC") in Hits:
             print(url + " is Vulnerable --> OLE DB Provider for ODBC")
-            logfile.write("\n" + holder)
+            logfile.write("\n" + url)
             vuln.append(Hits)
+            col.append(Hits)
             pass
         elif str("VBScript Runtime") in Hits:
             print(url + " is Vulnerable --> VBScript Runtime")
-            logfile.write("\n" + holder)
+            logfile.write("\n" + url)
             vuln.append(Hits)
+            col.append(Hits)
             pass
         elif str("ADODB.Field") in Hits:
             print(url + " is Vulnerable --> ADODB.Field")
-            logfile.write("\n" + holder)
+            logfile.write("\n" + url)
             vuln.append(Hits)
+            col.append(Hits)
             pass
         elif str("BOF or EOF") in Hits:
             print(url + " is Vulnerable --> BOF or EOF")
-            logfile.write("\n" + holder)
+            logfile.write("\n" + url)
             vuln.append(Hits)
+            col.append(Hits)
             pass
         elif str("ADODB.Command") in Hits:
             print(url + " is Vulnerable --> ADODB.Command")
-            logfile.write("\n" + holder)
+            logfile.write("\n" + url)
             vuln.append(Hits)
+            col.append(Hits)
             pass
         elif str("JET Database") in Hits:
             print(url + " is Vulnerable --> JET Database")
-            logfile.write("\n" + holder)
+            logfile.write("\n" + url)
             vuln.append(Hits)
+            col.append(Hits)
             pass
         elif str("mysql_fetch_array") in Hits:
             print(url + " is Vulnerabe --> mysql_fetch_array")
-            logfile.write("\n" + holder)
+            logfile.write("\n" + url)
             vuln.append(Hits)
+            col.append(Hits)
             pass
         elif str("Syntax error") in Hits:
             print(url + " is Vulnerable --> Syntax error")
-            logfile.write("\n" + holder)
+            logfile.write("\n" + url)
             vuln.append(Hits)
+            col.append(Hits)
             pass
         elif str("mysql_numrows()") in Hits:
             print(url + " is Vulnerable --> mysql_numrows()")
-            logfile.write("\n" + holder)
+            logfile.write("\n" + url)
             vuln.append(Hits)
+            col.append(Hits)
             pass
         elif str("GetArray()") in Hits:
             print(url + " is Vulnerable --> GetArray()")
-            logfile.write("\n" + holder)
+            logfile.write("\n" + url)
             vuln.append(Hits)
+            col.append(Hits)
             pass
         elif str("FetchRow()") in Hits:
             print(url + " is Vulnerable --> FetchRow()")
-            logfile.write("\n" + holder)
+            logfile.write("\n" + url)
             vuln.append(Hits)
+            col.append(Hits)
             pass
         elif str("Input string was not in a correct format") in Hits:
             print(url + " is Vulnerable --> Input String Error")
-            logfile.write("\n" + holder)
+            logfile.write("\n" + url)
             vuln.append(Hits)
+            col.append(Hits)
             pass
         else:
             pass
@@ -382,8 +408,7 @@ def vulnscan():
     endsub = 0
 
     print(R + "\n[1] SQLi Testing")
-    print("[2] SQLi Testing Auto Mode")
-    print("[3] Back to main menu")
+    print("[2] Back to main menu")
 
     chce = input(":")
     if chce == '1':
@@ -392,14 +417,12 @@ def vulnscan():
         print(B + "\r\x1b[K [*] Scan complete, " + O + str(len(col)) + B + " vuln sites found.")
         print()
 
-    elif chce == '2':
+    elif chce == '1':
         vuln = []
         injtest()
         endsub = 0
         print(B + "\r\x1b[K [*] Scan complete, " + O + str(len(vuln)) + B + " vuln sites found.")
-        print()
-
-    elif chce == '3':
+    elif chce == '2':
         endsub = 1
         fmenu()
 
