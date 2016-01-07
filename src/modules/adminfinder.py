@@ -3,7 +3,8 @@
 
 # !/usr/bin/python
 
-import argparse, subprocess, signal, queue, time
+import subprocess, signal, queue, time
+from argparse import ArgumentParser
 from threading import Thread, Lock
 from sys import argv, stdout
 from os import getpid, kill
@@ -59,7 +60,7 @@ def getresponse(threadName, q):
             checkg = 1
             while checkg == 1:
                 try:
-                    connection = httplib.HTTPConnection(str(url))
+                    connection = http.client.HTTPConnection(str(url))
                     connection.request('HEAD', "/" + str(data.strip()))
                     response = connection.getresponse()
                     progdone = len(adminlist) - workQueue.qsize()
@@ -99,7 +100,7 @@ def killpid(signum=0, frame=0):
     kill(getpid(), 9)
 
 
-parser = argparse.ArgumentParser(prog='adminfinder', usage='adminfinder [options]')
+parser = ArgumentParser(prog='adminfinder', usage='adminfinder [options]')
 parser.add_argument('-u', "--url", type=str, help='url eg. target.com')
 parser.add_argument("-w", "--wordlist", type=str, help="wordlist")
 parser.add_argument('-t', "--threads", type=int, help='number of threads')
@@ -126,7 +127,7 @@ if args.proxy:
     try:
         import socks, socket
     except:
-        print("Error socksipy module not found, apt-get install python-socksipy to use proxies")
+        print("Error socksipy module not found,  'sudo pip3 install socksipy-branch' to install")
         exit()
 
 

@@ -1,14 +1,14 @@
 #!/usr/bin/python
 # -*- coding: latin-1 -*-
 #              --- To be Done     --Partially implemented     -Done
-# V3n0MScanner.py - V.4.0.1
-#   ---Redo entire search engine function to run 100 checks per engine at once
-#   - Python 3 upgrade
-#   - Strip out all old code including redundent SQLi dumper
-#   -- add piping for SQLMap
+# V3n0MScanner.py - V.4.0.2
+#   --- Redo entire search engine function to run 100 checks per engine at once
+#   --- Re-Add LFI/RFI options
+#   --- Add parsing options
+#   --- add piping for SQLMap
 #   -- add scans for known Metasploitable Vulns (* dork based and Nmap style *)
-#   - Fixed SQLi Injection scanner.
-#   -- Recode error detection from scratch.
+#   -- Add Proxy and Tor support back
+#   --- Recode admin page finder, go for asyncio based crawler.
 #
 #                       This program has been based upon the smartd0rk3r and darkd0rker
 #                       It has been heavily edited, updated and improved upon by Novacygni
@@ -19,13 +19,13 @@
 
 try:
     import re, random, threading, socket, urllib.request, urllib.error, urllib.parse, http.cookiejar, subprocess, \
-        time, sys, os, math, itertools, queue, asyncio, aiohttp, argparse
+        time, sys, os, math, itertools, queue, asyncio, aiohttp, argparse, socks, httplib2
     from signal import SIGINT, signal
     from codecs import lookup, register
 
 except:
-    print(
-            " please make sure you have all of the following modules: asyncio, aiohttp")
+    print(" please make sure you have all of the following modules: asyncio, aiohttp")
+    print("Error socksipy module not found,  'sudo pip3 install socksipy-branch' to install")
     exit()
 
 
@@ -483,8 +483,44 @@ lfis = [line.strip() for line in open("statics/lfi", 'r')]
 random.shuffle(d0rk)
 random.shuffle(header)
 random.shuffle(lfis)
+ProxyEnabled = 0
 parser = argparse.ArgumentParser(prog='v3n0m', usage='v3n0m [options]')
 parser.add_argument('-p', "--proxy", type=str, help='use proxy eg. socks5:127.0.0.1:9050')
+args = parser.parse_args()
+
+
+#
+# Begin Building Tor/Proxy support
+#
+if args.proxy:
+
+    def create_connection(address, timeout=None, source_address=None):
+        sock = socks.socksocket()
+        sock.connect(address)
+        return sock
+    try:
+        proxytype = args.proxy.split(":")[0]
+        proxyip = args.proxy.split(":")[1]
+        proxyport = args.proxy.split(":")[2]
+    except:
+        print("Error proxy must be in the form of type:host:port")
+        parser.print_help()
+        exit()
+
+    if proxytype == "socks4":
+        socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS4, str(proxyip), int(proxyport), True)
+    elif proxytype == "socks5":
+        socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS5, str(proxyip), int(proxyport), True)
+    else:
+        print("Error Unknown proxy type: " + str(proxytype))
+
+        exit()
+
+    socket.socket = socks.socksocket
+    socket.create_connection = create_connection
+
+
+
 # This is the MBCS Encoding Bypass for making MBCS encodings work on Linux - NovaCygni
 try:
     lookup('mbcs')
