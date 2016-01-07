@@ -19,7 +19,7 @@
 
 try:
     import re, random, threading, socket, urllib.request, urllib.error, urllib.parse, http.cookiejar, subprocess, \
-        time, sys, os, math, itertools, queue, asyncio, aiohttp
+        time, sys, os, math, itertools, queue, asyncio, aiohttp, argparse
     from signal import SIGINT, signal
     from codecs import lookup, register
 
@@ -437,6 +437,7 @@ def fmenu():
     print("[2] Admin page finder")
     print("[3] FTP crawler and vuln scan")
     print("[4] DNS brute")
+    print("[5] Enable Tor/Proxy Support")
     print("[0] Exit\n")
     chce = input(":")
 
@@ -482,7 +483,8 @@ lfis = [line.strip() for line in open("statics/lfi", 'r')]
 random.shuffle(d0rk)
 random.shuffle(header)
 random.shuffle(lfis)
-
+parser = argparse.ArgumentParser(prog='v3n0m', usage='v3n0m [options]')
+parser.add_argument('-p', "--proxy", type=str, help='use proxy eg. socks5:127.0.0.1:9050')
 # This is the MBCS Encoding Bypass for making MBCS encodings work on Linux - NovaCygni
 try:
     lookup('mbcs')
