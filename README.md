@@ -1,6 +1,8 @@
-CURRENTLY BEING UPDATED: OFFICIAL VERSION BROKEN WILL UPLOAD NEW VERSION PRE "7th of January 2016".
 ![v3n0m Scanner](http://i.imgur.com/A96CipT.png "hax")
 V3n0M runs on Python3
+[Live Project - Readding old features back in and improved for Python3]
+
+
 
 v3n0m is a free and open source scanner. Evolved from baltazar's scanner, it has adapted several new features that improve fuctionality and usability. It is _mostly_ experimental software.
 
@@ -33,7 +35,7 @@ Always verify the PGP signature of the package:
 + Largest and most powerful d0rker online, 18k+d0rks searched over ~ Engines at once.
 + Free and Open /src/
 + CrossPlatform Python based toolkit
-+ Version 4.0.0b Released on 1st Jan 2016
++ Version 4.0.1 Released on 7th Jan 2016
 + Licensed under GPLv2
 + Tested on: Linux 4.3.1 Ubuntu/Debian, CentOS 6 (with some errors), Win7 (with some errors)
 
@@ -86,6 +88,11 @@ Always verify the PGP signature of the package:
 ## New To This Addition:
     ---To be Done --Partially implemented -Done
     - Upgrade to Python3 from Python2
+    --- Redo LFI/RFI attack method
+    --- Automate scanning sites with findable admin pages and add to seperate list
+    --- Redo Metasploit Scans
+    --- Add default attack option for DB types, automate injection and upload shell or enable RDP.
+    -- Perfect SQLi Vuln detection and add options for saving/searching specific DB types
     -- Starting upgrade for Search engines
     --- Implement SQLi D0rk Seed Generation option
     --- Implement Metasploit Exploits scan / Nmap style option + Dork option
