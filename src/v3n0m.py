@@ -149,10 +149,10 @@ class Injthread(threading.Thread):
 
 
 def classicinj(url):
-    aug_url=url + "'"
+    aug_url = url + "'"
     try:
-        resp=urllib.request.urlopen(aug_url)
-        Hits=str(resp.read())
+        resp = urllib.request.urlopen(aug_url)
+        Hits = str(resp.read())
         if str("error in your SQL syntax") in Hits:
             print(url + " is vulnerable --> MySQL Classic")
             logfile.write("\n" + aug_url)
@@ -326,6 +326,7 @@ def classicinj(url):
     except(urllib.error.URLError, socket.gaierror, socket.error, socket.timeout):
         pass
 
+
 def injtest():
     global logfile
     log = "v3n0m-sqli.txt"
@@ -483,43 +484,31 @@ lfis = [line.strip() for line in open("statics/lfi", 'r')]
 random.shuffle(d0rk)
 random.shuffle(header)
 random.shuffle(lfis)
-ProxyEnabled = 0
+ProxyEnabled = False
 parser = argparse.ArgumentParser(prog='v3n0m', usage='v3n0m [options]')
-parser.add_argument('-p', "--proxy", type=str, help='use proxy eg. socks5:127.0.0.1:9050')
+parser.add_argument('-p', "--proxy", type=str, help='Proxy must be in the form of type:host:port')
 args = parser.parse_args()
-
 
 #
 # Begin Building Tor/Proxy support
 #
 if args.proxy:
-
     def create_connection(address, timeout=None, source_address=None):
         sock = socks.socksocket()
         sock.connect(address)
-        return sock
-    try:
         proxytype = args.proxy.split(":")[0]
         proxyip = args.proxy.split(":")[1]
         proxyport = args.proxy.split(":")[2]
-    except:
-        print("Error proxy must be in the form of type:host:port")
-        parser.print_help()
+        if proxytype == "socks4":
+            socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS4, str(proxyip), int(proxyport), True)
+        elif proxytype == "socks5":
+            socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS5, str(proxyip), int(proxyport), True)
+        else:
+            print("Error Unknown proxy type: " + str(proxytype))
+        socket.socket = socks.socksocket
+        socket.create_connection = create_connection
+        socket.setdefaulttimeout(7)
         exit()
-
-    if proxytype == "socks4":
-        socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS4, str(proxyip), int(proxyport), True)
-    elif proxytype == "socks5":
-        socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS5, str(proxyip), int(proxyport), True)
-    else:
-        print("Error Unknown proxy type: " + str(proxytype))
-
-        exit()
-
-    socket.socket = socks.socksocket
-    socket.create_connection = create_connection
-
-
 
 # This is the MBCS Encoding Bypass for making MBCS encodings work on Linux - NovaCygni
 try:
