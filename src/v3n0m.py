@@ -3,6 +3,7 @@
 #              --- To be Done     --Partially implemented     -Done
 # V3n0MScanner.py - V.4.0.2
 #   --- Redo entire search engine function to run 100 checks per engine at once
+#   - Fixed All Side Modules > adminfinder, dnsbrute, ftpcrawler
 #   --- Re-Add LFI/RFI options
 #   --- Add parsing options
 #   --- add piping for SQLMap
@@ -33,7 +34,7 @@ except:
 def logo():
     print(R + "\n|----------------------------------------------------------------|")
     print("|     V3n0mScanner.py                                            |")
-    print("|     Release Date 07/01/2016  - Release Version V.4.0.2         |")
+    print("|     Release Date 12/01/2016  - Release Version V.4.0.2         |")
     print("|          			Socks4&5 Proxy Enabled Support               |")
     print("|             " + B + "        NovaCygni  Architect    " + R + "                   |")
     print("|                    _____       _____                           |")
@@ -42,7 +43,7 @@ def logo():
     print("|             \ \ / /  " + G + " \ \ '" + R + "_ \|  /| | '_ ` _ \                 |")
     print("|              \ V" + G + " /.___/ / | | \ |_" + R + "/ / | | | | |                |")
     print("|    Official   \_/" + G + " \____/|_" + R + "| |_|" + G + "\___/|_| |_| " + R + "|_|  Release       |")
-    print("|    							                                 |")
+    print("|   " + G + "   Release Notes: All features now working with Python3     " + R + " |")
     print("|----------------------------------------------------------------|\n")
 
 
