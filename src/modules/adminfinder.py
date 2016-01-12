@@ -3,11 +3,14 @@
 
 # !/usr/bin/python
 
-import subprocess, signal, queue, time
+import queue
+import signal
+import subprocess
+import time
 from argparse import ArgumentParser
-from threading import Thread, Lock
-from sys import argv, stdout
 from os import getpid, kill
+from sys import argv, stdout
+from threading import Thread, Lock
 
 
 class myThread(Thread):
@@ -33,13 +36,13 @@ class Timer():
         if minutes > 0:
             if hours > 0:
                 print(" [*] Time elapsed " + str(hours) + " hours, " + str(minutes) + " minutes and " + str(
-                    seconds) + " seconds at " + str(round(len(adminlist) / taken, 2)) + " lookups per second.")
+                        seconds) + " seconds at " + str(round(len(adminlist) / taken, 2)) + " lookups per second.")
             else:
                 print(" [*] Time elapsed " + str(minutes) + " minutes and " + str(seconds) + " seconds at " + str(
-                    round(len(adminlist) / taken, 2)) + " lookups per second.")
+                        round(len(adminlist) / taken, 2)) + " lookups per second.")
         else:
             print(" [*] Time elapsed " + str(seconds) + " seconds at " + str(
-                round(len(adminlist) / taken, 2)) + " lookups per second.")
+                    round(len(adminlist) / taken, 2)) + " lookups per second.")
         maked = "rm -rf .cache_httplib"
         process = subprocess.Popen(maked.split(), stdout=subprocess.PIPE)
         poutput = process.communicate()[0]
@@ -65,7 +68,7 @@ def getresponse(threadName, q):
                     response = connection.getresponse()
                     progdone = len(adminlist) - workQueue.qsize()
                     update = " [>] Checking " + str(progdone) + "/" + str(len(adminlist)) + " " + str(url) + "/" + str(
-                        data.strip()) + " \t[" + str(response.status) + "]"
+                            data.strip()) + " \t[" + str(response.status) + "]"
                     Printer(update)
                     checkg += 1
                     reporturl = "\r\x1b[K [*] " + str(url) + "/" + str(data.strip())
@@ -104,7 +107,6 @@ parser = ArgumentParser(prog='adminfinder', usage='adminfinder [options]')
 parser.add_argument('-u', "--url", type=str, help='url eg. target.com')
 parser.add_argument("-w", "--wordlist", type=str, help="wordlist")
 parser.add_argument('-t', "--threads", type=int, help='number of threads')
-parser.add_argument('-p', "--proxy", type=str, help='use proxy eg. socks5:127.0.0.1:9050')
 parser.add_argument('-f', "--follow", action="store_true", help='follow and resolve redirects')
 parser.add_argument('-b', "--forbidden", action="store_true", help='show forbidden pages')
 args = parser.parse_args()
@@ -114,7 +116,7 @@ print('''           _           _        __ _           _
  / _` |/ _` | '_ ` _ \| | '_ \| |_| | '_ \ / _` |/ _ \ '__|
 | (_| | (_| | | | | | | | | | |  _| | | | | (_| |  __/ |
  \__,_|\__,_|_| |_| |_|_|_| |_|_| |_|_| |_|\__,_|\___|_|
-
+             Python3 Recode: By NovaCygni
 
                                           By d4rkcat
 ''')
@@ -123,40 +125,6 @@ if len(argv) == 1:
     parser.print_help()
     exit()
 
-if args.proxy:
-    try:
-        import socks, socket
-    except:
-        print("Error socksipy module not found,  'sudo pip3 install socksipy-branch' to install")
-        exit()
-
-
-    def create_connection(address, timeout=None, source_address=None):
-        sock = socks.socksocket()
-        sock.connect(address)
-        return sock
-
-
-    try:
-        proxytype = args.proxy.split(":")[0]
-        proxyip = args.proxy.split(":")[1]
-        proxyport = args.proxy.split(":")[2]
-    except:
-        print("Error proxy must be in the form of type:host:port")
-        parser.print_help()
-        exit()
-
-    if proxytype == "socks4":
-        socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS4, str(proxyip), int(proxyport), True)
-    elif proxytype == "socks5":
-        socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS5, str(proxyip), int(proxyport), True)
-    else:
-        print("Error Unknown proxy type: " + str(proxytype))
-        exit()
-
-    socket.socket = socks.socksocket
-    socket.create_connection = create_connection
-
 import http.client, httplib2
 
 domain = args.url
@@ -164,7 +132,7 @@ url = str(domain.strip())
 adminlist = [line.strip() for line in open(args.wordlist, 'r')]
 signal.signal(signal.SIGINT, killpid)
 queueLock = Lock()
-workQueue = queue.queue(len(adminlist))
+workQueue = queue.Queue(len(adminlist))
 found = []
 threads = []
 exitFlag = 0

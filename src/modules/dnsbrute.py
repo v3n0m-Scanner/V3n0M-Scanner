@@ -3,11 +3,18 @@
 
 #!/usr/bin/python
 
-import dns.resolver, signal, Queue, subprocess, time, argparse
-from threading import Thread, Lock
-from sys import argv, stdout
 from os import getpid, kill
 from socket import gethostbyaddr
+from sys import argv, stdout
+from threading import Thread, Lock
+
+import argparse
+import dns.resolver
+import queue
+import signal
+import subprocess
+import time
+
 
 class myThread (Thread):
     def __init__(self, threadID, name, q):
@@ -31,11 +38,11 @@ class Timer():
 		hours = int(time.strftime('%H', time.gmtime(taken)))
 		if minutes > 0:
 			if hours > 0:
-				print " [*] Time elapsed " + str(hours) + " hours, " + str(minutes) + " minutes and " + str(seconds) + " seconds at " + str(round(len(subdomains) / taken,2)) + " lookups per second."
+				print(" [*] Time elapsed " + str(hours) + " hours, " + str(minutes) + " minutes and " + str(seconds) + " seconds at " + str(round(len(subdomains) / taken,2)) + " lookups per second.")
 			else:
-				print " [*] Time elapsed " + str(minutes) + " minutes and " + str(seconds) + " seconds at " + str(round(len(subdomains) / taken,2)) + " lookups per second."
+				print(" [*] Time elapsed " + str(minutes) + " minutes and " + str(seconds) + " seconds at " + str(round(len(subdomains) / taken,2)) + " lookups per second.")
 		else:
-			print " [*] Time elapsed " + str(seconds) + " seconds at " + str(round(len(subdomains) / taken,2)) + " lookups per second."
+			print(" [*] Time elapsed " + str(seconds) + " seconds at " + str(round(len(subdomains) / taken,2)) + " lookups per second.")
 
 def killpid(signum = 0, frame = 0):
 	writeout("bad")
@@ -46,12 +53,12 @@ def writeout(state):
 	for item in found:
 		logfile.write("%s\n" % item)
 	if state == "good":
-		print
-		print " [*] All threads complete, " + str(len(found)) + " subdomains found."
+		print()
+		print(" [*] All threads complete, " + str(len(found)) + " subdomains found.")
 	else:
-		print
-		print " [*] Scan aborted, " + str(progdone) + " lookups processed and " + str(len(found)) + " subdomains found."
-	print " [*] Results saved to logs/" + domain + ".log"
+		print()
+		print(" [*] Scan aborted, " + str(progdone) + " lookups processed and " + str(len(found)) + " subdomains found.")
+	print(" [*] Results saved to logs/" + domain + ".log")
 
 def process_data(threadName, q):
     while not exitFlag:
@@ -67,17 +74,17 @@ def process_data(threadName, q):
 					if len(host) < 16:
 						stdout.write("\r\x1b[K")
 						stdout.flush()
-						print "\r" + str(host) + "\t\t" +  str(output[0]) + " " + str(output[2])
+						print("\r" + str(host) + "\t\t" +  str(output[0]) + " " + str(output[2]))
 						found.append(str(host) + "\t\t" +  str(output[0]) + " " + str(output[2]))
 					else:
 						stdout.write("\r\x1b[K")
 						stdout.flush()
-						print "\r" + str(host) + "\t" +  str(output[0]) + " " + str(output[2])
+						print("\r" + str(host) + "\t" +  str(output[0]) + " " + str(output[2]))
 						found.append(str(host) + "\t" +  str(output[0]) + " " + str(output[2]))
 				except:
 					stdout.write("\r\x1b[K")
 					stdout.flush()
-					print "\r" + str(host)
+					print("\r" + str(host))
 					found.append(str(host))
             except:
 				pass
@@ -90,14 +97,14 @@ parser.add_argument("-w", "--wordlist", type=str, help="wordlist")
 parser.add_argument('-t', "--threads", type=int, help='number of threads')
 args = parser.parse_args()
 
-print '''     _           _                _
+print('''     _           _                _
   __| |_ __  ___| |__  _ __ _   _| |_ ___
  / _` | '_ \/ __| '_ \| '__| | | | __/ _ \
 | (_| | | | \__ \ |_) | |  | |_| | ||  __/
  \__,_|_| |_|___/_.__/|_|   \__,_|\__\___|
 
 			By d4rkcat
-'''
+''')
 
 if len(argv) == 1:
 	parser.print_help()
@@ -118,14 +125,14 @@ dnsservers = ["8.8.8.8", "8.8.4.4", "4.2.2.1", "4.2.2.2", "4.2.2.3", "4.2.2.4", 
 resolver = dns.resolver.Resolver()
 resolver.nameservers = dnsservers
 queueLock = Lock()
-workQueue = Queue.Queue(len(subdomains))
+workQueue = queue.Queue(len(subdomains))
 found = []
 threads = []
 exitFlag = 0
 threadID = 1
 
-print " [*] Starting " + str(maxthreads) + " threads to process " + str(len(subdomains)) + " subdomains."
-print
+print(" [*] Starting " + str(maxthreads) + " threads to process " + str(len(subdomains)) + " subdomains.")
+print()
 
 queueLock.acquire()
 for work in subdomains:

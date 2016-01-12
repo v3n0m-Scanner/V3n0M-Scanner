@@ -7,8 +7,8 @@
 #   --- Add parsing options
 #   --- add piping for SQLMap
 #   -- add scans for known Metasploitable Vulns (* dork based and Nmap style *)
-#   -- Add Proxy and Tor support back
-#   --- Recode admin page finder, go for asyncio based crawler.
+#   - Add Proxy and Tor support back
+#   -- Recode admin page finder, go for asyncio based crawler.
 #
 #                       This program has been based upon the smartd0rk3r and darkd0rker
 #                       It has been heavily edited, updated and improved upon by Novacygni
@@ -34,8 +34,8 @@ def logo():
     print(R + "\n|----------------------------------------------------------------|")
     print("|     V3n0mScanner.py                                            |")
     print("|     Release Date 07/01/2016  - Release Version V.4.0.2         |")
-    print("|          			Socks4/5 Proxy Enabled Support              |")
-    print("|          " + B + "        NovaCygni  Architect    " + R + "                      |")
+    print("|          			Socks4&5 Proxy Enabled Support               |")
+    print("|             " + B + "        NovaCygni  Architect    " + R + "                   |")
     print("|                    _____       _____                           |")
     print("|          " + G + "         |____ |     |  _  |    " + R + "                      |")
     print("|             __   __   / /_ __ | |/' |_ _" + G + "_ ___             " + R + "     |")

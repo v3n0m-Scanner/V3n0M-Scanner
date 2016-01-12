@@ -3,12 +3,16 @@
 
 #!/usr/bin/python
 
-import argparse, subprocess, signal, Queue, time, random
-from threading import Thread, Lock
-from sys import argv, stdout
-from os import getpid, kill, system, path
+import argparse
+import queue
+import random
+import signal
+import time
 from ftplib import FTP
-from re import findall
+from os import getpid, kill, path
+from sys import argv, stdout
+from threading import Thread, Lock
+
 
 class myThread (Thread):
     def __init__(self, threadID, name, q):
@@ -29,11 +33,11 @@ class Timer():
 	    hours = int(time.strftime('%H', time.gmtime(taken)))
 	    if minutes > 0:
 		    if hours > 0:
-			    print " [*] Time elapsed " + str(hours) + " hours, " + str(minutes) + " minutes and " + str(seconds) + " seconds at " + str(round(len(IPList) / taken,2)) + " scans per second."
+			    print(" [*] Time elapsed " + str(hours) + " hours, " + str(minutes) + " minutes and " + str(seconds) + " seconds at " + str(round(len(IPList) / taken,2)) + " scans per second.")
 		    else:
-			    print " [*] Time elapsed " + str(minutes) + " minutes and " + str(seconds) + " seconds at " + str(round(len(IPList) / taken,2)) + " scans per second."
+			    print(" [*] Time elapsed " + str(minutes) + " minutes and " + str(seconds) + " seconds at " + str(round(len(IPList) / taken,2)) + " scans per second.")
 	    else:
-		    print " [*] Time elapsed " + str(seconds) + " seconds at " + str(round(len(IPList) / taken,2)) + " scans per second."
+		    print(" [*] Time elapsed " + str(seconds) + " seconds at " + str(round(len(IPList) / taken,2)) + " scans per second.")
 
 class Printer():
     def __init__(self,data):
@@ -63,7 +67,7 @@ def makeips(amt):
 	headersl = []
 	IPPart = 0
 	IPString = ""
-	for num in xrange(amt):
+	for num in range(amt):
 		while IPPart != 4:
 			IPS = random.randint(0, 255)
 			if IPPart == 0:
@@ -96,7 +100,7 @@ def ftpscan(threadName, q):
 				FCheck = False
 				iphead = str(data) + "%" + str(wlcmMsg2)
 				headers.append(str(iphead))
-				print "\r\x1b[K [*] Found FTP @ " + O + str(data) + B + "  >  " + str(wlcmMsg2)
+				print("\r\x1b[K [*] Found FTP @ " + O + str(data) + B + "  >  " + str(wlcmMsg2))
 				if loginftp:
 					try:
 						connection.login()
@@ -116,7 +120,7 @@ def ftpscan(threadName, q):
 			queueLock.release()
 
 def killpid(signum = 0, frame = 0):
-	print "\r\x1b[K"
+	print("\r\x1b[K")
 	kill(getpid(), 9)
 
 
@@ -161,12 +165,12 @@ def vulnscan(queries):
 			results = scan_string(banner)
 			if results:
 				log(results, ip, banner)
-				print R + 'Banner: ' + O + banner
-				print B + 'IP: ' + O + ip
-				print O + "\n[+]" + B + " Bingo! Found (possible) matching exploits for " + O + str(ip) + B
+				print(R + 'Banner: ' + O + banner)
+				print(B + 'IP: ' + O + ip)
+				print(O + "\n[+]" + B + " Bingo! Found (possible) matching exploits for " + O + str(ip) + B)
 				for r in results:
-					print R + r
-				print '-----------------  NEXT  ------------------------\n'
+					print(R + r)
+				print('-----------------  NEXT  ------------------------\n')
 			else:
 				pass
 		except:
@@ -177,7 +181,7 @@ parser.add_argument('-t', "--threads", type=int, help='number of threads (defaul
 parser.add_argument('-i', "--ips", type=int, help='number of random ips to scan')
 args = parser.parse_args()
 
-print '''  __ _
+print('''  __ _
  / _| |_ _ __  ___  ___ __ _ _ __  _ __   ___ _ __
 | |_| __| '_ \/ __|/ __/ _` | '_ \| '_ \ / _ \ '__|
 |  _| |_| |_) \__ \ (_| (_| | | | | | | |  __/ |
@@ -185,7 +189,7 @@ print '''  __ _
         |_|
 
                                           By Sam & d4rkcat
-'''
+''')
 
 if len(argv) == 1:
 	parser.print_help()
@@ -211,15 +215,15 @@ if args.threads:
 	maxthreads = args.threads
 
 if args.ips:
-	print "[*] Generating " + str(args.ips) + " IPs.."
+	print("[*] Generating " + str(args.ips) + " IPs..")
 	makeips(args.ips)
 else:
 	parser.print_help()
 	exit()
 
-print "[*] Starting scan"
-print
-workQueue = Queue.Queue(len(IPList))
+print("[*] Starting scan")
+print()
+workQueue = queue.Queue(len(IPList))
 
 queueLock.acquire()
 for ip in IPList:
@@ -242,7 +246,7 @@ with Timer():
 	for t in threads:
 		t.join()
 
-print "\r\x1b[K\n [*] All threads complete, " + str(len(FTPs)) + " IPs found. Starting Vuln Scan.."
+print("\r\x1b[K\n [*] All threads complete, " + str(len(FTPs)) + " IPs found. Starting Vuln Scan..")
 
 if FTPs:
 	vulnscan(headers)
