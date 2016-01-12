@@ -1,14 +1,15 @@
 #!/usr/bin/python
 # -*- coding: latin-1 -*-
 #              --- To be Done     --Partially implemented     -Done
-# V3n0MScanner.py - V.4.0.1
-#   ---Redo entire search engine function to run 100 checks per engine at once
-#   - Python 3 upgrade
-#   - Strip out all old code including redundent SQLi dumper
-#   -- add piping for SQLMap
+# V3n0MScanner.py - V.4.0.2
+#   --- Redo entire search engine function to run 100 checks per engine at once
+#   - Fixed All Side Modules > adminfinder, dnsbrute, ftpcrawler
+#   --- Re-Add LFI/RFI options
+#   --- Add parsing options
+#   --- add piping for SQLMap
 #   -- add scans for known Metasploitable Vulns (* dork based and Nmap style *)
-#   - Fixed SQLi Injection scanner.
-#   -- Recode error detection from scratch.
+#   - Add Proxy and Tor support back
+#   -- Recode admin page finder, go for asyncio based crawler.
 #
 #                       This program has been based upon the smartd0rk3r and darkd0rker
 #                       It has been heavily edited, updated and improved upon by Novacygni
@@ -19,13 +20,13 @@
 
 try:
     import re, random, threading, socket, urllib.request, urllib.error, urllib.parse, http.cookiejar, subprocess, \
-        time, sys, os, math, itertools, queue, asyncio, aiohttp
+        time, sys, os, math, itertools, queue, asyncio, aiohttp, argparse, socks, httplib2, requests
     from signal import SIGINT, signal
     from codecs import lookup, register
 
 except:
-    print(
-            " please make sure you have all of the following modules: asyncio, aiohttp")
+    print(" please make sure you have all of the following modules: asyncio, aiohttp")
+    print("Error socksipy module not found,  'sudo pip3 install socksipy-branch' to install")
     exit()
 
 
@@ -33,16 +34,16 @@ except:
 def logo():
     print(R + "\n|----------------------------------------------------------------|")
     print("|     V3n0mScanner.py                                            |")
-    print("|     Release Date 07/01/2016  - Release Version V.4.0.1         |")
-    print("|          						         |")
-    print("|          " + B + "   NovaCygni  Architect         " + R + "                      |")
+    print("|     Release Date 12/01/2016  - Release Version V.4.0.2         |")
+    print("|          			Socks4&5 Proxy Enabled Support               |")
+    print("|             " + B + "        NovaCygni  Architect    " + R + "                   |")
     print("|                    _____       _____                           |")
     print("|          " + G + "         |____ |     |  _  |    " + R + "                      |")
     print("|             __   __   / /_ __ | |/' |_ _" + G + "_ ___             " + R + "     |")
     print("|             \ \ / /  " + G + " \ \ '" + R + "_ \|  /| | '_ ` _ \                 |")
     print("|              \ V" + G + " /.___/ / | | \ |_" + R + "/ / | | | | |                |")
     print("|    Official   \_/" + G + " \____/|_" + R + "| |_|" + G + "\___/|_| |_| " + R + "|_|  Release       |")
-    print("|    							                                 |")
+    print("|   " + G + "   Release Notes: All features now working with Python3     " + R + " |")
     print("|----------------------------------------------------------------|\n")
 
 
@@ -149,10 +150,10 @@ class Injthread(threading.Thread):
 
 
 def classicinj(url):
-    aug_url=url + "'"
+    aug_url = url + "'"
     try:
-        resp=urllib.request.urlopen(aug_url)
-        Hits=str(resp.read())
+        resp = urllib.request.urlopen(aug_url)
+        Hits = str(resp.read())
         if str("error in your SQL syntax") in Hits:
             print(url + " is vulnerable --> MySQL Classic")
             logfile.write("\n" + aug_url)
@@ -326,6 +327,7 @@ def classicinj(url):
     except(urllib.error.URLError, socket.gaierror, socket.error, socket.timeout):
         pass
 
+
 def injtest():
     global logfile
     log = "v3n0m-sqli.txt"
@@ -437,6 +439,7 @@ def fmenu():
     print("[2] Admin page finder")
     print("[3] FTP crawler and vuln scan")
     print("[4] DNS brute")
+    print("[5] Enable Tor/Proxy Support")
     print("[0] Exit\n")
     chce = input(":")
 
@@ -467,9 +470,12 @@ def fmenu():
                                     shell=True)
         dnsbrute.communicate()
 
+    if chce == '5':
+        print(W + "")
+        enable_proxy()
+
     elif chce == '0':
         print(R + "\n Exiting ...")
-        mnu = False
         print(W)
         sys.exit(0)
 
@@ -482,6 +488,35 @@ lfis = [line.strip() for line in open("statics/lfi", 'r')]
 random.shuffle(d0rk)
 random.shuffle(header)
 random.shuffle(lfis)
+ProxyEnabled = False
+parser = argparse.ArgumentParser(prog='v3n0m', usage='v3n0m [options]')
+parser.add_argument('-p', "--proxy", type=str, help='Proxy must be in the form of type:host:port')
+args = parser.parse_args()
+
+
+def enable_proxy():
+    print ("Please select Proxy Type - Options = socks4, socks5 ")
+    proxytype = input()
+    print (" Please enter Proxy IP address - ie. 127.0.0.66")
+    proxyip = input()
+    print (" Please enter Proxy Port - ie. 1076")
+    proxyport = input(int)
+    if proxytype == "socks4":
+        socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS4, proxyip, proxyport)
+        socket.socket = socks.socksocket
+        print (" Socks 4 Proxy Support Enabled")
+        time.sleep(3)
+    elif proxytype == "socks5":
+        socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS5, proxyip, proxyport)
+        socket.socket = socks.socksocket
+        print (" Socks 5 Proxy Support Enabled")
+        time.sleep(3)
+    else:
+        print("Error Unknown proxy type: " + str(proxytype))
+        socket.socket = socks.socksocket
+        socket.create_connection = enable_proxy
+        socket.setdefaulttimeout(8)
+        exit()
 
 # This is the MBCS Encoding Bypass for making MBCS encodings work on Linux - NovaCygni
 try:
