@@ -1,6 +1,6 @@
 ![v3n0m Scanner](http://i.imgur.com/A96CipT.png "hax")
 V3n0M runs on Python3
-[Live Project - Readding old features back in and improved for Python3]
+[Live Project - All features fully working again and in Python3]
 
 
 
