@@ -19,7 +19,7 @@
 
 try:
     import re, random, threading, socket, urllib.request, urllib.error, urllib.parse, http.cookiejar, subprocess, \
-        time, sys, os, math, itertools, queue, asyncio, aiohttp, argparse, socks, httplib2
+        time, sys, os, math, itertools, queue, asyncio, aiohttp, argparse, socks, httplib2, requests
     from signal import SIGINT, signal
     from codecs import lookup, register
 
@@ -33,9 +33,9 @@ except:
 def logo():
     print(R + "\n|----------------------------------------------------------------|")
     print("|     V3n0mScanner.py                                            |")
-    print("|     Release Date 07/01/2016  - Release Version V.4.0.1         |")
-    print("|          						         |")
-    print("|          " + B + "   NovaCygni  Architect         " + R + "                      |")
+    print("|     Release Date 07/01/2016  - Release Version V.4.0.2         |")
+    print("|          			Socks4/5 Proxy Enabled Support              |")
+    print("|          " + B + "        NovaCygni  Architect    " + R + "                      |")
     print("|                    _____       _____                           |")
     print("|          " + G + "         |____ |     |  _  |    " + R + "                      |")
     print("|             __   __   / /_ __ | |/' |_ _" + G + "_ ___             " + R + "     |")
@@ -469,9 +469,12 @@ def fmenu():
                                     shell=True)
         dnsbrute.communicate()
 
+    if chce == '5':
+        print(W + "")
+        enable_proxy()
+
     elif chce == '0':
         print(R + "\n Exiting ...")
-        mnu = False
         print(W)
         sys.exit(0)
 
@@ -489,25 +492,29 @@ parser = argparse.ArgumentParser(prog='v3n0m', usage='v3n0m [options]')
 parser.add_argument('-p', "--proxy", type=str, help='Proxy must be in the form of type:host:port')
 args = parser.parse_args()
 
-#
-# Begin Building Tor/Proxy support
-#
-if args.proxy:
-    def create_connection(address, timeout=None, source_address=None):
-        sock = socks.socksocket()
-        sock.connect(address)
-        proxytype = args.proxy.split(":")[0]
-        proxyip = args.proxy.split(":")[1]
-        proxyport = args.proxy.split(":")[2]
-        if proxytype == "socks4":
-            socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS4, str(proxyip), int(proxyport), True)
-        elif proxytype == "socks5":
-            socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS5, str(proxyip), int(proxyport), True)
-        else:
-            print("Error Unknown proxy type: " + str(proxytype))
+
+def enable_proxy():
+    print ("Please select Proxy Type - Options = socks4, socks5 ")
+    proxytype = input()
+    print (" Please enter Proxy IP address - ie. 127.0.0.66")
+    proxyip = input()
+    print (" Please enter Proxy Port - ie. 1076")
+    proxyport = input(int)
+    if proxytype == "socks4":
+        socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS4, proxyip, proxyport)
         socket.socket = socks.socksocket
-        socket.create_connection = create_connection
-        socket.setdefaulttimeout(7)
+        print (" Socks 4 Proxy Support Enabled")
+        time.sleep(3)
+    elif proxytype == "socks5":
+        socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS5, proxyip, proxyport)
+        socket.socket = socks.socksocket
+        print (" Socks 5 Proxy Support Enabled")
+        time.sleep(3)
+    else:
+        print("Error Unknown proxy type: " + str(proxytype))
+        socket.socket = socks.socksocket
+        socket.create_connection = enable_proxy
+        socket.setdefaulttimeout(8)
         exit()
 
 # This is the MBCS Encoding Bypass for making MBCS encodings work on Linux - NovaCygni
