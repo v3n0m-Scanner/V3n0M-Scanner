@@ -20,7 +20,7 @@
 
 try:
     import re, random, threading, socket, urllib.request, urllib.error, urllib.parse, http.cookiejar, subprocess, \
-        time, sys, os, math, itertools, queue, asyncio, aiohttp, argparse, socks, httplib2, requests
+        time, sys, os, math, itertools, queue, asyncio, aiohttp, argparse, socks, httplib2, requests, codecs
     from signal import SIGINT, signal
     from codecs import lookup, register
 
@@ -522,6 +522,7 @@ except LookupError:
     def mbcs_bypass(name, encoding=ascii_encoding):
         if name == "mbcs":
             return encoding
+
     codecs.register(mbcs_bypass)
 
 # Colours
