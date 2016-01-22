@@ -82,15 +82,7 @@ def search(maxc):
                                                                                                name) or re.search(
                                         "\A(http://)\d", name):
                                     pass
-                                elif re.search("google", name) or re.search("youtube", name) or re.search("phpbuddy",
-                                                                                                          name) or re.search(
-                                        "iranhack", name) or re.search("phpbuilder", name) or re.search("codingforums",
-                                                                                                        name) or re.search(
-                                        "phpfreaks", name) or re.search("d0rks", name) or re.search("facebook",
-                                                                                                    name) or re.search(
-                                        "twitter", name) or re.search("hackforums", name) or re.search("askjeeves",
-                                                                                                       name) or re.search(
-                                        "wordpress", name) or re.search("github", name) or re.search("dork", name):
+                                elif re.search(search_Ignore, name):
                                     pass
                                 elif re.search(site, name):
                                     urls.append(name)  # saves the cleaned list of urls with filterd ones removed
@@ -485,6 +477,7 @@ d0rk = [line.strip() for line in open("statics/d0rks", 'r')]
 header = [line.strip() for line in open("statics/header", 'r')]
 xsses = [line.strip() for line in open("statics/xsses", 'r')]
 lfis = [line.strip() for line in open("statics/lfi", 'r')]
+search_Ignore = str(line.rsplit('\n') for line in open("statics/search_ignore", 'r'))
 random.shuffle(d0rk)
 random.shuffle(header)
 random.shuffle(lfis)
@@ -518,13 +511,18 @@ def enable_proxy():
         socket.setdefaulttimeout(8)
         exit()
 
-# This is the MBCS Encoding Bypass for making MBCS encodings work on Linux - NovaCygni
+# This is the updated MBCS Encoding Bypass for making MBCS encodings work on Linux - NovaCygni
+
 try:
-    lookup('mbcs')
+    codecs.lookup('mbcs')
 except LookupError:
-    ascii = lookup('latin-1')
-    func = lambda name, enc=ascii: {True: enc}.get(name == 'mbcs')
-    register(func)
+    ascii_encoding = codecs.lookup('latin-1')
+
+
+    def mbcs_bypass(name, encoding=ascii_encoding):
+        if name == "mbcs":
+            return encoding
+    codecs.register(mbcs_bypass)
 
 # Colours
 W = "\033[0m"
