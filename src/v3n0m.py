@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: latin-1 -*-
 #              --- To be Done     --Partially implemented     -Done
-# V3n0MScanner.py - V.4.0.2
+# V3n0MScanner.py - V.4.0.2c
 #   --- Redo entire search engine function to run 100 checks per engine at once
 #   - Fixed All Side Modules > adminfinder, dnsbrute, ftpcrawler
 #   --- Re-Add LFI/RFI options
@@ -34,7 +34,7 @@ except:
 def logo():
     print(R + "\n|----------------------------------------------------------------|")
     print("|     V3n0mScanner.py                                            |")
-    print("|     Release Date 12/01/2016  - Release Version V.4.0.2         |")
+    print("|     Release Date 25/01/2016  - Release Version V.4.0.2c         |")
     print("|          			Socks4&5 Proxy Enabled Support               |")
     print("|             " + B + "        NovaCygni  Architect    " + R + "                   |")
     print("|                    _____       _____                           |")
@@ -51,42 +51,41 @@ def killpid(signum=0, frame=0):
     print("\r\x1b[K")
     os.kill(os.getpid(), 9)
 
-
+@asyncio.coroutine
 def search(maxc):
     urls = []
     urls_len_last = 0
     for site in sitearray:
         dark = 0
-        for dork in go:  # load dorks selected earlier to run checks with
+        for dork in loaded_Dorks:  # load dorks selected earlier to run checks with
             dark += 1
-            page = 0  #
+            page = 0
             try:
                 while page < int(maxc):
-                    try:  # build urllib request for search engine and the dork in question
-                        jar = http.cookiejar.FileCookieJar("cookies")  # cookie handler
-                        query = dork + "+site:" + site  # d0rk to check, domain/site selected
-                        results_web = 'http://www.bing.com/search?q=' + query + '&hl=en&page=' + repr(
+                    try:
+                        jar = http.cookiejar.FileCookieJar("cookies")
+                        query = dork + "+site:" + site
+                        results_web = 'http://us.search.yahoo.com/search?p=' + query + "&ei=UTF-8&fr=yfp-t-424&save=0" + '&hl=en&page=' + repr(
                                 page) + '&src=hmp'
-                        request_web = urllib.request.Request(results_web)  # get the data back from search engine
-                        agent = random.choice(header)  # header handler
-                        request_web.add_header('User-Agent', agent)  # custom user-agents to use for scans
+                        request_web = urllib.request.Request(results_web)
+                        agent = random.choice(header)
+                        request_web.add_header = ('User-Agent', agent),("connection", "keep-alive")
                         opener_web = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(jar))
-                        text = opener_web.open(request_web).read()  # handle the data retrieved
-                        decoder = text.decode('utf-8')  # decode data to utf-8
+                        text = opener_web.open(request_web).read()
+                        decoder = text.decode('utf-8')
                         stringreg = re.compile('(?<=href=")(.*?)(?=")')
-                        names = stringreg.findall(decoder)  # find the target URLs for links list
+                        names = stringreg.findall(decoder)
                         page += 1
-                        for name in names:  # following section checks for sites and removes there links from list
+                        for name in names:
                             if name not in urls:
                                 if re.search(r'\(', name) or re.search("<", name) or re.search("\A/",
-                                                                                               name) or re.search(
-                                        "\A(http://)\d", name):
+                                     name) or re.search("\A(http://)\d", name):
                                     pass
                                 elif re.search(search_Ignore, name):
                                     pass
                                 elif re.search(site, name):
-                                    urls.append(name)  # saves the cleaned list of urls with filterd ones removed
-                        darklen = len(go)
+                                    urls.append(name)
+                        darklen = len(loaded_Dorks)
                         percent = int((1.0 * dark / int(darklen)) * 100)
                         urls_len = len(urls)
                         sys.stdout.write(
@@ -116,6 +115,7 @@ def search(maxc):
             pass
     print("[+] URLS (sorted)  : ", len(finallist))
     return finallist
+
 
 
 class Injthread(threading.Thread):
@@ -350,16 +350,19 @@ def fscan():
     global numthreads
     global threads
     global finallist
+    global finallist2
     global col
     global darkurl
     global sitearray
-    global go
+    global loaded_Dorks
+
 
     threads = []
     finallist = []
+    finallist2 = []
     col = []
     darkurl = []
-    go = []
+    loaded_Dorks = []
 
     print(W)
     sites = input("\nChoose your target(domain)   : ")
@@ -370,24 +373,28 @@ def fscan():
     if int(dorks) == 0:
         i = 0
         while i < len(d0rk):
-            go.append(d0rk[i])
+            loaded_Dorks.append(d0rk[i])
             i += 1
     else:
         i = 0
         while i < int(dorks):
-            go.append(d0rk[i])
+            loaded_Dorks.append(d0rk[i])
             i += 1
-        for g in go:
+        for g in loaded_Dorks:
             print("dork: = ", g)
-
     numthreads = input('\nEnter no. of threads : ')
     maxc = input('Enter no. of pages   : ')
+    tasks = [
+    search(maxc)]
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(asyncio.wait(tasks))
+    loop.close()
     print("\nNumber of SQL errors :", ("26"))
     print("LFI payloads    :", len(lfis))
     print("XSS payloads    :", len(xsses))
     print("Headers         :", len(header))
     print("Threads         :", numthreads)
-    print("Dorks           :", len(go))
+    print("Dorks           :", len(loaded_Dorks))
     print("Pages           :", maxc)
     print("Timeout         :", timeout)
 
@@ -542,6 +549,8 @@ timeout = 8
 file = "/etc/passwd"
 socket.setdefaulttimeout(timeout)
 menu = True
+
+
 
 while True:
     fmenu()
