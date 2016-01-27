@@ -51,7 +51,7 @@ def killpid(signum=0, frame=0):
     print("\r\x1b[K")
     os.kill(os.getpid(), 9)
 
-@asyncio.coroutine
+
 def search(maxc):
     urls = []
     urls_len_last = 0
@@ -65,7 +65,7 @@ def search(maxc):
                     try:
                         jar = http.cookiejar.FileCookieJar("cookies")
                         query = dork + "+site:" + site
-                        results_web = 'http://us.search.yahoo.com/search?p=' + query + "&ei=UTF-8&fr=yfp-t-424&save=0" + '&hl=en&page=' + repr(
+                        results_web = 'http://fr.search.yahoo.com/search?p=' + query + "&ei=UTF-8&fr=yfp-t-424&save=0" + '&hl=en&page=' + repr(
                                 page) + '&src=hmp'
                         request_web = urllib.request.Request(results_web)
                         agent = random.choice(header)
@@ -384,11 +384,7 @@ def fscan():
             print("dork: = ", g)
     numthreads = input('\nEnter no. of threads : ')
     maxc = input('Enter no. of pages   : ')
-    tasks = [
-    search(maxc)]
-    loop = asyncio.get_event_loop()
-    loop.run_until_complete(asyncio.wait(tasks))
-    loop.close()
+
     print("\nNumber of SQL errors :", ("26"))
     print("LFI payloads    :", len(lfis))
     print("XSS payloads    :", len(xsses))
