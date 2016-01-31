@@ -65,8 +65,8 @@ def search(maxc):
                     try:
                         jar = http.cookiejar.FileCookieJar("cookies")
                         query = dork + "+site:" + site
-                        results_web = 'http://fr.search.yahoo.com/search?p=' + query + "&ei=UTF-8&fr=yfp-t-424&save=0" + '&hl=en&page=' + repr(
-                                page) + '&src=hmp'
+                        results_web = 'http://www.bing.com/search?q=' + query + '&go=Submit+Query&qs=ds' \
+                                      + 'ds&form=QBLH' + repr(page) + '&count=50'
                         request_web = urllib.request.Request(results_web)
                         agent = random.choice(header)
                         request_web.add_header = ('User-Agent', agent),("connection", "keep-alive")
