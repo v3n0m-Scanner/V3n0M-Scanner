@@ -34,8 +34,8 @@ except:
 def logo():
     print(R + "\n|----------------------------------------------------------------|")
     print("|     V3n0mScanner.py                                            |")
-    print("|     Release Date 25/01/2016  - Release Version V.4.0.2c         |")
-    print("|          			Socks4&5 Proxy Enabled Support               |")
+    print("|     Release Date 01/02/2016  - Release Version V.4.0.2c        |")
+    print("|         Socks4&5 Proxy Enabled Support                         |")
     print("|             " + B + "        NovaCygni  Architect    " + R + "                   |")
     print("|                    _____       _____                           |")
     print("|          " + G + "         |____ |     |  _  |    " + R + "                      |")
