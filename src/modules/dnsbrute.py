@@ -28,13 +28,13 @@ class myThread(Thread):
         process_data(self.name, self.q)
 
 
-class Printer():
+class Printer:
     def __init__(self, data):
         stdout.write("\r\x1b[K" + data.__str__())
         stdout.flush()
 
 
-class Timer():
+class Timer:
     def __enter__(self):
         self.start = time.time()
 

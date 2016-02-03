@@ -15,6 +15,8 @@ from os import getpid, kill, path
 from sys import argv, stdout
 from threading import Thread, Lock
 
+msf_Vulns = str(line.rsplit('\n') for line in open("modules/metasploit-vulns.txt", 'r'))
+
 
 class myThread(Thread):
     def __init__(self, threadID, name, q):
@@ -27,7 +29,7 @@ class myThread(Thread):
         ftpscan(self.name, self.q)
 
 
-class Timer():
+class Timer:
     def __enter__(self):
         self.start = time.time()
 
@@ -48,7 +50,7 @@ class Timer():
                     round(len(IPList) / taken, 2)) + " scans per second.")
 
 
-class Printer():
+class Printer:
     def __init__(self, data):
         stdout.write("\r\x1b[K" + data.__str__())
         stdout.flush()
@@ -58,12 +60,12 @@ def writeLog(iLogIP, wlcmMsg, anon):
     if anon == 1:
         anon = "Anonymous login allowed!\n\n---------------------------------------"
         FTPLogFile = open('FTPAnonLogFile.txt', 'a')
-        FTPLogFile.write('\nFTP found @' + iLogIP + '\n' + 'Welcome message from FTP:\n' + wlcmMsg + '\n' + anon)
+        FTPLogFile.write('\nFTP found dbg 2 @' + iLogIP + '\n' + 'Welcome message from FTP:\n' + wlcmMsg + '\n' + anon)
         FTPLogFile.close()
     if anon == 0:
         anon = "Anonymous login NOT allowed!\n\n---------------------------------------"
         FTPLogFile = open('FTPPrivateLogFile.txt', 'a')
-        FTPLogFile.write('\nFTP found @' + iLogIP + '\n' + 'Welcome message from FTP:\n' + wlcmMsg + '\n' + anon)
+        FTPLogFile.write('\nFTP found dbg 3 @' + iLogIP + '\n' + 'Welcome message from FTP:\n' + wlcmMsg + '\n' + anon)
         FTPLogFile.close()
 
 
@@ -112,12 +114,12 @@ def ftpscan(threadName, q):
                 FCheck = False
                 iphead = str(data) + "%" + str(wlcmMsg2)
                 headers.append(str(iphead))
-                print("\r\x1b[K [*] Found FTP @ " + O + str(data) + B + "  >  " + str(wlcmMsg2))
+                print("\r\x1b[K [*] Deb-1 Found FTP @ " + O + str(data) + B + "  >  " + str(wlcmMsg2))
                 if loginftp:
                     try:
                         connection.login()
-                        tmpVar3 = ""
-                        tmpVar3 = connection.retrlines('LIST')
+                        vulns_got = str(msf_Vulns) in wlcmMsg2
+                        IPNumX = connection.retrlines(vulns_got)
                         FCheck = True
                         if FCheck:
                             anon = 1
