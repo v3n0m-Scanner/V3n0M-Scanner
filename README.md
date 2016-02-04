@@ -86,13 +86,13 @@ This program is for finding and executing various vulnerabilities. It scavenges 
 
 
 ====================================
-Old Unsupported Version of 3.4 V3n0M in Python 2 can still be installed via PIP.
- PyPi: "NOT CURRENTLY MAINTAINED, PIP VERSION IS OUTDATED!!!!" 
-   " 'Bug' reports for the Python2 3.4 Version WILL be ignored!"
-You can now install the software via `pip install V3n0m`
-Always verify the PGP signature of the package:
-gpg: Signature made Fri 18 Jul 2014 02:59:48 AM UTC
-gpg:                using RSA key 0x8F2B5CBD711F1326
-gpg: Good signature from "Grand Architect <unload@cryptolab.net>"
+    #Old Unsupported Version of 3.4 V3n0M in Python 2 can still be installed via PIP.
+    #PyPi: "NOT CURRENTLY MAINTAINED, PIP VERSION IS OUTDATED!!!!" 
+    #" 'Bug' reports for the Python2 3.4 Version WILL be ignored!"
+    #You can now install the software via `pip install V3n0m`
+    #Always verify the PGP signature of the package:
+    #gpg: Signature made Fri 18 Jul 2014 02:59:48 AM UTC
+    #gpg:                using RSA key 0x8F2B5CBD711F1326
+    #gpg: Good signature from "Grand Architect <unload@cryptolab.net>"
 
 ##Make Love and Smoke Trees...
