@@ -1,23 +1,10 @@
-![v3n0m Scanner](http://i.imgur.com/A96CipT.png "hax")
+![v3n0m Scanner](http://i.imgur.com/A96CipT.png "V3n0M-Scanner")
 V3n0M runs on Python3
 [Live Project - All features fully working again and in Python3
 
-
-
-v3n0m is a free and open source scanner. Evolved from baltazar's scanner, it has adapted several new features that improve fuctionality and usability. It is _mostly_ experimental software.
+V3n0M is a free and open source scanner. Evolved from baltazar's scanner, it has adapted several new features that improve fuctionality and usability. It is __mostly__ experimental software.
 
 This program is for finding and executing various vulnerabilities. It scavenges the web using dorks and organizes the URLs it finds.
-
-## PyPi:
-
-You can now install the software via `pip install V3n0m`
-
-Always verify the PGP signature of the package:
-
-    gpg: Signature made Fri 18 Jul 2014 02:59:48 AM UTC
-    gpg:                using RSA key 0x8F2B5CBD711F1326
-    gpg: Good signature from "Grand Architect <unload@cryptolab.net>"
-
 **Use at your own risk.**
 
 ## Very useful for executing:
@@ -96,3 +83,16 @@ Always verify the PGP signature of the package:
     -- Starting upgrade for Search engines
     --- Implement SQLi D0rk Seed Generation option
     --- Implement Metasploit Exploits scan / Nmap style option + Dork option
+
+
+====================================
+Old Unsupported Version of 3.4 V3n0M in Python 2 can still be installed via PIP.
+## PyPi: "NOT CURRENTLY MAINTAINED, PIP VERSION IS OUTDATED!!!!" 
+##       " 'Bug' reports for the Python2 3.4 Version WILL be ignored!"
+## You can now install the software via `pip install V3n0m`
+## Always verify the PGP signature of the package:
+##    gpg: Signature made Fri 18 Jul 2014 02:59:48 AM UTC
+##   gpg:                using RSA key 0x8F2B5CBD711F1326
+##    gpg: Good signature from "Grand Architect <unload@cryptolab.net>"
+
+Make Love and Smoke Trees...
