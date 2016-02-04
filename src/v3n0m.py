@@ -16,8 +16,6 @@
 #                       but in no way is this the sole work of NovaCygni, and credit is due
 #                       to every person who has worked on this tool. Thanks people. NovaCygni
 
-
-
 try:
     import re, random, threading, socket, urllib.request, urllib.error, urllib.parse, http.cookiejar, subprocess, \
         time, sys, os, math, itertools, queue, asyncio, aiohttp, argparse, socks, httplib2, requests, codecs
@@ -25,8 +23,9 @@ try:
     from codecs import lookup, register
 
 except:
-    print(" please make sure you have all of the following modules: asyncio, aiohttp")
-    print("Error socksipy module not found,  'sudo pip3 install socksipy-branch' to install")
+    print(" please make sure you have all of the following modules: asyncio, aiohttp, codecs, requests")
+    print(" httplib2, signal, itertools, socket and queue ")
+    print("Error a module was not found,  'sudo pip3 install <package name>' to install")
     exit()
 
 
@@ -385,7 +384,7 @@ def fscan():
     numthreads = input('\nEnter no. of threads : ')
     maxc = input('Enter no. of pages   : ')
 
-    print("\nNumber of SQL errors :", ("26"))
+    print("\nNumber of SQL errors :", "26")
     print("LFI payloads    :", len(lfis))
     print("XSS payloads    :", len(xsses))
     print("Headers         :", len(header))

@@ -25,7 +25,7 @@ class myThread(Thread):
         getresponse(self.name, self.q)
 
 
-class Timer():
+class Timer:
     def __enter__(self):
         self.start = time.time()
 
@@ -49,7 +49,7 @@ class Timer():
         poutput = process.communicate()[0]
 
 
-class Printer():
+class Printer:
     def __init__(self, data):
         stdout.write("\r\x1b[K" + data.__str__())
         stdout.flush()
@@ -80,7 +80,7 @@ def getresponse(threadName, q):
                     if response.status == 200:
                         print(str(reporturl) + str(reportcode) + " OK")
                         found.append(response.status)
-                    elif response.status >= 300 and response.status < 400 and args.follow:
+                    elif 300 <= response.status < 400 and args.follow:
                         reso = httplib2.Http(".cache_httplib")
                         reso.follow_all_redirects = True
                         link = "http://" + str(url) + "/" + str(data.strip())
