@@ -28,9 +28,9 @@ This program is for finding and executing various vulnerabilities. It scavenges 
 
 ##Module Deps
 
-Install pip3 if you don't have it already: sudo apt-get install python3-pip
-Then install these modules with pip3: pip3 install dnspython3 aiohttp httplib2 socksipy-branch requests url
-Now cd into src and run v3n0m.py
++ Install pip3 if you don't have it already: **sudo apt-get install python3-pip**
++ Then install these modules with pip3: **sudo pip3 install dnspython3 aiohttp httplib2 socksipy-branch requests url**
++ Now cd into src and run v3n0m.py
 
 ## Usage:
 
