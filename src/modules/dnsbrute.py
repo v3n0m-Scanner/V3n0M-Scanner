@@ -1,14 +1,14 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # This file is part of v3n0m
 # See LICENSE for license details.
 
-# !/usr/bin/python
+# !/usr/bin/python3
 
 import argparse
-import queue
 import signal
 import subprocess
 import time
+from queue import Queue
 from os import getpid, kill
 from socket import gethostbyaddr
 from sys import argv, stdout
@@ -141,7 +141,7 @@ dnsservers = ["8.8.8.8", "8.8.4.4", "4.2.2.1", "4.2.2.2", "4.2.2.3", "4.2.2.4", 
 resolver = dns.resolver.Resolver()
 resolver.nameservers = dnsservers
 queueLock = Lock()
-workQueue = queue.Queue(len(subdomains))
+workQueue = Queue(len(subdomains))
 found = []
 threads = []
 exitFlag = 0
