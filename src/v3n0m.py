@@ -1,8 +1,8 @@
 #!/usr/bin/python
 # -*- coding: latin-1 -*-
 #              --- To be Done     --Partially implemented     -Done
-# V3n0MScanner.py - V.4.0.2c
-#   --- Redo entire search engine function to run 100 checks per engine at once
+# V3n0MScanner.py - V.4.0.3
+#   -- Redo entire search engine function to run 100 checks per engine at once
 #   - Fixed All Side Modules > adminfinder, dnsbrute, ftpcrawler
 #   --- Re-Add LFI/RFI options
 #   --- Add parsing options
@@ -10,6 +10,8 @@
 #   -- add scans for known Metasploitable Vulns (* dork based and Nmap style *)
 #   - Add Proxy and Tor support back
 #   -- Recode admin page finder, go for asyncio based crawler.
+#   - Asyncio Dork Scanning method. Stage 1 Done,
+#   -- Asyncio Dorking Scanning Stage 2, Returning 15 seperate engines at once
 #
 #                       This program has been based upon the smartd0rk3r and darkd0rker
 #                       It has been heavily edited, updated and improved upon by Novacygni
@@ -35,7 +37,7 @@ except:
 def logo():
     print(R + "\n|----------------------------------------------------------------|")
     print("|     V3n0mScanner.py                                            |")
-    print("|     Release Date 03/04/2016  - Release Version V.4.0.3         |")
+    print("|     Release Date 05/04/2016  - Release Version V.4.0.3         |")
     print("|         Socks4&5 Proxy Enabled Support                         |")
     print("|             " + B + "        NovaCygni  Architect    " + R + "                   |")
     print("|                    _____       _____                           |")
@@ -328,7 +330,7 @@ def fscan():
     print("Pages           :", maxc)
     print("Timeout         :", timeout)
     loop = asyncio.get_event_loop()
-    loop.run_until_complete(search(maxc))
+    usearch = loop.run_until_complete(search(maxc))
     vulnscan()
 
 def det_Neph():
@@ -401,6 +403,15 @@ def tcp_scan(ips, ports, randomize=True):
     tcp_Scanner_run(tcp_scanner(ip, port) for port in ports for ip in ips)
 
 
+def ignoringGet(url):
+    try:
+        responce = requests.get(url)
+        responce.raise_for_status()
+    except:
+        return ""
+    return responce.text
+
+
 async def search(maxc):
     urls = []
     urls_len_last = 0
@@ -413,23 +424,25 @@ async def search(maxc):
                 query = dork + "+site:" + site
                 futures=[]
                 loop = asyncio.get_event_loop()
+
                 for i in range(3):
-                    results_web = 'http://www.bing.com/search?q=' +query+ '&go=Submit&first=' + str((page+i)*50+1) + '&count=50'
-                    futures.append(loop.run_in_executor(None, requests.get, results_web))
+                    results_web = "http://www.bing.com/search?q="+query+"&go=Submit&first="+str((page+i)*50+1)+"&count=50"
+                    futures.append(loop.run_in_executor(None, ignoringGet, results_web))
                 page += 3
+
                 stringreg = re.compile('(?<=href=")(.*?)(?=")')
-                names=[]
+                names = []
                 for future in futures:
-                    names.extend(stringreg.findall((await future).text))
+                    result = await future
+                    names.extend(stringreg.findall(result))
 
                 for name in names:
                     if name not in urls:
-                        if re.search(r'\(', name) or re.search(r'<', name) or re.search(r'\A/',
-                         name) or re.search(r'\A(http://)\d', name):
+                        if re.search(r'\(', name) or re.search(r'<', name) or re.search(r'\A/',name) or re.search(r'\A(http://)\d', name):
                             continue
-                        elif name.find(search_Ignore)>=0:
+                        elif name.find(search_Ignore) >= 0:
                             continue
-                        elif name.find(site)>=0:
+                        elif name.find(site) >= 0:
                             urls.append(name)
 
                 darklen = len(loaded_Dorks)
@@ -437,7 +450,7 @@ async def search(maxc):
                 urls_len = len(urls)
                 sys.stdout.write(
                     "\r\x1b[KSite: %s | Collected urls: %s | D0rks: %s/%s | Percent Done: %s | Current page no.: <%s> | Dork: %s" % (
-                    site, repr(urls_len), dark, darklen, repr(percent), repr(page), dork))
+                        site, repr(urls_len), dark, darklen, repr(percent), repr(page), dork))
                 sys.stdout.flush()
                 if urls_len == urls_len_last:
                     page = int(maxc)
@@ -471,8 +484,6 @@ def fmenu():
     print("[3] FTP crawler and vuln scan")
     print("[4] DNS brute")
     print("[5] Enable Tor/Proxy Support")
-    print("[6] Remote Honeypot Detection::::NOT IMPLEMENTED")
-    print("[7] TCP Scanner::::NOT IMPLEMENTED")
     print("[0] Exit\n")
     chce = input(":")
 
@@ -506,13 +517,6 @@ def fmenu():
     elif chce == '5':
         print(W + "")
         enable_proxy()
-
-    elif chce == '6':
-        det_Kippo()
-
-    elif chce == '7':
-        tcp_scan(ips, ports, randomize=True)
-
 
     elif chce == '0':
         print(R + "\n Exiting ...")
