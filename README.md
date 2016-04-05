@@ -14,6 +14,7 @@ This program is for finding and executing various vulnerabilities. It scavenges 
 + Extremely Large D0rk Target Lists
 + FTP Crawler
 + DNS BruteForcer
++ Python3 Asyncio based scanning
 
 ## What You Hold:
 
@@ -22,7 +23,7 @@ This program is for finding and executing various vulnerabilities. It scavenges 
 + Largest and most powerful d0rker online, 18k+d0rks searched over ~ Engines at once.
 + Free and Open /src/
 + CrossPlatform Python based toolkit
-+ Version 4.0.2c Released on 25th Jan 2016
++ Version 4.0.3 Released on 5th April 2016
 + Licensed under GPLv2
 + Tested on: Linux 4.3.1 Ubuntu/Debian, CentOS 6 (with some errors), Win7 (with some errors)
 
@@ -80,6 +81,8 @@ This program is for finding and executing various vulnerabilities. It scavenges 
 
 ## New To This Addition:
     ---To be Done --Partially implemented -Done
+    - Asyncio Dork Scanning method. Stage 1 Done
+    -- Asyncio Dorking Scanning Stage 2, Returning 15 seperate engines at once
     - Upgrade to Python3 from Python2
     --- Redo LFI/RFI attack method
     --- Automate scanning sites with findable admin pages and add to seperate list
