@@ -411,48 +411,37 @@ async def search(maxc):
             page = 0
             while page < int(maxc):
                 query = dork + "+site:" + site
-                results_web = 'http://www.bing.com/search?q=' + query + '&go=Submit+Query&qs=ds' \
-                              + 'ds&form=QBLH' + repr(page) + '&count=50'
+                futures=[]
                 loop = asyncio.get_event_loop()
-                future1 = loop.run_in_executor(None, requests.get, results_web)
-                page += 1
-                future2 = loop.run_in_executor(None, requests.get, results_web)
-                page += 1
-                future3 = loop.run_in_executor(None, requests.get, results_web)
-                page += 1
-                response1 = await future1
-                response2 = await future2
-                response3 = await future3
+                for i in range(3):
+                    results_web = 'http://www.bing.com/search?q=' +query+ '&go=Submit&first=' + str((page+i)*50+1) + '&count=50'
+                    futures.append(loop.run_in_executor(None, requests.get, results_web))
+                page += 3
                 stringreg = re.compile('(?<=href=")(.*?)(?=")')
-                finger1 = str(response1)
-                finger2 = str(response2)
-                finger3 = str(response3)
-                names1 = stringreg.findall(finger1)
-                names2 = stringreg.findall(finger2)
-                names3 = stringreg.findall(finger3)
-                try:
-                    for name in names1 or names2 or names3:
-                        if name not in urls:
-                            if re.search(r'\(', name) or re.search("<", name) or re.search("\A/",
-                             name) or re.search("\A(http://)\d", name):
-                                pass
-                            elif re.search(search_Ignore, name):
-                                pass
-                            elif re.search(site, name):
-                                urls.append(name)
-                    darklen = len(loaded_Dorks)
-                    percent = int((1.0 * dark / int(darklen)) * 100)
-                    urls_len = len(urls)
-                    sys.stdout.write(
-                        "\r\x1b[KSite: %s | Collected urls: %s | D0rks: %s/%s | Percent Done: %s | Current page no.: <%s> | Dork: %s" % (
-                            site, repr(urls_len), dark, darklen, repr(percent), repr(page), dork))
-                finally:
-                   sys.stdout.flush()
+                names=[]
+                for future in futures:
+                    names.extend(stringreg.findall((await future).text))
+
+                for name in names:
+                    if name not in urls:
+                        if re.search(r'\(', name) or re.search(r'<', name) or re.search(r'\A/',
+                         name) or re.search(r'\A(http://)\d', name):
+                            continue
+                        elif name.find(search_Ignore)>=0:
+                            continue
+                        elif name.find(site)>=0:
+                            urls.append(name)
+
+                darklen = len(loaded_Dorks)
+                percent = int((1.0 * dark / int(darklen)) * 100)
+                urls_len = len(urls)
+                sys.stdout.write(
+                    "\r\x1b[KSite: %s | Collected urls: %s | D0rks: %s/%s | Percent Done: %s | Current page no.: <%s> | Dork: %s" % (
+                    site, repr(urls_len), dark, darklen, repr(percent), repr(page), dork))
+                sys.stdout.flush()
                 if urls_len == urls_len_last:
                     page = int(maxc)
-                urls_len_last = len(urls)
-                pass
-            pass
+                urls_len_last = urls_len
     tmplist = []
     print("\n\n[+] URLS (unsorted): ", len(urls))
     for url in urls:
@@ -464,7 +453,7 @@ async def search(maxc):
                 tmplist.append(domain)
 
         except:
-            pass
+            continue
     print("[+] URLS (sorted)  : ", len(finallist))
     return finallist
 
