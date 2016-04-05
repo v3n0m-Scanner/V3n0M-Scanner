@@ -11,7 +11,7 @@
 #   - Add Proxy and Tor support back
 #   -- Recode admin page finder, go for asyncio based crawler.
 #   - Asyncio Dork Scanning method. Stage 1 Done,
-#   -- Asyncio Dorking Scanning Stage 2, Returning 15 seperate engines at once
+#   -- Asyncio Dork Scanning Stage 2, Returning 15 seperate engines at once
 #
 #                       This program has been based upon the smartd0rk3r and darkd0rker
 #                       It has been heavily edited, updated and improved upon by Novacygni
@@ -78,9 +78,9 @@ class Injthread(threading.Thread):
         self.check = False
 
 
-#Apoligies for this ugly section of code
-#It is just a placeholder
-#So dont worry, itll be replaced soon enough
+# Apoligies for this ugly section of code
+# It is just a placeholder
+# So dont worry, itll be replaced soon enough
 def classicinj(url):
     aug_url = url + "'"
     try:
@@ -336,11 +336,14 @@ def fscan():
     usearch = loop.run_until_complete(search(maxc))
     vulnscan()
 
+
 def det_Neph():
     print("")
 
+
 def det_Honeyd():
     print("")
+
 
 def det_Kippo():
     print("")
@@ -425,29 +428,27 @@ async def search(maxc):
             page = 0
             while page < int(maxc):
                 query = dork + "+site:" + site
-                futures=[]
+                futures = []
                 loop = asyncio.get_event_loop()
-
-                for i in range(4):
-                    results_web = "http://www.bing.com/search?q="+query+"&go=Submit&first="+str((page+i)*50+1)+"&count=50"
+                for i in range(3):
+                    results_web = "http://www.bing.com/search?q=" + query + "&go=Submit&first=" + str(
+                        (page + i) * 50 + 1) + "&count=50"
                     futures.append(loop.run_in_executor(None, ignoringGet, results_web))
-                page += 4
-
+                page += 3
                 stringreg = re.compile('(?<=href=")(.*?)(?=")')
                 names = []
                 for future in futures:
                     result = await future
                     names.extend(stringreg.findall(result))
-
                 for name in names:
                     if name not in urls:
-                        if re.search(r'\(', name) or re.search(r'<', name) or re.search(r'\A/',name) or re.search(r'\A(http://)\d', name):
+                        if re.search(r'\(', name) or re.search(r'<', name) or re.search(r'\A/', name) or re.search(
+                                r'\A(http://)\d', name):
                             continue
                         elif name.find(search_Ignore) >= 0:
                             continue
                         elif name.find(site) >= 0:
                             urls.append(name)
-
                 darklen = len(loaded_Dorks)
                 percent = int((1.0 * dark / int(darklen)) * 100)
                 urls_len = len(urls)
@@ -467,13 +468,10 @@ async def search(maxc):
             if domain not in tmplist and "=" in url:
                 finallist.append(url)
                 tmplist.append(domain)
-
         except:
             continue
     print("[+] URLS (sorted)  : ", len(finallist))
     return finallist
-
-
 
 
 def fmenu():
