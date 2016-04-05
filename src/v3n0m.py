@@ -16,15 +16,17 @@
 #                       but in no way is this the sole work of NovaCygni, and credit is due
 #                       to every person who has worked on this tool. Thanks people. NovaCygni
 
+
 try:
     import re, random, threading, socket, urllib.request, urllib.error, urllib.parse, http.cookiejar, subprocess, \
         time, sys, os, math, itertools, queue, asyncio, aiohttp, argparse, socks, httplib2, requests, codecs
     from signal import SIGINT, signal
     from codecs import lookup, register
+    from random import SystemRandom
 
 except:
     print(" please make sure you have all of the following modules: asyncio, aiohttp, codecs, requests")
-    print(" httplib2, signal, itertools, socket and queue ")
+    print(" httplib2, signal, itertools")
     print("Error a module was not found,  'sudo pip3 install <package name>' to install")
     exit()
 
@@ -33,7 +35,7 @@ except:
 def logo():
     print(R + "\n|----------------------------------------------------------------|")
     print("|     V3n0mScanner.py                                            |")
-    print("|     Release Date 01/02/2016  - Release Version V.4.0.2c        |")
+    print("|     Release Date 03/04/2016  - Release Version V.4.0.3         |")
     print("|         Socks4&5 Proxy Enabled Support                         |")
     print("|             " + B + "        NovaCygni  Architect    " + R + "                   |")
     print("|                    _____       _____                           |")
@@ -49,72 +51,6 @@ def logo():
 def killpid(signum=0, frame=0):
     print("\r\x1b[K")
     os.kill(os.getpid(), 9)
-
-
-def search(maxc):
-    urls = []
-    urls_len_last = 0
-    for site in sitearray:
-        dark = 0
-        for dork in loaded_Dorks:  # load dorks selected earlier to run checks with
-            dark += 1
-            page = 0
-            try:
-                while page < int(maxc):
-                    try:
-                        jar = http.cookiejar.FileCookieJar("cookies")
-                        query = dork + "+site:" + site
-                        results_web = 'http://www.bing.com/search?q=' + query + '&go=Submit+Query&qs=ds' \
-                                      + 'ds&form=QBLH' + repr(page) + '&count=50'
-                        request_web = urllib.request.Request(results_web)
-                        agent = random.choice(header)
-                        request_web.add_header = ('User-Agent', agent),("connection", "keep-alive")
-                        opener_web = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(jar))
-                        text = opener_web.open(request_web).read()
-                        decoder = text.decode('utf-8')
-                        stringreg = re.compile('(?<=href=")(.*?)(?=")')
-                        names = stringreg.findall(decoder)
-                        page += 1
-                        for name in names:
-                            if name not in urls:
-                                if re.search(r'\(', name) or re.search("<", name) or re.search("\A/",
-                                     name) or re.search("\A(http://)\d", name):
-                                    pass
-                                elif re.search(search_Ignore, name):
-                                    pass
-                                elif re.search(site, name):
-                                    urls.append(name)
-                        darklen = len(loaded_Dorks)
-                        percent = int((1.0 * dark / int(darklen)) * 100)
-                        urls_len = len(urls)
-                        sys.stdout.write(
-                                "\r\x1b[KSite: %s | Collected urls: %s | D0rks: %s/%s | Percent Done: %s | Current page no.: <%s> | Dork: %s" % (
-                                    site, repr(urls_len), dark, darklen, repr(percent), repr(page), dork))
-                        sys.stdout.flush()
-                        if urls_len == urls_len_last:
-                            page = int(maxc)
-                        urls_len_last = len(urls)
-                    except(
-                            KeyboardInterrupt,
-                            SystemExit):  # following except throws me connection debug info it it breaks
-                        raise
-            except(urllib.error.URLError, socket.gaierror, socket.error, socket.timeout):
-                pass
-    tmplist = []
-    print("\n\n[+] URLS (unsorted): ", len(urls))
-    for url in urls:
-        try:
-            host = url.split("/", 3)
-            domain = host[2]
-            if domain not in tmplist and "=" in url:
-                finallist.append(url)
-                tmplist.append(domain)
-
-        except:
-            pass
-    print("[+] URLS (sorted)  : ", len(finallist))
-    return finallist
-
 
 
 class Injthread(threading.Thread):
@@ -355,7 +291,6 @@ def fscan():
     global sitearray
     global loaded_Dorks
 
-
     threads = []
     finallist = []
     finallist2 = []
@@ -392,9 +327,18 @@ def fscan():
     print("Dorks           :", len(loaded_Dorks))
     print("Pages           :", maxc)
     print("Timeout         :", timeout)
-
-    usearch = search(maxc)
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(search(maxc))
     vulnscan()
+
+def det_Neph():
+    print("")
+
+def det_Honeyd():
+    print("")
+
+def det_Kippo():
+    print("")
 
 
 def vulnscan():
@@ -423,6 +367,110 @@ def vulnscan():
         fmenu()
 
 
+holder_ips = ["192.168.0.{}".format(i) for i in range(1, 255)]
+holder_ports = ["{}".format(i) for i in range(1, 36500)]
+ips = [holder_ips]
+ports = [holder_ports]
+
+
+def tcp_Scanner_run(tasks, *, loop=None):
+    if loop is None:
+        loop = asyncio.get_event_loop()
+        # waiting
+    return loop.run_until_complete(asyncio.wait(tasks))
+
+
+async def tcp_scanner(ip, port, loop=None):
+    fut = asyncio.open_connection(ip, port, loop=loop)
+    try:
+        await asyncio.wait_for(fut, timeout=0.5)
+        print("{}:{} Connected".format(ip, port))
+    except asyncio.TimeoutError:
+        pass
+    except Exception as exc:
+        print('Error {}:{} {}'.format(ip, port, exc))
+
+
+def tcp_scan(ips, ports, randomize=True):
+    loop = asyncio.get_event_loop()
+    if randomize:
+        rdev = SystemRandom()
+        ips = rdev.shuffle(ips)
+        ports = rdev.shuffle(ports)
+
+    tcp_Scanner_run(tcp_scanner(ip, port) for port in ports for ip in ips)
+
+
+async def search(maxc):
+    urls = []
+    urls_len_last = 0
+    for site in sitearray:
+        dark = 0
+        for dork in loaded_Dorks:
+            dark += 1
+            page = 0
+            while page < int(maxc):
+                query = dork + "+site:" + site
+                results_web = 'http://www.bing.com/search?q=' + query + '&go=Submit+Query&qs=ds' \
+                              + 'ds&form=QBLH' + repr(page) + '&count=50'
+                loop = asyncio.get_event_loop()
+                future1 = loop.run_in_executor(None, requests.get, results_web)
+                page += 1
+                future2 = loop.run_in_executor(None, requests.get, results_web)
+                page += 1
+                future3 = loop.run_in_executor(None, requests.get, results_web)
+                page += 1
+                response1 = await future1
+                response2 = await future2
+                response3 = await future3
+                stringreg = re.compile('(?<=href=")(.*?)(?=")')
+                finger1 = str(response1)
+                finger2 = str(response2)
+                finger3 = str(response3)
+                names1 = stringreg.findall(finger1)
+                names2 = stringreg.findall(finger2)
+                names3 = stringreg.findall(finger3)
+                try:
+                    for name in names1 or names2 or names3:
+                        if name not in urls:
+                            if re.search(r'\(', name) or re.search("<", name) or re.search("\A/",
+                             name) or re.search("\A(http://)\d", name):
+                                pass
+                            elif re.search(search_Ignore, name):
+                                pass
+                            elif re.search(site, name):
+                                urls.append(name)
+                    darklen = len(loaded_Dorks)
+                    percent = int((1.0 * dark / int(darklen)) * 100)
+                    urls_len = len(urls)
+                    sys.stdout.write(
+                        "\r\x1b[KSite: %s | Collected urls: %s | D0rks: %s/%s | Percent Done: %s | Current page no.: <%s> | Dork: %s" % (
+                            site, repr(urls_len), dark, darklen, repr(percent), repr(page), dork))
+                finally:
+                   sys.stdout.flush()
+                if urls_len == urls_len_last:
+                    page = int(maxc)
+                urls_len_last = len(urls)
+                pass
+            pass
+    tmplist = []
+    print("\n\n[+] URLS (unsorted): ", len(urls))
+    for url in urls:
+        try:
+            host = url.split("/", 3)
+            domain = host[2]
+            if domain not in tmplist and "=" in url:
+                finallist.append(url)
+                tmplist.append(domain)
+
+        except:
+            pass
+    print("[+] URLS (sorted)  : ", len(finallist))
+    return finallist
+
+
+
+
 def fmenu():
     global vuln
     vuln = []
@@ -434,6 +482,8 @@ def fmenu():
     print("[3] FTP crawler and vuln scan")
     print("[4] DNS brute")
     print("[5] Enable Tor/Proxy Support")
+    print("[6] Remote Honeypot Detection::::NOT IMPLEMENTED")
+    print("[7] TCP Scanner::::NOT IMPLEMENTED")
     print("[0] Exit\n")
     chce = input(":")
 
@@ -464,9 +514,16 @@ def fmenu():
                                     shell=True)
         dnsbrute.communicate()
 
-    if chce == '5':
+    elif chce == '5':
         print(W + "")
         enable_proxy()
+
+    elif chce == '6':
+        det_Kippo()
+
+    elif chce == '7':
+        tcp_scan(ips, ports, randomize=True)
+
 
     elif chce == '0':
         print(R + "\n Exiting ...")
@@ -490,21 +547,21 @@ args = parser.parse_args()
 
 
 def enable_proxy():
-    print ("Please select Proxy Type - Options = socks4, socks5 ")
+    print("Please select Proxy Type - Options = socks4, socks5 ")
     proxytype = input()
-    print (" Please enter Proxy IP address - ie. 127.0.0.66")
+    print(" Please enter Proxy IP address - ie. 127.0.0.66")
     proxyip = input()
-    print (" Please enter Proxy Port - ie. 1076")
+    print(" Please enter Proxy Port - ie. 1076")
     proxyport = input(int)
     if proxytype == "socks4":
         socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS4, proxyip, proxyport)
         socket.socket = socks.socksocket
-        print (" Socks 4 Proxy Support Enabled")
+        print(" Socks 4 Proxy Support Enabled")
         time.sleep(3)
     elif proxytype == "socks5":
         socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS5, proxyip, proxyport)
         socket.socket = socks.socksocket
-        print (" Socks 5 Proxy Support Enabled")
+        print(" Socks 5 Proxy Support Enabled")
         time.sleep(3)
     else:
         print("Error Unknown proxy type: " + str(proxytype))
@@ -512,6 +569,7 @@ def enable_proxy():
         socket.create_connection = enable_proxy
         socket.setdefaulttimeout(8)
         exit()
+
 
 # This is the updated MBCS Encoding Bypass for making MBCS encodings work on Linux - NovaCygni
 
@@ -524,6 +582,7 @@ except LookupError:
     def mbcs_bypass(name, encoding=ascii_encoding):
         if name == "mbcs":
             return encoding
+
 
     codecs.register(mbcs_bypass)
 
@@ -544,8 +603,6 @@ timeout = 8
 file = "/etc/passwd"
 socket.setdefaulttimeout(timeout)
 menu = True
-
-
 
 while True:
     fmenu()
