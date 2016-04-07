@@ -1,0 +1,1064 @@
+# This file is part of v3n0m
+# See LICENSE for license details.
+6.*.*.* : Aarmy Information Systems Center 
+21.*.*.* : US Defense Information Systems Agency 
+22.*.*.* : Defense Information Systems Agency 
+24.8. * @Home, USA 
+24.88. [Roadrunner, USA 
+24.112. [@Home, Canada 
+24.132. [A2000, Netherlands 
+24.188.*.* : Cablevisio Systems Corp (USA) 
+26.*.*.* : Defense Information Systems Agency 
+29.*.*.* : Defense Information Systems Agency 
+30.*.*.* : Defense Information Systems Agency 
+49.*.*.* : Joint Tactical Command 
+50.*.*.* : Joint Tactical Command 
+53.*.*.* DaimlerChrysler AG 
+55.*.*.* : Army National Guard Bureau 
+62.0.0.1 - 62.30.255.255 
+62.52.*.* : Commundo 
+62.52.*.* : Debitel 
+62.62.*.* : lahm (9 Online French) 
+62.69.140.* : AddCOM 
+62.96.*.* : I-net 
+62.137 * Freeserve, UK 
+62.150.*.* : bis 62.255.*.* T-Online 
+62.156.*.* : Erotik-Welt 
+62.157.*.* : 1 & 1 
+62.158. [T-Online, Germany 
+62.180.*.* : Planet Intercom 
+64.9. * Adelphia, USA 
+64.44. * Darwin Networks Community, USA 
+64.224.* : (FBI's honeypot) 
+64.225.* : (FBI's honeypot) 
+64.226.* : (FBI's honeypot) 
+80.*.*.* : lahm 
+81.*.*.* : lahm 
+128.4.0.0 : University of Delaware 
+128.8.0.0 : University of Maryland 
+128.10.0.0 : Purdue University 
+128.11.22.0 - 128.11.22.255 : Yahoo, Inc. 
+128.11.23.0 - 128.11.23.255 : Yahoo, Inc. 
+128.11.68.0 - 128.11.68.255 : Yahoo, Inc. (NETBLK-FOUR11DS559-68-19) 
+128.11.69.0 - 128.11.69.255 : Yahoo, Inc. (NETBLK-FOUR11DS216-69-19) 
+128.11.70.0 - 128.11.70.255 : Yahoo, Inc. (NETBLK-FOUR11DS698-70-19) 
+128.11.71.0 - 128.11.71.255 : Yahoo, Inc. (NETBLK-FOUR11DS699-71-20) 
+128.11.96.32 - 128.11.96.63 : FortuneCity Ltd. 
+128.36.0.0 Yale University (NET-YALE-NET) 
+128.37.0.0 : Army Yuma Proving Ground 
+128.38.0.0 Naval Surface Warfare Center (NET-NSWC-NET) 
+128.39.0.0 orwegian Telecommunications Administration (NET-NTANET) 
+128.40.0.0 University College London (NET-UCL-ETHERNET) 
+128.41.0.0 University College London (NET-CL-CS-SERVICE) 
+128.42.0.0 Rice University (NET-RICE-NET) 
+128.43.0.0 Defence Researc 
+128.47.*.* : Army Communications Electronics Command (NET-TACTNET) 
+128.50.*.* : Department of Defense (NET-COINS) 
+128.51.*.* : Department of Defense (NET-COINSTNET) 
+128.56.*.* : U.S. Naval Academy (NET-USNA-NET) 
+128.63.*.* : Army Ballistics Research Laboratory (NET-BRL-SUBNET) 
+128.80.*.* : Army Communications Electronics Command (CECOM) (NET-CECOMNET) 
+128.98.*.* : Defence Evaluation and Research Agency (NET-DERA-UK) 
+128.99.0.0 Northrop Grumman Corporation - Automation Sciences Laboratory (NET-NORTHROP-NET) 
+128.100.0.0 University of Toronto Computing and Communications (NET-TORONTO) 
+128.101.0.0 University of Minnesota (NET-UMN-NET) 
+128.102.0.0 : NASA Ames Research Center 
+128.103.0.0 Harvard University (NET-HARVA 
+128.149.0.0 : NASA Headquarters 
+128.150.0.0 National Science Foundation (NET-NSF-LAN) 
+128.151.0.0 University of Rochester (NET-UR-NET) 
+128.152.0.0 Hughes Electronics (NET- HAC-ENET) 
+128.153.0.0 Clarkson University (NET-CLARKSON) 
+128.154.*.* : NASA Wallops Flight Facility (NET-WFF-NET) 
+128.155.*.* : NASA Langley Research Center (NET-LARC-NET) 
+128.156.*.* : NASA Lewis Network Control Center (NET- LERC) 
+128.157.*.* : NASA Johnson Space Center (NET-JSC-NET) 
+128.158.*.* : NASA Ames Research Center (NET-MSFC-NET) 
+128.159.*.* : NASA Ames Research Center (NET-KSC-NET) 
+128.160.*.* : Naval Research Laboratory (NET- SSCNET) 
+128.161.*.* : NASA Ames Research Center (NET-NSN-NET) 
+128.183.*.* : NASA Goddard Space Flight Center (NET-GSFC) 
+128.190.0.0 : Army Belvoir Reasearch and Development Center 
+128.216.*.* : MacDill Air Force Base (NET-CC-PRNET) 
+128.217.*.* : NASA Kennedy Space Center (NET-NASA-KSC-OIS) 
+128.236.*.* : U.S. Air Force Academy (NET-USAFA-NET 
+129.11.0.0 : University of Leeds (NET-LEEDS) 
+129.12.0.0 : University of Kent at Canterbury (NET-UKC) 
+129.13.0.0 : University of Karlsruhe 
+129.48.0.0 : Wright-Patterson Air Force Base 
+129.50.0.0 : NASA Marshall Space Flight Center (NET-PSCN) 
+129.51.0.0 : Patrick Air Force Base (NET-NS) PAFB) 
+129.52.0.0 : Wright-Patterson Air Force Base 
+129.54.0.0 : Vandenberg Air Force Base 
+129.69.0.0 : University of Stuttgart (NET-NI-STG-NET) 
+129.70.0.0 : University of Bielefeld 
+129.73.*.* : Siemens 
+129.92.0.0 : Air Force Institute of Technology 
+129.99.0.0 : NASA Ames Research Center 
+129.139.0.0 : Army Armament Research Development and Engineering Center 
+129.163.0.0 : NASA/Johnson Space Center (NET-NASA-JSCSSE) 
+129.164.0.0 : NASA IVV (NET-E) NASA-IVV) 
+129.165.0.0 : NASA Goddard Space Flight Center (NET-NASA-GSFCSSE) 
+129.166.0.0 : NASA - John F. Kennedy Space Center (NET-NASA-JFKSSE) 
+129.167.0.0 : NASA Marshall Space Flight Center (NET-NASA-MSFCSSE) 
+129.168.0.0 : NASA Lewis Research Center (NET-NASA-LRCSSE) 
+129.187.0.0 : Leibniz-Rechenzentrum der Bayerischen Akademie 
+129.198.0.0 : Air Force Flight Test Center 
+129.209.0.0 : Army Ballistics Research Laboratory 
+129.217.0.0 : University of Dortmund 
+129.229.0.0 : U.S. Army Corps of Engineers 
+129.233.0.0 : Fraunhofer Institut f?r Produktionstechnik u. Automatisierung 
+129.251.0.0 : United States Air Force Academy 
+130.40.0.0 : NASA Johnson Space Center 
+130.75.0.0 : University of Hannover 
+130.112.0.0 : Netherlands Energy Research Foundation ECN 
+130.114.0.0 : Army Aberdeen Proving Ground Installation Support Activity (NET-APGNET) 
+130.115.0.0 : Erasmus University Rotterdam 
+130.123.0.0 : Massey University 
+130.133.0.0 : Freie Universitaet Berlin 
+130.165.0.0 : U.S.Army Corps of Engineers 
+130.167.0.0 : NASA Headquarters 
+130.183.0.0 : Max-Planck-Institut fur Plasmaphysik 
+130.211.0.* : UUNet 
+130.241.0.0 : Gothenburg University (NET-GU-NET) 
+130.247.0.0 : Boeing Military Aircraft 
+131.3.0.0 - 131.3.255.255 : Mather Air Force Base 
+131.6.0.0 : Langley Air Force Base 
+131.10.0.0 : Barksdale Air Force Base 
+131.17.0.0 : Sheppard Air Force Base 
+131.21.0.0 : Hahn Air Base (NET-HAHNNET) 
+131.22.0.0 : Keesler Air Force Base 
+131.25.0.0 : Patrick Air Force Base 
+131.35.0.0 : Fairchild Air Force Base 
+131.36.0.0 : Yokota Air Base 
+131.37.0.0 : Elmendorf Air Force Base 
+131.38.0.0 : Hickam Air Force Base 
+131.40.0.0 : Bergstrom Air Force Base 
+131.44.0.0 : Randolph Air Force Base 
+131.47.0.0 : Andersen Air Force Base 
+131.50.0.0 : Davis-Monthan Air Force Base 
+131.54.0.0 : Air Force Concentrator Network 
+131.61.0.0 : McConnell Air Force Base 
+131.62.0.0 : Norton Air Force Base 
+131.92.0.0 : Army Information Systems Command - Aberdeen 
+131.110.0.0 : NASA/Michoud Assembly Facility 
+131.121.0.0 : United States Naval Academy 
+131.122.0.0 : United States Naval Academy 
+131.155. [Eindhoven University, Netherlands 
+131.169.0.0 : Deutsches Elektronen Synchrotron 
+131.174. * Nijmegen University, Netherlands 
+131.176.0.0 : European Space Operations Center 
+131.182.0.0 : NASA Headquarters 
+131.188.0.0 : University Erlangen Nuremberg 
+131.211.0.* : UUNet 
+131.220.0.0 : University of Bonn 
+131.236.0.0 : University College, Australian Defense Force Academy 
+131.246.0.0 : University Kaiserslautern 
+132.68. [Technological Institute, Israel 
+132.95.0.0 - 132.108.0.0 ??? 
+134.2.0.0 : Universitaet Tuebingen 
+134.11.0.0 : The Pentagon (NET-PENTNET) 
+134.12.0.0 : NASA Ames Research Center 
+134.21.0.0 : University of Fribourg 
+134.78.0.0 : Army Information Systems Command-ATCOM 
+134.80.0.0 : Army Information Systems Command 
+134.91.*.* : Uni Duisburg 
+134.95.*.* : Uni K?ln 
+134.118.0.0 : NASA/Johnson Space Center 
+134.147.0.0 : Ruhr-Universitaet Bochum 
+134.155.0.0 : University of Mannheim 
+134.164.0.0 : Army Engineer Waterways Experiment Station 
+134.176.0.0 : Universitaet Giessen 
+134.194.0.0 : U.S. Army Aberdeen Test Center 
+134.229.0.0 : Navy Regional Data Automation Center 
+134.230.0.0 : Navy Regional Data Automation Center 
+134.240.0.0 : U.S. Military Academy 
+134.245.0.0 : Universitaet Kiel 
+136.156.0.0 : European Centre for Medium-Range Weather Forecasts 
+136.172.0.0 : Deutsches Klimarechenzentrum 
+136.178.0.0 : NASA Research Network 
+136.199.0.0 : Universitaet Trier 
+137.1.0.0 : Whiteman Air Force Base 
+137.2.0.0 : George Air Force Base 
+137.3.0.0 : Little Rock Air Force Base 
+137.5.0.0 : Air Force Concentrator Network 
+137.6.0.0 : Air Force Concentrator Network 
+137.12.0.0 : Air Force Concentrator Network 
+137.223.0.0 : Siemens Nixdorf Information Systems 
+137.226.0.0 : Aachen University of Technology 
+137.240.0.0 : Air Force Materiel Command 
+137.242.0.0 : Air Force Logistics Command 
+137.250.0.0 : University of Augsburg (NET-AUX) 
+137.251.0.0 : Fraunhofer-Institut f?r Arbeitswirtschaft und Organisation 
+138.13.0.0 : Air Force Systems Command 
+138.27.0.0 : Army Information Systems Command 
+138.30.0.0 : National Space Development Agency of Japan 
+138.61.0.0 : Mainz 
+138.76.0.0 : NASA Headquarters 
+138.115.0.0 : NASA Information and Electronic Systems Laboratory 
+138.136.0.0 - 138.136.255.255 : Navy Computers and Telecommunications Station 
+138.137.0.0 : Navy Regional Data Automation Center 
+138.139.0.0 : Marine Corps Air Station 
+138.140.0.0 : Navy Regional Data Automation Center 
+138.141.0.0 : Navy Regional Data Automation Center 
+138.142.0.0 : Navy Regional Data Automation Center 
+138.143.0.0 : Navy Regional Data Automation Center 
+138.156.0.0 : Marine Corps Central Design & Prog. Activity 
+138.158.0.0 : Marine Corps Central Design & Prog. Activity 
+138.168.0.0 : Marine Corps Central Design & Prog. Activity 
+138.193.0.0 : NASA/Yellow Creek 
+139.2.0.0 : University of Dortmund 
+139.4.0.0 : EUnet Deutschland GmbH 
+139.5.0.0 : University of Dortmund 
+139.6.0.0 : Fachhochschule K?ln 
+139.7.0.0 : Mannesmann Mobilfunk GmbH 
+139.8.0.0 : S & P Media GmbH 
+139.10.0.0 - 139.16.0.0 : University of Dortmund (NETBLK-UNIDO11) 
+139.10.0.0 - 139.16.0.0 : University of Dortmund (NETBLK-UNIDO11) 
+139.10.0.0 - 139.16.0.0 : University of Dortmund (NETBLK-UNIDO11) 
+139.10.0.0 - 139.16.0.0 : University of Dortmund (NETBLK-UNIDO11) 
+139.10.0.0 - 139.16.0.0 : University of Dortmund (NETBLK-UNIDO11) 
+139.10.0.0 - 139.16.0.0 : University of Dortmund (NETBLK-UNIDO11) 
+139.10.0.0 - 139.16.0.0 : University of Dortmund (NETBLK-UNIDO11) 
+139.11.0.0 : Universit?t der Bundeswehr Hamburg 
+139.13.0.0 : Fachhochschule Wilhelmshaven 
+139.14.0.0 : Universit?t Koblenz-Landau 
+139.15.0.0 - 139.15.255.255 : Robert Bosch GmbH 
+139.17.0.0 : Geo-Forschungs-Zentrum Potsdam 
+139.18.0.0 : Universit?t Leipzig (NET-UNILE-LAN) 
+139.19.0.0 : Max-Planck-Institut f?r Informatik 
+139.20.0.0 - 139.20.255.255 : European Regional Internet Registry/RIPE NCC 
+139.20.0.0 - 139.29.255.255 : European Regional Internet Registry/RIPE NCC 
+139.21.0.0 : Siemens Business Services 
+139.22.0.0 : Siemens Business Services 
+139.23.0.0 : Siemens Business Services 
+139.25.0.0 : Siemens Business Services 
+139.27.0.0 - 139.27.255.255 : Thyssen Stahl AG 
+139.28.0.0 : Bremer Vulkan AG 
+139.30.0.0 : University of Rostock 
+139.75.0.0 : Alfred Wegener Institute for Polar and Marine Research 
+139.88.0.0 : NASA Lewis Research Center 
+139.142.*.* : Front end portal of a security network filtering hundreds of client subscription IPs. If you find a vulnerable pub, IIS, SQL, or *nix -- LEAVE IT ALONE 
+139.161.0.0 : Army Information Systems Command 
+139.169.0.0 : NASA/Johnson Space Center 
+139.229.0.0 : NASA Ames Research Center 
+140.139.0.0 : HQ US Army Medical Research and Development Command 
+140.239.81.184 - 140.239.81.191 : Marine Biological Laboratory 
+141.0.0.0 - 141.255.255.255 : Fast nur Deutsche Firmen 
+144.99.0.0 United States Army Information Systems Command (NET-CRLSLBKS-NET) 
+144.109.0.0 Army Information Systems Command (NET-NCMBRLNDNET) 
+144.143.0.0 Headquarters, Third United States Army (NET-AC2IS) 
+144.144.0.0 Headquarters, Third United States Army (NET-AC2IS1) 
+144.146.0.0 Commander, Army Information Systems Center (NET-FTIRWIN1 ) 
+144.147.0.0 Commander, Army Information Systems Center (NET-FTIRWIN2 ) 
+144.192.0.0 United States Army Information Services Command-Campbell (NET-CAMPBELL-GW1) 
+144.232. * Sprintlink, USA 
+144.233.0.0 Defense Intelligence Agency (NET-DODIIS1) 
+144.234.0.0 Defense Intelligence Agency (NET-DODIIS2) 
+144.235.0.0 Defense Intelligence Agency (NET-DODIIS3) 
+144.236.0.0 Defense Intelligence Agency (NET-DODIIS4) 
+144.237.0.0 Defense Intelligence Agency (NET-DODIIS5) 
+144.238.0.0 Defense Intelligence Agency (NET-DODIIS6) 
+144.239.0.0 Defense Intelligence Agency (NET-DODIIS7) 
+144.240.0.0 Defense Intelligence Agency (NET-DODIIS 
+144.241.0.0 Defense Intelligence Agency (NET-DODIIS9) 
+144.242.0.0 Defense Intelligence Agency (NET-DODIIS10) 
+144.247.0.0 SUPSHIP, Groton, U.S.N. (NET-SOSGNET) 
+144.249.0.0 Air Products and Chemicals Incorporated (NET-APCI-NET) 
+144.252.0.0 U.S. Army LABCOM (NET-LABCOM-ETDL) 
+145.0.0.0 - 145.255.255.255 : Niederlande, Frankreich und Deutschland 
+147.103.0.0 : Army Information Systems Software Center 
+147.104.0.0 : Army Information Systems Software Center 
+147.164.0.0 : Army Information Systems Command 
+147.165.0.0 : Army Information Systems Command 
+147.198.0.0 : Army Information Systems Command 
+147.199.0.0 : Army Information Systems Command 
+147.238.0.0 : Army Information Systems Command 
+147.240.0.0 : US Army Tank-Automotive Command 
+147.251. [ContacTel, Czech Republic 
+149.201.0.0 : Fachhochschule Aachen (NET-HAC-LAN) 
+149.202.0.0 - 149.202.255.255 : Siemens Nixdorf Informationssysteme AG 
+149.202.0.0 - 149.204.255.255 : European Regional Internet Registry/RIPE NCC 
+149.203.0.0 - 149.203.255.255 : Medizinische Akademie Magdeburg 
+149.204.0.0 - 149.204.255.255 : Alcanet International Deutschland GmbH 
+149.205.0.0 : FH Merseburg 
+149.206.0.0 - 149.206.255.255 : Thyssen Stahl AG 
+149.206.0.0 - 149.251.255.255 : European Regional Internet Registry/RIPE NCC 
+149.207.0.0 : Telefunken Systemtechnik Ulm 
+149.211.0.0 - 149.211.255.255 : Thyssen Stahl AG 
+149.212.0.0 : Siemens-Nixdorf Informationssystemer A/S 
+149.216.0.0 - 149.216.255.255 : Degussa AG 
+149.217.0.0 : Max-Planck-Institut f?r Kernphysik 
+149.218.0.0 : Hirschmann GmbH & Co 
+149.219.0.0 : Westdeutscher Rundfunk Koeln 
+149.220.0.0 : Forschungszentrum Rossendorf 
+149.221.0.0 : Rheinisch Bergische Presse-Data GmbH 
+149.222.0.0 - 149.222.255.255 : Fachhochschule Kiel 
+149.232.0.0 - 149.232.255.255 : Quantum Software GmbH 
+149.233.0.0 : Lahmeyer International GmbH 
+149.234.0.0 - 149.234.255.255 : Schering AG Berlin 
+149.235.0.0 : iXOS Software GmbH 
+149.236.0.0 : Bruker Analytische Messtechnik GmbH 
+149.237.0.0 - 149.237.255.255 : Wiechers & Partner Datentechnik GmbH 
+149.238.0.0 - 149.238.255.255 : ZF Friedrichshafen AG 
+149.239.0.0 - 149.239.255.255 : European Regional Internet Registry/RIPE NCC 
+149.240.0.0 - 149.240.255.255 : Carl Schenk AG 
+149.242.0.0 - 149.242.255.255 : Koerber AG 
+149.243.0.0 : ERNO Raumfahrttechnik 
+149.244.0.0 : Knorr-Bremse AG, M?nchen 
+149.246.0.0 : Siemens AG, OeN NKE A2 
+149.248.0.0 : TA Triumph-Adler AG 
+149.250.0.0 : Hoechst AG, Frankfurt 
+149.251.0.0 : Electricite de France - Direction Etudes Recherche 
+149.252.0.0 : USDOE, NV Operations Office 
+149.253.0.0 : DIRM/ITD 
+149.254.0.0 - 149.254.255.255 : Mercury Personal Communications, Ltd. 
+149.99.130.*- 149.99.150.* : Kanadischer Provider 
+145.253.*.* : Arcor 
+149.225.*.* : MSN 
+150.144.0.0 : NASA Goodard Space Flight Center 
+150.149.0.0 : Army Information Systems Command 
+150.197.0.0 : Korea Aerospace Research Institute 
+151.3.0.0 - 151.3.255.255 IUnet (NET-IUNET-BNET3) 
+152.203.*.* : Compuserv 
+152.166.*.* : AOL 
+152.170.*.* : AOL 
+152.172.*.* : AOL 
+152.205.*.* : AOL 
+152.207.*.* : AOL 
+153.92.0.0 : Deutsches Forschungsnetz 
+153.93.0.0 : Bundesanstalt f?r Wasserbau 
+153.94.0.0 : Transtec AG 
+153.96.0.0 : Fraunhofer Institut f?r Informations- und Datenverarbeitung IITB 
+153.97.0.0 : Fraunhofer Institut f?r Informations- und Datenverarbeitung IITB 
+153.98.0.0 : Eurocontrol Karlsruhe 
+153.99.0.0 - 153.99.255.255 : European Regional Internet Registry/RIPE NCC 
+153.100.0.0 : RWE Energie AG 
+153.101.0.0 - 153.101.255.255 : European Regional Internet Registry/RIPE NCC 
+155.7.*.* : American Forces Information (NET-AFISHQ-NET1) 
+155.8.*.* : U.S. ArmyFort Gordon (NET-GORDON-NET5) 
+155.9.*.* : United States Army Information Systems Command (NET-LWOOD-NET2) 
+155.74.*.* : PEO STAMIS (NET-CEAP2) 
+155.75.*.* : US Army Corps of Engineers (NET-CEAP3) 
+155.76.*.* : PEO STAMIS (NET-CEAP4) 
+155.77.*.* : PEO STAMIS (NET-CEAP5) 
+155.78.*.* : PEO STAMIS (NET-CEAP6) 
+155.79.*.* : US Army Corps of Engineers (NET-CEAP7) 
+155.80.*.* : PEO STAMIS (NET-CEAP 
+155.81.*.* : PEO STAMIS (NET-CEAP9) 
+155.82.*.* : PEO STAMIS (NET-CEAP10) 
+155.83.*.* : US Army Corps of Enginers (NET-CEAP11) 
+155.84.*.* : PEO STAMIS (NET-CEAP12) 
+155.85.*.* : PEO STAMIS (NET-CEAP13) 
+155.86.*.* : US Army Corps of Engineers (NET-CEAP14) 
+155.87.*.* : PEO STAMIS (NET-CEAP15) 
+155.88.*.* : PEO STAMIS (NET-CEAP16) 
+155.178.*.* : Federal Aviation Administration (NET-FAA) 
+155.213.*.* : USAISC Fort Benning (NET-FTBENNNET3 
+155.214.*.* : Director of Information Management (NET-CARSON-TCACC ) 
+155.215.*.* : USAISC-FT DRUM (NET-DRUM-TCACCIS) 
+155.216.*.* : TCACCIS Project Management Office (NET-FTDIX-TCACCI) 
+155.217.*.* : Directorate of Information Management (NET- EUSTIS-EMH1) 
+155.218.*.* : USAISC (NET-WVA-EMH2) 
+155.219.*.* : DOIM/USAISC Fort Sill (NET-SILL-TCACCIS) 
+155.220.*.* : USAISC-DOIM (NET-FTKNOX-NET4) 
+155.221.*.* : USAISC-Ft Ord (NET-FTORD-NET2) 
+156.*.*.* : US Courts, Siemens, State of Minnesota 
+158.3.0.0 : U.S. Army TACOM 
+158.8.0.0 : US Army Soldier Support Center 
+158.12.0.0 : US Army Harry Diamond Laboratories 
+159.1.0.0 : Washington State Dept. of State and Ind. 
+159.206.0.0 : Air Canada 
+160.46.0.0 : BMW AG, Berlin production plant 
+160.47.0.0 : BMW AG, Dingolfingen production plant 
+160.48.0.0 : BMW AG, Landshut production plant 
+160.49.0.0 : BMW AG, Munich production plant 
+160.50.0.0 : BMW AG, Munich research and admin. sites 
+160.51.0.0 : BMW AG, Regensburg production plant 
+160.52.0.0 : BMW AG, Steyr production plant 
+160.132.0.0 : US Army Recruiting Command 
+163.12.0.0 : Navy Aviation Supply Office 
+164.59.0.0 - 164.60.0.0 : Schering AG (NETBLK-TBLK-SCHERING) 
+164.60.0.0 : Schering AG (NET-SCHERING2) 
+164.61.0.0 : Kaufhof Holding AG, Koeln 
+164.224.0.0 : Secretary of the Navy (NET-SECNAV-LAN) 
+164.225.0.0 : U.S. Army Intelligence and Security Command 
+164.231.0.0 : Military Sealift Command 
+169.*.*.* windows default 
+169.120.*.* : J. P. Morgan & Co (USA) 
+171.224.*.* : AOL Deutschland 
+171.223.*.* : ??? 
+172.16. [XS4ALL, Netherlands 
+172.128-180.*.* : America Online, Inc. 
+192.114.63.* : Netvision 
+192.168. [private network 
+193.*.*.* : lahm 
+193.79.178.* : UUNet 
+193.101.100.*:Siemens 
+193.122.199.*:SONNET (Flatrate) (TOT) 
+193.159.*.* : T-Online 
+193.189.224.* :Siemens 
+193.189.231.* :Siemens 
+193.190.215.*:SONNET (Flatrate) (TOT) 
+194.8.193.* : Net-Cologne 
+194.8.197.* : Net-Cologne 
+194.31.232.* : DE-CIX 
+194.90.0.* : Netvision 
+194.100. * MBinternet, Finland 
+194.121.59.* : Microsoft 
+194.174.230.*:Siemens 
+194.179.124.*:Microsoft 
+194.203.122.*:UUNet 
+194.230.*.* : PLUSNET AG (Schweitz) 
+195.3.*.* : T-Online 
+195.7.49.* : Siemens 
+195.10.* : (FBI's honeypot) 
+195.40.101.* : Siemens 
+195.66. * Sonera, Netherlands 
+195.86. * Chello/Capacity, Netherlands 
+195.93.*.* : AOL Deutschland 
+195.130. [Pandora, Belgium 
+195.186.*.* : Bluewin (Schweiz) 
+195.238.160.* :SONNET (Flatrate) (TOT) 
+195.238.164.* :SONNET (Flatrate) (TOT) 
+195.238.163.* :SONNET (Flatrate) (TOT) 
+195.238.174.*:SONNET (Flatrate) (TOT) 
+199.31.0.0 - 199.31.255.0 : US Army Information Systems Command 
+199.203.4.* : Netvision 
+199.203.230.*:Microsoft 
+204.34.138.0 GSI (NET-GSI-13 
+204.34.139.0 HQ, JFMO Korea, Headquarters (NET-JFMO-KOREA) 
+204.34.140.0 DISA D75 (NET-TPOCNET) 
+204.34.141.0 U. S. Naval Air Facility, Atsugi Japan (NET-NAFATSUGI01) 
+204.34.142.0 Naval Enlisted Personnel Management Center (NET-DMCCNHUB) 
+204.34.143.0 Afloat Training Group Pacific (NET-ATGPAC) 
+204.34.144.0 HQ Special Operations Command - Europe (HQ SOCEUR) (NET-SCCIS) 
+204.34.145.0 Commander Naval Base Pearl Harbor (NET-CNBGW) 
+204.34.147.0 NAVSEA Information Management Improvement Program (NET-TII-NET) 
+204.34.148.0 Q112 (NET-Q112) 
+204.34.149.0 Ctr. for Info. Sys.Security,CounterMeasures (NET-ASSIST-149) 
+204.34.150.0 Resource Consultants, Inc. (NET-RCIADP) 
+204.34.151.0 Personnel Support Activity, San Diego (NET-PSASD) 
+204.34.152.0 NAVAL AIR FACILITY, ADAK (NET-LEVEL2ADAK) 
+204.34.153.0 NAVSEA Logistics Command Detachment (NET-NSLC) 
+204.34.154.0 PEARL HARBOR NAVAL SHIPYARD (NET-PHNSY-NET1) 
+204.34.155.0 PEARL HARBOR NAVAL SHIPYARD (NET-PHNSY-NET2) 
+204.34.156.0 Defense Photography School (NET-DPHSCH) 
+204.34.157.0 - 204.34.160.0 Defense Information School (NETBLK-DINFOSNET1) 
+204.34.161.0 Naval Air Systems Command (NET-PMA-222) 
+204.34.162.0 Puget Sound Naval Shipyard (NET-PSNS-RMC) 
+204.34.163.0 Joint Precision Strike Demonstration (NET-JPSD-EH) 
+204.34.164.0 Naval Pacific Meteorology and Ocean (NET-NPMOCW-cool.gif 
+204.34.165.0 Joint Precision Strike Demonstration (NET-JPSD-ES) 
+204.34.167.0 USAF (NET-DMSHELPDESK) 
+204.34.168.0 Commander (NET-THIRDNCB-LAN) 
+204.34.169.0 Naval Air Warfare Center (NET-MSAICN) 
+204.34.170.0 Naval Air Systems Command (NET-NADEP) 
+204.34.171.0 NAVSTA SUPPLY DEPARTMENT (NET-GTMOSUPPLY) 
+204.34.173.0 SUBMEPP Activity (NET-SUBMEPP-NET5) 
+204.34.174.0 COMMANDER TASK FORCE 74 YOKOSUKA JAPAN (NET-SEVENFLEET) 
+204.34.176.0 DISA-PAC,IPC-GUAM (NET-DIPCGU) 
+204.34.177.0 Satellite Production Test Center (NET-SPTC-CS) 
+204.34.181.0 940 Air Refueling Wing (ARW) (NET-ARW940-NET) 
+204.34.182.0 Defense Megacenter Warner Robins (NET-WR) 
+204.34.183.0 GCCS Support Facility (NET-GCCS-SUPPFAC) 
+204.34.184.0 Nav Air Tech Serv Facility-Detachment (NET-NATSFDET-WNY) 
+204.34.185.0 NAVAL SUPPORT FACILITY, DIEGO GARCIA (NET-NSFDG) 
+204.34.186.0 Defense Logistics Agency - Europe (NET-EURNET2) 
+204.34.187.0 NAVMASSO (NET-SNAP1-MATSGMERIDIAN) 
+204.34.188.0 Commander-In-Chief, US Pacific Fleet (NET-CPF-LAN1) 
+204.34.189.0 Defense MegaCenter - St Louis (NET-DMC-S-DFAS) 
+204.34.190.0 NAVMASSO (NET-HMX1MCAFQUANVA-SNAP) 
+204.34.192.0 HQ SOCEUR (NET-U-SIN) 
+204.34.193.0 Second Marine Expeditionary Force (NET-U22-NIP) 
+204.34.194.0 Second Marine Expeditionary Force (NET-U24-NIP) 
+204.34.195.0 Second Marine Expeditionary Force (NET-U26-NIP) 
+204.34.196.0 NAVCOMTELSTAWASHDC (NET-MISSI) 
+204.34.197.0 INFORMATION SYSTEMS TECHNOLOGY CENTER (ISTC) (NET-ISTC) 
+204.34.198.0 Naval Observatory Detachment, Colorado (NET-FALCON1) 
+204.34.199.0 NAVILCODETMECH (NET-NAVILCOMECH1) 
+204.34.200.0 Navy Environmental Preventive Medicine (NET-NEHC-BURNED) 
+204.34.201.0 Port Hueneme Division, Naval Surf (NET-PHDNSWC) 
+204.34.202.0 Naval Facilities Engineering Housing (NET-NAVFAC) 
+204.34.203.0 NAVSEA Logistics Command Detachment (NET-NSLC2) 
+204.34.204.0 Naval Air Warfare Center (NET-OTT-NET) 
+204.34.205.0 Portsmouth Naval Shipyard (NET-PORTSNET) 
+204.34.206.0 INFORMATION SYSTEMS TECHNOLOGY CENTER (ISTC) (NET-ISTCTC) 
+204.34.208.0 - 204.34.210.0 Military Sealift Command Pacific (NETBLK-NETBLK-USNSMERCY204) 
+204.34.211.0 USAF Academy (NET-USAFA-GW-NET) 
+204.34.212.0 3rd Combat Service Support (NET-CSSG3-NIP) 
+204.34.213.0 1st Radio Battalion (NET-RDBN1-NIP) 
+204.34.214.0 OASD (Health Affairs) (NET-TRICARE) 
+204.34.215.0 Second Marine Expeditionary Force (NET-MEU26-SIP) 
+204.34.216.0 1st Marine Air Wing (NET-ASE1-NIP) 
+204.34.217.0 SA-ALC/LTE (NET-ITACNET) 
+204.34.218.0 3rd Marine (NET-MAR3-NIP) 
+204.34.219.0 Communications and Electronics (NET-MCBH-NIP) 
+204.34.220.0 G-6 Operations, III MEF (NET-DFW5BR-NIP) 
+204.34.221.0 G-6 Operations, III MEF (NET-DFW1-NIP) 
+204.34.222.0 G-6 Operations, III MEF (NET-DFW2-NIP) 
+204.34.223.0 G-6 Operations, III MEF (NET-DFW3-NIP) 
+204.34.224.0 G-6 Operations, III MEF (NET-DFW4-NIP) 
+204.34.225.0 Joint Interoperability Test Command (NET-JITC-RTD216.25.* <-- REAL DANGEROUS 
+205.96-103.* : 
+205.97.*.* : (FBI's honeypot) 
+205.98.*.* : (FBI's honeypot) 
+205.99.*.* : (FBI's honeypot) 
+205.100.*.* : (FBI's honeypot) 
+205.101.*.* : (FBI's honeypot) 
+205.102.*.* : (FBI's honeypot) 
+205.103.*.* : (FBI's honeypot) 
+206.167. [Sherbrooke University, Canada 
+207.30.*.* : (FBI's honeypot) 
+207.31.*.* : (FBI's honeypot) 
+207.32.*.* : (FBI's honeypot) 
+207.33.*.* : (FBI's honeypot) 
+207.34.*.* : (FBI's honeypot) 
+207.35.*.* : (FBI's honeypot) 
+207.36.*.* : (FBI's honeypot) 
+207.37.*.* : (FBI's honeypot) 
+207.38.*.* : (FBI's honeypot) 
+207.39.*.* : (FBI's honeypot) 
+207.40.*.* : (FBI's honeypot) 
+207.41.*.* : (FBI's honeypot) 
+207.42.*.* : (FBI's honeypot) 
+207.43.*.* : (FBI's honeypot) 
+207.44.*.* : (FBI's honeypot) 
+207.45.*.* : (FBI's honeypot) 
+207.46.*.* : (FBI's honeypot) 
+207.47.*.* : (FBI's honeypot) 
+207.48.*.* : (FBI's honeypot) 
+207.49.*.* : (FBI's honeypot) 
+207.50.*.* : (FBI's honeypot) 
+207.51.*.* : (FBI's honeypot) 
+207.52.*.* : (FBI's honeypot) 
+207.53.*.* : (FBI's honeypot) 
+207.54.*.* : (FBI's honeypot) 
+207.55.*.* : (FBI's honeypot) 
+207.56.*.* : (FBI's honeypot) 
+207.57.*.* : (FBI's honeypot) 
+207.58.*.* : (FBI's honeypot) 
+207.59.*.* : (FBI's honeypot) 
+207.60.*.* : (FBI's honeypot) The Internet Access Company (NETBLK-TIAC-BLK) 
+207.61.*.* : FBI Linux servers used to trap scanners 
+207.62.*.* : (FBI's honeypot) 
+207.63.*.* : (FBI's honeypot) 
+207.64.*.* : (FBI's honeypot) 
+207.65.*.* : (FBI's honeypot) 
+207.66.*.* : (FBI's honeypot) 
+207.67.*.* : (FBI's honeypot) 
+207.68.*.* : (FBI's honeypot) 
+207.69.*.* : (FBI's honeypot) 
+207.70.*.* : (FBI's honeypot) 
+207.71.*.* : (FBI's honeypot) 
+207.72.*.* : (FBI's honeypot) 
+207.73.*.* : (FBI's honeypot) 
+207.74.*.* : (FBI's honeypot) 
+207.75.*.* : (FBI's honeypot) 
+207.76.*.* : (FBI's honeypot) 
+207.77.*.* : (FBI's honeypot) 
+207.78.*.* : (FBI's honeypot) 
+207.79.*.* : (FBI's honeypot) 
+207.80.*.* : (FBI's honeypot) 
+207.81.*.* : (FBI's honeypot) 
+207.82.*.* : (FBI's honeypot) 
+207.83.*.* : (FBI's honeypot) 
+207.84.*.* : (FBI's honeypot) 
+207.85.*.* : (FBI's honeypot) 
+207.86.*.* : (FBI's honeypot) 
+207.87.*.* : (FBI's honeypot) 
+207.88.*.* : (FBI's honeypot) 
+207.89.*.* : (FBI's honeypot) 
+207.90.*.* : (FBI's honeypot) 
+207.91.*.* : (FBI's honeypot) 
+207.92.*.* : (FBI's honeypot) 
+207.93.*.* : (FBI's honeypot) 
+207.94.*.* : (FBI's honeypot) 
+207.95.*.* : (FBI's honeypot) 
+207.96.*.* : (FBI's honeypot) 
+207.97.*.* : (FBI's honeypot) 
+207.98.*.* : (FBI's honeypot) 
+207.99.*.* : (FBI's honeypot) 
+207.100.*.* : (FBI's honeypot) 
+207.101.*.* : (FBI's honeypot) 
+207.102.*.* : (FBI's honeypot) 
+207.103.*.* : (FBI's honeypot) 
+207.104.*.* : (FBI's honeypot) 
+207.105.*.* : (FBI's honeypot) 
+207.106.*.* : (FBI's honeypot) 
+207.107.*.* : (FBI's honeypot) 
+207.108.*.* : (FBI's honeypot) 
+207.109.*.* : (FBI's honeypot) 
+207.110.*.* : (FBI's honeypot) 
+207.111.*.* : (FBI's honeypot) 
+207.112.*.* : (FBI's honeypot) 
+207.113.*.* : (FBI's honeypot) 
+207.114.*.* : (FBI's honeypot) 
+207.115.*.* : (FBI's honeypot) 
+207.116.*.* : (FBI's honeypot) 
+207.117.*.* : (FBI's honeypot) 
+207.118.*.* : (FBI's honeypot) 
+207.119.*.* : (FBI's honeypot) 
+207.120.*.* : (FBI's honeypot) 
+207.60.0.0 - 207.60.255.0 The Internet Access Company (NETBLK-TIAC-BLK) 
+207.60.2.128 - 207.60.2.255 Abacus Technology (NETBLK-TIAC-ABACUSTC) 
+207.60.3.0 - 207.60.3.127 Mass Electric Construction Co. (NETBLK-TIAC-MECC56-2) 
+207.60.3.128 - 207.60.3.255 Peabody Proberties Inc (NETBLK-TIAC-PEABISDN1) 
+207.60.4.0 - 207.60.4.127 Northern Electronics (NETBLK-TIAC-NORTHERELEC) 
+207.60.4.128 - 207.60.4.255 Posternak, Blankstein & Lund (NETBLK-TIAC-PBL56) 
+207.60.5.64 - 207.60.5.127 Woodard & Curran (NETBLK-TIAC-WCPORT) 
+207.60.5.192 - 207.60.5.255 On Line Services (NETBLK-TIAC-ONLINES-1) 
+207.60.6.0 - 207.60.6.63 The 400 Group (NETBLK-TIAC-400T1) 
+207.60.6.64 - 207.60.6.127 RD Hunter and Company (NETBLK-TIAC-RDHUNTER2) 
+207.60.6.128 - 207.60.6.191 Louis Berger and Associates (NETBLK-TIAC-BERISDN) 
+207.60.6.192 - 207.60.6.255 Ross-Simons (NETBLK-TIAC-ROSIMONS) 
+207.60.7.0 - 207.60.7.63 Eastern Cambridge Savings Bank (NETBLK-TIAC-ECSB) 
+207.60.7.64 - 207.60.7.127 Greater Lawrence Community Action Committee (NETBLK-TIAC-GLCAC12 
+207.60.7.128 - 207.60.7.191 Data Electronic Devices, Inc (NETBLK-TIAC-DEDI) 
+207.60.8.0 - 207.60.8.255 Sippican (NETBLK-TIAC-SIPPICAN) 
+207.60.9.0 - 207.60.9.31 Alps Sportswear Mfg Co (NETBLK-TIAC-ALPISDN) 
+207.60.9.32 - 207.60.9.63 Escher Group Ltd (NETBLK-TIAC-ESCHERT1-2) 
+207.60.9.64 - 207.60.9.95 West Suburban Elder (NETBLK-TIAC-WESTISDN) 
+207.60.9.96 - 207.60.9.127 Central Bank (NETBLK-TIAC-CENTRALT) 
+207.60.9.128 - 207.60.9.159 Danick Systems (NETBLK-TIAC-DCS12 
+207.60.9.160 - 207.60.9.191 Alps Sportswear Mfg CO (NETBLK-TIAC-ALPSISDN) 
+207.60.9.192 - 207.60.9.223 BSCC (NETBLK-TIAC-BSCC) 
+207.60.13.16 - 207.60.13.23 Patrons Insurance Group (NETBLK-TIAC-PATRON99) 
+207.60.13.40 - 207.60.13.47 Athera Technologies (NETBLK-TIAC-ATHERA1) 
+207.60.13.48 - 207.60.13.55 Service Edge Partners Inc (NETBLK-TIAC-SERVISDN-2) 
+207.60.13.56 - 207.60.13.63 Massachusetts Credit Union League (NETBLK-TIAC-MCUL384) 
+207.60.13.64 - 207.60.13.71 SierraCom (NETBLK-TIAC-SIER384K) 
+207.60.13.72 - 207.60.13.79 AI/ FOCS (NETBLK-TIAC-AIFOC384) 
+207.60.13.80 - 207.60.13.87 Extreme soft (NETBLK-TIAC-DOWNIE) 
+207.60.13.96 - 207.60.13.103 Eaton Seo Corp (NETBLK-TIAC-EATON) 
+207.60.13.112 - 207.60.13.119 C. White (NETBLK-TIAC-PETROL) 
+207.60.13.120 - 207.60.13.127 Athera (NETBLK-TIAC-ATHERA-2) 
+207.60.13.128 - 207.60.13.135 Entropic Systems, INC (NETBLK-TIAC-ENTRO12 
+207.60.13.136 - 207.60.13.143 Wood Product Manufactureds Associates (NETBLK-TIAC-WOOD56) 
+207.60.13.160 - 207.60.13.167 Jamestown Distribution (NETBLK-TIAC-JAMES56) 
+207.60.13.168 - 207.60.13.175 C&M Computers (NETBLK-TIAC-CRAMB-2 ) 
+207.60.13.176 - 207.60.13.183 ABC Used Auto Parts (NETBLK-TIAC-ABC56K) 
+207.60.13.184 - 207.60.13.191 Tomas Weldon (NETBLK-TIAC-TWELDON) 
+207.60.13.192 - 207.60.13.199 Tage Inns (NETBLK-TIAC-TAGE) 
+207.60.13.200 - 207.60.13.207 Control Module Inc (NETBLK-TIAC-CMOD56K) 
+207.60.13.208 - 207.60.13.215 Hyper Crawler Information Systems (NETBLK-TIAC-HCRAWLER) 
+207.60.13.216 - 207.60.13.223 Eastern Bearings (NETBLK-TIAC-EB56K) 
+207.60.13.224 - 207.60.13.231 North Shore Data Services (NETBLK-TIAC-NSDS) 
+207.60.13.232 - 207.60.13.239 Mas New Hampshire (NETBLK-TIAC-MASISDN) 
+207.60.14.0 - 207.60.14.255 J. A. Webster (NETBLK-TIAC-JAWFRT1-2) 
+207.60.15.0 - 207.60.15.127 Trilogic (NETBLK-TIAC-LOGIC384) 
+207.60.16.0 - 207.60.16.255 Area 54 (NETBLK-TIAC-AREA54) 
+207.60.18.0 - 207.60.18.63 Vested Development Inc (NETBLK-TIAC-VESTEDT-2) 
+207.60.18.64 - 207.60.18.127 Conventures (NETBLK-TIAC-CON56-2) 
+207.60.21.0 - 207.60.21.255 Don Law Company (NETBLK-TIAC-DONLAWT1-2) 
+207.60.22.0 - 207.60.22.255 Advanced Microsensors (NETBLK-TIAC-AMS384) 
+207.60.28.0 - 207.60.28.63 Applied Business Center (NETBLK-TIAC-APP56K-2) 
+207.60.28.64 - 207.60.28.127 Color and Design Exchange (NETBLK-TIAC-COLOR-2) 
+207.60.36.8 - 207.60.36.15 Shaun McCusker (NETBLK-TIAC-FINLAY) 
+207.60.36.16 - 207.60.36.23 Town of Framingham (NETBLK-TIAC-INFOSERV) 
+207.60.36.24 - 207.60.36.31 AB Software (NETBLK-TIAC-ABSADSL) 
+207.60.36.32 - 207.60.36.39 Seabass Dreams Too Much, Inc (NETBLK-TIAC-SEABASS) 
+207.60.36.40 - 207.60.36.47 Next Ticketing (NETBLK-TIAC-NT256T1-2) 
+207.60.36.48 - 207.60.36.55 Dulsi (NETBLK-TIAC-DULSI) 
+207.60.36.56 - 207.60.36.63 The Internet Access Company (NETBLK-TIAC-PTIMJ) 
+207.60.36.64 - 207.60.36.71 Maguire Group (NETBLK-TIAC-MAGISDN) 
+207.60.36.72 - 207.60.36.79 Cogenex (NETBLK-TIAC-COGENEX-2) 
+207.60.36.88 - 207.60.36.95 AKNDC (NETBLK-TIAC-AKNDC) 
+207.60.36.96 - 207.60.36.103 McGovern election commitee (NETBLK-TIAC-MCGOVDED) 
+207.60.36.104 - 207.60.36.111 Digital Equipment Corp (NETBLK-TIAC-DECISDN) 
+207.60.36.112 - 207.60.36.119 PTR - Precision Technologies (NETBLK-TIAC-PTREB) 
+207.60.36.120 - 207.60.36.127 Extech (NETBLK-TIAC-EXTECH-2) 
+207.60.36.128 - 207.60.36.135 Manfreddi Architects (NETBLK-TIAC-MANELKUS-2) 
+207.60.36.144 - 207.60.36.151 Parent Naffah (NETBLK-TIAC-PARENT) 
+207.60.36.152 - 207.60.36.159 Darling Dolls Inc (NETBLK-TIAC-EMARTEL) 
+207.60.36.160 - 207.60.36.167 Wright Communications (NETBLK-TIAC-WRIGHT56) 
+207.60.36.168 - 207.60.36.175 Principle Software (NETBLK-TIAC-PRINCIPL) 
+207.60.36.176 - 207.60.36.183 Chris Pet Store (NETBLK-TIAC-CPETDIAL) 
+207.60.36.184 - 207.60.36.191 Fifteen Lilies (NETBLK-TIAC-GREYROSE) 
+207.60.36.192 - 207.60.36.199 All-Com Technologies (NETBLK-TIAC-ALLCOM1-2) 
+207.60.37.0 - 207.60.37.31 Cardio Thoracic Surgical Associates, P. A. (NETBLK-TIAC-HEARTDOC) 
+207.60.37.32 - 207.60.37.63 Preferred Fixtures Inc (NETBLK-TIAC-PREFMFG-2) 
+207.60.37.64 - 207.60.37.95 Apple and Eve Distributors (NETBLK-TIAC-AEDED99) 
+207.60.37.96 - 207.60.37.127 Nelson Copy Supply (NETBLK-TIAC-NCOP56K) 
+207.60.37.128 - 207.60.37.159 Boston Optical Fiber (NETBLK-TIAC-BOSISDN) 
+207.60.37.192 - 207.60.37.223 Fantasia&Company (NETBLK-TIAC-FANTCOMP) 
+207.60.41.0 - 207.60.41.255 Infoactive (NETBLK-TIAC-INFOACT-2) 
+207.60.48.0 - 207.60.48.255 Curry College (NETBLK-TIAC-CURRY) 
+207.60.62.32 - 207.60.62.63 Alternate Power Source (NETBLK-TIAC-APSIS) 
+207.60.62.64 - 207.60.62.95 Keystone Howley-White (NETBLK-TIAC-KEYSTONE-2) 
+207.60.62.128 - 207.60.62.159 Bridgehead Associates LTD (NETBLK-TIAC-BRIDG384) 
+207.60.62.160 - 207.60.62.191 County Supply (NETBLK-TIAC-CS384) 
+207.60.62.192 - 207.60.62.223 NH Board of Nursing (NETBLK-TIAC-NHBNDED99) 
+207.60.64.0 - 207.60.64.63 Diversified Wireless Technologies (NETBLK-TIAC-LAUCHAM) 
+207.60.64.64 - 207.60.64.127 Phytera (NETBLK-TIAC-PHYTERA1) 
+207.60.66.0 - 207.60.66.15 The Network Connection (NETBLK-TIAC-TNC56) 
+207.60.66.16 - 207.60.66.31 Young Refrigeration (NETBLK-TIAC-YRDED135) 
+207.60.66.32 - 207.60.66.47 Vision Appraisal Technology (NETBLK-TIAC-VISIONT1) 
+207.60.66.48 - 207.60.66.63 EffNet Inc (NETBLK-TIAC-EFFNETT1) 
+207.60.66.64 - 207.60.66.79 Entropic Systems Inc (NETBLK-TIAC-ENTRO128-3) 
+207.60.66.80 - 207.60.66.95 Finley Properties (NETBLK-TIAC-FPDED135) 
+207.60.66.96 - 207.60.66.111 Nancy Plowman Associates (NETBLK-TIAC-NPAISDN) 
+207.60.66.112 - 207.60.66.127 Northeast Financial Strategies (NETBLK-TIAC-NFSISDN) 
+207.60.66.128 - 207.60.66.143 Textnology Corp (NETBLK-TIAC-TEXTC0RP) 
+207.60.66.144 - 207.60.66.159 Groton Neochem LLC (NETBLK-TIAC-NEOCHEM) 
+207.60.66.160 - 207.60.66.175 Tab Computers (NETBLK-TIAC-TCSI3) 
+207.60.66.176 - 207.60.66.191 Patrons Insurance (NETBLK-TIAC-PATRON99-2) 
+207.60.66.192 - 207.60.66.207 Chair City Web (NETBLK-TIAC-CHAIR56K) 
+207.60.66.208 - 207.60.66.223 Radex, Inc. (NETBLK-TIAC-RADEXINC ) 
+207.60.66.224 - 207.60.66.239 Robert Austein (NETBLK-TIAC-HACTRN) 
+207.60.66.240 - 207.60.66.255 Hologic Inc. (NETBLK-TIAC-HOLOGIC3) 
+207.60.71.64 - 207.60.71.127 K-Tech International Inc. (NETBLK-TIAC-KTECH) 
+207.60.71.128 - 207.60.71.191 Pan Communications (NETBLK-TIAC-PANCOM-2) 
+207.60.71.192 - 207.60.71.255 New England College of Finance (NETBLK-TIAC-NECF56K) 
+207.60.75.128 - 207.60.75.255 Absolve Technology (NETBLK-TIAC-ABSOLVE-2) 
+207.60.78.0 - 207.60.78.127 Extech (NETBLK-TIAC-EXTECH) 
+207.60.78.128 - 207.60.78.255 The Insight Group (NETBLK-TIAC-MFIA) 
+207.60.83.0 - 207.60.83.255 JLM Technologies (NETBLK-TIAC-JLMISDN) 
+207.60.84.0 - 207.60.84.255 Strategic Solutions (NETBLK-TIAC-STRATSOL-2) 
+207.60.94.0 - 207.60.94.15 McWorks (NETBLK-TIAC-MCWORKSS) 
+207.60.94.32 - 207.60.94.47 Rooney RealEstate (NETBLK-TIAC-ROONEY56) 
+207.60.94.48 - 207.60.94.63 Joseph Limo Service (NETBLK-TIAC-JOLIMO56) 
+207.60.94.64 - 207.60.94.79 The Portico Group (NETBLK-TIAC-PORT56K) 
+207.60.94.80 - 207.60.94.95 Event Travel Management Inc (NETBLK-TIAC-EVENT384) 
+207.60.94.96 - 207.60.94.111 Intellitech International (NETBLK-TIAC-IIDED99) 
+207.60.94.128 - 207.60.94.143 Orion Partners (NETBLK-TIAC-ORION56) 
+207.60.94.144 - 207.60.94.159 Rainbow Software Solution (NETBLK-TIAC-RAIN99) 
+207.60.94.160 - 207.60.94.175 Grason Stadler Inc (NETBLK-TIAC-GRASON56) 
+207.60.94.192 - 207.60.94.207 Donnegan System (NETBLK-TIAC-DYST384-2) 
+207.60.95.1 - 207.60.95.255 The Iprax Corp. (NETBLK-TIAC-IPRAX56K) 
+207.60.102.0 - 207.60.102.63 Coporate IT (NETBLK-TIAC-CIT) 
+207.60.102.64 - 207.60.102.127 Putnam Technologies (NETBLK-TIAC-PUTTECH) 
+207.60.102.128 - 207.60.102.191 Sycamore Networks, Inc (NETBLK-TIAC-SYCAISDN) 
+207.60.102.192 - 207.60.102.255 Bostek (NETBLK-TIAC-BOSTEK) 
+207.60.103.128 - 207.60.103.255 Louis Berger and Associates (NETBLK-TIAC-BERGISDN) 
+207.60.104.128 - 207.60.104.191 Hanson Data Systems (NETBLK-TIAC-HHANSON) 
+207.60.106.128 - 207.60.106.255 Giganet Inc. (NETBLK-TIAC-GIGANET-3) 
+207.60.107.0 - 207.60.107.255 Roll Systems (NETBLK-TIAC-ROLLISDN) 
+207.60.108.8 - 207.60.108.15 InternetQA (NETBLK-TIAC-EBENNETT) 
+207.60.111.0 - 207.60.111.31 Reading Cooperative Bank (NETBLK-TIAC-READ56K) 
+207.60.111.32 - 207.60.111.63 Edco collaborative (NETBLK-TIAC-EDCOT1) 
+207.60.111.64 - 207.60.111.95 DTC Communications Inc (NETBLK-TIAC-DTCCOM2) 
+207.60.111.96 - 207.60.111.127 Mike Line (NETBLK-TIAC-MLINE ) 
+207.60.111.128 - 207.60.111.159 The Steppingstone Foundation (NETBLK-TIAC-STEP56) 
+207.60.111.160 - 207.60.111.191 Caton Connector (NETBLK-TIAC-CATON118K) 
+207.60.111.192 - 207.60.111.223 Refron, Inc (NETBLK-TIAC-REFRON1 ) 
+207.60.111.224 - 207.60.111.255 Dolabany Comm Group (NETBLK-TIAC-DCGDED99) 
+207.60.112.0 - 207.60.112.255 
+207.60.116.0 - 207.60.116.255 
+207.60.122.16 - 207.60.122.23 
+207.60.122.24 - 207.60.122.31 
+207.60.122.32 - 207.60.122.39 
+207.60.122.40 - 207.60.122.47 
+207.60.122.48 - 207.60.122.55 
+207.60.122.56 - 207.60.122.63 
+207.60.122.64 - 207.60.122.71 
+207.60.122.72 - 207.60.122.79 
+207.60.122.80 - 207.60.122.87 
+207.60.122.88 - 207.60.122.95 
+207.60.122.96 - 207.60.122.103 
+207.60.122.104 - 207.60.122.111 
+207.60.127.0 
+207.60.128.0 - 207.60.128.255 
+207.60.129.0 - 207.60.129.255 
+207.60.129.64 - 207.60.129.127 
+207.60.129.128 - 207.60.129.191 
+207.60.129.192 - 207.60.129.255 
+207.205. * Earthlink, USA 
+207.226.*.* : Mobilcom 
+208.171. [Computer Lynx, USA 
+209.35.* : (FBI's honeypot) 
+212.28.*.* : Agri (Schweiz) 
+212.35.*.* : DiaX (Schweiz) 
+212.46. [Chello, Netherlands 
+212.56.107.22 : (FBI's honeypot) 
+212.61. * IAEhv, Netherlands 
+212.64 [Casema, Netherlands 
+212.81.*.* : Mobilcom 
+212.83. [Chello, Netherlands 
+212.92. [Chello, Netherlands 
+212.120. * @Home, Netherlands 
+212.123. [Pandora, Belgium] 
+212.127. [Sonera, Netherlands 
+212.136.74.* : UUNet 
+212.136.77.* : UUNet 
+212.136.128.*:UUNet 
+212.136.129.*:UUNet 
+212.142. [Chello, Netherlands 
+212.153.255.*:UUNet 
+212.159.0.2 : (FBI's honeypot) 
+212.159.0.2 : (FBI's honeypot) 
+212.159.1.1 : (FBI's honeypot) 
+212.159.1.4 : (FBI's honeypot) 
+212.159.1.5 : (FBI's honeypot) 
+212.159.33.56 : (FBI's honeypot) 
+212.159.40.211 : (FBI's honeypot) 
+212.159.41.173 : (FBI's honeypot) 
+212.159.1.1 
+212.159.1.4 
+212.159.1.5 
+212.159.0.2 
+212.159.1.1 
+212.159.1.4 
+212.159.1.5 
+212.159.33.56 
+212.159.40.211 
+212.159.41.173 
+212.159.0.2 
+212.159.1.1 
+212.159.1.4 
+212.159.1.5 
+212.172.*.* : Nacamar 
+212.177.114.*:UUNet 
+212.181.*.* : 1 & 1 
+212.186. [Chello, Austria] 
+212.187. [Chello, Netherlands 
+212.202.*.* : Germany Net 
+212.204 [@Home, Netherlands 
+212.254.*.* : Sunrise (Schweiz) 
+213.2. ? 
+213.3. * Bluewin, Germany 
+213.4. * Telefonica, Spain 
+213.5. * Altec, Greece 
+213.6. * PPPool, Germany 
+213.7. ? 
+213.8. ? 
+213.9. * Webtris Online Games, Germany 
+213.10. * Planet Internet, Netherlands 
+213.11. ? 
+213.12. ? 
+213.13. ? 
+213.14. ? 
+213.15. ? 
+213.16. * L'Outremere, France 
+213.17. * Casema, Netherlands 
+213.18. ? 
+213.19. * World Online, France 
+213.20. ? 
+213.21. ? 
+213.22. ? 
+213.23. * Mannesman Arcor, Germany 
+213.24. * IZHCom, Russia 
+213.25. ? 
+213.26. ? 
+213.27. ? 
+213.28. ? 
+213.29. ? 
+213.30. * Netc, Spain 
+213.31. ? 
+213.32. ? 
+213.33. * Enter Telekom, Austria 
+213.34. * Kennisnet, Netherlands 
+213.35. * 24Hours, Netherlands 
+213.36. * LibertySurf, France 
+213.37. ? 
+213.38. * Internet Network Services, UK 
+213.39. ? 
+213.40. ? 
+213.41. * Colt, France 
+213.42. * Emirates Telecom Corporation 
+213.43. ? 
+213.44. * Club Internet, France 
+213.45. ? 
+213.46. [Chello, Netherlands 
+213.47. ? 
+213.48. ? 
+213.49. ? 
+213.50. * Sonera, Finland 
+213.51. [@Home, Netherlands 
+213.52. * OneNet S.L., Spain 
+213.53. * UUNET, Netherlands 
+213.54. * TiscaliNet, Germany 
+213.55. ? 
+213.56. * D'Ol?ane, France 
+213.57. ? 
+213.58. ? 
+213.59. * RTComm.ru 
+213.60. ? 
+213.61. * Colt, Germany 
+213.62. ? 
+213.63. * JazzNet, Protugal 
+213.64. [Telia, Sweden] 
+213.65. ? 
+213.66. ? 
+213.67. ? 
+213.68. ? 
+213.69. ? 
+213.70. ? 
+213.71. ? 
+213.72. ? 
+213.73. ? 
+213.74. ? 
+213.75. * Planet Internet, Netherlands 
+213.76. ? 
+213.77. ? 
+213.78. ? 
+213.79. ? 
+213.80. ? 
+213.81. ? 
+213.82. ? 
+213.83. ? 
+213.84. * XS4ALL, Netherlands 
+213.85. ? 
+213.86. ? 
+213.87. ? 
+213.88. ? 
+213.89. ? 
+213.90. * Netway Communications, Austria 
+213.91. * France Teaser 
+213.92. ? 
+213.93. * Chello, Netherlands 
+213.94. ? 
+213.95. ? 
+213.96. ? 
+213.97. ? 
+213.98. ? 
+213.99. ? 
+213.100. * The Swedish IP Network 
+213.101. ? 
+213.102. ? 
+213.103. ? 
+213.104. ? 
+213.105. * NTL, UK 
+213.106. ? 
+213.107. ? 
+213.108. * Business Online, UK 
+213.109. ? 
+213.110. ? 
+213.111. ? 
+213.112. ? 
+213.113. ? 
+213.114. ? 
+213.115. ? 
+213.116. * UUNET, Denmark 
+213.117. ? 
+213.118. ? 
+213.119. ? 
+213.120. * BTClick, UK 
+213.121. ? 
+213.122. ? 
+213.123. * OnMail, UK 
+213.124. ? 
+213.125. ? 
+213.126. ? 
+213.127. ? 
+213.128. ? 
+213.129. * UUNET, Denmark 
+213.130. * Farlep Internet, Ukraine 
+213.131. * Moscow State University, Russia 
+213.132. ? 
+213.133. * Spinn, Denmark 
+213.134. * Nextra, Hungary 
+213.135. * Intersaar, Germany 
+213.136. ? 
+213.137. ? 
+213.138. ? 
+213.139. * Easynet, Spain 
+213.140. ? 
+213.141. * JazzNet, Portugal 
+213.142. * RSL COM, Spain 
+213.143. ? 
+213.144. * TelemaX, Germany 
+213.145. ? 
+213.146. * Werft 22, Germany 
+213.147. * Sybcom, Germany 
+213.148. * NOC Communication InterNet, Russia 
+213.149. * Strona Gl?wna, Poland 
+213.150. * IT Austria 
+213.151. ? 
+213.152. * INTERSAT S.A., Greece 
+213.153. ? 
+213.154. * On:Line Finance, UK 
+213.155. ? 
+213.156. * Pine Internet, Netherlands 
+213.157. * HEAG MediaNet, Germany 
+213.158. * St. Petersburg Web, Russia 
+213.159. ? 
+213.160. * Compoint, Germany 
+213.161. * KKS Online, Slovenia 
+213.162. ? 
+213.163. * VIVENDI Telecom, Hungary 
+213.164. * Colt, Austria 
+213.165. ? 
+213.166. * Band-X-Routed, UK 
+213.167. ? 
+213.168. * EESTI Telefon, Estonia 
+213.169. * Cabinet IT, Finland 
+213.170. * Knowtion.net 
+213.171. ? 
+213.172. * ComSet, Russia 
+213.173. * Yendor.net 
+213.174. * Bulgarian Industrial Association 
+213.175. ? 
+213.176. ? 
+213.177. ? 
+213.178. * Bressem, Germany 
+213.179. ? 
+213.180. * Delfi, Estonia 
+213.181. ? 
+213.182. * SpeedCom, USA 
+213.183. * Netplace Telematic, Germany 
+213.184. * Warmia and Mazury University, Poland 
+213.185. ? 
+213.186. ? 
+213.187. * Eastlink, Germany 
+213.188. * WEBONLINE, Norway 
+213.189. ? 
+213.190. ? 
+213.191. * trans-it AG, Germany 
+213.192. ? 
+213.193. * Multimania, France 
+213.194. * Telfort, Netherlands 
+213.195. ? 
+213.196. * CyberComm Internet BV, Netherlands 
+213.197. [Concepts ICT, Netherlands 
+213.198. ? 
+213.199. * Telexis, Italy 
+213.200. * Basel Kommunikation, Germany 
+213.201. ? 
+213.202. ? 
+213.203. ? 
+213.204. * UNO Communications, Italy 
+213.205. * WorldOnline, Italy 
+213.206. * Intensive Networks, UK 
+213.207. * Bevelander, Netherlands 
+213.208. ? 
+213.209. ? 
+213.210. ? 
+213.211. ? 
+213.212. ? 
+213.213. * Infinito, Italy 
+213.214. ? 
+213.215. ? 
+213.216. * Vistec, Germany 
+213.217. * Augsburg, Germany 
+213.218. ? 
+213.219. ? 
+213.220. ? 
+213.221. ? 
+213.222. ? 
+213.223. ? 
+213.224. [Pandora, Belgium] 
+213.225. * Eti.at 
+213.226. ? 
+213.227. * supercable Andalucia, spain 
+213.228. * Louis, Motorradseiten, Germany 
+213.229. ? 
+213.230. ? 
+213.231. ? 
+213.232. * ADA-NET, Turkey 
+213.233. ? 
+213.234. * CATalunya Neutral Internet eXchange (CATNIX), Spain 
+213.235. ? 
+213.236. ? 
+213.237. * WorldOnline, Denmark 
+213.238. ? 
+213.239. ? 
+213.240. * EUnet, Yugoslavia 
+213.241. * Polbox, Poland 
+213.242. ? 
+213.243. ? 
+213.244. ? 
+216.25.* : REAL DANGEROUS 
+216.247.* : REAL DANGEROUS 
+216.248.*.* 
+217.6.*.* : 
