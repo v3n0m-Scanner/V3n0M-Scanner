@@ -225,7 +225,7 @@ if len(argv) == 1:
     parser.print_help()
     exit()
 
-signal.signal(signal.SIGINT, killpid)
+
 queueLock = Lock()
 IPList = []
 threads = []
@@ -270,8 +270,6 @@ while threadID <= maxthreads:
 with Timer():
     while not workQueue.empty():
         pass
-
-    exitFlag = 1
 
     for t in threads:
         t.join()
