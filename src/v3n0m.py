@@ -432,11 +432,11 @@ async def search(pages_pulled_as_one):
                 query = dork + "+site:" + site
                 futures = []
                 loop = asyncio.get_event_loop()
-                for i in range(3):
+                for i in range(4):
                     results_web = "http://www.bing.com/search?q=" + query + "&go=Submit&first=" + str(
                         (page + i) * 50 + 1) + "&count=50"
                     futures.append(loop.run_in_executor(None, ignoringGet, results_web))
-                page += 3
+                page += 4
                 stringreg = re.compile('(?<=href=")(.*?)(?=")')
                 names = []
                 for future in futures:
