@@ -1,5 +1,7 @@
 ![v3n0m Scanner](http://i.imgur.com/A96CipT.png "V3n0M-Scanner")
-V3n0M runs on Python3
+
+Current Version: Version V.4.0.4 
+
 [Live Project - All features fully working in Python3.5]
 
 V3n0M is a free and open source scanner. Evolved from baltazar's scanner, it has adapted several new features that improve fuctionality and usability. It is __mostly__ experimental software.
@@ -23,7 +25,7 @@ This program is for finding and executing various vulnerabilities. It scavenges 
 + Largest and most powerful d0rker online, 18k+d0rks searched over ~ Engines at once.
 + Free and Open /src/
 + CrossPlatform Python based toolkit
-+ Version 4.0.3 Released on 5th April 2016
++ Version 4.0.4 Released on 7th April 2016
 + Licensed under GPLv2
 + Tested on: Linux 4.3.1 Ubuntu/Debian, CentOS 6 (with some errors), Win7 (with some errors)
 
