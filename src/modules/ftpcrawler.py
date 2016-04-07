@@ -274,7 +274,7 @@ with Timer():
     for t in threads:
         t.join()
 
-print("\r\x1b[K\n [*] All threads complete, " + str(len(FTPs)) + " IPs found. Starting Vuln Scan..")
+print("\r\x1b[K\n [*] All threads complete, " + str(len(FTPs)) + " IPs found.. Starting Vuln Scan..")
 
 if FTPs:
     vulnscan(headers)
