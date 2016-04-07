@@ -1,6 +1,6 @@
 ![v3n0m Scanner](http://i.imgur.com/A96CipT.png "V3n0M-Scanner")
 V3n0M runs on Python3
-[Live Project - All features fully working again and in Python3
+[Live Project - All features fully working in Python3.5]
 
 V3n0M is a free and open source scanner. Evolved from baltazar's scanner, it has adapted several new features that improve fuctionality and usability. It is __mostly__ experimental software.
 
