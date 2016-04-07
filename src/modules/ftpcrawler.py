@@ -16,12 +16,7 @@ except:
     print("Error a module was not found,  'sudo pip3 install <package name>' to install")
     exit()
 
-import argparse
 import ftplib
-import queue
-import random
-import signal
-import time
 from ftplib import FTP
 from os import getpid, kill, path
 from sys import argv, stdout

@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: latin-1 -*-
 #              --- To be Done     --Partially implemented     -Done
-# V3n0MScanner.py - V.4.0.3
+# V3n0MScanner.py - V.4.0.4
 #   -- Redo entire search engine function to run 100 checks per engine at once
 #   - Fixed All Side Modules > adminfinder, dnsbrute, ftpcrawler
 #   --- Re-Add LFI/RFI options
