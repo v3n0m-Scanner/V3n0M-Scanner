@@ -2,7 +2,19 @@
 # This file is part of v3n0m
 # See LICENSE for license details.
 
-# !/usr/bin/python
+
+try:
+    import re, random, threading, socket, urllib.request, urllib.error, urllib.parse, http.cookiejar, subprocess, \
+        time, sys, os, math, itertools, queue, asyncio, aiohttp, argparse, socks, httplib2, requests, codecs
+    from signal import SIGINT, signal
+    from codecs import lookup, register
+    from random import SystemRandom
+
+except:
+    print(" please make sure you have all of the following modules: asyncio, aiohttp, codecs, requests")
+    print(" httplib2, signal, itertools")
+    print("Error a module was not found,  'sudo pip3 install <package name>' to install")
+    exit()
 
 import argparse
 import ftplib
@@ -15,7 +27,8 @@ from os import getpid, kill, path
 from sys import argv, stdout
 from threading import Thread, Lock
 
-msf_Vulns = str(line.rsplit('\n') for line in open("modules/metasploit-vulns.txt", 'r'))
+msf_Vulns = [line.strip() for line in open("modules/metasploit-vulns.txt", 'r')]
+honeypot_ranges = str(line.rsplit('\n') for line in open("modules/honeypot_ranges.txt", 'r'))
 
 
 class myThread(Thread):
@@ -41,13 +54,13 @@ class Timer:
         if minutes > 0:
             if hours > 0:
                 print(" [*] Time elapsed " + str(hours) + " hours, " + str(minutes) + " minutes and " + str(
-                        seconds) + " seconds at " + str(round(len(IPList) / taken, 2)) + " scans per second.")
+                    seconds) + " seconds at " + str(round(len(IPList) / taken, 2)) + " scans per second.")
             else:
                 print(" [*] Time elapsed " + str(minutes) + " minutes and " + str(seconds) + " seconds at " + str(
-                        round(len(IPList) / taken, 2)) + " scans per second.")
+                    round(len(IPList) / taken, 2)) + " scans per second.")
         else:
             print(" [*] Time elapsed " + str(seconds) + " seconds at " + str(
-                    round(len(IPList) / taken, 2)) + " scans per second.")
+                round(len(IPList) / taken, 2)) + " scans per second.")
 
 
 class Printer:
@@ -106,20 +119,24 @@ def ftpscan(threadName, q):
             livelog = " [>] Trying " + str(progdone) + "/" + str(len(IPList)) + " " + data
             Printer(livelog)
             try:
-                connection = FTP(data, timeout=2)
+                connection = FTP(data, timeout=3)
                 wlcmMsg = connection.getwelcome()
-                wlcmMsg2 = wlcmMsg.split('\n', 1)[0]
+                wlcmMsg2 = str(wlcmMsg.split('\n', 1)[0])
                 loginftp = True
                 FTPs.append(data)
                 FCheck = False
                 iphead = str(data) + "%" + str(wlcmMsg2)
                 headers.append(str(iphead))
-                print("\r\x1b[K [*] Deb-1 Found FTP @ " + O + str(data) + B + "  >  " + str(wlcmMsg2))
+                tagget = str(wlcmMsg2) in msf_Vulns
+                if tagget >=0:
+                    vulns_got = str("True")
+                else:
+                    vulns_got = str("False")
+                print("\r\x1b[K [*] Found FTP @ " + O + str(data) + B + "  >  " + str(wlcmMsg2) +  " & Possible Vuln Detected=" + str(vulns_got))
+                IPNumX = connection.retrlines(vulns_got)
                 if loginftp:
                     try:
                         connection.login()
-                        vulns_got = str(msf_Vulns) in wlcmMsg2
-                        IPNumX = connection.retrlines(vulns_got)
                         FCheck = True
                         if FCheck:
                             anon = 1
@@ -154,18 +171,19 @@ def scan_string(header):
     vuln_banners = open(pwd, 'r')
     for banner in vuln_banners:
         b = banner.split('\t')
+        payload = 'microsoft'
         try:
             if any("/driver/" in s for s in b):
                 c = b[0].split('/driver/')
+                payload = str(c[1]).split('_')[0]
             if not any("/driver/" in s for s in b):
                 c = b[0].split('/ftp/')
+                payload = str(c[1]).split('_')[0]
         except:
             pass
-        payload = str(c[1]).split('_')[0]
-        if payload == 'ms09':
-            payload = 'microsoft'
-        if payload.lower() in header.lower():
-            result.append(banner)
+            if payload == 'ms09':
+                if payload.lower() in header.lower():
+                    result.append(banner)
     return result
 
 
@@ -203,9 +221,9 @@ print('''  __ _
 | |_| __| '_ \/ __|/ __/ _` | '_ \| '_ \ / _ \ '__|
 |  _| |_| |_) \__ \ (_| (_| | | | | | | |  __/ |
 |_|  \__| .__/|___/\___\__,_|_| |_|_| |_|\___|_|
-        |_| Python3 Recode: By NovaCygni
-
-                                          By Sam & d4rkcat
+        |_| Original By Sam & d4rkcat
+        V3n0M Metasploitable Scanner Version 1.0
+              Python3 Recode&Upgrade: By NovaCygni
 ''')
 
 if len(argv) == 1:

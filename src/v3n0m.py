@@ -7,7 +7,7 @@
 #   --- Re-Add LFI/RFI options
 #   --- Add parsing options
 #   --- add piping for SQLMap
-#   -- add scans for known Metasploitable Vulns (* dork based and Nmap style *)
+#   - Add scans for known Metasploitable Vulns (* dork based and Nmap style *)
 #   - Add Proxy and Tor support back
 #   -- Recode admin page finder, go for asyncio based crawler.
 #   - Asyncio Dork Scanning method. Stage 1 Done,
@@ -37,7 +37,7 @@ except:
 def logo():
     print(R + "\n|----------------------------------------------------------------|")
     print("|     V3n0mScanner.py                                            |")
-    print("|     Release Date 05/04/2016  - Release Version V.4.0.3         |")
+    print("|     Release Date 07/04/2016  - Release Version V.4.0.4         |")
     print("|         Socks4&5 Proxy Enabled Support                         |")
     print("|             " + B + "        NovaCygni  Architect    " + R + "                   |")
     print("|                    _____       _____                           |")
@@ -46,7 +46,7 @@ def logo():
     print("|             \ \ / /  " + G + " \ \ '" + R + "_ \|  /| | '_ ` _ \                 |")
     print("|              \ V" + G + " /.___/ / | | \ |_" + R + "/ / | | | | |                |")
     print("|    Official   \_/" + G + " \____/|_" + R + "| |_|" + G + "\___/|_| |_| " + R + "|_|  Release       |")
-    print("|   " + G + "   Release Notes: All features now working with Python3     " + R + " |")
+    print("|   " + G + "   Release Notes: All features now working with Python3.5   " + R + " |")
     print("|----------------------------------------------------------------|\n")
 
 
@@ -254,6 +254,8 @@ def classicinj(url):
             vuln.append(Hits)
             col.append(Hits)
             pass
+        elif str("CCTV") in Hits:
+            print(url + "CCTV Discovered!!!")
         else:
             pass
     except(urllib.error.URLError, socket.gaierror, socket.error, socket.timeout):
@@ -285,7 +287,7 @@ def injtest():
 
 
 def fscan():
-    global maxc
+    global pages_pulled_as_one
     global usearch
     global numthreads
     global threads
@@ -304,7 +306,7 @@ def fscan():
     loaded_Dorks = []
 
     print(W)
-    sites = input("\nChoose your target(domain)   : ")
+    sites = input("\nChoose your target(domain) ie .com  : ")
     sitearray = [sites]
 
     dorks = input("Choose the number of random dorks (0 for all.. may take awhile!)   : ")
@@ -321,8 +323,8 @@ def fscan():
             i += 1
         for g in loaded_Dorks:
             print("dork: = ", g)
-    numthreads = input('\nEnter no. of threads : ')
-    maxc = input('Enter no. of pages   : ')
+    numthreads = input('\nEnter no. of threads, Between 10 and 100: ')
+    pages_pulled_as_one = input('Enter no. of pages to be pulled at once, Between 10 and 100   : ')
 
     print("\nNumber of SQL errors :", "26")
     print("LFI payloads    :", len(lfis))
@@ -330,10 +332,10 @@ def fscan():
     print("Headers         :", len(header))
     print("Threads         :", numthreads)
     print("Dorks           :", len(loaded_Dorks))
-    print("Pages           :", maxc)
+    print("Pages           :", pages_pulled_as_one)
     print("Timeout         :", timeout)
     loop = asyncio.get_event_loop()
-    usearch = loop.run_until_complete(search(maxc))
+    usearch = loop.run_until_complete(search(pages_pulled_as_one))
     vulnscan()
 
 
@@ -418,7 +420,7 @@ def ignoringGet(url):
     return responce.text
 
 
-async def search(maxc):
+async def search(pages_pulled_as_one):
     urls = []
     urls_len_last = 0
     for site in sitearray:
@@ -426,7 +428,7 @@ async def search(maxc):
         for dork in loaded_Dorks:
             dark += 1
             page = 0
-            while page < int(maxc):
+            while page < int(pages_pulled_as_one):
                 query = dork + "+site:" + site
                 futures = []
                 loop = asyncio.get_event_loop()
@@ -457,7 +459,7 @@ async def search(maxc):
                         site, repr(urls_len), dark, darklen, repr(percent), repr(page), dork))
                 sys.stdout.flush()
                 if urls_len == urls_len_last:
-                    page = int(maxc)
+                    page = int(pages_pulled_as_one)
                 urls_len_last = urls_len
     tmplist = []
     print("\n\n[+] URLS (unsorted): ", len(urls))
