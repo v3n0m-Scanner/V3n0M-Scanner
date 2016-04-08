@@ -463,13 +463,14 @@ async def search(pages_pulled_as_one):
                 start_time = datetime.now()
                 timeduration = start_time - timestart
                 sys.stdout.flush()
+                logo()
                 sys.stdout.write( W +
-                    "\r\x1b[KDomain " + R + ": %s \n "
+                    "\r\x1b[K " + R + "| Domain: <%s> Has been targeted\n "
                     "| Collected urls: %s Since start of scan \n"
                     " | D0rks: %s/%s Progressed so far \n"
                     " | Percent Done: %s \n"
                     " | Current page no.: <%s> in Cycles of 5 Page results pulled in Asyncio\n"
-                    " | Dork: %s Currently Loaded\n"
+                    " | Dork In Progress: %s\n"
                     " | Elapsed Time: %s\n"%(  R +
                         site, repr(urls_len), dark, darklen, repr(percent), repr(page), dork, timeduration))
                 sys.stdout.flush()
