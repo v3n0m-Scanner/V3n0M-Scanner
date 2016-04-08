@@ -1,6 +1,7 @@
+Current Version: Version V.4.0.4a
 ![v3n0m Scanner](http://i.imgur.com/A96CipT.png "V3n0M-Scanner")
 
-Current Version: Version V.4.0.4 
+
 
 [Live Project - All features fully working in Python3.5]
 

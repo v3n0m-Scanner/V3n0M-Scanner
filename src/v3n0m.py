@@ -1,14 +1,14 @@
 #!/usr/bin/python
 # -*- coding: latin-1 -*-
 #              --- To be Done     --Partially implemented     -Done
-# V3n0MScanner.py - V.4.0.4
-#   -- Redo entire search engine function to run 100 checks per engine at once
-#   - Fixed All Side Modules > adminfinder, dnsbrute, ftpcrawler
+# V3n0MScanner.py - V.4.0.4a
+#   - Redo entire search engine function to run 100 checks per engine at once
+#   - Change layout and add a timer feature
 #   --- Re-Add LFI/RFI options
 #   --- Add parsing options
 #   --- add piping for SQLMap
 #   - Add scans for known Metasploitable Vulns (* dork based and Nmap style *)
-#   - Add Proxy and Tor support back
+#   - Add a keyboard escape to menu
 #   -- Recode admin page finder, go for asyncio based crawler.
 #   - Asyncio Dork Scanning method. Stage 1 Done,
 #   -- Asyncio Dork Scanning Stage 2, Returning 15 seperate engines at once
@@ -25,6 +25,8 @@ try:
     from signal import SIGINT, signal
     from codecs import lookup, register
     from random import SystemRandom
+    from socket import *
+    from datetime import *
 
 except:
     print(" please make sure you have all of the following modules: asyncio, aiohttp, codecs, requests")
@@ -37,7 +39,7 @@ except:
 def logo():
     print(R + "\n|----------------------------------------------------------------|")
     print("|     V3n0mScanner.py                                            |")
-    print("|     Release Date 07/04/2016  - Release Version V.4.0.4         |")
+    print("|     Release Date 08/04/2016  - Release Version V.4.0.4a        |")
     print("|         Socks4&5 Proxy Enabled Support                         |")
     print("|             " + B + "        NovaCygni  Architect    " + R + "                   |")
     print("|                    _____       _____                           |")
@@ -70,7 +72,7 @@ class Injthread(threading.Thread):
                     classicinj(url)
                 else:
                     break
-            except(KeyboardInterrupt, ValueError):
+            except KeyboardInterrupt:
                 pass
         self.fcount += 1
 
@@ -85,7 +87,9 @@ def classicinj(url):
     aug_url = url + "'"
     try:
         resp = urllib.request.urlopen(aug_url)
+        cctvcheck = urllib.request.urlopen(url)
         Hits = str(resp.read())
+        tango = str(cctvcheck.read())
         if str("error in your SQL syntax") in Hits:
             print(url + " is vulnerable --> MySQL Classic")
             logfile.write("\n" + aug_url)
@@ -254,11 +258,11 @@ def classicinj(url):
             vuln.append(Hits)
             col.append(Hits)
             pass
-        elif str("CCTV") in Hits:
-            print(url + "CCTV Discovered!!!")
+        elif str("CCTV") in tango:
+            print(url + "  CCTV Discovered!!!")
         else:
             pass
-    except(urllib.error.URLError, socket.gaierror, socket.error, socket.timeout):
+    except:
         pass
 
 
@@ -324,8 +328,8 @@ def fscan():
         for g in loaded_Dorks:
             print("dork: = ", g)
     numthreads = input('\nEnter no. of threads, Between 10 and 100: ')
-    pages_pulled_as_one = input('Enter no. of pages to be pulled at once, Between 10 and 100   : ')
-
+    pages_pulled_as_one = input('Enter no. of Search Engine Pages \n'
+                                'to be scanned per d0rk, Between 10 and 100   : ')
     print("\nNumber of SQL errors :", "26")
     print("LFI payloads    :", len(lfis))
     print("XSS payloads    :", len(xsses))
@@ -423,6 +427,7 @@ def ignoringGet(url):
 async def search(pages_pulled_as_one):
     urls = []
     urls_len_last = 0
+    timestart = datetime.now()
     for site in sitearray:
         dark = 0
         for dork in loaded_Dorks:
@@ -432,11 +437,11 @@ async def search(pages_pulled_as_one):
                 query = dork + "+site:" + site
                 futures = []
                 loop = asyncio.get_event_loop()
-                for i in range(4):
+                for i in range(5):
                     results_web = "http://www.bing.com/search?q=" + query + "&go=Submit&first=" + str(
                         (page + i) * 50 + 1) + "&count=50"
                     futures.append(loop.run_in_executor(None, ignoringGet, results_web))
-                page += 4
+                page += 5
                 stringreg = re.compile('(?<=href=")(.*?)(?=")')
                 names = []
                 for future in futures:
@@ -454,9 +459,19 @@ async def search(pages_pulled_as_one):
                 darklen = len(loaded_Dorks)
                 percent = int((1.0 * dark / int(darklen)) * 100)
                 urls_len = len(urls)
-                sys.stdout.write(
-                    "\r\x1b[KSite: %s | Collected urls: %s | D0rks: %s/%s | Percent Done: %s | Current page no.: <%s> | Dork: %s" % (
-                        site, repr(urls_len), dark, darklen, repr(percent), repr(page), dork))
+                print('\n' * 15)
+                start_time = datetime.now()
+                timeduration = start_time - timestart
+                sys.stdout.flush()
+                sys.stdout.write( W +
+                    "\r\x1b[KDomain " + R + ": %s \n "
+                    "| Collected urls: %s Since start of scan \n"
+                    " | D0rks: %s/%s Progressed so far \n"
+                    " | Percent Done: %s \n"
+                    " | Current page no.: <%s> in Cycles of 5 Page results pulled in Asyncio\n"
+                    " | Dork: %s Currently Loaded\n"
+                    " | Elapsed Time: %s\n"%(  R +
+                        site, repr(urls_len), dark, darklen, repr(percent), repr(page), dork, timeduration))
                 sys.stdout.flush()
                 if urls_len == urls_len_last:
                     page = int(pages_pulled_as_one)
@@ -470,10 +485,15 @@ async def search(pages_pulled_as_one):
             if domain not in tmplist and "=" in url:
                 finallist.append(url)
                 tmplist.append(domain)
-        except:
+        except KeyboardInterrupt:
+            print('\n\n[*] User Requested a Interrupt.')
+            print('[*] Application Shutting Down')
+            fmenu()
             continue
     print("[+] URLS (sorted)  : ", len(finallist))
     return finallist
+
+
 
 
 def fmenu():
@@ -525,6 +545,10 @@ def fmenu():
         print(R + "\n Exiting ...")
         print(W)
         sys.exit(0)
+
+    elif chce == '6':
+        print(W + "")
+
 
 
 signal(SIGINT, killpid)
@@ -597,7 +621,7 @@ endsub = 1
 gets = 0
 timeout = 8
 file = "/etc/passwd"
-socket.setdefaulttimeout(timeout)
+
 menu = True
 
 while True:
