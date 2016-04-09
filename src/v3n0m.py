@@ -572,11 +572,13 @@ def fmenu():
 
     elif chce == '6':
         print(W + "")
+        os.system('clear')
         logo()
         print("[1] Skip to custom SQLi list checking")
         print("[0] Return to main menu")
         chce2 = input(":")
         if chce2 == '1':
+            os.system('clear')
             logo()
             try:
                 url = [line.strip() for line in open(input("Please Input Custom List Path \n"
@@ -585,9 +587,11 @@ def fmenu():
                                                        "\n "))]
                 classicinj(url)
             except:
+                os.system('clear')
                 logo()
                 print("Target file not found!")
                 time.sleep(3)
+                os.system('clear')
                 fmenu()
         elif chce2 == '0':
             fmenu()
