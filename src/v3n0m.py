@@ -48,7 +48,7 @@ def logo():
     print("|             \ \ / /  " + G + " \ \ '" + R + "_ \|  /| | '_ ` _ \                 |")
     print("|              \ V" + G + " /.___/ / | | \ |_" + R + "/ / | | | | |                |")
     print("|    Official   \_/" + G + " \____/|_" + R + "| |_|" + G + "\___/|_| |_| " + R + "|_|  Release       |")
-    print("|   " + G + "   Release Notes: All features now working with Python3.5   " + R + " |")
+    print("|   " + G + "                                                            " + R + " |")
     print("|----------------------------------------------------------------|\n")
 
 
