@@ -2,7 +2,7 @@
 # See COPYING for license details.
 
 pkgname='v3n0m'
-pkgver=79.f111111
+pkgver=79.f111115
 pkgrel=5
 groups=('blackarch' 'blackarch-scanner')
 pkgdesc='A tool to automate mass SQLi d0rk scans and Metasploit Vulns.'
