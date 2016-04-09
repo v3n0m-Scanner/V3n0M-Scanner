@@ -1,4 +1,4 @@
-Current Version: Version V.4.0.4a
+Current Version: Version V.4.0.4b
 ![v3n0m Scanner](http://i.imgur.com/A96CipT.png "V3n0M-Scanner")
 ![Example of SQLi Dorker](http://s29.postimg.org/rytx5r0af/Screenshot_from_2016_04_09_10_28_19.png "Example of Dorker")
 
@@ -27,9 +27,9 @@ This program is for finding and executing various vulnerabilities. It scavenges 
 + Largest and most powerful d0rker online, 18k+d0rks searched over ~ Engines at once.
 + Free and Open /src/
 + CrossPlatform Python based toolkit
-+ Version 4.0.4a Released on 8th April 2016
++ Version 4.0.4b Released on 9th April 2016
 + Licensed under GPLv2
-+ Tested on: Linux 4.3.1 Ubuntu/Debian, CentOS 6 (with some errors), Win7 (with some errors)
++ Tested on: ArchLinux 4.4.6-1, Ubuntu, Debian, Windows, MacOS
 
 ##Module Deps
 
@@ -83,29 +83,17 @@ This program is for finding and executing various vulnerabilities. It scavenges 
     - Version         : 1.0
     - greetz for all members of ex darkc0de.com, ljuska.org
 
-## New To This Addition:
-    ---To be Done --Partially implemented -Done
-    - Asyncio Dork Scanning method. Stage 1 Done
-    -- Asyncio Dorking Scanning Stage 2, Returning 15 seperate engines at once
-    - Upgrade to Python3 from Python2
-    --- Redo LFI/RFI attack method
-    --- Automate scanning sites with findable admin pages and add to seperate list
-    --- Redo Metasploit Scans
-    --- Add default attack option for DB types, automate injection and upload shell or enable RDP.
-    -- Perfect SQLi Vuln detection and add options for saving/searching specific DB types
-    -- Starting upgrade for Search engines
-    --- Implement SQLi D0rk Seed Generation option
-    --- Implement Metasploit Exploits scan / Nmap style option + Dork option
 
 
 ====================================
-    #Old Unsupported Version of 3.4 V3n0M in Python 2 can still be installed via PIP.
-    #PyPi: "NOT CURRENTLY MAINTAINED, PIP VERSION IS OUTDATED!!!!" 
-    #" 'Bug' reports for the Python2 3.4 Version WILL be ignored!"
-    #You can now install the software via `pip install V3n0m`
-    #Always verify the PGP signature of the package:
-    #gpg: Signature made Fri 18 Jul 2014 02:59:48 AM UTC
-    #gpg:                using RSA key 0x8F2B5CBD711F1326
-    #gpg: Good signature from "Grand Architect <unload@cryptolab.net>"
+
+#Old Unsupported Version of 3.4 V3n0M in Python 2 can still be installed via PIP.
+  -PyPi: "NOT CURRENTLY MAINTAINED, PIP VERSION IS OUTDATED!!!!"
+    " 'Bug' reports for the Python2 3.4 Version WILL be ignored!"
+    You can now install the software via `pip install V3n0m`
+    Always verify the PGP signature of the package:
+    gpg:  Signature made Fri 18 Jul 2014 02:59:48 AM UTC
+    gpg:                using RSA key 0x8F2B5CBD711F1326
+    gpg:  Good signature from "Grand Architect <unload@cryptolab.net>"
 
 ##Make Love and Smoke Trees...

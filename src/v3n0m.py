@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: latin-1 -*-
 #              --- To be Done     --Partially implemented     -Done
-# V3n0MScanner.py - V.4.0.4a
+# V3n0MScanner.py - V.4.0.4b
 #   - Redo entire search engine function to run 100 checks per engine at once
 #   - Change layout and add a timer feature
 #   --- Re-Add LFI/RFI options
@@ -39,8 +39,8 @@ except:
 def logo():
     print(R + "\n|----------------------------------------------------------------|")
     print("|     V3n0mScanner.py                                            |")
-    print("|     Release Date 08/04/2016  - Release Version V.4.0.4a        |")
-    print("|         Socks4&5 Proxy Enabled Support                         |")
+    print("|     Release Date 09/04/2016  - Release Version V.4.0.4b        |")
+    print("|         Socks4&5 Proxy Support                                 |")
     print("|             " + B + "        NovaCygni  Architect    " + R + "                   |")
     print("|                    _____       _____                           |")
     print("|          " + G + "         |____ |     |  _  |    " + R + "                      |")
@@ -48,7 +48,7 @@ def logo():
     print("|             \ \ / /  " + G + " \ \ '" + R + "_ \|  /| | '_ ` _ \                 |")
     print("|              \ V" + G + " /.___/ / | | \ |_" + R + "/ / | | | | |                |")
     print("|    Official   \_/" + G + " \____/|_" + R + "| |_|" + G + "\___/|_| |_| " + R + "|_|  Release       |")
-    print("|   " + G + "                                                            " + R + " |")
+    print("|                                                                |")
     print("|----------------------------------------------------------------|\n")
 
 
@@ -327,9 +327,9 @@ def fscan():
             i += 1
         for g in loaded_Dorks:
             print("dork: = ", g)
-    numthreads = input('\nEnter no. of threads, Between 10 and 100: ')
+    numthreads = input('\nEnter no. of threads, Between 50 and 500: ')
     pages_pulled_as_one = input('Enter no. of Search Engine Pages \n'
-                                'to be scanned per d0rk, Between 10 and 100   : ')
+                                'to be scanned per d0rk, Between 20 and 100   : ')
     print("\nNumber of SQL errors :", "26")
     print("LFI payloads    :", len(lfis))
     print("XSS payloads    :", len(xsses))
@@ -417,11 +417,32 @@ def tcp_scan(ips, ports, randomize=True):
 
 def ignoringGet(url):
     try:
-        responce = requests.get(url)
-        responce.raise_for_status()
-    except:
-        return ""
-    return responce.text
+        try:
+            responce = requests.get(url)
+            responce.raise_for_status()
+        except Exception:
+            return ''
+        return responce.text
+    except KeyboardInterrupt:
+        chce1 = ':'
+        logo()
+        print( G + "Program Paused" + R )
+        time.sleep(3)
+        print("[1] Unpause")
+        print("[2] Skip rest of scan")
+        print("[3] Return to main menu")
+        if chce1 == "1":
+            return
+        if chce1 == "2":
+            vulnscan()
+        if chce1 == "3":
+            fmenu()
+        else:
+            pass
+
+
+
+
 
 
 async def search(pages_pulled_as_one):
@@ -437,25 +458,26 @@ async def search(pages_pulled_as_one):
                 query = dork + "+site:" + site
                 futures = []
                 loop = asyncio.get_event_loop()
-                for i in range(5):
+                for i in range(10):
                     results_web = "http://www.bing.com/search?q=" + query + "&go=Submit&first=" + str(
                         (page + i) * 50 + 1) + "&count=50"
                     futures.append(loop.run_in_executor(None, ignoringGet, results_web))
-                page += 5
+                page += 10
                 stringreg = re.compile('(?<=href=")(.*?)(?=")')
                 names = []
                 for future in futures:
                     result = await future
                     names.extend(stringreg.findall(result))
+                domains = set()
                 for name in names:
-                    if name not in urls:
-                        if re.search(r'\(', name) or re.search(r'<', name) or re.search(r'\A/', name) or re.search(
-                                r'\A(http://)\d', name):
-                            continue
-                        elif name.find(search_Ignore) >= 0:
-                            continue
-                        elif name.find(site) >= 0:
-                            urls.append(name)
+                    basename = re.search(r"(?<=(://))[^/]*(?=/)",name)
+                    if (basename == None) or any([x.strip() in name for x in search_Ignore.splitlines(keepends=True)]):
+                        basename = re.search(r"(?<=://).*", name)
+                    if basename != None:
+                        basename = basename.group(0)
+                    if basename not in domains and basename != None:
+                        domains.add(basename)
+                        urls.append(name)
                 darklen = len(loaded_Dorks)
                 percent = int((1.0 * dark / int(darklen)) * 100)
                 urls_len = len(urls)
@@ -469,7 +491,7 @@ async def search(pages_pulled_as_one):
                     "| Collected urls: %s Since start of scan \n"
                     " | D0rks: %s/%s Progressed so far \n"
                     " | Percent Done: %s \n"
-                    " | Current page no.: <%s> in Cycles of 5 Page results pulled in Asyncio\n"
+                    " | Current page no.: <%s> in Cycles of 10 Page results pulled in Asyncio\n"
                     " | Dork In Progress: %s\n"
                     " | Elapsed Time: %s\n"%(  R +
                         site, repr(urls_len), dark, darklen, repr(percent), repr(page), dork, timeduration))
@@ -508,6 +530,7 @@ def fmenu():
     print("[3] FTP crawler and vuln scan")
     print("[4] DNS brute")
     print("[5] Enable Tor/Proxy Support")
+    print("[6] Misc Options")
     print("[0] Exit\n")
     chce = input(":")
 
@@ -549,15 +572,34 @@ def fmenu():
 
     elif chce == '6':
         print(W + "")
+        logo()
+        print("[1] Skip to custom SQLi list checking")
+        print("[0] Return to main menu")
+        chce2 = input(":")
+        if chce2 == '1':
+            logo()
+            try:
+                url = [line.strip() for line in open(input("Please Input Custom List Path \n"
+                                                       "ie> \n"
+                                                       " /home/user/Desktop/samples.txt \n"
+                                                       "\n "))]
+                classicinj(url)
+            except:
+                logo()
+                print("Target file not found!")
+                time.sleep(3)
+                fmenu()
+        elif chce2 == '0':
+            fmenu()
 
 
 
 signal(SIGINT, killpid)
-d0rk = [line.strip() for line in open("statics/d0rks", 'r')]
+d0rk = [line.strip() for line in open("statics/d0rks", 'r', encoding='utf-8')]
 header = [line.strip() for line in open("statics/header", 'r')]
 xsses = [line.strip() for line in open("statics/xsses", 'r')]
 lfis = [line.strip() for line in open("statics/lfi", 'r')]
-search_Ignore = str(line.rsplit('\n') for line in open("statics/search_ignore", 'r'))
+search_Ignore = str(line.strip() for line in open("statics/search_ignore", 'r', encoding='utf-8'))
 random.shuffle(d0rk)
 random.shuffle(header)
 random.shuffle(lfis)

@@ -22,9 +22,16 @@ from os import getpid, kill, path
 from sys import argv, stdout
 from threading import Thread, Lock
 
+
 msf_Vulns = [line.strip() for line in open("modules/metasploit-vulns.txt", 'r')]
 honeypot_ranges = str(line.rsplit('\n') for line in open("modules/honeypot_ranges.txt", 'r'))
 
+
+def killpid(signum=0, frame=0):
+    print("\r\x1b[K")
+    os.kill(os.getpid(), 9)
+
+signal(SIGINT, killpid)
 
 class myThread(Thread):
     def __init__(self, threadID, name, q):

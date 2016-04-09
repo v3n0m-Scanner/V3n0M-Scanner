@@ -4,16 +4,25 @@
 
 
 import argparse
-import signal
 import subprocess
 import time
-from queue import Queue
+from datetime import *
 from os import getpid, kill
+from queue import Queue
+from signal import SIGINT, signal
+from socket import *
 from socket import gethostbyaddr
 from sys import argv, stdout
 from threading import Thread, Lock
 
 import dns.resolver
+
+
+def killpid(signum=0, frame=0):
+    print("\r\x1b[K")
+    os.kill(os.getpid(), 9)
+
+signal(SIGINT, killpid)
 
 
 class myThread(Thread):
