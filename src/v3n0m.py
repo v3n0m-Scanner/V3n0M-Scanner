@@ -653,45 +653,67 @@ args = parser.parse_args()
 def enable_proxy():
     try:
         print("Please select Proxy Type - Options = socks4, socks5 ")
+        requiresID = str(input("Requires Username/Password? Type True or False"))
         proxytype = input()
         print(" Please enter Proxy IP address - ie. 127.0.0.66")
-        proxyip = input()
+        proxyip = input(int)
         print(" Please enter Proxy Port - ie. 1076")
         proxyport = input(int)
-        if proxytype == "socks4":
-            socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS4, proxyip, proxyport, username=input("Proxy Account Username"), password=input("Proxy Account Password"))
-            socket.socket = socks.socksocket
-            print(" Socks 4 Proxy Support Enabled")
-            time.sleep(3)
-        elif proxytype == "socks5":
-            socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS5, proxyip, proxyport, username=input("Proxy Account Username"), password=input("Proxy Account Password"))
-            socket.socket = socks.socksocket
-            print(" Socks 5 Proxy Support Enabled")
-            time.sleep(3)
-        else:
-            print("Error Unknown proxy type: " + str(proxytype))
-            socket.socket = socks.socksocket
-            socket.create_connection = enable_proxy
-            socket.setdefaulttimeout(8)
-            exit()
+        if proxytype == str("socks4"):
+            if requiresID == str("True"):
+                try:
+                   socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS4, proxyip, proxyport,
+                                         username=input("Proxy Account Username :"),
+                                         password=input("Proxy Account Password"))
+                   socket.socket = socks.socksocket
+                   print(" Socks 4 Proxy Support Enabled")
+                   time.sleep(3)
+                except Exception:
+                    print("Something went wrong setting the proxy please sumbit a bug report Code:0x05")
+                    pass
+            elif requiresID == str("False"):
+                try:
+                    socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS4, proxyip, proxyport)
+                    socket.socket = socks.socksocket
+                    print(" Socks 4 Proxy Support Enabled")
+                    time.sleep(3)
+                except Exception:
+                    print("Something went wrong setting the proxy please sumbit a bug report Code:0x04")
+                    pass
+        elif proxytype == str("socks5"):
+            if requiresID == str("True"):
+                try:
+                    socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS5, proxyip, proxyport,
+                                          username=input("Proxy Account Username :"),
+                                          password=input("Proxy Account Password"))
+                    socket.socket = socks.socksocket
+                    print(" Socks 5 Proxy Support Enabled")
+                    time.sleep(3)
+                except Exception:
+                    print("Something went wrong setting the proxy please sumbit a bug report Code:0x03")
+                    pass
+            elif requiresID == str("False"):
+                try:
+                    socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS5, proxyip, proxyport)
+                    socket.socket = socks.socksocket
+                    print(" Socks 5 Proxy Support Enabled")
+                    time.sleep(3)
+                except Exception:
+                    print("Something went wrong setting the proxy please sumbit a bug report Code:0x02")
+                    pass
     except Exception:
-        print("Something went wrong setting the proxy  please sumbit a bug report")
+        print("Something went wrong setting the proxy please sumbit a bug report Code:0x01")
         pass
 
 
-# This is the updated MBCS Encoding Bypass for making MBCS encodings work on Linux - NovaCygni
 
 try:
     codecs.lookup('mbcs')
 except LookupError:
     ascii_encoding = codecs.lookup('latin-1')
-
-
     def mbcs_bypass(name, encoding=ascii_encoding):
         if name == "mbcs":
             return encoding
-
-
     codecs.register(mbcs_bypass)
 
 # Colours
