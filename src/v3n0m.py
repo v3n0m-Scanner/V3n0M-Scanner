@@ -39,7 +39,7 @@ except:
 def logo():
     print(R + "\n|----------------------------------------------------------------|")
     print("|     V3n0mScanner.py                                            |")
-    print("|     Release Date 11/04/2016  - Release Version V.4.0.4b2        |")
+    print("|     Release Date 11/04/2016  - Release Version V.4.0.4b3        |")
     print("|         Socks4&5 Proxy Support                                 |")
     print("|             " + B + "        NovaCygni  Architect    " + R + "                   |")
     print("|                    _____       _____                           |")
@@ -368,6 +368,11 @@ def fscan():
     usearch = loop.run_until_complete(search(pages_pulled_as_one))
     vulnscan()
 
+#async def cloud():
+#    try:
+#        try:
+
+
 
 def det_Neph():
     print("")
@@ -452,6 +457,7 @@ def ignoringGet(url):
             return ''
         return responce.text
     except KeyboardInterrupt:
+        os.system('clear')
         chce1 = ':'
         logo()
         print( G + "Program Paused" + R )
@@ -504,7 +510,7 @@ async def search(pages_pulled_as_one):
                 darklen = len(loaded_Dorks)
                 percent = int((1.0 * dark / int(darklen)) * 100)
                 urls_len = len(urls)
-                print('\n' * 15)
+                os.system('clear')
                 start_time = datetime.now()
                 timeduration = start_time - timestart
                 sys.stdout.flush()
@@ -532,6 +538,7 @@ async def search(pages_pulled_as_one):
                 finallist.append(url)
                 tmplist.append(domain)
         except KeyboardInterrupt:
+            os.system('clear')
             chce1 = ':'
             logo()
             print(G + "Program Paused" + R)
@@ -580,6 +587,7 @@ def fmenu():
         findadmin = subprocess.Popen(pwd + "/modules/adminfinder.py -w modules/adminlist.txt -u " + str(afsite),
                                      shell=True)
         findadmin.communicate()
+        subprocess._cleanup()
 
     elif chce == '3':
         randips = input("How many IP addresses do you want to scan: ")
@@ -587,6 +595,7 @@ def fmenu():
         pwd = os.path.dirname(str(os.path.realpath(__file__)))
         ftpcrawl = subprocess.Popen(pwd + "/modules/ftpcrawler.py -i " + str(randips), shell=True)
         ftpcrawl.communicate()
+        subprocess._cleanup()
 
     elif chce == '4':
         dnstarg = input("Enter the site eg target.com: ")
@@ -599,7 +608,6 @@ def fmenu():
 
     elif chce == '5':
         print(W + "")
-        print( G + "If you dont require a username or password when asked for it just hit Enter key" + W )
         enable_proxy()
 
     elif chce == '0':
@@ -612,6 +620,9 @@ def fmenu():
         os.system('clear')
         logo()
         print("[1] Skip to custom SQLi list checking")
+        print("[2] Cloudflare IP Resolver ::= Next Release")
+        print("[3] Identify Hash ::= Next Release")
+        print("[4] SockStress DDoS Tool ::= Next Release")
         print("[0] Return to main menu")
         chce2 = input(":")
         if chce2 == '1':
@@ -621,7 +632,7 @@ def fmenu():
                 url = [line.strip() for line in open(input("Please Input Custom List Path \n"
                                                        "ie> \n"
                                                        " /home/user/Desktop/samples.txt \n"
-                                                       "\n "))]
+                                                       "\n :    :"))]
                 classicinj(url)
             except:
                 os.system('clear')
@@ -630,10 +641,12 @@ def fmenu():
                 time.sleep(3)
                 os.system('clear')
                 fmenu()
+        elif chce2 == '2':
+            os.system('clear')
+            logo()
+#            cloud()
         elif chce2 == '0':
             fmenu()
-
-
 
 signal(SIGINT, killpid)
 d0rk = [line.strip() for line in open("statics/d0rks", 'r', encoding='utf-8')]
@@ -664,7 +677,7 @@ def enable_proxy():
                 try:
                    socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS4, proxyip, proxyport,
                                          username=input("Proxy Account Username :"),
-                                         password=input("Proxy Account Password"))
+                                         password=input("Proxy Account Password  :"))
                    socket.socket = socks.socksocket
                    print(" Socks 4 Proxy Support Enabled")
                    time.sleep(3)
@@ -706,6 +719,7 @@ def enable_proxy():
         pass
 
 
+# This is the updated MBCS Encoding Bypass for making MBCS encodings work on Linux - NovaCygni
 
 try:
     codecs.lookup('mbcs')
@@ -716,12 +730,14 @@ except LookupError:
             return encoding
     codecs.register(mbcs_bypass)
 
+
 # Colours
 W = "\033[0m"
 R = "\033[31m"
 G = "\033[32m"
 O = "\033[33m"
 B = "\033[34m"
+
 
 subprocess.call("clear", shell=True)
 arg_end = "--"
