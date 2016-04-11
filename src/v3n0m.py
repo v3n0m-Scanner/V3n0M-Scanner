@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: latin-1 -*-
 #              --- To be Done     --Partially implemented     -Done
-# V3n0MScanner.py - V.4.0.4b
+# V3n0MScanner.py - V.4.0.4b2
 #   - Redo entire search engine function to run 100 checks per engine at once
 #   - Change layout and add a timer feature
 #   --- Re-Add LFI/RFI options
@@ -39,7 +39,7 @@ except:
 def logo():
     print(R + "\n|----------------------------------------------------------------|")
     print("|     V3n0mScanner.py                                            |")
-    print("|     Release Date 09/04/2016  - Release Version V.4.0.4b        |")
+    print("|     Release Date 11/04/2016  - Release Version V.4.0.4b2        |")
     print("|         Socks4&5 Proxy Support                                 |")
     print("|             " + B + "        NovaCygni  Architect    " + R + "                   |")
     print("|                    _____       _____                           |")
@@ -86,184 +86,210 @@ class Injthread(threading.Thread):
 def classicinj(url):
     aug_url = url + "'"
     try:
-        resp = urllib.request.urlopen(aug_url)
-        cctvcheck = urllib.request.urlopen(url)
-        Hits = str(resp.read())
-        tango = str(cctvcheck.read())
-        if str("error in your SQL syntax") in Hits:
-            print(url + " is vulnerable --> MySQL Classic")
-            logfile.write("\n" + aug_url)
-            vuln.append(Hits)
-            col.append(Hits)
-            pass
-        elif str("mysql_fetch") in Hits:
-            print(url + " is Vulnerable --> MiscError")
-            logfile.write("\n" + aug_url)
-            vuln.append(Hits)
-            col.append(Hits)
-            pass
-        elif str("num_rows") in Hits:
-            print(url + " is Vulnerable --> MiscError2")
-            logfile.write("\n" + aug_url)
-            vuln.append(Hits)
-            col.append(Hits)
-            pass
-        elif str("ORA-01756") in Hits:
-            print(url + " is Vulnerable --> Oracle")
-            logfile.write("\n" + aug_url)
-            vuln.append(Hits)
-            col.append(Hits)
-            pass
-        elif str("Error Executing Database Query") in Hits:
-            print(url + " is Vulnerable --> JDBC_CFM")
-            logfile.write("\n" + aug_url)
-            vuln.append(Hits)
-            col.append(Hits)
-            pass
-        elif str("SQLServer JDBC Driver") in Hits:
-            print(url + " is Vulnerable --> JDBC_CFM2")
-            logfile.write("\n" + aug_url)
-            vuln.append(Hits)
-            col.append(Hits)
-            pass
-        elif str("OLE DB Provider for SQL Server") in Hits:
-            print(url + " is Vulnerable --> MSSQL_OLEdb")
-            logfile.write("\n" + aug_url)
-            vuln.append(Hits)
-            col.append(Hits)
-            pass
-        elif str("Unclosed quotation mark") in Hits:
-            print(url + " is Vulnerabe --> MSSQL_Uqm")
-            logfile.write("\n" + aug_url)
-            vuln.append(Hits)
-            col.append(Hits)
-            pass
-        elif str("ODBC Microsoft Access Driver") in Hits:
-            print(url + " is Vulnerable --> MS-Access_ODBC")
-            logfile.write("\n" + aug_url)
-            vuln.append(Hits)
-            col.append(Hits)
-            pass
-        elif str("Microsoft JET Database") in Hits:
-            print(url + " is Vulnerable --> MS-Access_JETdb")
-            logfile.write("\n" + aug_url)
-            vuln.append(Hits)
-            col.append(Hits)
-            pass
-        elif str("Error Occurred While Processing Request") in Hits:
-            print(url + " is Vulnerable --> Processing Request")
-            logfile.write("\n" + aug_url)
-            vuln.append(Hits)
-            col.append(Hits)
-            pass
-        elif str("Microsoft JET Database") in Hits:
-            print(url + " is Vulnerable --> MS-Access JetDb")
-            logfile.write("\n" + aug_url)
-            vuln.append(Hits)
-            col.append(Hits)
-            pass
-        elif str("Error Occurred While Processing Request") in Hits:
-            print(url + " is Vulnerable --> Processing Request ")
-            logfile.write("\n" + aug_url)
-            vuln.append(Hits)
-            col.append(Hits)
-            pass
-        elif str("Server Error") in Hits:
-            print(url + " is Vulnerable --> Server Error")
-            logfile.write("\n" + aug_url)
-            vuln.append(Hits)
-            col.append(Hits)
-            pass
-        elif str("ODBC Drivers error") in Hits:
-            print(url + " is Vulnerable --> ODBC Drivers error")
-            logfile.write("\n" + aug_url)
-            vuln.append(Hits)
-            col.append(Hits)
-            pass
-        elif str("Invalid Querystring") in Hits:
-            print(url + " is Vulnerable --> Invalid Querystring")
-            logfile.write("\n" + aug_url)
-            vuln.append(Hits)
-            col.append(Hits)
-            pass
-        elif str("OLE DB Provider for ODBC") in Hits:
-            print(url + " is Vulnerable --> OLE DB Provider for ODBC")
-            logfile.write("\n" + aug_url)
-            vuln.append(Hits)
-            col.append(Hits)
-            pass
-        elif str("VBScript Runtime") in Hits:
-            print(url + " is Vulnerable --> VBScript Runtime")
-            logfile.write("\n" + aug_url)
-            vuln.append(Hits)
-            col.append(Hits)
-            pass
-        elif str("ADODB.Field") in Hits:
-            print(url + " is Vulnerable --> ADODB.Field")
-            logfile.write("\n" + aug_url)
-            vuln.append(Hits)
-            col.append(Hits)
-            pass
-        elif str("BOF or EOF") in Hits:
-            print(url + " is Vulnerable --> BOF or EOF")
-            logfile.write("\n" + aug_url)
-            vuln.append(Hits)
-            col.append(Hits)
-            pass
-        elif str("ADODB.Command") in Hits:
-            print(url + " is Vulnerable --> ADODB.Command")
-            logfile.write("\n" + aug_url)
-            vuln.append(Hits)
-            col.append(Hits)
-            pass
-        elif str("JET Database") in Hits:
-            print(url + " is Vulnerable --> JET Database")
-            logfile.write("\n" + aug_url)
-            vuln.append(Hits)
-            col.append(Hits)
-            pass
-        elif str("mysql_fetch_array") in Hits:
-            print(url + " is Vulnerabe --> mysql_fetch_array")
-            logfile.write("\n" + aug_url)
-            vuln.append(Hits)
-            col.append(Hits)
-            pass
-        elif str("Syntax error") in Hits:
-            print(url + " is Vulnerable --> Syntax error")
-            logfile.write("\n" + aug_url)
-            vuln.append(Hits)
-            col.append(Hits)
-            pass
-        elif str("mysql_numrows()") in Hits:
-            print(url + " is Vulnerable --> mysql_numrows()")
-            logfile.write("\n" + aug_url)
-            vuln.append(Hits)
-            col.append(Hits)
-            pass
-        elif str("GetArray()") in Hits:
-            print(url + " is Vulnerable --> GetArray()")
-            logfile.write("\n" + aug_url)
-            vuln.append(Hits)
-            col.append(Hits)
-            pass
-        elif str("FetchRow()") in Hits:
-            print(url + " is Vulnerable --> FetchRow()")
-            logfile.write("\n" + aug_url)
-            vuln.append(Hits)
-            col.append(Hits)
-            pass
-        elif str("Input string was not in a correct format") in Hits:
-            print(url + " is Vulnerable --> Input String Error")
-            logfile.write("\n" + aug_url)
-            vuln.append(Hits)
-            col.append(Hits)
-            pass
-        elif str("CCTV") in tango:
-            print(url + "  CCTV Discovered!!!")
+        try:
+            resp = urllib.request.urlopen(aug_url)
+            cctvcheck = urllib.request.urlopen(url)
+            Hits = str(resp.read())
+            tango = str(cctvcheck.read())
+            if str("error in your SQL syntax") in Hits:
+                print(url + " is vulnerable --> MySQL Classic")
+                logfile.write("\n" + aug_url)
+                vuln.append(Hits)
+                col.append(Hits)
+                pass
+            elif str("mysql_fetch") in Hits:
+                print(url + " is Vulnerable --> MiscError")
+                logfile.write("\n" + aug_url)
+                vuln.append(Hits)
+                col.append(Hits)
+                pass
+            elif str("num_rows") in Hits:
+                print(url + " is Vulnerable --> MiscError2")
+                logfile.write("\n" + aug_url)
+                vuln.append(Hits)
+                col.append(Hits)
+                pass
+            elif str("ORA-01756") in Hits:
+                print(url + " is Vulnerable --> Oracle")
+                logfile.write("\n" + aug_url)
+                vuln.append(Hits)
+                col.append(Hits)
+                pass
+            elif str("Error Executing Database Query") in Hits:
+                print(url + " is Vulnerable --> JDBC_CFM")
+                logfile.write("\n" + aug_url)
+                vuln.append(Hits)
+                col.append(Hits)
+                pass
+            elif str("SQLServer JDBC Driver") in Hits:
+                print(url + " is Vulnerable --> JDBC_CFM2")
+                logfile.write("\n" + aug_url)
+                vuln.append(Hits)
+                col.append(Hits)
+                pass
+            elif str("OLE DB Provider for SQL Server") in Hits:
+                print(url + " is Vulnerable --> MSSQL_OLEdb")
+                logfile.write("\n" + aug_url)
+                vuln.append(Hits)
+                col.append(Hits)
+                pass
+            elif str("Unclosed quotation mark") in Hits:
+                print(url + " is Vulnerabe --> MSSQL_Uqm")
+                logfile.write("\n" + aug_url)
+                vuln.append(Hits)
+                col.append(Hits)
+                pass
+            elif str("ODBC Microsoft Access Driver") in Hits:
+                print(url + " is Vulnerable --> MS-Access_ODBC")
+                logfile.write("\n" + aug_url)
+                vuln.append(Hits)
+                col.append(Hits)
+                pass
+            elif str("Microsoft JET Database") in Hits:
+                print(url + " is Vulnerable --> MS-Access_JETdb")
+                logfile.write("\n" + aug_url)
+                vuln.append(Hits)
+                col.append(Hits)
+                pass
+            elif str("Error Occurred While Processing Request") in Hits:
+                print(url + " is Vulnerable --> Processing Request")
+                logfile.write("\n" + aug_url)
+                vuln.append(Hits)
+                col.append(Hits)
+                pass
+            elif str("Microsoft JET Database") in Hits:
+                print(url + " is Vulnerable --> MS-Access JetDb")
+                logfile.write("\n" + aug_url)
+                vuln.append(Hits)
+                col.append(Hits)
+                pass
+            elif str("Error Occurred While Processing Request") in Hits:
+                print(url + " is Vulnerable --> Processing Request ")
+                logfile.write("\n" + aug_url)
+                vuln.append(Hits)
+                col.append(Hits)
+                pass
+            elif str("Server Error") in Hits:
+                print(url + " is Vulnerable --> Server Error")
+                logfile.write("\n" + aug_url)
+                vuln.append(Hits)
+                col.append(Hits)
+                pass
+            elif str("ODBC Drivers error") in Hits:
+                print(url + " is Vulnerable --> ODBC Drivers error")
+                logfile.write("\n" + aug_url)
+                vuln.append(Hits)
+                col.append(Hits)
+                pass
+            elif str("Invalid Querystring") in Hits:
+                print(url + " is Vulnerable --> Invalid Querystring")
+                logfile.write("\n" + aug_url)
+                vuln.append(Hits)
+                col.append(Hits)
+                pass
+            elif str("OLE DB Provider for ODBC") in Hits:
+                print(url + " is Vulnerable --> OLE DB Provider for ODBC")
+                logfile.write("\n" + aug_url)
+                vuln.append(Hits)
+                col.append(Hits)
+                pass
+            elif str("VBScript Runtime") in Hits:
+                print(url + " is Vulnerable --> VBScript Runtime")
+                logfile.write("\n" + aug_url)
+                vuln.append(Hits)
+                col.append(Hits)
+                pass
+            elif str("ADODB.Field") in Hits:
+                print(url + " is Vulnerable --> ADODB.Field")
+                logfile.write("\n" + aug_url)
+                vuln.append(Hits)
+                col.append(Hits)
+                pass
+            elif str("BOF or EOF") in Hits:
+                print(url + " is Vulnerable --> BOF or EOF")
+                logfile.write("\n" + aug_url)
+                vuln.append(Hits)
+                col.append(Hits)
+                pass
+            elif str("ADODB.Command") in Hits:
+                print(url + " is Vulnerable --> ADODB.Command")
+                logfile.write("\n" + aug_url)
+                vuln.append(Hits)
+                col.append(Hits)
+                pass
+            elif str("JET Database") in Hits:
+                print(url + " is Vulnerable --> JET Database")
+                logfile.write("\n" + aug_url)
+                vuln.append(Hits)
+                col.append(Hits)
+                pass
+            elif str("mysql_fetch_array") in Hits:
+                print(url + " is Vulnerabe --> mysql_fetch_array")
+                logfile.write("\n" + aug_url)
+                vuln.append(Hits)
+                col.append(Hits)
+                pass
+            elif str("Syntax error") in Hits:
+                print(url + " is Vulnerable --> Syntax error")
+                logfile.write("\n" + aug_url)
+                vuln.append(Hits)
+                col.append(Hits)
+                pass
+            elif str("mysql_numrows()") in Hits:
+                print(url + " is Vulnerable --> mysql_numrows()")
+                logfile.write("\n" + aug_url)
+                vuln.append(Hits)
+                col.append(Hits)
+                pass
+            elif str("GetArray()") in Hits:
+                print(url + " is Vulnerable --> GetArray()")
+                logfile.write("\n" + aug_url)
+                vuln.append(Hits)
+                col.append(Hits)
+                pass
+            elif str("FetchRow()") in Hits:
+                print(url + " is Vulnerable --> FetchRow()")
+                logfile.write("\n" + aug_url)
+                vuln.append(Hits)
+                col.append(Hits)
+                pass
+            elif str("Input string was not in a correct format") in Hits:
+                print(url + " is Vulnerable --> Input String Error")
+                logfile.write("\n" + aug_url)
+                vuln.append(Hits)
+                col.append(Hits)
+                pass
+            elif str("CCTV") in tango:
+                print(url + "  CCTV Discovered!!!")
+            else:
+                pass
+        except:
+           pass
+    except KeyboardInterrupt:
+        chce = ':'
+        os.system('clear')
+        logo()
+        print( G + "Program Paused" + R)
+        time.sleep(1)
+        print('[1] Unpause Program')
+        print('[2] Skip the rest of SQLi check, Save list and Return to Main Menu')
+        print('[3] Pipe all found vulns to SQLMap to Automate SQLi attacks.')
+        print('[4] Return to Main Menu')
+        if chce == '1':
+            return
+        if chce == '2':
+            os.system('clear')
+            logo()
+            print("\r\x1b[K [*] Scan complete, " + str(len(col)) + " vuln sites found.")
+        if chce == '4':
+            os.system('clear')
+            fmenu()
         else:
             pass
-    except:
+    else:
         pass
+
+
 
 
 def injtest():
@@ -356,29 +382,31 @@ def det_Kippo():
 
 
 def vulnscan():
-    global endsub
-    global vuln
-
-    endsub = 0
-
-    print(R + "\n[1] SQLi Testing")
-    print("[2] Back to main menu")
-
-    chce = input(":")
-    if chce == '1':
-        vuln = []
-        injtest()
-        print(B + "\r\x1b[K [*] Scan complete, " + O + str(len(col)) + B + " vuln sites found.")
-        print()
-
-    elif chce == '1':
-        vuln = []
-        injtest()
+    try:
+        global endsub
+        global vuln
         endsub = 0
-        print(B + "\r\x1b[K [*] Scan complete, " + O + str(len(vuln)) + B + " vuln sites found.")
-    elif chce == '2':
-        endsub = 1
-        fmenu()
+        print(R + "\n[1] SQLi Testing")
+        print("[2] Back to main menu")
+        chce = input(":")
+        if chce == '1':
+            vuln = []
+            injtest()
+            print(B + "\r\x1b[K [*] Scan complete, " + O + str(len(col)) + B + " vuln sites found.")
+            print()
+        elif chce == '1':
+            vuln = []
+            injtest()
+            endsub = 0
+            print(B + "\r\x1b[K [*] Scan complete, " + O + str(len(vuln)) + B + " vuln sites found.")
+        elif chce == '2':
+            endsub = 1
+            fmenu()
+    except Exception:
+        logo()
+        print( W + "Something went wrong, did you enter a invalid option???" + R )
+        time.sleep(4)
+        vulnscan()
 
 
 holder_ips = ["192.168.0.{}".format(i) for i in range(1, 255)]
@@ -429,7 +457,7 @@ def ignoringGet(url):
         print( G + "Program Paused" + R )
         time.sleep(3)
         print("[1] Unpause")
-        print("[2] Skip rest of scan")
+        print("[2] Skip rest of scan and Continue with current results")
         print("[3] Return to main menu")
         if chce1 == "1":
             return
@@ -439,11 +467,6 @@ def ignoringGet(url):
             fmenu()
         else:
             pass
-
-
-
-
-
 
 async def search(pages_pulled_as_one):
     urls = []
@@ -509,9 +532,21 @@ async def search(pages_pulled_as_one):
                 finallist.append(url)
                 tmplist.append(domain)
         except KeyboardInterrupt:
-            print('\n\n[*] User Requested a Interrupt.')
-            print('[*] Application Shutting Down')
-            fmenu()
+            chce1 = ':'
+            logo()
+            print(G + "Program Paused" + R)
+            time.sleep(3)
+            print("[1] Unpause")
+            print("[2] Skip rest of scan and Continue with current results")
+            print("[3] Return to main menu")
+            if chce1 == "1":
+                return
+            if chce1 == "2":
+                vulnscan()
+            if chce1 == "3":
+                fmenu()
+            else:
+                pass
             continue
     print("[+] URLS (sorted)  : ", len(finallist))
     return finallist
@@ -560,9 +595,11 @@ def fmenu():
         dnsbrute = subprocess.Popen(pwd + "/modules/dnsbrute.py -w modules/subdomainsmid.txt -u " + str(dnstarg),
                                     shell=True)
         dnsbrute.communicate()
+        subprocess._cleanup()
 
     elif chce == '5':
         print(W + "")
+        print( G + "If you dont require a username or password when asked for it just hit Enter key" + W )
         enable_proxy()
 
     elif chce == '0':
@@ -614,28 +651,32 @@ args = parser.parse_args()
 
 
 def enable_proxy():
-    print("Please select Proxy Type - Options = socks4, socks5 ")
-    proxytype = input()
-    print(" Please enter Proxy IP address - ie. 127.0.0.66")
-    proxyip = input()
-    print(" Please enter Proxy Port - ie. 1076")
-    proxyport = input(int)
-    if proxytype == "socks4":
-        socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS4, proxyip, proxyport)
-        socket.socket = socks.socksocket
-        print(" Socks 4 Proxy Support Enabled")
-        time.sleep(3)
-    elif proxytype == "socks5":
-        socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS5, proxyip, proxyport)
-        socket.socket = socks.socksocket
-        print(" Socks 5 Proxy Support Enabled")
-        time.sleep(3)
-    else:
-        print("Error Unknown proxy type: " + str(proxytype))
-        socket.socket = socks.socksocket
-        socket.create_connection = enable_proxy
-        socket.setdefaulttimeout(8)
-        exit()
+    try:
+        print("Please select Proxy Type - Options = socks4, socks5 ")
+        proxytype = input()
+        print(" Please enter Proxy IP address - ie. 127.0.0.66")
+        proxyip = input()
+        print(" Please enter Proxy Port - ie. 1076")
+        proxyport = input(int)
+        if proxytype == "socks4":
+            socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS4, proxyip, proxyport, username=input("Proxy Account Username"), password=input("Proxy Account Password"))
+            socket.socket = socks.socksocket
+            print(" Socks 4 Proxy Support Enabled")
+            time.sleep(3)
+        elif proxytype == "socks5":
+            socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS5, proxyip, proxyport, username=input("Proxy Account Username"), password=input("Proxy Account Password"))
+            socket.socket = socks.socksocket
+            print(" Socks 5 Proxy Support Enabled")
+            time.sleep(3)
+        else:
+            print("Error Unknown proxy type: " + str(proxytype))
+            socket.socket = socks.socksocket
+            socket.create_connection = enable_proxy
+            socket.setdefaulttimeout(8)
+            exit()
+    except Exception:
+        print("Something went wrong setting the proxy  please sumbit a bug report")
+        pass
 
 
 # This is the updated MBCS Encoding Bypass for making MBCS encodings work on Linux - NovaCygni
