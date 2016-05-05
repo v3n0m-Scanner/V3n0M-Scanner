@@ -5,7 +5,7 @@
 
 import argparse
 import subprocess
-import time
+import time as time2
 from datetime import *
 from os import getpid, kill
 from queue import Queue
@@ -44,12 +44,12 @@ class Printer:
 
 class Timer:
     def __enter__(self):
-        self.start = time.time()
+        self.start = time2.time()
 
     def __exit__(self, *args):
-        seconds = int(time.strftime('%S', time.gmtime(taken)))
-        minutes = int(time.strftime('%M', time.gmtime(taken)))
-        hours = int(time.strftime('%H', time.gmtime(taken)))
+        seconds = int(time2.strftime('%S', time2.gmtime(taken)))
+        minutes = int(time2.strftime('%M', time2.gmtime(taken)))
+        hours = int(time2.strftime('%H', time2.gmtime(taken)))
         if minutes > 0:
             if hours > 0:
                 print(" [*] Time elapsed " + str(hours) + " hours, " + str(minutes) + " minutes and " + str(
@@ -137,7 +137,7 @@ maxthreads = 40
 if args.threads:
     maxthreads = args.threads
 
-signal.signal(signal.SIGINT, killpid)
+signal(SIGINT, killpid)
 domain = args.url
 maked = "mkdir -p logs"
 process = subprocess.Popen(maked.split(), stdout=subprocess.PIPE)
@@ -170,28 +170,28 @@ while threadID <= maxthreads:
     threads.append(thread)
     threadID += 1
 
-startcnt = time.time()
-progstart = time.time()
+startcnt = time2.time()
+progstart = time2.time()
 
 with Timer():
     while not workQueue.empty():
         countprog = 0.3
-        progress = time.time() - progstart
+        progress = time2.time() - progstart
         if progress >= countprog:
             progdone = len(subdomains) - workQueue.qsize()
-            token = time.time() - startcnt
+            token = time2.time() - startcnt
             rate = round(progdone / token, 2)
             percent = round(float(100.00) / len(subdomains) * progdone, 2)
             eta = round(token / percent * 100 - token, 2)
             printoutput = " [*] " + str(percent) + "% complete, " + str(progdone) + "/" + str(
                     len(subdomains)) + " lookups at " + str(rate) + " lookups/second. ETA: " + str(
-                    time.strftime('%H:%M:%S', time.gmtime(eta)))
+                    time2.strftime('%H:%M:%S', time2.gmtime(eta)))
             Printer(printoutput)
-            progstart = time.time()
+            progstart = time2.time()
         else:
             pass
 
-    taken = time.time() - startcnt
+    taken = time2.time() - startcnt
     stdout.write("\r\x1b[K")
     stdout.flush()
     exitFlag = 1
