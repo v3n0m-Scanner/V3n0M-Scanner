@@ -4,10 +4,12 @@
 
 # !/usr/bin/python
 
-import http.cookiejar
-import queue
+#import http.cookiejar
+import cookielib
+import Queue
 import subprocess
 import time
+import http.client
 from argparse import ArgumentParser
 from datetime import *
 from os import getpid, kill
