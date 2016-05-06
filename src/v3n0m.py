@@ -20,19 +20,19 @@
 
 
 try:
-    import re, random, threading, socket, urllib.request, urllib.error, urllib.parse, http.cookiejar, subprocess, \
-        time, sys, os, math, itertools, queue, asyncio, aiohttp, argparse, socks, httplib2, requests, codecs, dns
-    from signal import SIGINT, signal
-    from bs4 import BeautifulSoup
-    from codecs import lookup, register
-    from random import SystemRandom
-    from socket import *
-    from datetime import *
+  import re, random, threading, socket, urllib.request, urllib.error, urllib.parse, http.cookiejar, subprocess, \
+    time, sys, os, math, itertools, queue, asyncio, aiohttp, argparse, socks, httplib2, requests, codecs, dns
+  from signal import SIGINT, signal
+  from bs4 import BeautifulSoup
+  from codecs import lookup, register
+  from random import SystemRandom
+  from socket import *
+  from datetime import *
 
 except:
-    print(" please make sure you have all of the following modules: asyncio, aiohttp, codecs, requests")
-    print(" httplib2, signal, itertools")
-    print("Error a module was not found,  'sudo pip3 install <package name>' to install")
+    print(" please make sure you have all of the following modules: asyncio, aiohttp, requests")
+    print(" httplib2, bs4")
+    print("Error a module was not found,  'sudo pip3 install <package name>' or  'sudo pip3.5 install <package name>' to install")
     exit()
 
 
