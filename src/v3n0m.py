@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: latin-1 -*-
 #              --- To be Done     --Partially implemented     -Done
-# V3n0MScanner.py - V.4.0.4b2
+# V3n0MScanner.py - V.4.0.4c
 #   - Redo entire search engine function to run 100 checks per engine at once
 #   - Change layout and add a timer feature
 #   --- Re-Add LFI/RFI options
@@ -21,8 +21,9 @@
 
 try:
     import re, random, threading, socket, urllib.request, urllib.error, urllib.parse, http.cookiejar, subprocess, \
-        time, sys, os, math, itertools, queue, asyncio, aiohttp, argparse, socks, httplib2, requests, codecs
+        time, sys, os, math, itertools, queue, asyncio, aiohttp, argparse, socks, httplib2, requests, codecs, dns
     from signal import SIGINT, signal
+    from bs4 import BeautifulSoup
     from codecs import lookup, register
     from random import SystemRandom
     from socket import *
@@ -39,7 +40,7 @@ except:
 def logo():
     print(R + "\n|----------------------------------------------------------------|")
     print("|     V3n0mScanner.py                                            |")
-    print("|     Release Date 11/04/2016  - Release Version V.4.0.4b2        |")
+    print("|     Release Date 11/04/2016  - Release Version V.4.0.4c        |")
     print("|         Socks4&5 Proxy Support                                 |")
     print("|             " + B + "        NovaCygni  Architect    " + R + "                   |")
     print("|                    _____       _____                           |")
@@ -270,7 +271,6 @@ def classicinj(url):
         os.system('clear')
         logo()
         print( G + "Program Paused" + R)
-        time.sleep(1)
         print('[1] Unpause Program')
         print('[2] Skip the rest of SQLi check, Save list and Return to Main Menu')
         print('[3] Pipe all found vulns to SQLMap to Automate SQLi attacks.')
@@ -368,6 +368,11 @@ def fscan():
     usearch = loop.run_until_complete(search(pages_pulled_as_one))
     vulnscan()
 
+#async def cloud():
+#    try:
+#        try:
+
+
 
 def det_Neph():
     print("")
@@ -405,8 +410,8 @@ def vulnscan():
     except Exception:
         logo()
         print( W + "Something went wrong, did you enter a invalid option???" + R )
-        time.sleep(4)
         vulnscan()
+
 
 
 holder_ips = ["192.168.0.{}".format(i) for i in range(1, 255)]
@@ -418,7 +423,6 @@ ports = [holder_ports]
 def tcp_Scanner_run(tasks, *, loop=None):
     if loop is None:
         loop = asyncio.get_event_loop()
-        # waiting
     return loop.run_until_complete(asyncio.wait(tasks))
 
 
@@ -452,10 +456,10 @@ def ignoringGet(url):
             return ''
         return responce.text
     except KeyboardInterrupt:
+        os.system('clear')
         chce1 = ':'
         logo()
         print( G + "Program Paused" + R )
-        time.sleep(3)
         print("[1] Unpause")
         print("[2] Skip rest of scan and Continue with current results")
         print("[3] Return to main menu")
@@ -494,17 +498,17 @@ async def search(pages_pulled_as_one):
                 domains = set()
                 for name in names:
                     basename = re.search(r"(?<=(://))[^/]*(?=/)",name)
-                    if (basename == None) or any([x.strip() in name for x in search_Ignore.splitlines(keepends=True)]):
+                    if (basename is None) or any([x.strip() in name for x in search_Ignore.splitlines(keepends=True)]):
                         basename = re.search(r"(?<=://).*", name)
-                    if basename != None:
+                    if basename is not None:
                         basename = basename.group(0)
-                    if basename not in domains and basename != None:
+                    if basename not in domains and basename is not None:
                         domains.add(basename)
                         urls.append(name)
                 darklen = len(loaded_Dorks)
                 percent = int((1.0 * dark / int(darklen)) * 100)
                 urls_len = len(urls)
-                print('\n' * 15)
+                os.system('clear')
                 start_time = datetime.now()
                 timeduration = start_time - timestart
                 sys.stdout.flush()
@@ -532,10 +536,10 @@ async def search(pages_pulled_as_one):
                 finallist.append(url)
                 tmplist.append(domain)
         except KeyboardInterrupt:
+            os.system('clear')
             chce1 = ':'
             logo()
             print(G + "Program Paused" + R)
-            time.sleep(3)
             print("[1] Unpause")
             print("[2] Skip rest of scan and Continue with current results")
             print("[3] Return to main menu")
@@ -580,6 +584,7 @@ def fmenu():
         findadmin = subprocess.Popen(pwd + "/modules/adminfinder.py -w modules/adminlist.txt -u " + str(afsite),
                                      shell=True)
         findadmin.communicate()
+        subprocess._cleanup()
 
     elif chce == '3':
         randips = input("How many IP addresses do you want to scan: ")
@@ -587,6 +592,7 @@ def fmenu():
         pwd = os.path.dirname(str(os.path.realpath(__file__)))
         ftpcrawl = subprocess.Popen(pwd + "/modules/ftpcrawler.py -i " + str(randips), shell=True)
         ftpcrawl.communicate()
+        subprocess._cleanup()
 
     elif chce == '4':
         dnstarg = input("Enter the site eg target.com: ")
@@ -599,7 +605,6 @@ def fmenu():
 
     elif chce == '5':
         print(W + "")
-        print( G + "If you dont require a username or password when asked for it just hit Enter key" + W )
         enable_proxy()
 
     elif chce == '0':
@@ -612,6 +617,9 @@ def fmenu():
         os.system('clear')
         logo()
         print("[1] Skip to custom SQLi list checking")
+        print("[2] Cloudflare IP Resolver ::= Next Release")
+        print("[3] Identify Hash ::= Next Release")
+        print("[4] SockStress DDoS Tool ::= Next Release")
         print("[0] Return to main menu")
         chce2 = input(":")
         if chce2 == '1':
@@ -621,19 +629,20 @@ def fmenu():
                 url = [line.strip() for line in open(input("Please Input Custom List Path \n"
                                                        "ie> \n"
                                                        " /home/user/Desktop/samples.txt \n"
-                                                       "\n "))]
+                                                       "\n :    :"))]
                 classicinj(url)
             except:
                 os.system('clear')
                 logo()
                 print("Target file not found!")
-                time.sleep(3)
                 os.system('clear')
                 fmenu()
+        elif chce2 == '2':
+            os.system('clear')
+            logo()
+#           cloud()
         elif chce2 == '0':
             fmenu()
-
-
 
 signal(SIGINT, killpid)
 d0rk = [line.strip() for line in open("statics/d0rks", 'r', encoding='utf-8')]
@@ -652,30 +661,52 @@ args = parser.parse_args()
 
 def enable_proxy():
     try:
-        print("Please select Proxy Type - Options = socks4, socks5 ")
+        requiresID = input("Requires Username/Password? Type True or False?  :")
+        print("Please select Proxy Type - Options = socks4, socks5  : ")
         proxytype = input()
-        print(" Please enter Proxy IP address - ie. 127.0.0.66")
-        proxyip = input()
-        print(" Please enter Proxy Port - ie. 1076")
+        print(" Please enter Proxy IP address - ie. 127.0.0.66  :")
+        proxyip = input(int)
+        print(" Please enter Proxy Port - ie. 1076  :")
         proxyport = input(int)
-        if proxytype == "socks4":
-            socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS4, proxyip, proxyport, username=input("Proxy Account Username"), password=input("Proxy Account Password"))
-            socket.socket = socks.socksocket
-            print(" Socks 4 Proxy Support Enabled")
-            time.sleep(3)
-        elif proxytype == "socks5":
-            socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS5, proxyip, proxyport, username=input("Proxy Account Username"), password=input("Proxy Account Password"))
-            socket.socket = socks.socksocket
-            print(" Socks 5 Proxy Support Enabled")
-            time.sleep(3)
-        else:
-            print("Error Unknown proxy type: " + str(proxytype))
-            socket.socket = socks.socksocket
-            socket.create_connection = enable_proxy
-            socket.setdefaulttimeout(8)
-            exit()
+        if proxytype == str("socks4"):
+            if requiresID == str("True") or str("true"):
+                try:
+                   socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS4, proxyip, proxyport,
+                                         username=input("Proxy Account Username  :"),
+                                         password=input("Proxy Account Password  :"))
+                   socket.socket = socks.socksocket
+                   print(" Socks 4 Proxy Support Enabled")
+                except Exception:
+                    print("Something went wrong setting the proxy please sumbit a bug report Code:0x05")
+                    pass
+            elif requiresID == str("False") or str("false"):
+                try:
+                    socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS4, proxyip, proxyport)
+                    socket.socket = socks.socksocket
+                    print(" Socks 4 Proxy Support Enabled")
+                except Exception:
+                    print("Something went wrong setting the proxy please sumbit a bug report Code:0x04")
+                    pass
+        elif proxytype == str("socks5"):
+            if requiresID == str("True") or str("true"):
+                try:
+                    socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS5, proxyip, proxyport,
+                                          username=input("Proxy Account Username  :"),
+                                          password=input("Proxy Account Password  :"))
+                    socket.socket = socks.socksocket
+                except Exception:
+                    print("Something went wrong setting the proxy please sumbit a bug report Code:0x03")
+                    pass
+            elif requiresID == str("False") or str("false"):
+                try:
+                    socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS5, proxyip, proxyport)
+                    socket.socket = socks.socksocket
+                    print(" Socks 5 Proxy Support Enabled")
+                except Exception:
+                    print("Something went wrong setting the proxy please sumbit a bug report Code:0x02")
+                    pass
     except Exception:
-        print("Something went wrong setting the proxy  please sumbit a bug report")
+        print("Something went wrong setting the proxy please sumbit a bug report Code:0x01")
         pass
 
 
@@ -685,14 +716,11 @@ try:
     codecs.lookup('mbcs')
 except LookupError:
     ascii_encoding = codecs.lookup('latin-1')
-
-
     def mbcs_bypass(name, encoding=ascii_encoding):
         if name == "mbcs":
             return encoding
-
-
     codecs.register(mbcs_bypass)
+
 
 # Colours
 W = "\033[0m"
@@ -700,6 +728,7 @@ R = "\033[31m"
 G = "\033[32m"
 O = "\033[33m"
 B = "\033[34m"
+
 
 subprocess.call("clear", shell=True)
 arg_end = "--"

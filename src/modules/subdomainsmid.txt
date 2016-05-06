@@ -3155,7 +3155,7 @@ salute
 sanata
 psicolaranja
 roza-stiopina
-banner
+logo
 cra
 knowing
 extreme
@@ -25407,7 +25407,7 @@ effortlessanthropologie
 neno1050
 fcoraz
 kevinbolk
-guadagna-con-banner-mania
+guadagna-con-logo-mania
 mommydoes
 usingimho
 fatsimaremag

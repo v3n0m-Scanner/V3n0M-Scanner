@@ -159,7 +159,7 @@ def killpid(signum=0, frame=0):
 
 
 def log(result, ip, banner):
-    output = open('banner-output.txt', 'a')
+    output = open('logo-output.txt', 'a')
     output.write('IP: %s\nBanner: %s\nExploits: \n' % (ip, banner))
     for r in result:
         output.write('\t' + r + '\n')
