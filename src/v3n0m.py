@@ -410,7 +410,7 @@ def vulnscan():
     except Exception:
         logo()
         print( W + "Something went wrong, did you enter a invalid option???" + R )
-        vulnscan()
+    vulnscan()
 
 
 
