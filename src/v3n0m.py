@@ -288,6 +288,7 @@ def classicinj(url):
             pass
     else:
         pass
+    fmenu()
 
 
 
