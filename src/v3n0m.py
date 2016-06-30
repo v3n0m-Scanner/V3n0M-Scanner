@@ -410,7 +410,8 @@ def vulnscan():
     except Exception:
         logo()
         print( W + "Something went wrong, did you enter a invalid option???" + R )
-    vulnscan()
+    else:
+        pass
 
 
 
@@ -674,7 +675,7 @@ def enable_proxy():
                    socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS4, proxyip, proxyport,
                                          username=input("Proxy Account Username  :"),
                                          password=input("Proxy Account Password  :"))
-                   socket.socket = socks.socksocket
+                   socks.socket = socks.socksocket
                    print(" Socks 4 Proxy Support Enabled")
                 except Exception:
                     print("Something went wrong setting the proxy please sumbit a bug report Code:0x05")
@@ -682,7 +683,7 @@ def enable_proxy():
             elif requiresID == str("False") or str("false"):
                 try:
                     socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS4, proxyip, proxyport)
-                    socket.socket = socks.socksocket
+                    socks.socket = socks.socksocket
                     print(" Socks 4 Proxy Support Enabled")
                 except Exception:
                     print("Something went wrong setting the proxy please sumbit a bug report Code:0x04")
@@ -693,14 +694,14 @@ def enable_proxy():
                     socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS5, proxyip, proxyport,
                                           username=input("Proxy Account Username  :"),
                                           password=input("Proxy Account Password  :"))
-                    socket.socket = socks.socksocket
+                    socks.socket = socks.socksocket
                 except Exception:
                     print("Something went wrong setting the proxy please sumbit a bug report Code:0x03")
                     pass
             elif requiresID == str("False") or str("false"):
                 try:
                     socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS5, proxyip, proxyport)
-                    socket.socket = socks.socksocket
+                    socks.socket = socks.socksocket
                     print(" Socks 5 Proxy Support Enabled")
                 except Exception:
                     print("Something went wrong setting the proxy please sumbit a bug report Code:0x02")
