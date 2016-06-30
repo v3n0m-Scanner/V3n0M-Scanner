@@ -267,7 +267,7 @@ def classicinj(url):
         except:
            pass
     except KeyboardInterrupt:
-        chce = ':'
+        chce = input(':')
         os.system('clear')
         logo()
         print( G + "Program Paused" + R)
@@ -458,7 +458,7 @@ def ignoringGet(url):
         return responce.text
     except KeyboardInterrupt:
         os.system('clear')
-        chce1 = ':'
+        chce1 = input(':')
         logo()
         print( G + "Program Paused" + R )
         print("[1] Unpause")
@@ -538,7 +538,7 @@ async def search(pages_pulled_as_one):
                 tmplist.append(domain)
         except KeyboardInterrupt:
             os.system('clear')
-            chce1 = ':'
+            chce1 = input(':')
             logo()
             print(G + "Program Paused" + R)
             print("[1] Unpause")
