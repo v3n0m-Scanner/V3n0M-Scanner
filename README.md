@@ -1,4 +1,4 @@
-Current Version: Version V.4.0.4c
+Current Version: Version V.4.0.5
 ![v3n0m Scanner](http://i.imgur.com/A96CipT.png "V3n0M-Scanner")
 ![Example of SQLi Dorker](http://s29.postimg.org/rytx5r0af/Screenshot_from_2016_04_09_10_28_19.png "Example of Dorker")
 
@@ -27,7 +27,7 @@ This program is for finding and executing various vulnerabilities. It scavenges 
 + Largest and most powerful d0rker online, 18k+d0rks searched over ~ Engines at once.
 + Free and Open /src/
 + CrossPlatform Python based toolkit
-+ Version 4.0.4c Released on 11th April 2016
++ Version 4.0.5 Released on 9th August 2016
 + Licensed under GPLv2
 + Tested on: ArchLinux 4.4.6-1, Ubuntu, Debian, Windows, MacOS
 

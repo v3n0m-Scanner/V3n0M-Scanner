@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: latin-1 -*-
 #              --- To be Done     --Partially implemented     -Done
-# V3n0MScanner.py - V.4.0.4c
+# V3n0MScanner.py - V.4.0.5
 #   - Redo entire search engine function to run 100 checks per engine at once
 #   - Change layout and add a timer feature
 #   --- Re-Add LFI/RFI options
@@ -19,28 +19,12 @@
 #                       to every person who has worked on this tool. Thanks people. NovaCygni
 
 
-try:
-  import re, random, threading, socket, urllib.request, urllib.error, urllib.parse, http.cookiejar, subprocess, \
-    time, sys, os, math, itertools, queue, asyncio, aiohttp, argparse, socks, httplib2, requests, codecs, dns
-  from signal import SIGINT, signal
-  from bs4 import BeautifulSoup
-  from codecs import lookup, register
-  from random import SystemRandom
-  from socket import *
-  from datetime import *
-
-except:
-    print(" please make sure you have all of the following modules: asyncio, aiohttp, requests")
-    print(" httplib2, bs4")
-    print("Error a module was not found,  'sudo pip3 install <package name>' or  'sudo pip3.5 install <package name>' to install")
-    exit()
-
 
 # Banner
 def logo():
     print(R + "\n|----------------------------------------------------------------|")
     print("|     V3n0mScanner.py                                            |")
-    print("|     Release Date 11/04/2016  - Release Version V.4.0.4c        |")
+    print("|     Release Date 09/08/2016  - Release Version V.4.0.5         |")
     print("|         Socks4&5 Proxy Support                                 |")
     print("|             " + B + "        NovaCygni  Architect    " + R + "                   |")
     print("|                    _____       _____                           |")
@@ -51,6 +35,52 @@ def logo():
     print("|    Official   \_/" + G + " \____/|_" + R + "| |_|" + G + "\___/|_| |_| " + R + "|_|  Release       |")
     print("|                                                                |")
     print("|----------------------------------------------------------------|\n")
+
+
+# noinspection PyBroadException
+try:
+    import re, random, threading, socket, urllib.request, urllib.error, urllib.parse, http.cookiejar, subprocess, \
+        time, sys, os, math, itertools, queue, asyncio, aiohttp, argparse, socks, httplib2, requests, codecs, dns
+    from signal import SIGINT, signal
+    import bs4
+    from codecs import lookup, register
+    from random import SystemRandom
+    from socket import *
+    from datetime import *
+
+except:
+    print("\n|------ PYTHON PROBLEM DETECTED! Recovery Menu Enabled -----| ")
+    print("|--- You are advised to run either or both steps below   ---| ")
+    print("|--- Recovery Menu is in early testing stage please let me know if you have any problems with it.   ---| ")
+    print("[1] Run Pip3 and Auto-Update Python3 modules to latest versions, Requires Sudo or Root")
+    print("[2] Run Pip3 and Auto-Install all the required v3n0m modules, Requires Sudo  or Root")
+    print("[3] Exit")
+    chce = input(":")
+    import time
+    import pip
+    from subprocess import call
+
+    if chce == '1':
+        print("Warning This will force upgrade all Python3 modules except dependencies")
+        print("You will have 10 seconds to cancel this action before the system begins")
+        print("Note: This will entirely reinstall all current installed modules aswell to clear possible problems")
+        time.sleep(10)
+        for dist in pip.get_installed_distributions():
+            call("sudo pip3 install --upgrade --no-deps --force-reinstall " + dist.project_name, shell=True)
+            pass
+        pass
+    if chce == '2':
+        print("This will install the aiohttp, asyncio, bs4, dns/dnspython modules and upgrade them to current versions")
+        print("You will have 10 seconds to cancel this action before the system begins")
+        time.sleep(10)
+        call("sudo pip3 install dns --upgrade ", shell=True)
+        call("sudo pip3 install aiohttp --upgrade ", shell=True)
+        call("sudo pip3 install asyncio --upgrade ", shell=True)
+        call("sudo pip3 install bs4 --upgrade ", shell=True)
+        call("sudo pip3 install dnspython --upgrade ", shell=True)
+        pass
+    if chce == '3':
+        exit()
 
 
 def killpid(signum=0, frame=0):
@@ -87,219 +117,201 @@ class Injthread(threading.Thread):
 def classicinj(url):
     aug_url = url + "'"
     try:
-        try:
-            resp = urllib.request.urlopen(aug_url)
-            cctvcheck = urllib.request.urlopen(url)
-            Hits = str(resp.read())
-            tango = str(cctvcheck.read())
-            if str("error in your SQL syntax") in Hits:
-                print(url + " is vulnerable --> MySQL Classic")
-                logfile.write("\n" + aug_url)
-                vuln.append(Hits)
-                col.append(Hits)
-                pass
-            elif str("mysql_fetch") in Hits:
-                print(url + " is Vulnerable --> MiscError")
-                logfile.write("\n" + aug_url)
-                vuln.append(Hits)
-                col.append(Hits)
-                pass
-            elif str("num_rows") in Hits:
-                print(url + " is Vulnerable --> MiscError2")
-                logfile.write("\n" + aug_url)
-                vuln.append(Hits)
-                col.append(Hits)
-                pass
-            elif str("ORA-01756") in Hits:
-                print(url + " is Vulnerable --> Oracle")
-                logfile.write("\n" + aug_url)
-                vuln.append(Hits)
-                col.append(Hits)
-                pass
-            elif str("Error Executing Database Query") in Hits:
-                print(url + " is Vulnerable --> JDBC_CFM")
-                logfile.write("\n" + aug_url)
-                vuln.append(Hits)
-                col.append(Hits)
-                pass
-            elif str("SQLServer JDBC Driver") in Hits:
-                print(url + " is Vulnerable --> JDBC_CFM2")
-                logfile.write("\n" + aug_url)
-                vuln.append(Hits)
-                col.append(Hits)
-                pass
-            elif str("OLE DB Provider for SQL Server") in Hits:
-                print(url + " is Vulnerable --> MSSQL_OLEdb")
-                logfile.write("\n" + aug_url)
-                vuln.append(Hits)
-                col.append(Hits)
-                pass
-            elif str("Unclosed quotation mark") in Hits:
-                print(url + " is Vulnerabe --> MSSQL_Uqm")
-                logfile.write("\n" + aug_url)
-                vuln.append(Hits)
-                col.append(Hits)
-                pass
-            elif str("ODBC Microsoft Access Driver") in Hits:
-                print(url + " is Vulnerable --> MS-Access_ODBC")
-                logfile.write("\n" + aug_url)
-                vuln.append(Hits)
-                col.append(Hits)
-                pass
-            elif str("Microsoft JET Database") in Hits:
-                print(url + " is Vulnerable --> MS-Access_JETdb")
-                logfile.write("\n" + aug_url)
-                vuln.append(Hits)
-                col.append(Hits)
-                pass
-            elif str("Error Occurred While Processing Request") in Hits:
-                print(url + " is Vulnerable --> Processing Request")
-                logfile.write("\n" + aug_url)
-                vuln.append(Hits)
-                col.append(Hits)
-                pass
-            elif str("Microsoft JET Database") in Hits:
-                print(url + " is Vulnerable --> MS-Access JetDb")
-                logfile.write("\n" + aug_url)
-                vuln.append(Hits)
-                col.append(Hits)
-                pass
-            elif str("Error Occurred While Processing Request") in Hits:
-                print(url + " is Vulnerable --> Processing Request ")
-                logfile.write("\n" + aug_url)
-                vuln.append(Hits)
-                col.append(Hits)
-                pass
-            elif str("Server Error") in Hits:
-                print(url + " is Vulnerable --> Server Error")
-                logfile.write("\n" + aug_url)
-                vuln.append(Hits)
-                col.append(Hits)
-                pass
-            elif str("ODBC Drivers error") in Hits:
-                print(url + " is Vulnerable --> ODBC Drivers error")
-                logfile.write("\n" + aug_url)
-                vuln.append(Hits)
-                col.append(Hits)
-                pass
-            elif str("Invalid Querystring") in Hits:
-                print(url + " is Vulnerable --> Invalid Querystring")
-                logfile.write("\n" + aug_url)
-                vuln.append(Hits)
-                col.append(Hits)
-                pass
-            elif str("OLE DB Provider for ODBC") in Hits:
-                print(url + " is Vulnerable --> OLE DB Provider for ODBC")
-                logfile.write("\n" + aug_url)
-                vuln.append(Hits)
-                col.append(Hits)
-                pass
-            elif str("VBScript Runtime") in Hits:
-                print(url + " is Vulnerable --> VBScript Runtime")
-                logfile.write("\n" + aug_url)
-                vuln.append(Hits)
-                col.append(Hits)
-                pass
-            elif str("ADODB.Field") in Hits:
-                print(url + " is Vulnerable --> ADODB.Field")
-                logfile.write("\n" + aug_url)
-                vuln.append(Hits)
-                col.append(Hits)
-                pass
-            elif str("BOF or EOF") in Hits:
-                print(url + " is Vulnerable --> BOF or EOF")
-                logfile.write("\n" + aug_url)
-                vuln.append(Hits)
-                col.append(Hits)
-                pass
-            elif str("ADODB.Command") in Hits:
-                print(url + " is Vulnerable --> ADODB.Command")
-                logfile.write("\n" + aug_url)
-                vuln.append(Hits)
-                col.append(Hits)
-                pass
-            elif str("JET Database") in Hits:
-                print(url + " is Vulnerable --> JET Database")
-                logfile.write("\n" + aug_url)
-                vuln.append(Hits)
-                col.append(Hits)
-                pass
-            elif str("mysql_fetch_array") in Hits:
-                print(url + " is Vulnerabe --> mysql_fetch_array")
-                logfile.write("\n" + aug_url)
-                vuln.append(Hits)
-                col.append(Hits)
-                pass
-            elif str("Syntax error") in Hits:
-                print(url + " is Vulnerable --> Syntax error")
-                logfile.write("\n" + aug_url)
-                vuln.append(Hits)
-                col.append(Hits)
-                pass
-            elif str("mysql_numrows()") in Hits:
-                print(url + " is Vulnerable --> mysql_numrows()")
-                logfile.write("\n" + aug_url)
-                vuln.append(Hits)
-                col.append(Hits)
-                pass
-            elif str("GetArray()") in Hits:
-                print(url + " is Vulnerable --> GetArray()")
-                logfile.write("\n" + aug_url)
-                vuln.append(Hits)
-                col.append(Hits)
-                pass
-            elif str("FetchRow()") in Hits:
-                print(url + " is Vulnerable --> FetchRow()")
-                logfile.write("\n" + aug_url)
-                vuln.append(Hits)
-                col.append(Hits)
-                pass
-            elif str("Input string was not in a correct format") in Hits:
-                print(url + " is Vulnerable --> Input String Error")
-                logfile.write("\n" + aug_url)
-                vuln.append(Hits)
-                col.append(Hits)
-                pass
-            elif str("CCTV") in tango:
-                print(url + "  CCTV Discovered!!!")
-            else:
-                pass
-        except:
-           pass
-    except KeyboardInterrupt:
-        chce = input(':')
-        os.system('clear')
-        logo()
-        print( G + "Program Paused" + R)
-        print('[1] Unpause Program')
-        print('[2] Skip the rest of SQLi check, Save list and Return to Main Menu')
-        print('[3] Pipe all found vulns to SQLMap to Automate SQLi attacks.')
-        print('[4] Return to Main Menu')
-        if chce == '1':
-            return
-        if chce == '2':
-            os.system('clear')
-            logo()
-            print("\r\x1b[K [*] Scan complete, " + str(len(col)) + " vuln sites found.")
-        if chce == '4':
-            os.system('clear')
-            fmenu()
+        resp = urllib.request.urlopen(aug_url)
+        cctvcheck = urllib.request.urlopen(url)
+        Hits = str(resp.read())
+        tango = str(cctvcheck.read())
+        if str("error in your SQL syntax") in Hits:
+            print(url + " is vulnerable --> MySQL Classic")
+            logfile.write("\n" + aug_url)
+            vuln.append(Hits)
+            col.append(Hits)
+            pass
+        elif str("mysql_fetch") in Hits:
+            print(url + " is Vulnerable --> MiscError")
+            logfile.write("\n" + aug_url)
+            vuln.append(Hits)
+            col.append(Hits)
+            pass
+        elif str("num_rows") in Hits:
+            print(url + " is Vulnerable --> MiscError2")
+            logfile.write("\n" + aug_url)
+            vuln.append(Hits)
+            col.append(Hits)
+            pass
+        elif str("ORA-01756") in Hits:
+            print(url + " is Vulnerable --> Oracle")
+            logfile.write("\n" + aug_url)
+            vuln.append(Hits)
+            col.append(Hits)
+            pass
+        elif str("Error Executing Database Query") in Hits:
+            print(url + " is Vulnerable --> JDBC_CFM")
+            logfile.write("\n" + aug_url)
+            vuln.append(Hits)
+            col.append(Hits)
+            pass
+        elif str("SQLServer JDBC Driver") in Hits:
+            print(url + " is Vulnerable --> JDBC_CFM2")
+            logfile.write("\n" + aug_url)
+            vuln.append(Hits)
+            col.append(Hits)
+            pass
+        elif str("OLE DB Provider for SQL Server") in Hits:
+            print(url + " is Vulnerable --> MSSQL_OLEdb")
+            logfile.write("\n" + aug_url)
+            vuln.append(Hits)
+            col.append(Hits)
+            pass
+        elif str("Unclosed quotation mark") in Hits:
+            print(url + " is Vulnerabe --> MSSQL_Uqm")
+            logfile.write("\n" + aug_url)
+            vuln.append(Hits)
+            col.append(Hits)
+            pass
+        elif str("ODBC Microsoft Access Driver") in Hits:
+            print(url + " is Vulnerable --> MS-Access_ODBC")
+            logfile.write("\n" + aug_url)
+            vuln.append(Hits)
+            col.append(Hits)
+            pass
+        elif str("Microsoft JET Database") in Hits:
+            print(url + " is Vulnerable --> MS-Access_JETdb")
+            logfile.write("\n" + aug_url)
+            vuln.append(Hits)
+            col.append(Hits)
+            pass
+        elif str("Error Occurred While Processing Request") in Hits:
+            print(url + " is Vulnerable --> Processing Request")
+            logfile.write("\n" + aug_url)
+            vuln.append(Hits)
+            col.append(Hits)
+            pass
+        elif str("Microsoft JET Database") in Hits:
+            print(url + " is Vulnerable --> MS-Access JetDb")
+            logfile.write("\n" + aug_url)
+            vuln.append(Hits)
+            col.append(Hits)
+            pass
+        elif str("Error Occurred While Processing Request") in Hits:
+            print(url + " is Vulnerable --> Processing Request ")
+            logfile.write("\n" + aug_url)
+            vuln.append(Hits)
+            col.append(Hits)
+            pass
+        elif str("Server Error") in Hits:
+            print(url + " is Vulnerable --> Server Error")
+            logfile.write("\n" + aug_url)
+            vuln.append(Hits)
+            col.append(Hits)
+            pass
+        elif str("ODBC Drivers error") in Hits:
+            print(url + " is Vulnerable --> ODBC Drivers error")
+            logfile.write("\n" + aug_url)
+            vuln.append(Hits)
+            col.append(Hits)
+            pass
+        elif str("Invalid Querystring") in Hits:
+            print(url + " is Vulnerable --> Invalid Querystring")
+            logfile.write("\n" + aug_url)
+            vuln.append(Hits)
+            col.append(Hits)
+            pass
+        elif str("OLE DB Provider for ODBC") in Hits:
+            print(url + " is Vulnerable --> OLE DB Provider for ODBC")
+            logfile.write("\n" + aug_url)
+            vuln.append(Hits)
+            col.append(Hits)
+            pass
+        elif str("VBScript Runtime") in Hits:
+            print(url + " is Vulnerable --> VBScript Runtime")
+            logfile.write("\n" + aug_url)
+            vuln.append(Hits)
+            col.append(Hits)
+            pass
+        elif str("ADODB.Field") in Hits:
+            print(url + " is Vulnerable --> ADODB.Field")
+            logfile.write("\n" + aug_url)
+            vuln.append(Hits)
+            col.append(Hits)
+            pass
+        elif str("BOF or EOF") in Hits:
+            print(url + " is Vulnerable --> BOF or EOF")
+            logfile.write("\n" + aug_url)
+            vuln.append(Hits)
+            col.append(Hits)
+            pass
+        elif str("ADODB.Command") in Hits:
+            print(url + " is Vulnerable --> ADODB.Command")
+            logfile.write("\n" + aug_url)
+            vuln.append(Hits)
+            col.append(Hits)
+            pass
+        elif str("JET Database") in Hits:
+            print(url + " is Vulnerable --> JET Database")
+            logfile.write("\n" + aug_url)
+            vuln.append(Hits)
+            col.append(Hits)
+            pass
+        elif str("mysql_fetch_array") in Hits:
+            print(url + " is Vulnerabe --> mysql_fetch_array")
+            logfile.write("\n" + aug_url)
+            vuln.append(Hits)
+            col.append(Hits)
+            pass
+        elif str("Syntax error") in Hits:
+            print(url + " is Vulnerable --> Syntax error")
+            logfile.write("\n" + aug_url)
+            vuln.append(Hits)
+            col.append(Hits)
+            pass
+        elif str("mysql_numrows()") in Hits:
+            print(url + " is Vulnerable --> mysql_numrows()")
+            logfile.write("\n" + aug_url)
+            vuln.append(Hits)
+            col.append(Hits)
+            pass
+        elif str("GetArray()") in Hits:
+            print(url + " is Vulnerable --> GetArray()")
+            logfile.write("\n" + aug_url)
+            vuln.append(Hits)
+            col.append(Hits)
+            pass
+        elif str("FetchRow()") in Hits:
+            print(url + " is Vulnerable --> FetchRow()")
+            logfile.write("\n" + aug_url)
+            vuln.append(Hits)
+            col.append(Hits)
+            pass
+        elif str("Input string was not in a correct format") in Hits:
+            print(url + " is Vulnerable --> Input String Error")
+            logfile.write("\n" + aug_url)
+            vuln.append(Hits)
+            col.append(Hits)
+            pass
+        elif str("CCTV") in tango:
+            print(url + "  CCTV Discovered!!!")
         else:
             pass
-    else:
+    except:
         pass
-    fmenu()
 
 
-
+def life_pulse():
+    global life
+    pulse_1 = datetime.now()
+    life = pulse_1 - pulse
+    print(life)
 
 def injtest():
     global logfile
+    global pulse
+    pulse = datetime.now()
     log = "v3n0m-sqli.txt"
     logfile = open(log, "a")
     print(B + "\n[+] Preparing for SQLi scanning ...")
-    print("[+] Can take a while ...")
-    print("[!] Working ...\n")
+    print("[+] Can take a while and appear not to be doing anything...")
+    print("[!] Please be patient if you can see this message, its Working ...\n")
     vb = len(usearch) / int(numthreads)
     i = int(vb)
     m = len(usearch) % int(numthreads)
@@ -391,7 +403,6 @@ def vulnscan():
     try:
         global endsub
         global vuln
-        endsub = 0
         print(R + "\n[1] SQLi Testing")
         print("[2] Back to main menu")
         chce = input(":")
@@ -400,17 +411,12 @@ def vulnscan():
             injtest()
             print(B + "\r\x1b[K [*] Scan complete, " + O + str(len(col)) + B + " vuln sites found.")
             print()
-        elif chce == '1':
-            vuln = []
-            injtest()
-            endsub = 0
-            print(B + "\r\x1b[K [*] Scan complete, " + O + str(len(vuln)) + B + " vuln sites found.")
         elif chce == '2':
             endsub = 1
             fmenu()
     except Exception:
         logo()
-        print( W + "Something went wrong, did you enter a invalid option???" + R )
+        print(W + "Something went wrong, did you enter a invalid option???" + R)
     else:
         pass
 
