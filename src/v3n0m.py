@@ -405,20 +405,22 @@ def vulnscan():
         global vuln
         print(R + "\n[1] SQLi Testing")
         print("[2] Back to main menu")
-        chce = input(":")
-        if chce == '1':
+        chce3 = input(":")
+        if chce3 == '1':
             vuln = []
             injtest()
             print(B + "\r\x1b[K [*] Scan complete, " + O + str(len(col)) + B + " vuln sites found.")
             print()
-        elif chce == '2':
+        elif chce3 == '2':
             endsub = 1
             fmenu()
     except Exception:
         logo()
-        print(W + "Something went wrong, did you enter a invalid option???" + R)
+        injtest()
+        print(B + "\r\x1b[K [*] Scan complete, " + O + str(len(col)) + B + " vuln sites found.")
+        print()
     else:
-        pass
+        fmenu()
 
 
 
