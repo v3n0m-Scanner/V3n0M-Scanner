@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: latin-1 -*-
 #              --- To be Done     --Partially implemented     -Done
-# V3n0MScanner.py - V.4.0.5
+# V3n0MScanner.py - V.4.0.6
 #   - Change layout and add a timer feature
 #   --- Re-Add LFI/RFI options
 #   --- Add parsing options
@@ -20,7 +20,7 @@
 def logo():
     print(R + "\n|----------------------------------------------------------------|")
     print("|     V3n0mScanner.py                                            |")
-    print("|     Release Date 14/08/2016  - Release Version V.4.0.5a        |")
+    print("|     Release Date 14/08/2016  - Release Version V.4.0.6         |")
     print("|         Socks4&5 Proxy Support                                 |")
     print("|             " + B + "        NovaCygni  Architect    " + R + "                   |")
     print("|                    _____       _____                           |")
@@ -154,6 +154,7 @@ class xssthread(threading.Thread):
         self.check = False
 
 
+# noinspection PyBroadException
 def classiclfi(url):
     lfiurl = url.rsplit('=', 1)[0]
     if lfiurl[-1] != "=":
@@ -184,6 +185,7 @@ def classiclfi(url):
             pass
 
 
+# noinspection PyBroadException
 def classicxss(url):
     for xss in xsses:
         if url not in vuln:
@@ -201,6 +203,7 @@ def classicxss(url):
                     sys.stdout.flush()
 
 
+# noinspection PyBroadException
 def lfitest():
     print(B + "\n[+] Preparing for LFI - RCE scanning ...")
     print("[+] Can take a while ...")
@@ -221,6 +224,7 @@ def lfitest():
             thread.join()
 
 
+# noinspection PyBroadException
 def xsstest():
     print(B + "\n[+] Preparing for XSS scanning ...")
     print("[+] Can take a while ...")
@@ -428,6 +432,7 @@ def classicinj(url):
         pass
 
 
+# noinspection PyBroadException
 def life_pulse():
     global life
     pulse_1 = datetime.now()
@@ -435,6 +440,7 @@ def life_pulse():
     print(life)
 
 
+# noinspection PyBroadException
 def injtest():
     global logfile
     global pulse
@@ -461,6 +467,7 @@ def injtest():
             thread.join()
 
 
+# noinspection PyBroadException
 def colfinder():
     print(B + "\n[+] Preparing for Column Finder ...")
     print("[+] Can take a while ...")
@@ -511,7 +518,6 @@ def colfinder():
                 pass
 
         print("\n[!] Sorry column length could not be found\n")
-
     print(B + "\n[+] Gathering MySQL Server Configuration...")
     for site in darkurl:
         head_url = site.replace("evilzone",
@@ -545,7 +551,6 @@ def colfinder():
                     if re.findall(str("NovaCygni"), source):
                         print("\n[!] w00t!w00t!: " + site.replace("evilzone",
                                                                   "concat_ws(char(58),user,password)") + arg_eva + "from" + arg_eva + "mysql.user")
-
                 print(W + "\n[+] Number of tables:", len(tables))
                 print("[+] Number of columns:", len(columns))
                 print("[+] Checking for tables and columns...")
@@ -734,6 +739,7 @@ def tcp_Scanner_run(tasks, *, loop=None):
     return loop.run_until_complete(asyncio.wait(tasks))
 
 
+# noinspection PyBroadException
 async def tcp_scanner(ip, port, loop=None):
     fut = asyncio.open_connection(ip, port, loop=loop)
     try:
@@ -745,6 +751,7 @@ async def tcp_scanner(ip, port, loop=None):
         print('Error {}:{} {}'.format(ip, port, exc))
 
 
+# noinspection PyBroadException
 def tcp_scan(ips, ports, randomize=True):
     loop = asyncio.get_event_loop()
     if randomize:
@@ -782,6 +789,90 @@ def ignoringGet(url):
             pass
 
 
+def CreateTempFolder(self):
+    from tempfile import mkdtemp
+    self.temp = mkdtemp(prefix='v3n0m')
+    if not self.temp.endswith(os.sep):
+        self.temp += os.sep
+
+
+def get_revision():
+    irev = -1
+    try:
+        sock = urllib.request.urlopen(
+            'https://raw.githubusercontent.com/v3n0m-Scanner/V3n0M-Scanner/master/src/v3n0m.py')
+        page = sock.read(b'')
+    except IOError:
+        return -1, '', ''
+    start = page.find(b'current_version= ')
+    stop = page.find(b"#end", start)
+    if start != -1 and stop != -1:
+        start += 11
+        rev = page[start:stop]
+        try:
+            irev = int(rev)
+        except ValueError:
+            rev = rev.split('\n')[0]
+            print(R + '[+] invalid revision number: "' + rev + '"')
+    return irev
+
+
+def upgrade():
+    try:
+        print(R + ' [+]' + W + ' checking for latest version...')
+        revision = int(get_revision())
+        if not revision:
+            print(R + ' [!]' + O + ' unable to access GitHub' + W)
+        elif revision > int(current_version):
+            print(R + ' [!]' + W + ' a new version is ' + G + 'available!' + W)
+            print(R + ' [-]' + W + '   revision:    ' + G + str(revision) + W)
+            response = input(R + ' [+]' + W + ' do you want to upgrade to the latest version? (y/n): ')
+            if not response.lower().startswith('y'):
+                print(R + ' [-]' + W + ' upgrading ' + O + 'aborted' + W)
+                fmenu()
+                return
+            print(R + ' [+] ' + G + 'downloading' + W + ' update...')
+            try:
+                sock = urllib.request.urlopen(
+                    'https://raw.githubusercontent.com/v3n0m-Scanner/V3n0M-Scanner/master/src/v3n0m.py')
+                page = sock.read()
+            except IOError:
+                page = ''
+            if page == '':
+                print(R + ' [+] ' + O + 'unable to download latest version' + W)
+                fmenu()
+            f = open('v3n0m_new.py', 'w')
+            f.write(page)
+            f.close()
+            this_file = __file__
+            if this_file.startswith('./'):
+                this_file = this_file[2:]
+            f = open('update_v3n0m.sh', 'w')
+            f.write('''#!/bin/sh\n
+                           rm -rf ''' + this_file + '''\n
+                           mv v3n0m_new.py ''' + this_file + '''\n
+                           rm -rf update_v3n0m.sh\n
+                           chmod +x ''' + this_file + '''\n
+                          ''')
+            f.close()
+            returncode = call(['chmod', '+x', 'update_v3n0m.sh'])
+            if returncode != 0:
+                print(R + ' [!]' + O + ' permission change returned unexpected code: ' + str(returncode) + W)
+                fmenu()
+            # Run the script
+            returncode = call(['sh', 'update_v3n0m.sh'])
+            if returncode != 0:
+                print(R + ' [!]' + O + ' upgrade script returned unexpected code: ' + str(returncode) + W)
+                fmenu()
+            print(R + ' [+] ' + G + 'updated!' + W + ' type "./' + this_file + '" to run again')
+        else:
+            print(R + ' [-]' + W + ' your copy of v3n0m is ' + G + 'up to date' + W)
+    except KeyboardInterrupt:
+        print(R + '\n (^C)' + O + ' v3n0m upgrade interrupted' + W)
+    fmenu()
+
+
+# noinspection PyBroadException
 async def search(pages_pulled_as_one):
     urls = []
     urls_len_last = 0
@@ -881,6 +972,7 @@ def fmenu():
     print("[4] DNS brute")
     print("[5] Enable Tor/Proxy Support")
     print("[6] Misc Options")
+    print("[7] Check for and apply update")
     print("[0] Exit\n")
     chce = input(":")
 
@@ -954,6 +1046,10 @@ def fmenu():
         # cloud()
         elif chce2 == '0':
             fmenu()
+
+
+    elif chce == '7':
+        upgrade()
 
 
 signal(SIGINT, killpid)
@@ -1058,6 +1154,6 @@ timeout = 8
 file = "/etc/passwd"
 
 menu = True
-
+current_version = 406#end
 while True:
     fmenu()
