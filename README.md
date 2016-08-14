@@ -1,10 +1,12 @@
+Latest News: LFI, RFI and XSS Features re-added, Automated basic GET based SQL injection re-added
++ All bug reports are appreciated, some features havnt been tested yet due to lack of free time.
+
 Current Version: Version V.4.0.5a
 ![v3n0m Scanner](http://i.imgur.com/A96CipT.png "V3n0M-Scanner")
 ![Example of SQLi Dorker](http://s29.postimg.org/rytx5r0af/Screenshot_from_2016_04_09_10_28_19.png "Example of Dorker")
 
 
-Latest News: LFI, RFI and XSS Features re-added, Automated basic GET based SQL injection re-added
-+ All bug reports are appreciated, some features havnt been tested yet due to lack of free time.
+
 [Live Project - All features fully working in Python3.5]
 
 V3n0M is a free and open source scanner. Evolved from baltazar's scanner, it has adapted several new features that improve fuctionality and usability. It is __mostly__ experimental software.
