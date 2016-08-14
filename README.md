@@ -15,12 +15,12 @@ This program is for finding and executing various vulnerabilities. It scavenges 
 ## Very useful for executing:
 
 + Metasploit Modules Scans
-+ LFI/RFI 
++ LFI, RFI and XSS Scanning[LFI/RFI/XSS]
 + SQL Injection Vuln Scanner[SQLi]
 + Extremely Large D0rk Target Lists
 + FTP Crawler
 + DNS BruteForcer
-+ Python3 Asyncio based scanning
++ Python3.5 Asyncio based scanning
 
 ## What You Hold:
 
