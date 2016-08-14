@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: latin-1 -*-
 #              --- To be Done     --Partially implemented     -Done
-# V3n0MScanner.py - V.4.0.5
+# V3n0MScanner.py - V.4.0.6
 #   - Change layout and add a timer feature
 #   --- Re-Add LFI/RFI options
 #   --- Add parsing options
@@ -1154,6 +1154,6 @@ timeout = 8
 file = "/etc/passwd"
 
 menu = True
-current_version = 406  # end
+current_version = 406#end
 while True:
     fmenu()
