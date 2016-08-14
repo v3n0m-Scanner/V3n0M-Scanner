@@ -189,6 +189,7 @@ def scan_string(header):
     return result
 
 
+# noinspection PyBroadException
 def vulnscan(queries):
     global banner
     for query in queries:

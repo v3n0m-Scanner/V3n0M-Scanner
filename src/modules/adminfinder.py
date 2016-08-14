@@ -4,9 +4,9 @@
 
 # !/usr/bin/python
 
-#import http.cookiejar
-import cookielib
-import Queue
+# import http.cookiejar
+
+import queue
 import subprocess
 import time
 import http.client
@@ -24,6 +24,7 @@ def killpid(signum=0, frame=0):
     os.kill(os.getpid(), 9)
 
 signal(SIGINT, killpid)
+
 
 class myThread(Thread):
     def __init__(self, threadID, name, q):
@@ -169,7 +170,6 @@ while threadID <= maxthreads:
 with Timer():
     while not workQueue.empty():
         pass
-        exitFlag = 1
     for t in threads:
         t.join()
     print("\r\x1b[K\n [*] All threads complete, " + str(len(found)) + " sites found.")

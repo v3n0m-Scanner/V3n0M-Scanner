@@ -6,7 +6,6 @@
 import argparse
 import subprocess
 import time as time2
-from datetime import *
 from os import getpid, kill
 from queue import Queue
 from signal import SIGINT, signal
@@ -62,7 +61,7 @@ class Timer:
                     round(len(subdomains) / taken, 2)) + " lookups per second.")
 
 
-def killpid(signum=0, frame=0):
+def killpid():
     writeout("bad")
     kill(getpid(), 9)
 
@@ -194,7 +193,6 @@ with Timer():
     taken = time2.time() - startcnt
     stdout.write("\r\x1b[K")
     stdout.flush()
-    exitFlag = 1
 
     for t in threads:
         t.join()

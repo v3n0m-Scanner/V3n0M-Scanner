@@ -1,9 +1,10 @@
-Current Version: Version V.4.0.5
+Current Version: Version V.4.0.5a
 ![v3n0m Scanner](http://i.imgur.com/A96CipT.png "V3n0M-Scanner")
 ![Example of SQLi Dorker](http://s29.postimg.org/rytx5r0af/Screenshot_from_2016_04_09_10_28_19.png "Example of Dorker")
 
 
-
+Latest News: LFI, RFI and XSS Features re-added, Automated basic GET based SQL injection re-added
++ All bug reports are appreciated, some features havnt been tested yet due to lack of free time.
 [Live Project - All features fully working in Python3.5]
 
 V3n0M is a free and open source scanner. Evolved from baltazar's scanner, it has adapted several new features that improve fuctionality and usability. It is __mostly__ experimental software.
@@ -14,6 +15,7 @@ This program is for finding and executing various vulnerabilities. It scavenges 
 ## Very useful for executing:
 
 + Metasploit Modules Scans
++ LFI/RFI 
 + SQL Injection Vuln Scanner[SQLi]
 + Extremely Large D0rk Target Lists
 + FTP Crawler
@@ -27,7 +29,7 @@ This program is for finding and executing various vulnerabilities. It scavenges 
 + Largest and most powerful d0rker online, 18k+d0rks searched over ~ Engines at once.
 + Free and Open /src/
 + CrossPlatform Python based toolkit
-+ Version 4.0.5 Released on 9th August 2016
++ Version 4.0.5a Released on 14th August 2016
 + Licensed under GPLv2
 + Tested on: ArchLinux 4.4.6-1, Ubuntu, Debian, Windows, MacOS
 
@@ -87,13 +89,5 @@ This program is for finding and executing various vulnerabilities. It scavenges 
 
 ====================================
 
-#Old Unsupported Version of 3.4 V3n0M in Python 2 can still be installed via PIP.
-  -PyPi: "NOT CURRENTLY MAINTAINED, PIP VERSION IS OUTDATED!!!!"
-    " 'Bug' reports for the Python2 3.4 Version WILL be ignored!"
-    You can now install the software via `pip install V3n0m`
-    Always verify the PGP signature of the package:
-    gpg:  Signature made Fri 18 Jul 2014 02:59:48 AM UTC
-    gpg:                using RSA key 0x8F2B5CBD711F1326
-    gpg:  Good signature from "Grand Architect <unload@cryptolab.net>"
-
 ##Make Love and Smoke Trees...
+
