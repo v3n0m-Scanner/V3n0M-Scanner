@@ -19,17 +19,18 @@
 # Banner
 def logo():
     print(R + "\n|----------------------------------------------------------------|")
-    print("|     V3n0mScanner.py                                            |")
-    print("|     Release Date 14/08/2016  - Release Version V.4.0.6         |")
-    print("|         Socks4&5 Proxy Support                                 |")
-    print("|             " + B + "        NovaCygni  Architect    " + R + "                   |")
+    print("| Release Date 15/08/2016                                        |")
+    print("|                                                                |")
+    print("|        Proxy Enabled " + G + " [",ProxyEnabled,"] " + R + "                               |")
+    print("|                                                                |")
     print("|                    _____       _____                           |")
     print("|          " + G + "         |____ |     |  _  |    " + R + "                      |")
     print("|             __   __   / /_ __ | |/' |_ _" + G + "_ ___             " + R + "     |")
     print("|             \ \ / /  " + G + " \ \ '" + R + "_ \|  /| | '_ ` _ \                 |")
     print("|              \ V" + G + " /.___/ / | | \ |_" + R + "/ / | | | | |                |")
-    print("|    Official   \_/" + G + " \____/|_" + R + "| |_|" + G + "\___/|_| |_| " + R + "|_|  Release       |")
-    print("|                                                                |")
+    print("|    Official   \_/" + G + " \____/|_" + R + "| |_|" + G + "\___/|_| |_| " + R + "|_| Release",current_version, " \
+  |")
+    print("|             " + B + "        NovaCygni  Architect    " + R + "                   |")
     print("|----------------------------------------------------------------|\n")
 
 
@@ -46,6 +47,7 @@ try:
 
 
 except:
+    logo()
     print("\n|------ PYTHON PROBLEM DETECTED! Recovery Menu Enabled -----| ")
     print("|--- You are advised to run either or both steps below   ---| ")
     print("|--- Recovery Menu is in early testing stage please let me know if you have any problems with it.   ---| ")
@@ -67,7 +69,7 @@ except:
             pass
         pass
     if chce == '2':
-        print("This will install the aiohttp, asyncio, bs4, dns/dnspython modules and upgrade them to current versions")
+        print("This will install the aiohttp/asyncio/bs4/dns/dnspython/datetime modules and upgrade them to current versions")
         print("You will have 10 seconds to cancel this action before the system begins")
         time.sleep(10)
         call("sudo pip3 install dns --upgrade ", shell=True)
@@ -75,6 +77,7 @@ except:
         call("sudo pip3 install asyncio --upgrade ", shell=True)
         call("sudo pip3 install bs4 --upgrade ", shell=True)
         call("sudo pip3 install dnspython --upgrade ", shell=True)
+        call("sudo pip3 install datetime --upgrade ", shell=True)
         pass
     if chce == '3':
         exit()
@@ -91,7 +94,6 @@ class Injthread(threading.Thread):
         self.fcount = 0
         self.check = True
         threading.Thread.__init__(self)
-
     def run(self):
         urls = list(self.hosts)
         for url in urls:
@@ -103,7 +105,6 @@ class Injthread(threading.Thread):
             except KeyboardInterrupt:
                 pass
         self.fcount += 1
-
     def stop(self):
         self.check = False
 
@@ -114,7 +115,6 @@ class Lfithread(threading.Thread):
         self.fcount = 0
         self.check = True
         threading.Thread.__init__(self)
-
     def run(self):
         urls = list(self.hosts)
         for url in urls:
@@ -126,7 +126,6 @@ class Lfithread(threading.Thread):
             except KeyboardInterrupt:
                 pass
         self.fcount += 1
-
     def stop(self):
         self.check = False
 
@@ -137,7 +136,6 @@ class xssthread(threading.Thread):
         self.fcount = 0
         self.check = True
         threading.Thread.__init__(self)
-
     def run(self):
         urls = list(self.hosts)
         for url in urls:
@@ -149,7 +147,6 @@ class xssthread(threading.Thread):
             except KeyboardInterrupt:
                 pass
         self.fcount += 1
-
     def stop(self):
         self.check = False
 
@@ -208,10 +205,11 @@ def lfitest():
     print(B + "\n[+] Preparing for LFI - RCE scanning ...")
     print("[+] Can take a while ...")
     print("[!] Working ...\n")
-    i = len(usearch) / int(numthreads)
+    vb = len(usearch) / int(numthreads)
+    i = int(vb)
     m = len(usearch) % int(numthreads)
     z = 0
-    if len(threads) <= numthreads:
+    if len(threads) <= int(numthreads):
         for x in range(0, int(numthreads)):
             sliced = usearch[x * i:(x + 1) * i]
             if z < m:
@@ -229,10 +227,11 @@ def xsstest():
     print(B + "\n[+] Preparing for XSS scanning ...")
     print("[+] Can take a while ...")
     print("[!] Working ...\n")
-    i = len(usearch) / int(numthreads)
+    vb = len(usearch) / int(numthreads)
+    i = int(vb)
     m = len(usearch) % int(numthreads)
     z = 0
-    if len(threads) <= numthreads:
+    if len(threads) <= int(numthreads):
         for x in range(0, int(numthreads)):
             sliced = usearch[x * i:(x + 1) * i]
             if z < m:
@@ -1029,16 +1028,13 @@ def fmenu():
             os.system('clear')
             logo()
             try:
-                url = [line.strip() for line in open(input("Please Input Custom List Path \n"
+                temp = input("Please Input Custom List Path \n"
                                                            "ie> \n"
-                                                           " /home/user/Desktop/samples.txt \n"
-                                                           "\n :    :"))]
+                                                           "/home/user/Desktop/samples.txt \n")
+                url = [line.strip() for line in open(temp, 'r')]
                 classicinj(url)
-            except:
-                os.system('clear')
-                logo()
+            except FileNotFoundError:
                 print("Target file not found!")
-                os.system('clear')
                 fmenu()
         elif chce2 == '2':
             os.system('clear')
@@ -1063,7 +1059,6 @@ search_Ignore = str(line.strip() for line in open("statics/search_ignore", 'r', 
 random.shuffle(d0rk)
 random.shuffle(header)
 random.shuffle(lfis)
-ProxyEnabled = False
 parser = argparse.ArgumentParser(prog='v3n0m', usage='v3n0m [options]')
 parser.add_argument('-p', "--proxy", type=str, help='Proxy must be in the form of type:host:port')
 args = parser.parse_args()
@@ -1071,6 +1066,7 @@ args = parser.parse_args()
 
 # noinspection PyBroadException
 def enable_proxy():
+    global ProxyEnabled
     try:
         requiresID = input("Requires Username/Password? Type True or False?  :")
         print("Please select Proxy Type - Options = socks4, socks5  : ")
@@ -1087,6 +1083,7 @@ def enable_proxy():
                                           password=input("Proxy Account Password  :"))
                     socks.socket = socks.socksocket
                     print(" Socks 4 Proxy Support Enabled")
+                    ProxyEnabled = True
                 except Exception:
                     print("Something went wrong setting the proxy please submit a bug report Code:0x05")
                     pass
@@ -1095,6 +1092,7 @@ def enable_proxy():
                     socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS4, proxyip, proxyport)
                     socks.socket = socks.socksocket
                     print(" Socks 4 Proxy Support Enabled")
+                    ProxyEnabled = True
                 except Exception:
                     print("Something went wrong setting the proxy please submit a bug report Code:0x04")
                     pass
@@ -1113,6 +1111,7 @@ def enable_proxy():
                     socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS5, proxyip, proxyport)
                     socks.socket = socks.socksocket
                     print(" Socks 5 Proxy Support Enabled")
+                    ProxyEnabled = True
                 except Exception:
                     print("Something went wrong setting the proxy please submit a bug report Code:0x02")
                     pass
@@ -1144,6 +1143,9 @@ G = "\033[32m"
 O = "\033[33m"
 B = "\033[34m"
 
+
+
+
 subprocess.call("clear", shell=True)
 arg_end = "--"
 arg_eva = "+"
@@ -1152,8 +1154,8 @@ endsub = 1
 gets = 0
 timeout = 8
 file = "/etc/passwd"
-
+ProxyEnabled=False
 menu = True
-current_version = 406#end
+current_version = 407#end
 while True:
     fmenu()
