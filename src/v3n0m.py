@@ -53,6 +53,8 @@ except:
     from subprocess import call
 
     if chce == '1':
+        sys.stdout.flush()
+        logo()
         print("Warning This will force upgrade all Python3 modules except dependencies")
         print("You will have 10 seconds to cancel this action before the system begins")
         print("Note: This will entirely reinstall all current installed modules aswell to clear possible problems")
@@ -62,6 +64,8 @@ except:
             pass
         pass
     if chce == '2':
+        sys.stdout.flush()
+        logo()
         print("This will install the aiohttp/asyncio/bs4/dns/dnspython/datetime modules and upgrade them to current versions")
         print("You will have 10 seconds to cancel this action before the system begins")
         time.sleep(10)
@@ -446,17 +450,20 @@ def injtest():
     i = int(vb)
     m = len(usearch) % int(numthreads)
     z = 0
-    if len(threads) <= int(numthreads):
-        for x in range(0, int(numthreads)):
-            sliced = usearch[x * i:(x + 1) * i]
-            if z < m:
-                sliced.append(usearch[int(numthreads) * i + z])
-                z += 1
-            thread = Injthread(sliced)
-            thread.start()
-            threads.append(thread)
-        for thread in threads:
-            thread.join()
+    try:
+        if len(threads) <= int(numthreads):
+            for x in range(0, int(numthreads)):
+                sliced = usearch[x * i:(x + 1) * i]
+                if z < m:
+                    sliced.append(usearch[int(numthreads) * i + z])
+                    z += 1
+                thread = Injthread(sliced)
+                thread.start()
+                threads.append(thread)
+            for thread in threads:
+                thread.join()
+    except TimeoutError:
+        pass
 
 
 # noinspection PyBroadException
@@ -900,11 +907,14 @@ async def search(pages_pulled_as_one):
                 os.system('clear')
                 start_time = datetime.now()
                 timeduration = start_time - timestart
+                ticktock = timeduration.seconds
+                hours, remainder = divmod(ticktock, 3600)
+                minutes, seconds = divmod(remainder, 60)
                 sys.stdout.flush()
                 logo()
                 sys.stdout.write(W +
-                                 "\r\x1b[K " + R + "| Domain: <%s> Has been targeted\n "
-                                                   " | Collected urls: %s Since start of scan \n"
+                                 "\r\x1b[K " + R + "| Domain: <%s> Has been targeted \n "
+                                                  "| Collected urls: %s Since start of scan \n"
                                                    " | D0rks: %s/%s Progressed so far \n"
                                                    " | Percent Done: %s \n"
                                                    " | Current page no.: <%s> in Cycles of 10 Page results pulled in Asyncio\n"
@@ -912,7 +922,7 @@ async def search(pages_pulled_as_one):
                                                    " | Elapsed Time: %s\n" % (R +
                                                                               site, repr(urls_len), dark, darklen,
                                                                               repr(percent), repr(page), dork,
-                                                                              timeduration))
+                                                                              '%s:%s:%s' % (hours, minutes, seconds)))
                 sys.stdout.flush()
                 if urls_len == urls_len_last:
                     page = int(pages_pulled_as_one)
