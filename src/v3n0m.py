@@ -820,9 +820,7 @@ def upgrade():
     try:
         print(R + ' [+]' + W + ' checking for latest version...')
         revision = int(get_revision())
-        if not revision:
-            print(R + ' [!]' + O + ' unable to access GitHub' + W)
-        elif revision > int(current_version):
+        if revision > int(current_version):
             print(R + ' [!]' + W + ' a new version is ' + G + 'available!' + W)
             print(R + ' [-]' + W + '   revision:    ' + G + str(revision) + W)
             response = input(R + ' [+]' + W + ' do you want to upgrade to the latest version? (y/n): ')
@@ -864,10 +862,8 @@ def upgrade():
                 print(R + ' [!]' + O + ' upgrade script returned unexpected code: ' + str(returncode) + W)
                 fmenu()
             print(R + ' [+] ' + G + 'updated!' + W + ' type "./' + this_file + '" to run again')
-        else:
-            print(R + ' [-]' + W + ' your copy of v3n0m is ' + G + 'up to date' + W)
-    except KeyboardInterrupt:
-        print(R + '\n (^C)' + O + ' v3n0m upgrade interrupted' + W)
+    except Exception:
+        print(R + '\n (^C)' + O + str(Exception) + W)
     fmenu()
 
 
