@@ -1,14 +1,7 @@
 #!/usr/bin/python
 # -*- coding: latin-1 -*-
 #              --- To be Done     --Partially implemented     -Done
-# V3n0MScanner.py - V.4.0.6
-#   - Change layout and add a timer feature
-#   --- Re-Add LFI/RFI options
-#   --- Add parsing options
-#   -- add piping for SQLMap
-#   -- Recode admin page finder, go for asyncio based crawler.
-#   - Asyncio Dork Scanning method. Stage 1
-#   -- Asyncio Dork Scanning Stage 2, Returning 15 separate engines at once
+# V3n0MScanner.py - Release 407
 #
 #                       This program has been based upon the smartd0rk3r and darkd0rker
 #                       It has been heavily edited, updated and improved upon by Novacygni
