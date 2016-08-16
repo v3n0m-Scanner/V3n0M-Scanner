@@ -803,7 +803,7 @@ def get_revision():
         page = sock.read(b'')
     except IOError:
         return -1, '', ''
-    start = page.find(b'current_version= ')
+    start = page.find(b'current_version = ')
     stop = page.find(b"#end", start)
     if start != -1 and stop != -1:
         start += 11
@@ -818,6 +818,7 @@ def get_revision():
 
 def upgrade():
     try:
+        print(' [+] Requires Root or Sudo otherwise will fail')
         print(R + ' [+]' + W + ' checking for latest version...')
         revision = int(get_revision())
         if revision > int(current_version):
