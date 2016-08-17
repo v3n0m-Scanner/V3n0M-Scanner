@@ -2,8 +2,8 @@ Latest News: Fixes and Tweaks to Scanning, Fixed Kali-Rolling support. Self-Upda
 + All bug reports are appreciated, some features havnt been tested yet due to lack of free time.
 
 Current Version: Release 408
-![v3n0m Scanner](http://gifcreator.me/download/20160817-04-k1D3b8zMJ77cyhyf/www.GIFCreator.me_1yf4xD.gif "V3n0M-Scanner")
-![Example of SQLi Dorker](http://s29.postimg.org/rytx5r0af/Screenshot_from_2016_04_09_10_28_19.png "Example of Dorker")
+![v3n0m Scanner](http://i.imgur.com/A96CipT.png "V3n0M-Scanner")
+![Example of SQLi Dorker](http://gifcreator.me/download/20160817-04-k1D3b8zMJ77cyhyf/www.GIFCreator.me_1yf4xD.gif "Example of Dorker")
 
 
 
