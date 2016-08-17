@@ -1,7 +1,5 @@
 #!/usr/bin/python
 # -*- coding: latin-1 -*-
-#              --- To be Done     --Partially implemented     -Done
-# V3n0MScanner.py - Release 407
 #
 #                       This program has been based upon the smartd0rk3r and darkd0rker
 #                       It has been heavily edited, updated and improved upon by Novacygni
@@ -586,7 +584,7 @@ def colfinder():
                 raise
 
 
-# noinspection PyBroadException
+# noinspection PyBroadException,PyGlobalUndefined
 def fscan():
     global pages_pulled_as_one
     global usearch
@@ -605,7 +603,7 @@ def fscan():
     darkurl = []
     loaded_Dorks = []
     print(W)
-    sites = input("\nChoose your target(domain) ie .com  : ")
+    sites = input("\nChoose your target(domain) ie .com , to attempt to force the domain restriction use *, ie *.com : ")
     sitearray = [sites]
     dorks = input("Choose the number of random dorks (0 for all.. may take awhile!)   : ")
     print("")
@@ -640,7 +638,6 @@ def fscan():
 # async def cloud():
 #    try:
 #        try:
-
 
 
 def det_Neph():
@@ -795,35 +792,35 @@ def CreateTempFolder(self):
         self.temp += os.sep
 
 
-def get_revision():
-    irev = -1
-    try:
-        sock = urllib.request.urlopen(
-            'https://raw.githubusercontent.com/v3n0m-Scanner/V3n0M-Scanner/master/src/v3n0m.py')
-        page = sock.read(b'')
-    except IOError:
-        return -1, '', ''
-    start = page.find(b'current_version = ')
-    stop = page.find(b"#end", start)
-    if start != -1 and stop != -1:
-        start += 11
-        rev = page[start:stop]
-        try:
-            irev = int(rev)
-        except ValueError:
-            rev = rev.split('\n')[0]
-            print(R + '[+] invalid revision number: "' + rev + '"')
-    return irev
-
-
 def upgrade():
+    import time
+    global page
+    global revision
     try:
-        print(' [+] Requires Root or Sudo otherwise will fail')
         print(R + ' [+]' + W + ' checking for latest version...')
-        revision = int(get_revision())
-        if revision > int(current_version):
+        try:
+            sock = ignoringGet(
+                'https://raw.githubusercontent.com/v3n0m-Scanner/V3n0M-Scanner/master/src/v3n0m.py')
+            page = sock
+            try:
+                if str("Release 409" or "Release 41" or "Release 42" or "Release 43" or
+                       "Release 44" or "Release 45" or "Release 46" or "Release 47" or "Release 48" or "Release 49"
+                       or "Release 5" or "Release 6" or "Release 7" or "Release 8" or "Release 9") in page:
+                    revision = int(409)
+                else:
+                    revision = current_version
+                    print( R + ' [!]' + W + ' Current version is either Latest or No Update was detected')
+                    time.sleep(4)
+                    pass
+            except KeyboardInterrupt:
+                pass
+        except KeyboardInterrupt:
+            pass
+        if revision > current_version:
+            print(R+ " [!] [Program Debug Info] I did revision as", G + str(revision), R + "and current version as",
+                 G + str(current_version))
             print(R + ' [!]' + W + ' a new version is ' + G + 'available!' + W)
-            print(R + ' [-]' + W + '   revision:    ' + G + str(revision) + W)
+            print(R + ' [-]' + W + '   revision:    ' + G + str(revision), 'or Higher Available' + W)
             response = input(R + ' [+]' + W + ' do you want to upgrade to the latest version? (y/n): ')
             if not response.lower().startswith('y'):
                 print(R + ' [-]' + W + ' upgrading ' + O + 'aborted' + W)
@@ -838,7 +835,6 @@ def upgrade():
                 page = ''
             if page == '':
                 print(R + ' [+] ' + O + 'unable to download latest version' + W)
-                fmenu()
             f = open('v3n0m_new.py', 'w')
             f.write(page)
             f.close()
@@ -863,6 +859,8 @@ def upgrade():
                 print(R + ' [!]' + O + ' upgrade script returned unexpected code: ' + str(returncode) + W)
                 fmenu()
             print(R + ' [+] ' + G + 'updated!' + W + ' type "./' + this_file + '" to run again')
+        else:
+            pass
     except Exception:
         print(R + '\n (^C)' + O + str(Exception) + W)
     fmenu()
@@ -1156,6 +1154,6 @@ timeout = 8
 file = "/etc/passwd"
 ProxyEnabled=False
 menu = True
-current_version = 407#end
+current_version = 408
 while True:
     fmenu()

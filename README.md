@@ -1,7 +1,7 @@
-Latest News: LFI, RFI and XSS Features re-added, Automated basic GET based SQL injection re-added
+Latest News: Fixes and Tweaks to Scanning, Fixed Kali-Rolling support. Self-Updater Improved (*UNTESTED*)
 + All bug reports are appreciated, some features havnt been tested yet due to lack of free time.
 
-Current Version: Release 407
+Current Version: Release 408
 ![v3n0m Scanner](http://i.imgur.com/A96CipT.png "V3n0M-Scanner")
 ![Example of SQLi Dorker](http://s29.postimg.org/rytx5r0af/Screenshot_from_2016_04_09_10_28_19.png "Example of Dorker")
 
@@ -31,7 +31,7 @@ This program is for finding and executing various vulnerabilities. It scavenges 
 + Largest and most powerful d0rker online, 18k+d0rks searched over ~ Engines at once.
 + Free and Open /src/
 + CrossPlatform Python based toolkit
-+ Release 407 Released on 15th August 2016
++ Release 408 Released on 17th August 2016
 + Licensed under GPLv2
 + Tested on: ArchLinux 4.6.5-1, Ubuntu, Debian, Windows, MacOS
 
