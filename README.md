@@ -3,7 +3,7 @@ Latest News: Fixes and Tweaks to Scanning, Fixed Kali-Rolling support. Self-Upda
 
 Current Version: Release 408
 ![v3n0m Scanner](http://i.imgur.com/A96CipT.png "V3n0M-Scanner")
-![Example of SQLi Dorker](http://s29.postimg.org/rytx5r0af/Screenshot_from_2016_04_09_10_28_19.png "Example of Dorker")
+![Example of SQLi Dorker](https://github.com/v3n0m-Scanner/V3n0M-Scanner/blob/master/AnimatedDemo.gif?raw=true "Example of Dorker")
 
 
 
