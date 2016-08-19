@@ -10,7 +10,7 @@
 # Banner
 def logo():
     print(R + "\n|----------------------------------------------------------------|")
-    print("| Release Date 15/08/2016                                        |")
+    print("| Release Date 18/08/2016                                        |")
     print("|                                                                |")
     print("|        Proxy Enabled " + G + " [",ProxyEnabled,"] " + R + "                               |")
     print("|                                                                |")
@@ -635,9 +635,18 @@ def fscan():
     vulnscan()
 
 
-# async def cloud():
-#    try:
-#        try:
+def cloud():
+    try:
+        logo()
+        target_site = input("Enter the site eg target.com: \n")
+        print(B)
+        pwd = os.path.dirname(str(os.path.realpath(__file__)))
+        cloud = subprocess.Popen('python ' + pwd + "/modules/buster.py " + str(target_site), shell=True)
+        cloud.communicate()
+        subprocess._cleanup()
+        fmenu()
+    except Exception:
+        print(Exception)
 
 
 def det_Neph():
@@ -803,10 +812,10 @@ def upgrade():
                 'https://raw.githubusercontent.com/v3n0m-Scanner/V3n0M-Scanner/master/src/v3n0m.py')
             page = sock
             try:
-                if str("Release 409" or "Release 41" or "Release 42" or "Release 43" or
+                if str("Release 41" or "Release 42" or "Release 43" or
                        "Release 44" or "Release 45" or "Release 46" or "Release 47" or "Release 48" or "Release 49"
                        or "Release 5" or "Release 6" or "Release 7" or "Release 8" or "Release 9") in page:
-                    revision = int(409)
+                    revision = int(410)
                 else:
                     revision = current_version
                     print( R + ' [!]' + W + ' Current version is either Latest or No Update was detected')
@@ -995,10 +1004,10 @@ def fmenu():
         subprocess._cleanup()
 
     elif chce == '4':
-        dnstarg = input("Enter the site eg target.com: ")
+        target_site = input("Enter the site eg target.com: ")
         print(B)
         pwd = os.path.dirname(str(os.path.realpath(__file__)))
-        dnsbrute = subprocess.Popen(pwd + "/modules/dnsbrute.py -w modules/subdomainsmid.txt -u " + str(dnstarg),
+        dnsbrute = subprocess.Popen(pwd + "/modules/dnsbrute.py -w modules/subdomainsmid.txt -u " + str(target_site),
                                     shell=True)
         dnsbrute.communicate()
         subprocess._cleanup()
@@ -1017,9 +1026,8 @@ def fmenu():
         os.system('clear')
         logo()
         print("[1] Skip to custom SQLi list checking")
-        print("[2] Cloudflare IP Resolver ::= Next Release")
-        print("[3] Identify Hash ::= Next Release")
-        print("[4] SockStress DDoS Tool ::= Next Release")
+        print("[2] Cloudflare IP Resolver #Not Ready#")
+        print("[3] SockStress DDoS Tool #Not Ready#")
         print("[0] Return to main menu")
         chce2 = input(":")
         if chce2 == '1':
@@ -1035,9 +1043,8 @@ def fmenu():
                 print("Target file not found!")
                 fmenu()
         elif chce2 == '2':
-            os.system('clear')
-            logo()
-        # cloud()
+            cloud()
+            fmenu()
         elif chce2 == '0':
             fmenu()
 
@@ -1154,6 +1161,6 @@ timeout = 8
 file = "/etc/passwd"
 ProxyEnabled=False
 menu = True
-current_version = 408
+current_version = 409
 while True:
     fmenu()
