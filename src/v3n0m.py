@@ -164,6 +164,7 @@ def classiclfi(url):
                 try:
                     request_web = urllib.request.Request(target)
                     request_web.add_header('User-Agent', header)
+                    request_web.add_header = [("connection", "keep-alive"), ("Cookie", cookie_value)]
                     text = urllib.request.urlopen(request_web)
                     text = text.read()
                     if re.findall(str('7ca328e93601c940f87d01df2bbd1972'), text):
