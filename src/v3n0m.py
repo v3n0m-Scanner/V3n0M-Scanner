@@ -73,6 +73,7 @@ except:
         call("sudo pip3 install bs4 --upgrade ", shell=True)
         call("sudo pip3 install dnspython --upgrade ", shell=True)
         call("sudo pip3 install datetime --upgrade ", shell=True)
+        call("sudo pip3 install requests --upgrade ", shell=True)
         pass
     if chce == '3':
         exit()
