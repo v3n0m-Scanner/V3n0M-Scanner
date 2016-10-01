@@ -33,7 +33,7 @@ This program is for finding and executing various vulnerabilities. It scavenges 
 + CrossPlatform Python based toolkit
 + Release 409 Released on 19th August 2016
 + Licensed under GPLv2
-+ Tested on: ArchLinux 4.6.6, Ubuntu, Debian, Windows, MacOS
++ Tested on: ArchLinux 4.6.6, Ubuntu, Debian, Windows, MacOS, Manjaro/ArchLinux ARM Ed.
 
 ##Module Deps
 
