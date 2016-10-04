@@ -10,7 +10,7 @@
 # Banner
 def logo():
     print(R + "\n|----------------------------------------------------------------|")
-    print("| Release Date 18/08/2016                                        |")
+    print("| Release Date 04/10/2016                                        |")
     print("|                                                                |")
     print("|        Proxy Enabled " + G + " [",ProxyEnabled,"] " + R + "                               |")
     print("|                                                                |")
@@ -42,9 +42,11 @@ except:
     print("\n|------ PYTHON PROBLEM DETECTED! Recovery Menu Enabled -----| ")
     print("|--- You are advised to run either or both steps below   ---| ")
     print("|--- Recovery Menu is in early testing stage please let me know if you have any problems with it.   ---| ")
+    print("| --Note, if your running Ubuntu you may need to run --> sudo apt-get install python3-bs4 --| ")
     print("[1] Run Pip3 and Auto-Update Python3 modules to latest versions, Requires Sudo or Root")
     print("[2] Run Pip3 and Auto-Install all the required v3n0m modules, Requires Sudo  or Root")
     print("[3] Exit")
+    print(" Note: Both recovery options will at the end, will perform a check at the end so everything is upto date")
     chce = input(":")
     import time
     import pip
@@ -59,6 +61,7 @@ except:
         time.sleep(10)
         for dist in pip.get_installed_distributions():
             call("sudo pip3 install --upgrade --no-deps --force-reinstall " + dist.project_name, shell=True)
+            call("sudo pip3 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 sudo pip3 install -U", shell=True)
             pass
         pass
     if chce == '2':
@@ -74,6 +77,7 @@ except:
         call("sudo pip3 install dnspython --upgrade ", shell=True)
         call("sudo pip3 install datetime --upgrade ", shell=True)
         call("sudo pip3 install requests --upgrade ", shell=True)
+        call("sudo pip3 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 sudo pip3 install -U", shell=True)
         pass
     if chce == '3':
         exit()
@@ -165,7 +169,7 @@ def classiclfi(url):
                 try:
                     request_web = urllib.request.Request(target)
                     request_web.add_header('User-Agent', header)
-                    request_web.add_header = [("connection", "keep-alive"), ("Cookie", cookie_value)]
+                    request_web.add_header = [("connection", "keep-alive"), ("Cookie")]
                     text = urllib.request.urlopen(request_web)
                     text = text.read()
                     if re.findall(str('7ca328e93601c940f87d01df2bbd1972'), text):
@@ -251,7 +255,6 @@ def classicinj(url):
         resp = urllib.request.urlopen(aug_url)
         cctvcheck = urllib.request.urlopen(url)
         hits = str(resp.read())
-        tango = str(cctvcheck.read())
         if str("error in your SQL syntax") in hits:
             print(url + " is vulnerable --> MySQL Classic")
             logfile.write("\n" + aug_url)
@@ -420,8 +423,6 @@ def classicinj(url):
             vuln.append(hits)
             col.append(hits)
             pass
-        elif str("CCTV") in tango:
-            print(url + "  CCTV Discovered!!!")
         else:
             pass
     except:
@@ -814,7 +815,7 @@ def upgrade():
                 'https://raw.githubusercontent.com/v3n0m-Scanner/V3n0M-Scanner/master/src/v3n0m.py')
             page = sock
             try:
-                if str("Release 41" or "Release 42" or "Release 43" or
+                if str("Release 411" or "Release 412" or "Release 413" or
                        "Release 44" or "Release 45" or "Release 46" or "Release 47" or "Release 48" or "Release 49"
                        or "Release 5" or "Release 6" or "Release 7" or "Release 8" or "Release 9") in page:
                     revision = int(410)
@@ -827,7 +828,7 @@ def upgrade():
                 pass
         except KeyboardInterrupt:
             pass
-        if revision > current_version:
+        if revision >= current_version:
             print(R+ " [!] [Program Debug Info] I did revision as", G + str(revision), R + "and current version as",
                  G + str(current_version))
             print(R + ' [!]' + W + ' a new version is ' + G + 'available!' + W)
@@ -888,7 +889,7 @@ async def search(pages_pulled_as_one):
             dark += 1
             page = 0
             while page < int(pages_pulled_as_one):
-                query = dork + "+site:" + site
+                query = dork + "+site:"
                 futures = []
                 loop = asyncio.get_event_loop()
                 for i in range(10):
@@ -1159,10 +1160,10 @@ arg_eva = "+"
 colMax = 60  # Change this at your will
 endsub = 1
 gets = 0
-timeout = 8
+timeout = 14
 file = "/etc/passwd"
 ProxyEnabled=False
 menu = True
-current_version = 409
+current_version = 410
 while True:
     fmenu()

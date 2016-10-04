@@ -1,7 +1,7 @@
-Latest News: Fixes and Tweaks to Scanning, Fixed Kali-Rolling support. Self-Updater Improved (*UNTESTED*)
+Latest News: Updated Recovery Menu, Minor Bugfixes.
 + All bug reports are appreciated, some features havnt been tested yet due to lack of free time.
 
-Current Version: Release 409
+Current Version: Release 410
 ![v3n0m Scanner](http://i.imgur.com/A96CipT.png "V3n0M-Scanner")
 ![Example of SQLi Dorker](https://github.com/v3n0m-Scanner/V3n0M-Scanner/blob/master/AnimatedDemo.gif?raw=true "Example of Dorker")
 
@@ -31,46 +31,13 @@ This program is for finding and executing various vulnerabilities. It scavenges 
 + Largest and most powerful d0rker online, 18k+d0rks searched over ~ Engines at once.
 + Free and Open /src/
 + CrossPlatform Python based toolkit
-+ Release 409 Released on 19th August 2016
++ Release 410 Released on 4th October 2016
 + Licensed under GPLv2
-+ Tested on: ArchLinux 4.6.6, Ubuntu, Debian, Windows, MacOS, Manjaro/ArchLinux ARM Ed.
++ Tested on: ArchLinux 4.6.6, Ubuntu, Debian, Windows, MacOS, BlackArch, Manjaro/ArchLinux ARM Ed.
 
-##Module Deps
+Note for Ubuntu users: Please make sure you have installed --> sudo apt-get install python3-bs4
+                       Otherwise you may get Syntax Error stopping the program from running.
 
-+ Install pip3 if you don't have it already: **sudo apt-get install python3-pip**
-+ Then install these modules with pip3: **sudo pip3 install dnspython3 aiohttp httplib2 socksipy-branch requests url**
-+ Now cd into src and run v3n0m.py
-
-## Usage:
-
-    root@bt:~# python3 v3n0m.py
-
-    Now you may follow the simple prompts.
-
-    [0x100] Choose your target (domain) :
-            Example : .com
-            AND
-            it is necessary to add you can also use a specific website (www.example.com)
-
-    [0x200] Choose the number of random dorks (0 for all.. may take awhile!) :
-            Example : 0 = This will choose all of the XSS, File Inclusion, RCE and SQLi dorks
-
-    [0x300] Choose the number of threads :
-            Example : 50
-
-    [0x400] Enter the number of pages to search through :
-            Example : 50
-
-        The program will print out your desired settings and start searching.
-        It then creates files for the collected and valid URLs for later.
-        It takes a while to scan because it utilizes either TOR, which you can specify
-        if you wish to do so, or regular HTTP requests over a long period of time.
-
-        After a while, it will feed you the percentage of the scan until completion.
-        At this point, it will have saved the valid URLs in the files it created earlier.
-        The program utilizes over 10k dorks now, be careful how you use them!
-        Enjoy. :]
-                                                                ~/ Dev Team
 
 ## Contact Information:
 
