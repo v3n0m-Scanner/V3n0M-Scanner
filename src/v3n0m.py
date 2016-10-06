@@ -1074,15 +1074,16 @@ args = parser.parse_args()
 def enable_proxy():
     global ProxyEnabled
     try:
-        requiresID = input("Requires Username/Password? Type True or False?  :")
+        requiresID = bool(input("Requires Username/Password? Leave Blank if not required, otherwise type y/yes/true/True  :"))
+        print(requiresID)
         print("Please select Proxy Type - Options = socks4, socks5  : ")
-        proxytype = input()
+        proxytype = input(str())
         print(" Please enter Proxy IP address - ie. 127.0.0.66  :")
         proxyip = input(int)
         print(" Please enter Proxy Port - ie. 1076  :")
         proxyport = input(int)
         if proxytype == str("socks4"):
-            if requiresID == str("True") or str("true"):
+            if requiresID == True:
                 try:
                     socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS4, proxyip, proxyport,
                                           username=input("Proxy Account Username  :"),
@@ -1093,7 +1094,7 @@ def enable_proxy():
                 except Exception:
                     print("Something went wrong setting the proxy please submit a bug report Code:0x05")
                     pass
-            elif requiresID == str("False") or str("false"):
+            else:
                 try:
                     socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS4, proxyip, proxyport)
                     socks.socket = socks.socksocket
@@ -1103,16 +1104,17 @@ def enable_proxy():
                     print("Something went wrong setting the proxy please submit a bug report Code:0x04")
                     pass
         elif proxytype == str("socks5"):
-            if requiresID == str("True") or str("true"):
+            if requiresID == True:
                 try:
                     socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS5, proxyip, proxyport,
                                           username=input("Proxy Account Username  :"),
                                           password=input("Proxy Account Password  :"))
                     socks.socket = socks.socksocket
+                    ProxyEnabled = True
                 except Exception:
                     print("Something went wrong setting the proxy please submit a bug report Code:0x03")
                     pass
-            elif requiresID == str("False") or str("false"):
+            else:
                 try:
                     socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS5, proxyip, proxyport)
                     socks.socket = socks.socksocket
