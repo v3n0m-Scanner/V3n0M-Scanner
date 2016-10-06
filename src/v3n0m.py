@@ -7,22 +7,7 @@
 #                       to every person who has worked on this tool. Thanks people. NovaCygni
 
 
-# Banner
-def logo():
-    print(R + "\n|----------------------------------------------------------------|")
-    print("| Release Date 06/10/2016                                        |")
-    print("|                                                                |")
-    print("|        Proxy Enabled " + G + " [",ProxyEnabled,"] " + R + "                               |")
-    print("|                                                                |")
-    print("|                    _____       _____                           |")
-    print("|          " + G + "         |____ |     |  _  |    " + R + "                      |")
-    print("|             __   __   / /_ __ | |/' |_ _" + G + "_ ___             " + R + "     |")
-    print("|             \ \ / /  " + G + " \ \ '" + R + "_ \|  /| | '_ ` _ \                 |")
-    print("|              \ V" + G + " /.___/ / | | \ |_" + R + "/ / | | | | |                |")
-    print("|    Official   \_/" + G + " \____/|_" + R + "| |_|" + G + "\___/|_| |_| " + R + "|_| Release",current_version, " \
-  |")
-    print("|             " + B + "        NovaCygni  Architect    " + R + "                   |")
-    print("|----------------------------------------------------------------|\n")
+
 
 # noinspection PyBroadException
 try:
@@ -78,6 +63,24 @@ except:
         pass
     if chce == '3':
         exit()
+
+
+# Banner
+def logo():
+    print(R + "\n|----------------------------------------------------------------|")
+    print("| Release Date 06/10/2016                                        |")
+    print("|                                                                |")
+    print("|        Proxy Enabled " + G + " [",ProxyEnabled,"] " + R + "                               |")
+    print("|                                                                |")
+    print("|                    _____       _____                           |")
+    print("|          " + G + "         |____ |     |  _  |    " + R + "                      |")
+    print("|             __   __   / /_ __ | |/' |_ _" + G + "_ ___             " + R + "     |")
+    print("|             \ \ / /  " + G + " \ \ '" + R + "_ \|  /| | '_ ` _ \                 |")
+    print("|              \ V" + G + " /.___/ / | | \ |_" + R + "/ / | | | | |                |")
+    print("|    Official   \_/" + G + " \____/|_" + R + "| |_|" + G + "\___/|_| |_| " + R + "|_| Release",current_version, " \
+  |")
+    print("|             " + B + "        NovaCygni  Architect    " + R + "                   |")
+    print("|----------------------------------------------------------------|\n")
 
 
 def killpid():
