@@ -37,7 +37,7 @@ except:
 
     if chce == '1':
         sys.stdout.flush()
-        print("Warning This will force upgrade all Python3 modules except dependencies")
+        print("Warning This will force upgrade all Python3 modules")
         print("You will have 10 seconds to cancel this action before the system begins")
         print("Note: This will entirely reinstall all current installed modules aswell to clear possible problems")
         time.sleep(10)
@@ -48,7 +48,7 @@ except:
         pass
     if chce == '2':
         sys.stdout.flush()
-        print("This will install the aiohttp/asyncio/bs4/dns/dnspython/datetime modules and upgrade them to current versions")
+        print("This will install the missing modules and upgrade them to current versions then update your Python3 entirely")
         print("You will have 10 seconds to cancel this action before the system begins")
         time.sleep(10)
         call("sudo pip3 install dns --upgrade ", shell=True)
@@ -1109,6 +1109,7 @@ def enable_proxy():
                     socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS5, proxyip, proxyport,
                                           username=input("Proxy Account Username  :"),
                                           password=input("Proxy Account Password  :"))
+                    print(" Socks 5 Proxy Support Enabled")
                     socks.socket = socks.socksocket
                     ProxyEnabled = True
                 except Exception:
