@@ -1,31 +1,11 @@
-try:
-    from .cloudflarenetwork import CloudFlareNetwork
-except Exception:
-    from cloudflarenetwork import CloudFlareNetwork
 
-try:
-    from .mxrecords import MxRecords
-except Exception:
-    from mxrecords import MxRecords
+from .cloudflarenetwork import CloudFlareNetwork
+from .mxrecords import MxRecords
+from .pagetitle import PageTitle
+from .target import Target
+from .panels import PANELS
+from .options import Options
 
-try:
-    from .pagetitle import PageTitle
-except Exception:
-    from pagetitle import PageTitle
-try:
-    from .target import Target
-except Exception:
-    from target import Target
-
-try:
-    from .panels import PANELS
-except Exception:
-    from panels import PANELS
-
-try:
-    from .options import Options
-except Exception:
-    from options import Options
 
 class CloudBuster:
 

@@ -10,7 +10,7 @@
 # Banner
 def logo():
     print(R + "\n|----------------------------------------------------------------|")
-    print("| Release Date 04/10/2016                                        |")
+    print("| Release Date 06/10/2016                                        |")
     print("|                                                                |")
     print("|        Proxy Enabled " + G + " [",ProxyEnabled,"] " + R + "                               |")
     print("|                                                                |")
@@ -23,7 +23,6 @@ def logo():
   |")
     print("|             " + B + "        NovaCygni  Architect    " + R + "                   |")
     print("|----------------------------------------------------------------|\n")
-
 
 # noinspection PyBroadException
 try:
@@ -38,7 +37,6 @@ try:
 
 
 except:
-    logo()
     print("\n|------ PYTHON PROBLEM DETECTED! Recovery Menu Enabled -----| ")
     print("|--- You are advised to run either or both steps below   ---| ")
     print("|--- Recovery Menu is in early testing stage please let me know if you have any problems with it.   ---| ")
@@ -54,7 +52,6 @@ except:
 
     if chce == '1':
         sys.stdout.flush()
-        logo()
         print("Warning This will force upgrade all Python3 modules except dependencies")
         print("You will have 10 seconds to cancel this action before the system begins")
         print("Note: This will entirely reinstall all current installed modules aswell to clear possible problems")
@@ -66,7 +63,6 @@ except:
         pass
     if chce == '2':
         sys.stdout.flush()
-        logo()
         print("This will install the aiohttp/asyncio/bs4/dns/dnspython/datetime modules and upgrade them to current versions")
         print("You will have 10 seconds to cancel this action before the system begins")
         time.sleep(10)
@@ -77,6 +73,7 @@ except:
         call("sudo pip3 install dnspython --upgrade ", shell=True)
         call("sudo pip3 install datetime --upgrade ", shell=True)
         call("sudo pip3 install requests --upgrade ", shell=True)
+        call("sudo pip3 install socksipy-branch --upgrade ", shell=True)
         call("sudo pip3 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 sudo pip3 install -U", shell=True)
         pass
     if chce == '3':
@@ -620,8 +617,6 @@ def fscan():
         while i < int(dorks):
             loaded_Dorks.append(d0rk[i])
             i += 1
-        for g in loaded_Dorks:
-            print("dork: = ", g)
     numthreads = input('\nEnter no. of threads, Between 50 and 500: ')
     pages_pulled_as_one = input('Enter no. of Search Engine Pages \n'
                                 'to be scanned per d0rk, Between 20 and 100   : ')
@@ -644,7 +639,7 @@ def cloud():
         target_site = input("Enter the site eg target.com: \n")
         print(B)
         pwd = os.path.dirname(str(os.path.realpath(__file__)))
-        cloud = subprocess.Popen('python ' + pwd + "/modules/buster.py " + str(target_site), shell=True)
+        cloud = subprocess.Popen('python ' + pwd + "/modules/buster.py -m" + str(target_site), shell=True)
         cloud.communicate()
         subprocess._cleanup()
         fmenu()

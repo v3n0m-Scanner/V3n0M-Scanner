@@ -1,20 +1,6 @@
-try:
-    from .buster import CloudBuster
-except Exception: #ImportError
-    from buster import CloudBuster
 
-try:
-    from .cli import args, parser
-except Exception: #ImportError
-    from cli import args, parser
-
-try:
-    from .options import Options
-except Exception: #ImportError
-    from options import Options
-
-
-
+from .buster import CloudBuster
+from .cli import args, parser
 from .options import Options
 import os.path
 
