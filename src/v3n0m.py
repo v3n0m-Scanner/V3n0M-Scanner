@@ -78,7 +78,7 @@ def logo():
     print("|             \ \ / /  " + G + " \ \ '" + R + "_ \|  /| | '_ ` _ \                 |")
     print("|              \ V" + G + " /.___/ / | | \ |_" + R + "/ / | | | | |                |")
     print("|    Official   \_/" + G + " \____/|_" + R + "| |_|" + G + "\___/|_| |_| " + R + "|_| Release",current_version, " \
-  |")
+|")
     print("|             " + B + "        NovaCygni  Architect    " + R + "                   |")
     print("|----------------------------------------------------------------|\n")
 
@@ -1160,6 +1160,6 @@ timeout = 14
 file = "/etc/passwd"
 ProxyEnabled=False
 menu = True
-current_version = 410
+current_version = 410.1
 while True:
     fmenu()
