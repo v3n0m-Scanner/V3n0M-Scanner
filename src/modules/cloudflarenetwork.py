@@ -1,6 +1,15 @@
 from ipaddress import ip_address, IPv4Network, IPv6Network
 import os
 
+
+def in_network(host, networks):
+    for network in networks:
+        if host in network:
+            return True
+
+    return False
+
+
 class CloudFlareNetwork:
 
     path = os.path.dirname(str(os.path.realpath(__file__)))
@@ -23,13 +32,6 @@ class CloudFlareNetwork:
             return False
 
         if address.version == 4:
-            return self.in_network(address, self.IPV4_NETWORKS)
+            return in_network(address, self.IPV4_NETWORKS)
         else:
-            return self.in_network(address, self.IPV6_NETWORKS)
-
-    def in_network(self, host, networks):
-        for network in networks:
-            if host in network:
-                return True
-
-        return False
+            return in_network(address, self.IPV6_NETWORKS)

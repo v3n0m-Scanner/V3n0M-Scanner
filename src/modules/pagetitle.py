@@ -2,6 +2,20 @@ import urllib.request
 import re
 
 
+def parse_title(html):
+    html = str(html)
+    get_title = re.compile(
+        '<title>(.*?)</title>',
+        re.IGNORECASE | re.DOTALL
+    )
+    search_result = get_title.search(html)
+
+    if search_result:
+        return search_result.group(1)
+    else:
+        return None
+
+
 class PageTitle(object):
 
     titles = {}
@@ -26,7 +40,7 @@ class PageTitle(object):
         except:
             html = None
 
-        title = self.parse_title(html)
+        title = parse_title(html)
         self.titles[self.id] = title
         return title
 
@@ -42,16 +56,3 @@ class PageTitle(object):
         if self.host:
             headers['Host'] = self.host
         return headers
-
-    def parse_title(self, html):
-        html = str(html)
-        get_title = re.compile(
-            '<title>(.*?)</title>',
-            re.IGNORECASE | re.DOTALL
-        )
-        search_result = get_title.search(html)
-
-        if search_result:
-            return search_result.group(1)
-        else:
-            return None

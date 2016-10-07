@@ -7,6 +7,15 @@ from .panels import PANELS
 from .options import Options
 
 
+def is_interesting(target):
+    return target.ip and not target.protected
+
+
+def check_ip(ip):
+    net = CloudFlareNetwork()
+    print(net.in_range(ip))
+
+
 class CloudBuster:
 
     def __init__(self, domain):
@@ -22,10 +31,6 @@ class CloudBuster:
                 return True
 
         return False
-
-    def check_ip(self, ip):
-        net = CloudFlareNetwork()
-        print(net.in_range(ip))
 
     def scan_main(self):
         target = Target(self.domain, 'target')
@@ -87,14 +92,11 @@ class CloudBuster:
     def scan(self, targets):
         for target in targets:
             target.print_infos()
-            if self.is_interesting(target):
+            if is_interesting(target):
                 self.target['other'].append(target)
                 if self.match(target):
                     return target
         return None
-
-    def is_interesting(self, target):
-        return target.ip and not target.protected
 
     def match(self, possible_target):
 
@@ -132,7 +134,7 @@ class CloudBuster:
         targets = self.target['other']
 
         for target in targets:
-            if self.is_interesting(target) \
+            if is_interesting(target) \
                     and target.status and target.status != 400:
                 hosts.append({
                     'ip': target.ip,
