@@ -17,7 +17,7 @@ This program is for finding and executing various vulnerabilities. It scavenges 
 ## Very useful for executing:
 
 + Metasploit Modules Scans
-+ LFI, RFI and XSS Scanning[LFI/RFI/XSS]
++ LFI->RCE and XSS Scanning[LFI->RCE & XSS]
 + SQL Injection Vuln Scanner[SQLi]
 + Extremely Large D0rk Target Lists
 + FTP Crawler
