@@ -3,7 +3,7 @@ from distutils.core import setup
 import setuptools
 
 setup(name='V3n0M',
-      version='410.1',
+      version='410.2',
       description="Popular SQLi and Pentesting scanner in Python3",
       author='NovaCygni, Architect',
       author_email='novacygni@hotmail.co.uk, t3h4rch1t3ct@riseup.net,',

