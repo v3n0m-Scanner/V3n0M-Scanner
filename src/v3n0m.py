@@ -68,7 +68,7 @@ except:
 # Banner
 def logo():
     print(R + "\n|----------------------------------------------------------------|")
-    print("| Release Date 12/10/2016                                        |")
+    print("| Release Date 16/10/2016                                        |")
     print("|                                                                |")
     print("|        Proxy Enabled " + G + " [",ProxyEnabled,"] " + R + "                               |")
     print("|                                                                |")
@@ -84,7 +84,6 @@ def logo():
 
 
 def killpid():
-    print("\r\x1b[K")
     os.kill(os.getpid(), 9)
 
 
@@ -887,12 +886,12 @@ async def search(pages_pulled_as_one):
     urls_len_last = 0
     timestart = datetime.now()
     for site in sitearray:
-        dark = 0
+        progress = 0
         for dork in loaded_Dorks:
-            dark += 1
+            progress += 1
             page = 0
             while page < int(pages_pulled_as_one):
-                query = dork + "+site:"
+                query = dork + "+site:" + site
                 futures = []
                 loop = asyncio.get_event_loop()
                 for i in range(10):
@@ -915,8 +914,8 @@ async def search(pages_pulled_as_one):
                     if basename not in domains and basename is not None:
                         domains.add(basename)
                         urls.append(name)
-                darklen = len(loaded_Dorks)
-                percent = int((1.0 * dark / int(darklen)) * 100)
+                totalprogress = len(loaded_Dorks)
+                percent = int((1.0 * progress / int(totalprogress)) * 100)
                 urls_len = len(urls)
                 os.system('clear')
                 start_time = datetime.now()
@@ -934,7 +933,7 @@ async def search(pages_pulled_as_one):
                                                    " | Current page no.: <%s> in Cycles of 10 Page results pulled in Asyncio\n"
                                                    " | Dork In Progress: %s\n"
                                                    " | Elapsed Time: %s\n" % (R +
-                                                                              site, repr(urls_len), dark, darklen,
+                                                                              site, repr(urls_len), progress, totalprogress,
                                                                               repr(percent), repr(page), dork,
                                                                               '%s:%s:%s' % (hours, minutes, seconds)))
                 sys.stdout.flush()
@@ -1165,6 +1164,6 @@ timeout = 14
 file = "/etc/passwd"
 ProxyEnabled=False
 menu = True
-current_version = 410.2
+current_version = 410.3
 while True:
     fmenu()
