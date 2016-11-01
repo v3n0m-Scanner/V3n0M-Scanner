@@ -38,6 +38,25 @@ This program is for finding and executing various vulnerabilities. It scavenges 
 Note for Ubuntu users: Please make sure you have installed --> `sudo apt-get install python3-bs4`
                        Otherwise you may get Syntax Error stopping the program from running.
 
+## Install note
+
+Clone the repository:
+
+```
+$ git clone https://github.com/v3n0m-Scanner/V3n0M-Scanner.git
+```
+
+Then go inside:
+
+```
+$ cd V3n0M-Scanner/
+```
+
+Then install it:
+
+```
+$ python3 setup.py install --user
+```
 
 ## Contact Information:
 
