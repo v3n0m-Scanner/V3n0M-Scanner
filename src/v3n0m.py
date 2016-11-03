@@ -256,8 +256,8 @@ def classicinj(url):
     try:
         try:
             resp = urllib.request.urlopen(aug_url)
-        except:
-            resp = str("v3n0m")
+        except: #if response is not Code:200 then instead of passing nothing causing hanging
+            resp = str("v3n0m") # to throw a value to stop null/non-200-status messages hanging the scanner
         hits = str(resp.read())
         if str("error in your SQL syntax") in hits:
             print(url + " is vulnerable --> MySQL Classic")
