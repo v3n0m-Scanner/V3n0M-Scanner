@@ -9,6 +9,6 @@ setup(name='V3n0M',
       author_email='novacygni@hotmail.co.uk, t3h4rch1t3ct@riseup.net,',
       url='https://github.com/v3n0m-Scanner/V3n0M-Scanner',
       package_dir={'v3n0m': 'src'},
-      packages=['v3n0m'], install_requires=['aiohttp', 'httplib2', 'socksipy-branch', 'requests', 'dns', 'url', 'bs4',
-                                            'pip']
+      packages=['v3n0m'], install_requires=['aiohttp', 'httplib2', 'socksipy-branch', 'requests', 'url', 'bs4',
+                                            'pip', 'dnspython']
       )
