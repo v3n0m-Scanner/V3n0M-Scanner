@@ -1032,19 +1032,19 @@ def fmenu():
         os.system('clear')
         logo()
         print("[1] Skip to custom SQLi list checking")
-        print("[2] Cloudflare IP Resolver ::Credits To SageHack for Cloudbuster source ")
-        print("[3] SockStress DDoS Tool #Not Ready#")
+        print("[2] Cloudflare IP Resolver")
         print("[0] Return to main menu")
         chce2 = input(":")
         if chce2 == '1':
             os.system('clear')
             logo()
             try:
+
                 temp = input("Please Input Custom List Path \n"
                                                            "ie> \n"
                                                            "/home/user/Desktop/samples.txt \n")
                 url = [line.strip() for line in open(temp, 'r')]
-                classicinj(url)
+                classicinj([url])
             except FileNotFoundError:
                 print("Target file not found!")
                 fmenu()
