@@ -1,7 +1,7 @@
 Latest News: Updated Recovery Menu, Minor Bugfixes.
 + All bug reports are appreciated, some features havnt been tested yet due to lack of free time.
 
-Current Version: Release 410.3
+Current Version: Release 410.4
 ![v3n0m Scanner](http://i.imgur.com/A96CipT.png "V3n0M-Scanner")
 ![Example of SQLi Dorker](https://github.com/v3n0m-Scanner/V3n0M-Scanner/blob/master/AnimatedDemo.gif?raw=true "Example of Dorker")
 
@@ -16,7 +16,8 @@ This program is for finding and executing various vulnerabilities. It scavenges 
 
 ## Very useful for executing:
 
-+ Metasploit Modules Scans
++ Cloudflare Resolver[Cloudbuster]
++ Metasploit Modules Scans[To be released]
 + LFI->RCE and XSS Scanning[LFI->RCE & XSS]
 + SQL Injection Vuln Scanner[SQLi]
 + Extremely Large D0rk Target Lists
@@ -31,7 +32,7 @@ This program is for finding and executing various vulnerabilities. It scavenges 
 + Largest and most powerful d0rker online, 18k+d0rks searched over ~ Engines at once.
 + Free and Open /src/
 + CrossPlatform Python based toolkit
-+ Release 410.3 Released on 16th October 2016
++ Release 410.4 Released on 5th November 2016
 + Licensed under GPLv2
 + Tested on: ArchLinux 4.6.6, Ubuntu, Debian, Kali, Windows, MacOS, BlackArch, Manjaro/ArchLinux ARM Ed.
 
@@ -62,6 +63,9 @@ $ python3 setup.py install --user
 
     [ NovaCygni ] - <novacygni@hotmail.co.uk>
     [ Architect ] - <t3h4rch1t3ct@riseup.net>
+
+## Credits to:
+    -SageHack for allowing Cloudbuster to be used within V3n0M
 
 ## Original Header:
 

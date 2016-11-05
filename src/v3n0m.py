@@ -68,7 +68,7 @@ except:
 # Banner
 def logo():
     print(R + "\n|----------------------------------------------------------------|")
-    print("| Release Date 16/10/2016                                        |")
+    print("| Release Date 05/11/2016                                        |")
     print("|                                                                |")
     print("|        Proxy Enabled " + G + " [",ProxyEnabled,"] " + R + "                               |")
     print("|                                                                |")
@@ -646,10 +646,11 @@ def cloud():
         target_site = input("Enter the site eg target.com: \n")
         print(B)
         pwd = os.path.dirname(str(os.path.realpath(__file__)))
-        cloud = subprocess.Popen('python ' + pwd + "/modules/buster.py -m" + str(target_site), shell=True)
+        cloud = subprocess.Popen('python ' + pwd + "/cloudbuster.py " + str(target_site), shell=True)
         cloud.communicate()
         subprocess._cleanup()
-        fmenu()
+        print("Cloud Resolving Finished")
+        time.sleep(6)
     except Exception:
         print(Exception)
 
@@ -1031,7 +1032,7 @@ def fmenu():
         os.system('clear')
         logo()
         print("[1] Skip to custom SQLi list checking")
-        print("[2] Cloudflare IP Resolver #Not Ready#")
+        print("[2] Cloudflare IP Resolver ::Credits To SageHack for Cloudbuster source ")
         print("[3] SockStress DDoS Tool #Not Ready#")
         print("[0] Return to main menu")
         chce2 = input(":")
@@ -1094,7 +1095,7 @@ def enable_proxy():
                                           password=input("Proxy Account Password  :"))
                     socks.socket = socks.socksocket
                     print(" Socks 4 Proxy Support Enabled")
-                    ProxyEnabled = True
+                    ProxyEnabled = str("True ")
                 except Exception:
                     pass
             else:
@@ -1102,7 +1103,7 @@ def enable_proxy():
                     socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS4, proxyip, proxyport)
                     socks.socket = socks.socksocket
                     print(" Socks 4 Proxy Support Enabled")
-                    ProxyEnabled = True
+                    ProxyEnabled = str("True ")
                 except Exception:
                     pass
         elif proxytype == str("socks5"):
@@ -1113,7 +1114,7 @@ def enable_proxy():
                                           password=input("Proxy Account Password  :"))
                     print(" Socks 5 Proxy Support Enabled")
                     socks.socket = socks.socksocket
-                    ProxyEnabled = True
+                    ProxyEnabled = str("True ")
                 except Exception:
                     pass
             else:
@@ -1121,7 +1122,7 @@ def enable_proxy():
                     socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS5, proxyip, proxyport)
                     socks.socket = socks.socksocket
                     print(" Socks 5 Proxy Support Enabled")
-                    ProxyEnabled = True
+                    ProxyEnabled = str("True ")
                 except Exception:
                     pass
     except Exception:
@@ -1164,6 +1165,6 @@ timeout = 14
 file = "/etc/passwd"
 ProxyEnabled=False
 menu = True
-current_version = 410.3
+current_version = 410.4
 while True:
     fmenu()
