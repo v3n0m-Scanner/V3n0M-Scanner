@@ -6,9 +6,6 @@
 #                       but in no way is this the sole work of NovaCygni, and credit is due
 #                       to every person who has worked on this tool. Thanks people. NovaCygni
 
-#
-
-
 # noinspection PyBroadException
 try:
     import re, random, threading, socket, urllib.request, urllib.error, urllib.parse, http.cookiejar, subprocess, \
@@ -69,9 +66,10 @@ except:
 def logo():
     print(R + "\n|----------------------------------------------------------------|")
     print("| Release Date 05/11/2016                                        |")
-    print("|                                                                |")
     print("|        Proxy Enabled " + G + " [",ProxyEnabled,"] " + R + "                               |")
-    print("|                                                                |")
+    print("| "  + O + "Features: " + R + "                                                     |")
+    print("| "  + O + "SQli-Dorker XSS&LFI>RCE DNS-Bruteforcer " + R + "                       |")
+    print("| "  + O + "Cloudflare-Resolver FTP-Crawler AdminPage-Finder " + R + "              |")
     print("|                    _____       _____                           |")
     print("|          " + G + "         |____ |     |  _  |    " + R + "                      |")
     print("|             __   __   / /_ __ | |/' |_ _" + G + "_ ___             " + R + "     |")
@@ -678,14 +676,14 @@ def vulnscan():
     rce_log_file = open("v3n0m-rce.txt", "a")
     xss_log_file = open("v3n0m-xss.txt", "a")
     endsub = 0
-    print(R + "\n[1] SQLi Testing, Will verify the Vuln links and print the Injectable URL to the screen")
-    print("[2] SQLi Testing Auto Mode, Will attempt to Verify vuln sites then Column count if MySQL detected")
-    print("[3] LFI - RCE Testing [!] Broken, Please Wait for fix [!]")
-    print("[4] XSS Testing")
-    print("[5] Save valid Sorted and confirmed vuln urls to file")
-    print("[6] Print all the UNSORTED urls ")
-    print("[7] Print all Sorted and Confirmed Vulns from last scan again")
-    print("[8] Back to main menu")
+    print(R + "\n[1] SQLi Testing, " + O + "Will verify the Vuln links and print the Injectable URL to the screen")
+    print(R + "[2] SQLi Testing Auto Mode " + O + "Will attempt to Verify vuln sites then Column count if MySQL detected")
+    print(R + "[3] LFI - RCE Testing [!] Broken, Please Wait for fix [!]")
+    print(R + "[4] XSS Testing")
+    print(R + "[5] Save valid Sorted and confirmed vuln urls to file")
+    print(R + "[6] Print all the UNSORTED urls ")
+    print(R + "[7] Print all Sorted and Confirmed Vulns from last scan again")
+    print(R + "[8] Back to main menu")
     chce = input(":")
     if chce == '1':
         vuln = []
@@ -738,41 +736,6 @@ def vulnscan():
         fmenu()
 
 
-holder_ips = ["192.168.0.{}".format(i) for i in range(1, 255)]
-holder_ports = ["{}".format(i) for i in range(1, 36500)]
-ips = [holder_ips]
-ports = [holder_ports]
-
-
-def tcp_Scanner_run(tasks, *, loop=None):
-    if loop is None:
-        loop = asyncio.get_event_loop()
-    return loop.run_until_complete(asyncio.wait(tasks))
-
-
-# noinspection PyBroadException
-async def tcp_scanner(ip, port, loop=None):
-    fut = asyncio.open_connection(ip, port, loop=loop)
-    try:
-        await asyncio.wait_for(fut, timeout=0.5)
-        print("{}:{} Connected".format(ip, port))
-    except asyncio.TimeoutError:
-        pass
-    except Exception as exc:
-        print('Error {}:{} {}'.format(ip, port, exc))
-
-
-# noinspection PyBroadException
-def tcp_scan(ips, ports, randomize=True):
-    loop = asyncio.get_event_loop()
-    if randomize:
-        rdev = SystemRandom()
-        ips = rdev.shuffle(ips)
-        ports = rdev.shuffle(ports)
-
-    tcp_Scanner_run(tcp_scanner(ip, port) for port in ports for ip in ips)
-
-
 # noinspection PyBroadException
 def ignoringGet(url):
     try:
@@ -821,7 +784,7 @@ def upgrade():
                 if str("Release 411" or "Release 412" or "Release 413" or
                        "Release 44" or "Release 45" or "Release 46" or "Release 47" or "Release 48" or "Release 49"
                        or "Release 5" or "Release 6" or "Release 7" or "Release 8" or "Release 9") in page:
-                    revision = int(410)
+                    revision = int(411)
                 else:
                     revision = current_version
                     print( R + ' [!]' + W + ' Current version is either Latest or No Update was detected')
@@ -1128,8 +1091,6 @@ def enable_proxy():
     except Exception:
         pass
 
-
-# This is the updated MBCS Encoding Bypass for making MBCS encodings work on Linux - NovaCygni
 
 try:
     codecs.lookup('mbcs')
