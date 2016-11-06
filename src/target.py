@@ -1,6 +1,6 @@
-from .descriptor.httpresponse import HttpResponse
-from .descriptor.hostbyname import HostByName
-from .cloudflarenetwork import CloudFlareNetwork
+from descriptor.httpresponse import HttpResponse
+from descriptor.hostbyname import HostByName
+from cloudflarenetwork import CloudFlareNetwork
 
 
 class Target:

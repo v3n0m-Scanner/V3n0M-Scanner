@@ -65,7 +65,7 @@ except:
 # Banner
 def logo():
     print(R + "\n|----------------------------------------------------------------|")
-    print("| Release Date 05/11/2016                                        |")
+    print("| Release Date Nov 5th 2016 " + B + "            NovaCygni  Architect    " + R + " |")
     print("|        Proxy Enabled " + G + " [",ProxyEnabled,"] " + R + "                               |")
     print("| "  + O + "Features: " + R + "                                                     |")
     print("| "  + O + "SQli-Dorker XSS&LFI>RCE DNS-Bruteforcer " + R + "                       |")
@@ -77,7 +77,6 @@ def logo():
     print("|              \ V" + G + " /.___/ / | | \ |_" + R + "/ / | | | | |                |")
     print("|    Official   \_/" + G + " \____/|_" + R + "| |_|" + G + "\___/|_| |_| " + R + "|_| Release",current_version, " \
 |")
-    print("|             " + B + "        NovaCygni  Architect    " + R + "                   |")
     print("|----------------------------------------------------------------|\n")
 
 
@@ -639,18 +638,15 @@ def fscan():
 
 
 def cloud():
-    try:
-        logo()
-        target_site = input("Enter the site eg target.com: \n")
-        print(B)
-        pwd = os.path.dirname(str(os.path.realpath(__file__)))
-        cloud = subprocess.Popen('python ' + pwd + "/cloudbuster.py " + str(target_site), shell=True)
-        cloud.communicate()
-        subprocess._cleanup()
-        print("Cloud Resolving Finished")
-        time.sleep(6)
-    except Exception:
-        print(Exception)
+    logo()
+    target_site = input("Enter the site eg target.com: \n")
+    print(B)
+    pwd = os.path.dirname(str(os.path.realpath(__file__)))
+    cloud = subprocess.Popen('python ' + pwd + "/cloudbuster.py " + str(target_site), shell=True)
+    cloud.communicate()
+    subprocess._cleanup()
+    print("Cloud Resolving Finished")
+
 
 
 def det_Neph():

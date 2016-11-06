@@ -1,4 +1,4 @@
-from .panels import PANELS
+from panels import PANELS
 import argparse
 
 parser = argparse.ArgumentParser(

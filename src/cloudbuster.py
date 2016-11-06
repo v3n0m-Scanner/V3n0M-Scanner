@@ -1,6 +1,6 @@
-from .buster import CloudBuster
-from .cli import args, parser
-from .options import Options
+from buster import CloudBuster
+from cli import args, parser
+from options import Options
 import os.path
 
 

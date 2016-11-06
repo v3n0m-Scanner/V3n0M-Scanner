@@ -1,9 +1,9 @@
-from .cloudflarenetwork import CloudFlareNetwork
-from .descriptor.mxrecords import MxRecords
-from .descriptor.pagetitle import PageTitle
-from .options import Options
-from .target import Target
-from .panels import PANELS
+from cloudflarenetwork import CloudFlareNetwork
+from descriptor.mxrecords import MxRecords
+from descriptor.pagetitle import PageTitle
+from options import Options
+from target import Target
+from panels import PANELS
 
 
 class CloudBuster:
