@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: latin-1 -*-
 #This file is part of V3n0M
 import urllib.request
 from ipaddress import ip_address, IPv4Network, IPv6Network
@@ -412,7 +414,7 @@ class CloudBuster:
         print('[interesting ips]')
 
         for host in self.list_interesting_hosts():
-            print(host('ip')+' > '+host('description'))
+            print(host["ip"]+' > '+host['description'])
 
     def list_interesting_hosts(self):
         hosts = []
@@ -581,7 +583,7 @@ def scan(args):
             return
 
     buster.scan_summary()
-    print('>> UNABLE TO CONFIRM <<')
+    print('>> Non-Cloudflare Protected IP has been found <<')
 
 
 def scan_list(args):
