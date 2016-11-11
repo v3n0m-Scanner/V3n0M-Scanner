@@ -403,6 +403,7 @@ class CloudBuster:
 
         return main_target.title == possible_target.title
 
+    # noinspection PyTypeChecker
     def scan_summary(self):
         print('[SCAN SUMMARY]')
 
