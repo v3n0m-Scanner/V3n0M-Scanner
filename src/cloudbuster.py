@@ -1,11 +1,9 @@
 #This file is part of V3n0M
 import urllib.request
 from ipaddress import ip_address, IPv4Network, IPv6Network
-import re, os
+import re, os, urllib.request, urllib.error, urllib.parse
 import socket
 import http.client
-
-
 
 
 class CloudFlareNetwork:
@@ -62,6 +60,7 @@ class HostByName(object):
 
     def __set__(self, obj=None, val=None):
         raise AttributeError
+
 
 class HttpResponse(object):
 
@@ -413,7 +412,7 @@ class CloudBuster:
         print('[interesting ips]')
 
         for host in self.list_interesting_hosts():
-            print(host['ip']+' > '+host['description'])
+            print(host('ip')+' > '+host('description'))
 
     def list_interesting_hosts(self):
         hosts = []
@@ -443,7 +442,7 @@ class CloudBuster:
 
 import argparse
 
-PANELS = [
+PANELS = (
     {'name': 'cpanel', 'port': 2082, 'ssl': False},
     {'name': 'cpanel:ssl', 'port': 2083, 'ssl': True},
     {'name': 'whm', 'port': 2086, 'ssl': False},
@@ -464,7 +463,7 @@ PANELS = [
     {'name': 'webmin:ssl', 'port': 10000, 'ssl': True},
     {'name': 'ensim', 'port': 19638, 'ssl': False},
     {'name': 'ensim-ssel', 'port': 19638, 'ssl': True},
-]
+)
 
 
 parser = argparse.ArgumentParser(
