@@ -61,11 +61,11 @@ except:
     if chce == '3':
         exit()
 
-
+__name__ = '__main__'
 # Banner
 def logo():
     print(R + "\n|----------------------------------------------------------------|")
-    print("| Release Date Nov 5th 2016 " + B + "            NovaCygni  Architect    " + R + " |")
+    print("| Release Date Nov 12th 2016 " + B + "           NovaCygni  Architect    " + R + " |")
     print("|        Proxy Enabled " + G + " [",ProxyEnabled,"] " + R + "                               |")
     print("| "  + O + "Features: " + R + "                                                     |")
     print("| "  + O + "SQli-Dorker XSS&LFI>RCE DNS-Bruteforcer " + R + "                       |")
@@ -638,6 +638,7 @@ def fscan():
 
 
 def cloud():
+    import time
     logo()
     target_site = input("Enter the site eg target.com: \n")
     print(B)
@@ -646,7 +647,7 @@ def cloud():
     cloud.communicate()
     subprocess._cleanup()
     print("Cloud Resolving Finished")
-
+    time.sleep(6)
 
 
 def det_Neph():
@@ -777,7 +778,7 @@ def upgrade():
                 'https://raw.githubusercontent.com/v3n0m-Scanner/V3n0M-Scanner/master/src/v3n0m.py')
             page = sock
             try:
-                if str("Release 411" or "Release 412" or "Release 413" or
+                if str("Release 412" or "Release 413" or
                        "Release 44" or "Release 45" or "Release 46" or "Release 47" or "Release 48" or "Release 49"
                        or "Release 5" or "Release 6" or "Release 7" or "Release 8" or "Release 9") in page:
                     revision = int(411)
@@ -1122,6 +1123,6 @@ timeout = 14
 file = "/etc/passwd"
 ProxyEnabled=False
 menu = True
-current_version = 410.4
+current_version = str("411  ")
 while True:
     fmenu()
