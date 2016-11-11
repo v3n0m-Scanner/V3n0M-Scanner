@@ -573,7 +573,7 @@ def scan(args):
             print('>> MATCH <<')
             return
 
-    # TODO : Make this useful, cause it's not solving anything
+    # TODO : Expand this section to guarantee no false positives
     if 'panels' in args.scan:
         target_found = buster.scan_panels(
             args.pan if args.sub else None
