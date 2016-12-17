@@ -512,9 +512,6 @@ def colfinder():
 
                         print("[-] Done!\n")
                         break
-
-            except(KeyboardInterrupt, SystemExit):
-                raise
             except:
                 pass
 

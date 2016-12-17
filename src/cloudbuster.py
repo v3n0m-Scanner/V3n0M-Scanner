@@ -510,7 +510,7 @@ parser.add_argument(
     '--dept',
     metavar='DEPT',
     choices=['simple', 'normal', 'full'],
-    default='simple',
+    default='full',
     help='[simple] scan top 30 subdomains, \
     [normal] top 200, \
     [full] scan over 9000 subs!!!'
