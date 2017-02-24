@@ -56,6 +56,7 @@ except:
         call("sudo pip3 install datetime --upgrade ", shell=True)
         call("sudo pip3 install requests --upgrade ", shell=True)
         call("sudo pip3 install socksipy-branch --upgrade ", shell=True)
+        call("sudo pip3 install httplib2 --upgrade ", shell=True)
         call("sudo pip3 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 sudo pip3 install -U", shell=True)
         pass
     if chce == '3':
