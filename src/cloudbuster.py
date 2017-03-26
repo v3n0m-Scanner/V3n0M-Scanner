@@ -306,9 +306,8 @@ class CloudBuster:
         }
 
     def resolving(self):
-        if self.target['main']:
-            if self.target['main'].ip:
-                return True
+        if self.target['main'] and self.target['main'].ip:
+            return True
 
         return False
 
@@ -487,7 +486,7 @@ parser.add_argument(
     metavar='OPTION',
     nargs='*',
     choices=scan_choices.split(', '),
-    default='subdomains crimeflare mx',
+    default='subdomains crimeflare mx panels',
     help=scan_choices
 )
 

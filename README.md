@@ -1,13 +1,15 @@
-Latest News: Updated Recovery Menu, Minor Bugfixes.
+Latest News: Added in Submenu's, expanded features, Stripped out old FTP crawler for Toxin Vulnerable FTPs Scanner.
+
+
 + All bug reports are appreciated, some features havnt been tested yet due to lack of free time.
 
-Current Version: Release 411
+Current Version: Release 412
 ![v3n0m Scanner](http://i.imgur.com/A96CipT.png "V3n0M-Scanner")
 ![Example of SQLi Dorker](https://github.com/v3n0m-Scanner/V3n0M-Scanner/blob/master/AnimatedDemo.gif?raw=true "Example of Dorker")
 
 
 
-[Live Project - Python3.5]
+[Live Project - Python3.6]
 
 V3n0M is a free and open source scanner. Evolved from baltazar's scanner, it has adapted several new features that improve fuctionality and usability. It is __mostly__ experimental software.
 
@@ -21,18 +23,20 @@ This program is for finding and executing various vulnerabilities. It scavenges 
 + LFI->RCE and XSS Scanning[LFI->RCE & XSS]
 + SQL Injection Vuln Scanner[SQLi]
 + Extremely Large D0rk Target Lists
-+ FTP Crawler
++ Toxin Vulnerable FTPs Scanner
 + DNS BruteForcer
-+ Python3.5 Asyncio based scanning
++ Python 3.6 Asyncio based scanning
 
 ## What You Hold:
 
 **The official adoption of darkd0rker heavily recoded, updated, expanded and improved upon**
 + Brand new, just outta the box!
++ Most efficient cloudflare resolver around with easy to use interface.
++ Extremely quick "Toxin" Vulnerable IP scanner to scan potentially millions of ips for known vulnerable services.
 + Largest and most powerful d0rker online, 18k+d0rks searched over ~ Engines at once.
 + Free and Open /src/
 + CrossPlatform Python based toolkit
-+ Release 411 Released on 12th November 2016
++ Release 412 Released on 27th March 2017
 + Licensed under GPLv2
 + Tested on: ArchLinux 4.6.6, Ubuntu, Debian, Kali, Windows, MacOS, BlackArch, Manjaro/ArchLinux ARM Ed.
 
