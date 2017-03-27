@@ -36,7 +36,7 @@ This program is for finding and executing various vulnerabilities. It scavenges 
 + Largest and most powerful d0rker online, 18k+d0rks searched over ~ Engines at once.
 + Free and Open /src/
 + CrossPlatform Python based toolkit
-+ Release 412 Released on 27th March 2017
++ Release 413 Released on 27th March 2017
 + Licensed under GPLv2
 + Tested on: ArchLinux 4.6.6, Ubuntu, Debian, Kali, Windows, MacOS, BlackArch, Manjaro/ArchLinux ARM Ed.
 

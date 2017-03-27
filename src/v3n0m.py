@@ -11,7 +11,7 @@
 
 try:
     import re, random, threading, socket, urllib.request, urllib.error, urllib.parse, http.cookiejar, subprocess, \
-        time, sys, os, math, itertools, queue, asyncio, aiohttp, argparse, socks, httplib2, requests, codecs, dns
+        time, sys, os, math, itertools, queue, asyncio, aiohttp, argparse, socks, httplib2, requests, codecs
     from signal import SIGINT, signal
     import bs4, tqdm
     from glob import glob
@@ -24,13 +24,18 @@ try:
 
 except:
     print("\n|------ PYTHON PROBLEM DETECTED! Recovery Menu Enabled -----| ")
+    print(" ")
+    print(" ")
+    print(" Exception Error Message encountered: " + str(Exception))
+    print(" ")
+    print(" ")
     print("|--- You are advised to run either or both steps below   ---| ")
     print("|--- Recovery Menu :::: please let me know if you have any problems with it!   ---| ")
     print("| --Note, if your running Ubuntu you may need to run --> sudo apt-get install python3-bs4 --| ")
-    print(" ")
+    print("       Requires Sudo or Root to perform updates/fixes to Python      ")
     print("             V3n0M python modules can be updated with either option below            ")
-    print("[1] Run Pip3 and Auto-Update Python3 modules to latest versions, Requires Sudo or Root")
-    print("[2] Run Pip3 and Auto-Install all the required v3n0m modules, Requires Sudo  or Root")
+    print("[1] Run Pip3 and Auto-Update Python3 modules to latest versions, ")
+    print("[2] Auto-Install all the required v3n0m modules specified in the program requirements")
     print("[3] Exit")
     print(" ")
     print(" ")
@@ -967,6 +972,7 @@ async def search(pages_pulled_as_one):
 
 # noinspection PyBroadException
 def fmenu():
+    import time
     global vuln
     vuln = []
     if endsub != 1:
@@ -1172,6 +1178,6 @@ timeout = 14
 file = "/etc/passwd"
 ProxyEnabled = False
 menu = True
-current_version = str("412  ")
+current_version = str("413  ")
 while True:
     fmenu()
