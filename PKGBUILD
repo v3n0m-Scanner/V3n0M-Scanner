@@ -10,7 +10,7 @@ arch=('any')
 url='https://github.com/v3n0m-Scanner/V3n0M-Scanner'
 license=('GPL2')
 depends=('python' 'python-httplib2' 'python-aiohttp' 'python-asyncio'
-         'python-socksipy-branch' 'pip')
+         'python-socksipy-branch' 'pip' 'python-async_timeout' 'python-tqdm' 'python-yarl' 'python-pysocks' )
 makedepends=('git')
 source=('git+https://github.com/v3n0m-Scanner/V3n0M-Scanner.git')
 sha1sums=('SKIP')
