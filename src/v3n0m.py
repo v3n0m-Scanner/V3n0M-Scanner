@@ -26,13 +26,15 @@ except:
     print("\n|------ PYTHON PROBLEM DETECTED! Recovery Menu Enabled -----| ")
     print(" ")
     print(" ")
-    print(" Exception Error Message encountered: " + str(Exception))
+    print(" Exception Error Message encountered: "
+                            "" + str(Exception))
     print(" ")
     print(" ")
     print("|--- You are advised to run either or both steps below   ---| ")
     print("|--- Recovery Menu :::: please let me know if you have any problems with it!   ---| ")
     print("| --Note, if your running Ubuntu you may need to run --> sudo apt-get install python3-bs4 --| ")
-    print("       Requires Sudo or Root to perform updates/fixes to Python      ")
+    print("| --Note, Requires Sudo or Root to perform updates/fixes to Python      ")
+    print("")
     print("             V3n0M python modules can be updated with either option below            ")
     print("[1] Run Pip3 and Auto-Update Python3 modules to latest versions, ")
     print("[2] Auto-Install all the required v3n0m modules specified in the program requirements")
@@ -84,7 +86,7 @@ __name__ = '__main__'
 def logo():
     cache_Check()
     print(R + "\n|----------------------------------------------------------------|")
-    print("| Release Date Mar 27th 2017 " + B + "           NovaCygni &  Architect  " + R + " |")
+    print("| Release Date Mar 29th 2017 " + B + "           NovaCygni &  Architect  " + R + " |")
     print("|        Proxy Enabled " + G + " [", ProxyEnabled, "] " + R + "                               |")
     print("|        Cache & Log Status " + B + " [", cachestatus, "] " + R + "           |")
     print("| " + O + "Features: " + R + "     " + O + "SQli-Dorker XSS&LFI>RCE DNS-Bruteforcer " + R + "        |")
@@ -678,7 +680,7 @@ def cloud():
     print(B)
     pwd = os.path.dirname(str(os.path.realpath(__file__)))
     print("Depth Level: 1) Scan top 30 subdomains 2) Scan top 200 subdomains 3) Scan over 9000+ subdomains ")
-    depth = input("Input Depth Level, 1, 2 or 3")
+    depth = input("Input Depth Level, 1, 2 or 3 : ")
     scandepth = ""
     if depth == 1:
         scandepth = "--dept simple"
@@ -686,10 +688,6 @@ def cloud():
         scandepth = "--dept normal"
     elif depth == 3:
         scandepth = "--dept full"
-    else:
-        print("Depth level not selected properly, the correct input should be: 1 2 or 3")
-        time.sleep(4)
-        fmenu()
     cloud = subprocess.Popen('python ' + pwd + "/cloudbuster.py " + str(target_site) + scandepth, shell=True)
     cloud.communicate()
     subprocess._cleanup()
@@ -978,7 +976,7 @@ def fmenu():
     logo()
     print("[1] Dork and Vuln Scan")
     print("[2] Admin page finder")
-    print("[3] Toxin - Vulnerable IPs Scanner  **NOT RELEASED YET: NOT FINISHED: DONT BOTHER TRYING **")
+    print("[3] Toxin - **NOT RELEASED YET: NOT FINISHED: DONT BOTHER TRYING **")
     print("[4] DNS brute")
     print("[5] Enable Tor/Proxy Support")
     print("[6] Misc Options")
@@ -1063,7 +1061,7 @@ def fmenu():
         upgrade()
 
 
-signal(SIGINT, killpid)
+
 d0rk = [line.strip() for line in open("statics/d0rks", 'r', encoding='utf-8')]
 header = [line.strip() for line in open("statics/header", 'r', encoding='utf-8')]
 xsses = [line.strip() for line in open("statics/xsses", 'r', encoding='utf-8')]
@@ -1176,6 +1174,6 @@ timeout = 14
 file = "/etc/passwd"
 ProxyEnabled = False
 menu = True
-current_version = str("413  ")
+current_version = str("414  ")
 while True:
     fmenu()

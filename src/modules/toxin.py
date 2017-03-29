@@ -32,7 +32,6 @@ R = "\033[31m"
 G = "\033[32m"
 O = "\033[33m"
 B = "\033[34m"
-signal(SIGINT, killpid)
 msf_Vulns = [line.strip() for line in open("modules/vuln-ftp-checklist.txt", 'r')]
 global LoadedIPCache
 
@@ -298,12 +297,9 @@ async def run(r):
         # Try to pull 1 IP at a time and return it as a simple string.
         with open('IPLogList.txt') as cachedIPs:
             for line in cachedIPs:
-                # Debug printer to check if correct IPs are being generated and sent.
-                # print(line)
-                for i in range(r):
-                    # pass Semaphore and session to every GET request
-                    task = asyncio.ensure_future(bound_fetch(sem, line, session))
-                    tasks.append(task)
+                # pass Semaphore and session to every GET request
+                task = asyncio.ensure_future(bound_fetch(sem, line, session))
+                tasks.append(task)
         responses = await asyncio.gather(*tasks)
         await responses
 
