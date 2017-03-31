@@ -287,6 +287,11 @@ async def bound_fetch(sem, url, session):
         await fetch(url, session)
 
 
+#
+#   `welcome_lines = await client.connect(host)`
+#
+
+
 async def run(r):
     tasks = []
     # create instance of Semaphore thats 1/10th of the amount of IPs to be scanned

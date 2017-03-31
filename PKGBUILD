@@ -2,14 +2,14 @@
 # See COPYING for license details.
 
 pkgname='v3n0m'
-pkgver=99.f688898
+pkgver=99.f688998
 pkgrel=5
 groups=('blackarch' 'blackarch-scanner')
 pkgdesc='A tool to automate mass SQLi d0rk scans and Metasploit Vulns.'
 arch=('any')
 url='https://github.com/v3n0m-Scanner/V3n0M-Scanner'
 license=('GPL2')
-depends=('python' 'python-httplib2' 'python-aiohttp' 'python-asyncio'
+depends=('python' 'python-httplib2' 'python-aiohttp' 'python-asyncio' 'python-aioftp'
          'python-socksipy-branch' 'pip' 'python-async_timeout' 'python-tqdm' 'python-yarl' 'python-pysocks' )
 makedepends=('git')
 source=('git+https://github.com/v3n0m-Scanner/V3n0M-Scanner.git')

@@ -11,7 +11,6 @@ import subprocess
 import time
 import http.client
 from argparse import ArgumentParser
-from datetime import *
 from os import getpid, kill
 from signal import SIGINT, signal
 from socket import *
@@ -21,7 +20,7 @@ from threading import Thread, Lock
 
 def killpid(signum=0, frame=0):
     print("\r\x1b[K")
-    os.kill(os.getpid(), 9)
+    os.kill(getpid(), 9)
 
 signal(SIGINT, killpid)
 
@@ -143,7 +142,6 @@ import http.client, httplib2
 domain = args.url
 url = str(domain.strip())
 adminlist = [line.strip() for line in open(args.wordlist, 'r')]
-signal.signal(signal.SIGINT, killpid)
 queueLock = Lock()
 workQueue = queue.Queue(len(adminlist))
 found = []

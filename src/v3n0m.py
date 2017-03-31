@@ -86,7 +86,7 @@ __name__ = '__main__'
 def logo():
     cache_Check()
     print(R + "\n|----------------------------------------------------------------|")
-    print("| Release Date Mar 29th 2017 " + B + "           NovaCygni &  Architect  " + R + " |")
+    print("| Release Date Mar 31st 2017 " + B + "           NovaCygni &  Architect  " + R + " |")
     print("|        Proxy Enabled " + G + " [", ProxyEnabled, "] " + R + "                               |")
     print("|        Cache & Log Status " + B + " [", cachestatus, "] " + R + "           |")
     print("| " + O + "Features: " + R + "     " + O + "SQli-Dorker XSS&LFI>RCE DNS-Bruteforcer " + R + "        |")
@@ -1174,6 +1174,6 @@ timeout = 14
 file = "/etc/passwd"
 ProxyEnabled = False
 menu = True
-current_version = str("414  ")
+current_version = str("415  ")
 while True:
     fmenu()
