@@ -87,3 +87,12 @@ $ python3 setup.py install --user
 
 ##Make Love and Smoke Trees...
 
+******************* WALL OF FAME OF IDIOTIC, MORONIC OR GENERALLY LAUGHABLY STUPID QUOTES ********************
+
+ 1) By Philm (*philmmanjaro*), Developer for Manjaro Linux... 
+  "Sha1 and Md5 are both secure, safe and viable, we will continue to use them for the forseeable future".   
+  Reason for Entry: Stated, 3 weeks after Sha1 was publicly broken, on a Github post about why they still use Sha1 and shouldnt they really change it.
+ 2) By Philm (*philmmanjaro*), Developer for Manjaro Linux... 
+  "To clear this nonsense once and for all. We won't change it. Period! CONFIG_ATH_USER_REGD=y can't be enabled by default,   because it can be used to violate country restrictions, thus breakin the law."      
+ Reason for Entry: Defacto declares his entire OS will not support anyone using there OS in multiple countries, without buying new hardware, regardless of the fact, that this is not illegal.
+
