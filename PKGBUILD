@@ -1,28 +1,23 @@
-# This file is part of BlackArch Linux ( http://blackarch.org ).
-# See COPYING for license details.
-
 pkgname='v3n0m'
-pkgver=99.f689198
-pkgrel=5
-groups=('blackarch' 'blackarch-scanner')
+pkgver=247.8e8b79a
+pkgrel=1
+groups=('blackarch' 'blackarch-scanner' 'blackarch-webapp' 'blackarch-recon')
 pkgdesc='A tool to automate mass SQLi d0rk scans and Metasploit Vulns.'
 arch=('any')
 url='https://github.com/v3n0m-Scanner/V3n0M-Scanner'
 license=('GPL2')
-depends=('python' 'python-httplib2' 'python-aiohttp' 'python-asyncio' 'python-aioftp'
-         'python-socksipy-branch' 'pip' 'python-async_timeout' 'python-tqdm' 'python-yarl' 'python-pysocks' )
+depends=('python' 'python-httplib2' 'python-aiohttp' 'python-asyncio'
+         'python-socksipy-branch' 'python-dnslib' 'python-dnspython'
+         'python-multidict' 'python-requests' 'python-pysocks' 'python-tqdm'
+         'python-yarl' 'python-argparse')
 makedepends=('git')
 source=('git+https://github.com/v3n0m-Scanner/V3n0M-Scanner.git')
 sha1sums=('SKIP')
 
-prepare() {
+pkgver() {
   cd "$srcdir/V3n0M-Scanner"
 
-  find src/modules/. -type f -name '*.py' -exec \
-    sed -i '/usr\/bin\/python/ {$!N;d;}' {} \;
-
-  find src/modules/. -type f -name '*.py' -exec \
-    sed -i '1 i\#!/usr/bin/python3' {} \;
+  echo $(git rev-list --count HEAD).$(git rev-parse --short HEAD)
 }
 
 package() {
@@ -31,20 +26,21 @@ package() {
   mkdir -p "$pkgdir/usr/bin"
   mkdir -p "$pkgdir/usr/share/v3n0m"
 
-  install -Dm644 "${pkgdir}/desktop-menu/v3n0m.desktop" "${pkgdir}/usr/share/applications/armitage.desktop"
-  install -Dm755 src/v3n0m.py "$pkgdir/usr/bin/v3n0m"
-  install -Dm644 README.md "$pkgdir/usr/share/doc/v3n0m/README.md"
-  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/v3n0m/LICENSE"
-  install -Dm644 "$pkgdir/desktop-menu/v3n0m.ico" "${pkgdir}/usr/share/icons/v3n0m.ico"
-
-  rm README.md LICENSE PKGBUILD setup.py
+  python setup.py install --root="$pkgdir" --prefix=/usr --optimize=1
 
   cp -a src/* "$pkgdir/usr/share/v3n0m"
+
+  install -Dm644 -t "$pkgdir/usr/share/doc/v3n0m/" README.md
+  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/v3n0m/LICENSE"
+  install -Dm644 "src/desktop-menu/v3n0m.ico" \
+    "$pkgdir/usr/share/icons/v3n0m.ico"
+  install -Dm644 "src/desktop-menu/v3n0m.desktop" \
+    "$pkgdir/usr/share/applications/v3n0m.desktop"
 
   cat > "$pkgdir/usr/bin/v3n0m" << EOF
 #!/bin/sh
 cd /usr/share/v3n0m
-python3 v3n0m.py "\$@"
+exec python v3n0m.py "\${@}"
 EOF
 
   chmod a+x "$pkgdir/usr/bin/v3n0m"
