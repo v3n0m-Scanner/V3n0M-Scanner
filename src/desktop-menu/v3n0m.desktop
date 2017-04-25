@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=v3n0m
+Icon=/usr/share/icons/v3n0m.ico
+Comment=A Scanner for finding vulnerable websites/Ip's
+Exec=/usr/bin/v3n0m
+Terminal=true
+Type=Application
+Categories=X-BlackArch-Exploitation;
