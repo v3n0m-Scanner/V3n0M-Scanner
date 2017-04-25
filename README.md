@@ -1,9 +1,9 @@
-Latest News: Added in Submenu's, expanded features, Stripped out old FTP crawler for Toxin Vulnerable FTPs Scanner.
+Latest News: Fixed Minor Bugs, Fixed Custom-List checking
 
 
 + All bug reports are appreciated, some features havnt been tested yet due to lack of free time.
 
-Current Version: Release 415
+Current Version: Release 416
 ![v3n0m Scanner](http://i.imgur.com/A96CipT.png "V3n0M-Scanner")
 ![Example of SQLi Dorker](https://github.com/v3n0m-Scanner/V3n0M-Scanner/blob/master/AnimatedDemo.gif?raw=true "Example of Dorker")
 
@@ -36,9 +36,9 @@ This program is for finding and executing various vulnerabilities. It scavenges 
 + Largest and most powerful d0rker online, 18k+d0rks searched over ~ Engines at once.
 + Free and Open /src/
 + CrossPlatform Python based toolkit
-+ Release 415 Released on 31st March 2017
++ Release 416 Released on 25th April 2017
 + Licensed under GPLv2
-+ Tested on: ArchLinux 4.6.6, Ubuntu, Debian, Kali, Windows, MacOS, BlackArch, Manjaro/ArchLinux ARM Ed.
++ Tested on: ArchLinux 4.9.6, Ubuntu, Debian, Kali, Windows, MacOS, BlackArch, Manjaro/ArchLinux ARM Ed.
 
 Note for Ubuntu users: Please make sure you have installed --> `sudo apt-get install python3-bs4`
                        Otherwise you may get Syntax Error stopping the program from running.
@@ -66,10 +66,9 @@ $ python3 setup.py install --user
 ## Contact Information:
 
     [ NovaCygni ] - <novacygni@hotmail.co.uk>
-    [ Architect ] - <t3h4rch1t3ct@riseup.net>
 
 ## Credits to:
-    -SageHack for allowing Cloudbuster to be used within V3n0M
+    -SageHack for allowing Cloudbuster to be adapted for use within V3n0M
 
 ## Original Header:
 

@@ -2,7 +2,7 @@
 # See COPYING for license details.
 
 pkgname='v3n0m'
-pkgver=99.f688998
+pkgver=99.f689198
 pkgrel=5
 groups=('blackarch' 'blackarch-scanner')
 pkgdesc='A tool to automate mass SQLi d0rk scans and Metasploit Vulns.'
@@ -31,9 +31,11 @@ package() {
   mkdir -p "$pkgdir/usr/bin"
   mkdir -p "$pkgdir/usr/share/v3n0m"
 
+  install -Dm644 "${pkgdir}/desktop-menu/v3n0m.desktop" "${pkgdir}/usr/share/applications/armitage.desktop"
   install -Dm755 src/v3n0m.py "$pkgdir/usr/bin/v3n0m"
   install -Dm644 README.md "$pkgdir/usr/share/doc/v3n0m/README.md"
   install -Dm644 LICENSE "$pkgdir/usr/share/licenses/v3n0m/LICENSE"
+  install -Dm644 "$pkgdir/desktop-menu/v3n0m.ico" "${pkgdir}/usr/share/icons/v3n0m.ico"
 
   rm README.md LICENSE PKGBUILD setup.py
 

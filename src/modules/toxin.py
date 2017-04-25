@@ -41,7 +41,7 @@ def banner():
         .---..----..-..-..-..-..-.
         `| |'| || | >  < | || .` |
          `-' `----''-'`-``-'`-'`-'
-           V3n0M Metasploitable Scanner Version 1.1
+           V3n0M Metasploitable Scanner Version 0.1.1
 
     ''')
 

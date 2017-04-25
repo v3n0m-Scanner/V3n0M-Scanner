@@ -27,7 +27,7 @@ except:
     print(" ")
     print(" ")
     print(" Exception Error Message encountered: "
-                            "" + str(Exception))
+          "" + str(Exception))
     print(" ")
     print(" ")
     print("|--- You are advised to run either or both steps below   ---| ")
@@ -86,7 +86,7 @@ __name__ = '__main__'
 def logo():
     cache_Check()
     print(R + "\n|----------------------------------------------------------------|")
-    print("| Release Date Mar 31st 2017 " + B + "           NovaCygni &  Architect  " + R + " |")
+    print("| Release Date Apr 25th 2017 " + B + "           Author: NovaCygni       " + R + " |")
     print("|        Proxy Enabled " + G + " [", ProxyEnabled, "] " + R + "                               |")
     print("|        Cache & Log Status " + B + " [", cachestatus, "] " + R + "           |")
     print("| " + O + "Features: " + R + "     " + O + "SQli-Dorker XSS&LFI>RCE DNS-Bruteforcer " + R + "        |")
@@ -280,6 +280,7 @@ def xsstest():
             thread.join()
 
 
+customSelected = False
 # Apoligies for this ugly section of code
 # It is just a placeholder
 # So dont worry, itll be replaced soon enough
@@ -478,30 +479,109 @@ def life_pulse():
 def injtest():
     global logfile
     global pulse
+    global usearch
+    global customlist
     pulse = datetime.now()
-    log = "v3n0m-sqli.txt"
-    logfile = open(log, "a")
-    print(B + "\n[+] Preparing for SQLi scanning ...")
-    print("[+] Can take a while and appear not to be doing anything...")
-    print("[!] Please be patient if you can see this message, its Working ...\n")
-    vb = len(usearch) / int(numthreads)
-    i = int(vb)
-    m = len(usearch) % int(numthreads)
-    z = 0
-    try:
-        if len(threads) <= int(numthreads):
-            for x in range(0, int(numthreads)):
-                sliced = usearch[x * i:(x + 1) * i]
-                if z < m:
-                    sliced.append(usearch[int(numthreads) * i + z])
-                    z += 1
-                thread = Injthread(sliced)
-                thread.start()
-                threads.append(thread)
-            for thread in threads:
-                thread.join()
-    except TimeoutError:
-        pass
+    if not customSelected:
+        log = "v3n0m-sqli.txt"
+        logfile = open(log, "a")
+        vb = len(usearch) / int(numthreads)
+        i = int(vb)
+        m = len(usearch) % int(numthreads)
+        z = 0
+        print(B + "\n[+] Preparing for SQLi scanning ...")
+        print("[+] Can take a while and appear not to be doing anything...")
+        print("[!] Please be patient if you can see this message, its Working ...\n")
+        try:
+            if len(threads) <= int(numthreads):
+                for x in range(0, int(numthreads)):
+                    sliced = usearch[x * i:(x + 1) * i]
+                    if z < m:
+                        sliced.append(usearch[int(numthreads) * i + z])
+                        z += 1
+                    thread = Injthread(sliced)
+                    thread.start()
+                    threads.append(thread)
+                for thread in threads:
+                    thread.join()
+        except TimeoutError:
+            pass
+    else:
+        try:
+            log = input('Enter file name and location: ')
+            with open(log) as hodor:
+                for line in hodor:
+                    hold_door = str(line.rstrip())+"'"
+                    hold_the_door = line.rstrip()
+                    try:
+                        resp = urllib.request.urlopen(hold_door)
+                    except: # In event of Exception throw pointless str so scan at least just continues.
+                        resp = str("v3n0m")
+                    hits = str(resp.read())
+                    if str("error in your SQL syntax") in hits:
+                        print(hold_the_door + " is vulnerable --> MySQL Classic")
+                    elif str("mysql_fetch") in hits:
+                        print(hold_the_door + " is Vulnerable --> MiscError")
+                    elif str("num_rows") in hits:
+                        print(hold_the_door + " is Vulnerable --> MiscError2")
+                    elif str("ORA-01756") in hits:
+                        print(hold_the_door + " is Vulnerable --> Oracle")
+                    elif str("Error Executing Database Query") in hits:
+                        print(hold_the_door + " is Vulnerable --> JDBC_CFM")
+                    elif str("SQLServer JDBC Driver") in hits:
+                        print(hold_the_door + " is Vulnerable --> JDBC_CFM2")
+                    elif str("OLE DB Provider for SQL Server") in hits:
+                        print(hold_the_door + " is Vulnerable --> MSSQL_OLEdb")
+                    elif str("Unclosed quotation mark") in hits:
+                        print(hold_the_door + " is Vulnerabe --> MSSQL_Uqm")
+                    elif str("ODBC Microsoft Access Driver") in hits:
+                        print(hold_the_door + " is Vulnerable --> MS-Access_ODBC")
+                    elif str("Microsoft JET Database") in hits:
+                        print(hold_the_door + " is Vulnerable --> MS-Access_JETdb")
+                    elif str("Error Occurred While Processing Request") in hits:
+                        print(hold_the_door + " is Vulnerable --> Processing Request")
+                    elif str("Microsoft JET Database") in hits:
+                        print(hold_the_door + " is Vulnerable --> MS-Access JetDb")
+                    elif str("Error Occurred While Processing Request") in hits:
+                        print(hold_the_door + " is Vulnerable --> Processing Request ")
+                    elif str("Server Error") in hits:
+                        print(hold_the_door + " is Vulnerable --> Server Error")
+                    elif str("ODBC Drivers error") in hits:
+                        print(hold_the_door + " is Vulnerable --> ODBC Drivers error")
+                    elif str("Invalid Querystring") in hits:
+                        print(hold_the_door + " is Vulnerable --> Invalid Querystring")
+                    elif str("OLE DB Provider for ODBC") in hits:
+                        print(hold_the_door + " is Vulnerable --> OLE DB Provider for ODBC")
+                    elif str("VBScript Runtime") in hits:
+                        print(hold_the_door + " is Vulnerable --> VBScript Runtime")
+                    elif str("ADODB.Field") in hits:
+                        print(hold_the_door + " is Vulnerable --> ADODB.Field")
+                    elif str("BOF or EOF") in hits:
+                        print(hold_the_door + " is Vulnerable --> BOF or EOF")
+                    elif str("ADODB.Command") in hits:
+                        print(hold_the_door + " is Vulnerable --> ADODB.Command")
+                    elif str("JET Database") in hits:
+                        print(hold_the_door + " is Vulnerable --> JET Database")
+                    elif str("mysql_fetch_array") in hits:
+                        print(hold_the_door + " is Vulnerabe --> mysql_fetch_array")
+                    elif str("Syntax error") in hits:
+                        print(hold_the_door + " is Vulnerable --> Syntax error")
+                    elif str("mysql_numrows()") in hits:
+                        print(hold_the_door + " is Vulnerable --> mysql_numrows()")
+                    elif str("GetArray()") in hits:
+                        print(hold_the_door + " is Vulnerable --> GetArray()")
+                    elif str("FetchRow()") in hits:
+                        print(hold_the_door + " is Vulnerable --> FetchRow()")
+                    elif str("Input string was not in a correct format") in hits:
+                        print(hold_the_door + " is Vulnerable --> Input String Error")
+                    else:
+                        pass
+        except FileNotFoundError or Exception:
+            print("Target file not found!")
+            print(Exception)
+            time.sleep(2)
+            fmenu()
+
 
 
 # noinspection PyBroadException
@@ -729,11 +809,13 @@ def vulnscan():
     print(R + "[8] Back to main menu")
     chce = input(":")
     if chce == '1':
+        os.system('clear')
         vuln = []
         injtest()
         print(B + "\r\x1b[K [*] Scan complete, " + O + str(len(col)) + B + " vuln sites found.")
         print()
     elif chce == '2':
+        os.system('clear')
         vuln = []
         injtest()
         colfinder()
@@ -741,12 +823,14 @@ def vulnscan():
         print(B + "\r\x1b[K [*] Scan complete, " + O + str(len(vuln)) + B + " vuln sites found.")
         print()
     elif chce == '3':
+        os.system('clear')
         vuln = []
         lfitest()
         endsub = 0
         print(B + "\r\x1b[K [*] Scan complete, " + O + str(len(vuln)) + B + " vuln sites found.")
         print()
     elif chce == '4':
+        os.system('clear')
         vuln = []
         xsstest()
         print(B + "\r\x1b[K [*] Scan complete, " + O + str(len(vuln)) + B + " vuln sites found.")
@@ -969,7 +1053,9 @@ async def search(pages_pulled_as_one):
 # noinspection PyBroadException
 def fmenu():
     import time
+    global customSelected
     global vuln
+    global customlist
     vuln = []
     if endsub != 1:
         vulnscan()
@@ -979,8 +1065,8 @@ def fmenu():
     print("[3] Toxin - **NOT RELEASED YET: NOT FINISHED: DONT BOTHER TRYING **")
     print("[4] DNS brute")
     print("[5] Enable Tor/Proxy Support")
-    print("[6] Misc Options")
-    print("[7] Check for and apply update")
+    print("[6] Cloudflare Resolving")
+    print("[7] Misc Options")
     print("[0] Exit\n")
     chce = input(":")
 
@@ -1024,41 +1110,47 @@ def fmenu():
         sys.exit(0)
 
     elif chce == '6':
+        cloud()
+        fmenu()
+
+    elif chce == '7':
         print(W + "")
         os.system('clear')
         logo()
         print("[1] Skip to custom SQLi list checking")
-        print("[2] Cloudflare IP Resolver *Advanced Options Submenu now available")
+        print("[2] Print contents of Log files")
         print("[3] Flush Cache and Delete Logs *Warning will erase Toxin Logs/Saves aswell* ")
+        print("[4] Perform forced update of ALL installed Python packages and dependancies on system")
         print("[0] Return to main menu")
         chce2 = input(":")
         if chce2 == '1':
             os.system('clear')
-            logo()
-            try:
-                temp = input("Please Input Custom List Path \n"
-                             "ie> \n"
-                             "/home/user/Desktop/samples.txt \n")
-                url = [line.strip() for line in open(temp, 'r')]
-                classicinj([url])
-            except FileNotFoundError:
-                print("Target file not found!")
-                time.sleep(2)
-                fmenu()
+            customSelected = True
+            injtest()
         elif chce2 == '2':
-            cloud()
-            fmenu()
-        elif chce2 == '3':
             for filename in glob("*.txt"):
-                os.remove(filename)
-                print("Cache has been cleared, all logs have been deleted")
-                time.sleep(2)
+                print(filename)
+            print("Dumping output of Cache complete, Sleeping for 5 seconds")
+            time.sleep(5)
+        elif chce2 == '3':
+            try:
+                print("Checking if Cache or Logs even exist!")
+                time.sleep(1)
+                for filename in glob("*.txt"):
+                    os.remove(filename)
+                    print("Cache has been cleared, all logs have been deleted")
+                    time.sleep(2)
+            except Exception:
+                print("No Cache or Log Files to delete!")
+        elif chce2 == '4':
+            for dist in pip.get_installed_distributions():
+                call("sudo pip3 install --upgrade --no-deps --force-reinstall " + dist.project_name, shell=True)
+                call("sudo pip3 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 sudo pip3 install -U",
+                shell=True)
+            pass
         elif chce2 == '0':
             fmenu()
 
-
-    elif chce == '7':
-        upgrade()
 
 
 
@@ -1174,6 +1266,6 @@ timeout = 14
 file = "/etc/passwd"
 ProxyEnabled = False
 menu = True
-current_version = str("415  ")
+current_version = str("416  ")
 while True:
     fmenu()
