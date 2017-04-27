@@ -517,8 +517,7 @@ def injtest():
                         resp = urllib.request.urlopen(hold_door)
                         hits = str(resp.read())
                     except: # In event of Exception throw pointless str so scan at least just continues.
-                        resp = str("v3n0m")
-                    hits = '0'
+                        hits = '0'
                     if str("error in your SQL syntax") in hits:
                         print(hold_the_door + " is vulnerable --> MySQL Classic")
                     elif str("mysql_fetch") in hits:
@@ -1144,6 +1143,7 @@ def fmenu():
             except Exception:
                 print("No Cache or Log Files to delete!")
         elif chce2 == '4':
+            import pip
             for dist in pip.get_installed_distributions():
                 call("sudo pip3 install --upgrade --no-deps --force-reinstall " + dist.project_name, shell=True)
                 call("sudo pip3 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 sudo pip3 install -U",

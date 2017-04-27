@@ -185,7 +185,7 @@ def makeips(amount):
     log = "IPLogList.txt"
     logfile = open(log, "a")
     for t in IPList:
-        logfile.write("ftp://" + t + ":21" + "\n")
+        logfile.write(t + "\n")
     logfile.close()
     chce = input("Option: ")
     if chce == '1':
@@ -274,22 +274,19 @@ class CoroutineLimiter:
 
 # modified fetch function with semaphore, to reduce choking/bottlenecking
 async def fetch(url, session):
-    async with session.get(url) as response:
-        delay = response.headers.get("DELAY")
-        date = response.headers.get("DATE")
-        print("{}:{} with delay {}".format(date, response.url, delay))
+    async with session.get(url, timeout=3) as response:
         return await response.read()
 
 
 async def bound_fetch(sem, url, session):
 # Getter function with semaphore, to reduce choking/bottlenecking
     async with sem:
-        await fetch(url, session)
+        hodor = url.rstrip('\n') #strip trailing line from ip
+        hold_the_door = str("ftp://"+hodor+":21")
+        print(repr(hold_the_door)) #debug message to check correct address is being taken
+        await fetch(hold_the_door, session)
+        pass
 
-
-#
-#   `welcome_lines = await client.connect(host)`
-#
 
 
 async def run(r):
@@ -302,11 +299,13 @@ async def run(r):
         # Try to pull 1 IP at a time and return it as a simple string.
         with open('IPLogList.txt') as cachedIPs:
             for line in cachedIPs:
+                line.rstrip()
+                #print("Stripped Line Debug:" + line) #Stripped Line Debug:4.30.73.175 # Ok so at this stage the IP address is fine.
                 # pass Semaphore and session to every GET request
-                task = asyncio.ensure_future(bound_fetch(sem, line, session))
+                task = await bound_fetch(sem, line, session)
                 tasks.append(task)
         responses = await asyncio.gather(*tasks)
-        await responses
+        print("Responses Debugging:" + str(responses)) #Ends up throwing a list, containing, "none, none, none, none, none"
 
 
 def menu():
@@ -319,3 +318,22 @@ def menu():
 while True:
         menu()
 
+
+#The method for getting FTP welcome message I used before
+#welcome_lines = await client.connect(host)
+#
+#
+#The method I technically should be using to make the requests apperantly?
+#@asyncio.coroutine
+#def fetch(session, url):)
+#    with aiohttp.Timeout(10):
+#        response = yield from session.get(url)
+#        try:
+#            # other statements
+#            return (yield from response.text())
+#        finally:
+#            if sys.exc_info()[0] is not None:
+#                # on exceptions, close the connection altogether
+#                response.close()
+#            else:
+#                yield from response.release()
