@@ -1078,7 +1078,7 @@ def fmenu():
         afsite = input("Enter the site eg target.com: ")
         print(B)
         pwd = os.path.dirname(str(os.path.realpath(__file__)))
-        findadmin = subprocess.Popen(pwd + "/modules/adminfinder.py -w modules/adminlist.txt -u " + str(afsite),
+        findadmin = subprocess.Popen(pwd + "/modules/adminfinder.py -w lists/adminlist.txt -u " + str(afsite),
                                      shell=True)
         findadmin.communicate()
         subprocess._cleanup()
@@ -1095,6 +1095,7 @@ def fmenu():
         print("[1] Normal Scan suitable for average sites")
         print("[2] Scan All The Things, if its on the internet, we'll find it... Go cook a cake, this will take a LONG time")
         allthethings = input(":")
+        att = ""
         if allthethings == '1':
             att = str(" ")
         elif allthethings == '2':

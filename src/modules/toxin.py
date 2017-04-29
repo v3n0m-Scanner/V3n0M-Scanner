@@ -32,7 +32,7 @@ R = "\033[31m"
 G = "\033[32m"
 O = "\033[33m"
 B = "\033[34m"
-msf_Vulns = [line.strip() for line in open("modules/vuln-ftp-checklist.txt", 'r')]
+msf_Vulns = [line.strip() for line in open("lists/vuln-ftp-checklist.txt", 'r')]
 global LoadedIPCache
 
 
@@ -165,7 +165,7 @@ def makeips(amount):
     IPList = []
     c = IPChecker()
     # Path to Honeypot file with IP's and Ranges that should NOT be generated. Only a retard wouldnt do this!
-    c.loadIPs("modules/honeypot_ranges.txt")
+    c.loadIPs("lists/honeypot_ranges.txt")
     amt = int(amount)
     for i in range(0, amt):
         ip = c.generateValidIP()

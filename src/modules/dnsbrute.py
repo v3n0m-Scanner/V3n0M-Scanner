@@ -125,7 +125,7 @@ if len(argv) == 1:
     parser.print_help()
     exit()
 
-maxthreads = 40
+maxthreads = 500
 
 if args.threads:
     maxthreads = args.threads
