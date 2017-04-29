@@ -117,7 +117,7 @@ parser = argparse.ArgumentParser(prog='dnsbrute', usage='dnsbrute [options]')
 parser.add_argument('-u', "--url", type=str, help='url eg. target.com')
 parser.add_argument("-w", "--wordlist", type=str, help="wordlist")
 parser.add_argument('-t', "--threads", type=int, help='number of threads')
-parser.add_argument('-att', "--allthethings", type=str, help='allthethings')
+parser.add_argument('-att', "--att", type=str, help='att')
 args = parser.parse_args()
 
 
@@ -140,7 +140,7 @@ maked = "mkdir -p logs"
 process = subprocess.Popen(maked.split(), stdout=subprocess.PIPE)
 poutput = process.communicate()[0]
 subdomains = [line.strip() for line in open(args.wordlist, 'r')]
-if args.allthethings:
+if args.att:
     with gzip.GzipFile(open("lists/DNSCached.txt.gz"), 'r') as CacheClose:        # 4. gzip
         json_bytes = CacheClose.read()                          # 3. bytes (i.e. UTF-8)
         json_str = json_bytes.decode('utf-8')            # 2. string

@@ -747,7 +747,7 @@ def fscan():
     print("Dorks           :", len(loaded_Dorks))
     print("Pages           :", pages_pulled_as_one)
     print("Timeout         :", timeout)
-    time.sleep(6)
+    time.sleep(4)
     loop = asyncio.get_event_loop()
     usearch = loop.run_until_complete(search(pages_pulled_as_one))
     vulnscan()
@@ -1092,9 +1092,16 @@ def fmenu():
 
     elif chce == '4':
         target_site = input("Enter the site eg target.com: ")
+        print("[1] Normal Scan suitable for average sites")
+        print("[2] Scan All The Things, if its on the internet, we'll find it... Go cook a cake, this will take a LONG time")
+        allthethings = input(":")
+        if allthethings == '1':
+            att = str(" ")
+        elif allthethings == '2':
+            att = str("att")
         print(B)
         pwd = os.path.dirname(str(os.path.realpath(__file__)))
-        dnsbrute = subprocess.Popen(pwd + "/modules/dnsbrute.py -w lists/subdomains -u " + str(target_site) + "-t "
+        dnsbrute = subprocess.Popen(pwd + "/modules/dnsbrute.py -w lists/subdomains -u " + str(target_site) + "-t " + att
                                     ,shell=True)
         dnsbrute.communicate()
         subprocess._cleanup()
@@ -1162,13 +1169,13 @@ def fmenu():
 
 
 
-d0rk = [line.strip() for line in open("statics/d0rks", 'r', encoding='utf-8')]
-header = [line.strip() for line in open("statics/header", 'r', encoding='utf-8')]
-xsses = [line.strip() for line in open("statics/xsses", 'r', encoding='utf-8')]
-lfis = [line.strip() for line in open("statics/lfi", 'r', encoding='utf-8')]
-tables = [line.strip() for line in open("statics/tables", 'r', encoding='utf-8')]
-columns = [line.strip() for line in open("statics/columns", 'r', encoding='utf-8')]
-search_Ignore = str(line.strip() for line in open("statics/search_ignore", 'r', encoding='utf-8'))
+d0rk = [line.strip() for line in open("lists/d0rks", 'r', encoding='utf-8')]
+header = [line.strip() for line in open("lists/header", 'r', encoding='utf-8')]
+xsses = [line.strip() for line in open("lists/xsses", 'r', encoding='utf-8')]
+lfis = [line.strip() for line in open("lists/lfi", 'r', encoding='utf-8')]
+tables = [line.strip() for line in open("lists/tables", 'r', encoding='utf-8')]
+columns = [line.strip() for line in open("lists/columns", 'r', encoding='utf-8')]
+search_Ignore = str(line.strip() for line in open("lists/search_ignore", 'r', encoding='utf-8'))
 random.shuffle(d0rk)
 random.shuffle(header)
 random.shuffle(lfis)
