@@ -1,9 +1,9 @@
-Latest News: Fixed Minor Bugs, Fixed Custom-List checking
+Latest News: Fixed DNS-Bruteforcer, More Bug Fixes.
 
 
 + All bug reports are appreciated, some features havnt been tested yet due to lack of free time.
 
-Current Version: Release 416
+Current Version: Release 417
 ![v3n0m Scanner](http://i.imgur.com/A96CipT.png "V3n0M-Scanner")
 ![Example of SQLi Dorker](https://github.com/v3n0m-Scanner/V3n0M-Scanner/blob/master/AnimatedDemo.gif?raw=true "Example of Dorker")
 
@@ -23,6 +23,7 @@ This program is for finding and executing various vulnerabilities. It scavenges 
 + LFI->RCE and XSS Scanning[LFI->RCE & XSS]
 + SQL Injection Vuln Scanner[SQLi]
 + Extremely Large D0rk Target Lists
++ AdminPage Finding
 + Toxin Vulnerable FTPs Scanner
 + DNS BruteForcer
 + Python 3.6 Asyncio based scanning
@@ -36,7 +37,7 @@ This program is for finding and executing various vulnerabilities. It scavenges 
 + Largest and most powerful d0rker online, 18k+d0rks searched over ~ Engines at once.
 + Free and Open /src/
 + CrossPlatform Python based toolkit
-+ Release 416 Released on 25th April 2017
++ Release 417 Released on 29th April 2017
 + Licensed under GPLv2
 + Tested on: ArchLinux 4.9.6, Ubuntu, Debian, Kali, Windows, MacOS, BlackArch, Manjaro/ArchLinux ARM Ed.
 
@@ -85,13 +86,4 @@ $ python3 setup.py install --user
 ====================================
 
 ##Make Love and Smoke Trees...
-
-******************* WALL OF FAME OF IDIOTIC, MORONIC OR GENERALLY LAUGHABLY STUPID QUOTES ********************
-
- 1) By Philm (*philmmanjaro*), Developer for Manjaro Linux... 
-  "Sha1 and Md5 are both secure, safe and viable, we will continue to use them for the forseeable future".   
-  Reason for Entry: Stated, 3 weeks after Sha1 was publicly broken, on a Github post about why they still use Sha1 and shouldnt they really change it.
- 2) By Philm (*philmmanjaro*), Developer for Manjaro Linux... 
-  "To clear this nonsense once and for all. We won't change it. Period! CONFIG_ATH_USER_REGD=y can't be enabled by default,   because it can be used to violate country restrictions, thus breakin the law."      
- Reason for Entry: Defacto declares his entire OS will not support anyone using there OS in multiple countries, without buying new hardware, regardless of the fact, that this is not illegal.
 

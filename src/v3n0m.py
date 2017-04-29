@@ -64,6 +64,7 @@ except:
         print(
             "This will install the missing modules and upgrade them to current versions then update your Python3 entirely")
         print("You will have 10 seconds to cancel this action before the system begins")
+        print("sudo is required as these changes are systemwide upgrades/updates for Python")
         time.sleep(10)
         call("sudo pip3 install aiohttp --upgrade ", shell=True)
         call("sudo pip3 install asyncio --upgrade ", shell=True)
@@ -86,12 +87,11 @@ __name__ = '__main__'
 def logo():
     cache_Check()
     print(R + "\n|----------------------------------------------------------------|")
-    print("| Release Date Apr 25th 2017 " + B + "           Author: NovaCygni       " + R + " |")
+    print("| Release Date Apr 29th 2017 " + B + "           Author: NovaCygni       " + R + " |")
     print("|        Proxy Enabled " + G + " [", ProxyEnabled, "] " + R + "                               |")
     print("|        Cache & Log Status " + B + " [", cachestatus, "] " + R + "           |")
-    print("| " + O + "Features: " + R + "     " + O + "SQli-Dorker XSS&LFI>RCE DNS-Bruteforcer " + R + "        |")
-    print("|              " + O + "  Toxin-Vulnerable-IPs-Scanner     " + R + "               |")
-    print("|                " + O + "Cloudflare-Resolver  AdminPage-Finder " + R + "          |")
+    print("| " + O +"Features:" + "SQli-Dorker DNS-Bruteforcer AdminPage-Finder " + R + "         |")
+    print("|   " + O + "Toxin-Vulnerable-IPs-Scanner Cloudflare-Resolver XSS&LFI>RCE "+ R +"|")
     print("|                    _____       _____                           |")
     print("|          " + G + "         |____ |     |  _  |    " + R + "                      |")
     print("|             __   __   / /_ __ | |/' |_ _" + G + "_ ___             " + R + "     |")
@@ -1092,10 +1092,9 @@ def fmenu():
 
     elif chce == '4':
         target_site = input("Enter the site eg target.com: ")
-
         print(B)
         pwd = os.path.dirname(str(os.path.realpath(__file__)))
-        dnsbrute = subprocess.Popen(pwd + "/modules/dnsbrute.py -w modules/subdomainsmid.txt -u " + str(target_site)
+        dnsbrute = subprocess.Popen(pwd + "/modules/dnsbrute.py -w lists/subdomains -u " + str(target_site) + "-t "
                                     ,shell=True)
         dnsbrute.communicate()
         subprocess._cleanup()
@@ -1144,7 +1143,15 @@ def fmenu():
                 print("No Cache or Log Files to delete!")
         elif chce2 == '4':
             import pip
+            from subprocess import call
+            import time
             for dist in pip.get_installed_distributions():
+                sys.stdout.flush()
+                print(
+                "This will install the missing modules and upgrade them to current versions then update your Python3 entirely")
+                print("You will have 10 seconds to cancel this action before the system begins")
+                print("sudo is required as these changes are systemwide upgrades/updates for Python")
+                time.sleep(10)
                 call("sudo pip3 install --upgrade --no-deps --force-reinstall " + dist.project_name, shell=True)
                 call("sudo pip3 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 sudo pip3 install -U",
                 shell=True)
@@ -1263,10 +1270,14 @@ arg_eva = "+"
 colMax = 60  # Change this at your will
 endsub = 1
 gets = 0
-timeout = 14
+timeout = 7
 file = "/etc/passwd"
 ProxyEnabled = False
 menu = True
-current_version = str("416  ")
+current_version = str("417  ")
 while True:
     fmenu()
+
+
+
+

@@ -2,7 +2,8 @@
 # This file is part of v3n0m
 # See LICENSE for license details.
 
-
+import json
+import gzip
 import argparse
 import subprocess
 import time as time2
@@ -116,16 +117,9 @@ parser = argparse.ArgumentParser(prog='dnsbrute', usage='dnsbrute [options]')
 parser.add_argument('-u', "--url", type=str, help='url eg. target.com')
 parser.add_argument("-w", "--wordlist", type=str, help="wordlist")
 parser.add_argument('-t', "--threads", type=int, help='number of threads')
+parser.add_argument('-att', "--allthethings", type=str, help='allthethings')
 args = parser.parse_args()
 
-print('''     _           _                _
-  __| |_ __  ___| |__  _ __ _   _| |_ ___
- / _` | '_ \/ __| '_ \| '__| | | | __/ _ \
-| (_| | | | \__ \ |_) | |  | |_| | ||  __/
- \__,_|_| |_|___/_.__/|_|   \__,_|\__\___|
-         Python3 Recode: By NovaCygni
-			By d4rkcat
-''')
 
 if len(argv) == 1:
     parser.print_help()
@@ -136,15 +130,23 @@ maxthreads = 40
 if args.threads:
     maxthreads = args.threads
 
+
+dnsservers = ["8.8.8.8", "8.8.4.4", "4.2.2.1", "4.2.2.2", "4.2.2.3", "4.2.2.4", "4.2.2.5", "4.2.2.6", "4.2.35.8",
+              "4.2.49.4", "4.2.49.3", "4.2.49.2", "209.244.0.3", "209.244.0.4", "208.67.222.222", "208.67.220.220",
+              "192.121.86.114", "192.121.121.14", "216.111.65.217", "192.76.85.133", "151.202.0.85"]
 signal(SIGINT, killpid)
 domain = args.url
 maked = "mkdir -p logs"
 process = subprocess.Popen(maked.split(), stdout=subprocess.PIPE)
 poutput = process.communicate()[0]
 subdomains = [line.strip() for line in open(args.wordlist, 'r')]
-dnsservers = ["8.8.8.8", "8.8.4.4", "4.2.2.1", "4.2.2.2", "4.2.2.3", "4.2.2.4", "4.2.2.5", "4.2.2.6", "4.2.35.8",
-              "4.2.49.4", "4.2.49.3", "4.2.49.2", "209.244.0.3", "209.244.0.4", "208.67.222.222", "208.67.220.220",
-              "192.121.86.114", "192.121.121.14", "216.111.65.217", "192.76.85.133", "151.202.0.85"]
+if args.allthethings:
+    with gzip.GzipFile(open("lists/DNSCached.txt.gz"), 'r') as CacheClose:        # 4. gzip
+        json_bytes = CacheClose.read()                          # 3. bytes (i.e. UTF-8)
+        json_str = json_bytes.decode('utf-8')            # 2. string
+        data = json.loads(json_str)                      # 1. dat
+        dnsservers = data
+
 resolver = dns.resolver.Resolver()
 resolver.nameservers = dnsservers
 queueLock = Lock()
@@ -153,6 +155,8 @@ found = []
 threads = []
 exitFlag = 0
 threadID = 1
+
+
 
 print(" [*] Starting " + str(maxthreads) + " threads to process " + str(len(subdomains)) + " subdomains.")
 print()
