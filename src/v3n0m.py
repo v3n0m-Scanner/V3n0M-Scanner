@@ -1172,9 +1172,6 @@ search_Ignore = str(line.strip() for line in open("statics/search_ignore", 'r', 
 random.shuffle(d0rk)
 random.shuffle(header)
 random.shuffle(lfis)
-parser = argparse.ArgumentParser(prog='v3n0m', usage='v3n0m [options]')
-parser.add_argument('-p', "--proxy", type=str, help='Proxy must be in the form of type:host:port')
-args = parser.parse_args()
 
 
 # noinspection PyBroadException
