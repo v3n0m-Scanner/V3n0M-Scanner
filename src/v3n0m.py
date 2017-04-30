@@ -1102,7 +1102,7 @@ def fmenu():
             att = str("att")
         print(B)
         pwd = os.path.dirname(str(os.path.realpath(__file__)))
-        dnsbrute = subprocess.Popen(pwd + "/modules/dnsbrute.py -w lists/subdomains -u " + str(target_site) + "-t " + att
+        dnsbrute = subprocess.Popen(pwd + "/modules/dnsbrute.py -w lists/subdomains -u " + str(target_site) + " -t " + att
                                     ,shell=True)
         dnsbrute.communicate()
         subprocess._cleanup()
