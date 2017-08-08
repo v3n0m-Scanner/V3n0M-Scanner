@@ -1,9 +1,8 @@
 #!/usr/bin/env python
 from distutils.core import setup
-import setuptools
 
 setup(name='V3n0M',
-      version='416',
+      version='418',
       description="Popular SQLi and Pentesting scanner in Python 3.6",
       author='NovaCygni',
       author_email='novacygni@hotmail.co.uk',

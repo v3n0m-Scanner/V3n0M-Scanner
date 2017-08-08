@@ -274,7 +274,7 @@ class CoroutineLimiter:
 
 # modified fetch function with semaphore, to reduce choking/bottlenecking
 async def fetch(url, session):
-    async with session.get(url, timeout=3) as response:
+    async with session.get(url, timeout=4) as response:
         return await response.read()
 
 
@@ -284,7 +284,7 @@ async def bound_fetch(sem, url, session):
         hodor = url.rstrip('\n') #strip trailing line from ip
         hold_the_door = str("ftp://"+hodor+":21")
         print(repr(hold_the_door)) #debug message to check correct address is being taken
-        await fetch(hold_the_door, session)
+        return await fetch(hold_the_door, session)
         pass
 
 

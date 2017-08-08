@@ -1,11 +1,11 @@
-Latest News: Fixed DNS-Bruteforcer, More Bug Fixes.
+Latest News: Updates to AdminPage Finder, refined d0rks.
 
 
 + All bug reports are appreciated, some features havnt been tested yet due to lack of free time.
 
-Current Version: Release 417
+Current Version: Release 418
 ![v3n0m Scanner](http://i.imgur.com/A96CipT.png "V3n0M-Scanner")
-![Example of SQLi Dorker](https://github.com/v3n0m-Scanner/V3n0M-Scanner/blob/master/src/AnimatedDemo.gif?raw=true "Example of Dorker")
+![Example of SQLi Dorker](https://github.com/v3n0m-Scanner/V3n0M-Scanner/blob/master/src/AnimatedDemo.gif?raw=true "Example of Dorker Features")
 
 
 
@@ -34,15 +34,17 @@ This program is for finding and executing various vulnerabilities. It scavenges 
 + Brand new, just outta the box!
 + Most efficient cloudflare resolver around with easy to use interface.
 + Extremely quick "Toxin" Vulnerable IP scanner to scan potentially millions of ips for known vulnerable services.
-+ Largest and most powerful d0rker online, 18k+d0rks searched over ~ Engines at once.
++ Largest and most powerful d0rker online, 14k+d0rks searched over ~ Engines at once.
 + Free and Open /src/
 + CrossPlatform Python based toolkit
-+ Release 417 Released on 29th April 2017
++ Release 418 Released on 8th August 2017
 + Licensed under GPLv2
-+ Tested on: ArchLinux 4.9.6, Ubuntu, Debian, Kali, Windows, MacOS, BlackArch, Manjaro/ArchLinux ARM Ed.
++ Tested on: ArchLinux 4.9.40, Ubuntu, Debian, Kali, Windows, MacOS, BlackArch, Manjaro/ArchLinux ARM Ed.
 
 Note for Ubuntu users: Please make sure you have installed --> `sudo apt-get install python3-bs4`
                        Otherwise you may get Syntax Error stopping the program from running.
+
+Note for Kali users: Please make sure you have installed --> `apt-get install python3-dev apt-get install python-dev`
 
 ## Install note
 
@@ -66,7 +68,7 @@ $ python3 setup.py install --user
 
 ## Contact Information:
 
-    [ NovaCygni ] - <novacygni@hotmail.co.uk>
+    Submit a bug report with prefix "Query" at the start.
 
 ## Credits to:
     -SageHack for allowing Cloudbuster to be adapted for use within V3n0M

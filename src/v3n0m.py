@@ -87,7 +87,7 @@ __name__ = '__main__'
 def logo():
     cache_Check()
     print(R + "\n|----------------------------------------------------------------|")
-    print("| Release Date Apr 29th 2017 " + B + "           Author: NovaCygni       " + R + " |")
+    print("| Release Date August 8th 2017 " + B + "         Author: NovaCygni       " + R + " |")
     print("|        Proxy Enabled " + G + " [", ProxyEnabled, "] " + R + "                               |")
     print("|        Cache & Log Status " + B + " [", cachestatus, "] " + R + "           |")
     print("| " + O +"Features:" + "SQli-Dorker DNS-Bruteforcer AdminPage-Finder " + R + "         |")
@@ -1153,16 +1153,14 @@ def fmenu():
             import pip
             from subprocess import call
             import time
-            for dist in pip.get_installed_distributions():
-                sys.stdout.flush()
-                print(
+            sys.stdout.flush()
+            print(
                 "This will install the missing modules and upgrade them to current versions then update your Python3 entirely")
-                print("You will have 10 seconds to cancel this action before the system begins")
-                print("sudo is required as these changes are systemwide upgrades/updates for Python")
-                time.sleep(10)
-                call("sudo pip3 install --upgrade --no-deps --force-reinstall " + dist.project_name, shell=True)
-                call("sudo pip3 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 sudo pip3 install -U",
-                shell=True)
+            print("You will have 10 seconds to cancel this action before the system begins")
+            print("sudo is required as these changes are systemwide upgrades/updates for Python")
+            time.sleep(10)
+            call("sudo pip3 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 sudo pip3 install -U",
+                 shell=True)
             pass
         elif chce2 == '0':
             fmenu()
@@ -1279,7 +1277,7 @@ timeout = 7
 file = "/etc/passwd"
 ProxyEnabled = False
 menu = True
-current_version = str("417  ")
+current_version = str("418  ")
 while True:
     fmenu()
 
