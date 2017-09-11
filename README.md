@@ -1,9 +1,10 @@
-Latest News: Updates to AdminPage Finder, refined d0rks.
+Latest News: First stage of expanding LFI features, LFI-Suite modified for V3n0M, will be the core of new LFI features to be fully intergrated.
+
 
 
 + All bug reports are appreciated, some features havnt been tested yet due to lack of free time.
 
-Current Version: Release 418
+Current Version: Release 419
 ![v3n0m Scanner](http://i.imgur.com/A96CipT.png "V3n0M-Scanner")
 ![Example of SQLi Dorker](https://github.com/v3n0m-Scanner/V3n0M-Scanner/blob/master/src/AnimatedDemo.gif?raw=true "Example of Dorker Features")
 
@@ -37,14 +38,17 @@ This program is for finding and executing various vulnerabilities. It scavenges 
 + Largest and most powerful d0rker online, 14k+d0rks searched over ~ Engines at once.
 + Free and Open /src/
 + CrossPlatform Python based toolkit
-+ Release 418 Released on 8th August 2017
-+ Licensed under GPLv2
-+ Tested on: ArchLinux 4.9.40, Ubuntu, Debian, Kali, Windows, MacOS, BlackArch, Manjaro/ArchLinux ARM Ed.
++ Release 419 Released on 11th September 2017
++ Licensed under GPLv3
++ Tested on: ArchLinux 4.9.42, Ubuntu, Debian, Kali, Windows, MacOS, BlackArch, Manjaro/ArchLinux ARM Ed.
 
 Note for Ubuntu users: Please make sure you have installed --> `sudo apt-get install python3-bs4`
                        Otherwise you may get Syntax Error stopping the program from running.
 
 Note for Kali users: Please make sure you have installed --> `apt-get install python3-dev apt-get install python-dev`
+
+
+
 
 ## Install note
 
@@ -72,6 +76,7 @@ $ python3 setup.py install --user
 
 ## Credits to:
     -SageHack for allowing Cloudbuster to be adapted for use within V3n0M
+    -D35m0nd142 for allowing Collaboration and the use of LFI Suite within V3n0M
 
 ## Original Header:
 

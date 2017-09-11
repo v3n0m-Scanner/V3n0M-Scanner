@@ -1,11 +1,11 @@
 pkgname='v3n0m'
-pkgver=254.848b79a
+pkgver=254.948b79a
 pkgrel=1
 groups=('blackarch' 'blackarch-scanner' 'blackarch-webapp' 'blackarch-recon')
 pkgdesc='A tool to automate mass SQLi d0rk scans and Metasploit Vulns.'
 arch=('any')
 url='https://github.com/v3n0m-Scanner/V3n0M-Scanner'
-license=('GPL2')
+license=('GPL3')
 depends=('python' 'python-httplib2' 'python-aiohttp' 'python-asyncio'
          'python-socksipy-branch' 'python-dnslib' 'python-dnspython'
          'python-multidict' 'python-requests' 'python-pysocks' 'python-tqdm'

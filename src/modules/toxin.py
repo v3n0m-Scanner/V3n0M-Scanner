@@ -272,10 +272,20 @@ class CoroutineLimiter:
                 self._sem.release()
 
 
-# modified fetch function with semaphore, to reduce choking/bottlenecking
-async def fetch(url, session):
-    async with session.get(url, timeout=4) as response:
-        return await response.read()
+@asyncio.coroutine
+def fetch(url, session):
+    with aiohttp.Timeout(10):
+        response = yield from session.get(url)
+        try:
+            return (yield from response.text())
+        finally:
+            if sys.exc_info()[0] is not None:
+                # on exceptions, close the connection altogether
+                response.close()
+            else:
+                yield from response.release()
+                # Error Thrown: TimeoutException from None
+
 
 
 async def bound_fetch(sem, url, session):
@@ -283,7 +293,7 @@ async def bound_fetch(sem, url, session):
     async with sem:
         hodor = url.rstrip('\n') #strip trailing line from ip
         hold_the_door = str("ftp://"+hodor+":21")
-        print(repr(hold_the_door)) #debug message to check correct address is being taken
+        print(repr("Checking If Online:" + hold_the_door))  #debug message to check correct address is being taken
         return await fetch(hold_the_door, session)
         pass
 
@@ -321,19 +331,3 @@ while True:
 
 #The method for getting FTP welcome message I used before
 #welcome_lines = await client.connect(host)
-#
-#
-#The method I technically should be using to make the requests apperantly?
-#@asyncio.coroutine
-#def fetch(session, url):)
-#    with aiohttp.Timeout(10):
-#        response = yield from session.get(url)
-#        try:
-#            # other statements
-#            return (yield from response.text())
-#        finally:
-#            if sys.exc_info()[0] is not None:
-#                # on exceptions, close the connection altogether
-#                response.close()
-#            else:
-#                yield from response.release()

