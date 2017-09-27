@@ -40,7 +40,7 @@ This program is for finding and executing various vulnerabilities. It scavenges 
 + CrossPlatform Python based toolkit
 + Release 419 Released on 11th September 2017
 + Licensed under GPLv3
-+ Tested on: ArchLinux 4.9.42, Ubuntu, Debian, Kali, Windows, MacOS, BlackArch, Manjaro/ArchLinux ARM Ed.
++ Tested on: ArchLinux 4.9.42, Ubuntu, Debian, Kali, Windows, MacOS, BlackArch, Manjaro/ArchLinux ARM Ed. Android-Termux
 
 Note for Ubuntu users: Please make sure you have installed --> `sudo apt-get install python3-bs4`
                        Otherwise you may get Syntax Error stopping the program from running.
@@ -63,7 +63,6 @@ Then go inside:
 ```
 $ cd V3n0M-Scanner/
 ```
-
 Then install it:
 
 ```
