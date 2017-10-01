@@ -36,7 +36,7 @@ except:
     print("| --Note, Requires Sudo or Root to perform updates/fixes to Python      ")
     print("")
     print("             V3n0M python modules can be updated with either option below            ")
-    print("[1] Run Pip3 and Auto-Update Python3 modules to latest versions, ")
+    print("[1] Run Pip3.6 and Auto-Update Python3.6 modules to latest versions, ")
     print("[2] Auto-Install all the required v3n0m modules specified in the program requirements")
     print("[3] Exit")
     print(" ")
@@ -49,33 +49,33 @@ except:
 
     if chce == '1':
         sys.stdout.flush()
-        print("Warning This will force upgrade all Python3 modules")
+        print("Warning This will force upgrade all Python3.6 modules")
         print("You will have 10 seconds to cancel this action before the system begins")
         print("Note: This will entirely reinstall all current installed modules aswell to clear possible problems")
         time.sleep(10)
         for dist in pip.get_installed_distributions():
-            call("sudo pip3 install --upgrade --no-deps --force-reinstall " + dist.project_name, shell=True)
-            call("sudo pip3 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 sudo pip3 install -U",
+            call("sudo pip3.6 install --upgrade --no-deps --force-reinstall " + dist.project_name, shell=True)
+            call("sudo pip3.6 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 sudo pip3.6 install -U",
                  shell=True)
             pass
         pass
     if chce == '2':
         sys.stdout.flush()
         print(
-            "This will install the missing modules and upgrade them to current versions then update your Python3 entirely")
+            "This will install the missing modules and upgrade them to current versions then update your Python3.6 entirely")
         print("You will have 10 seconds to cancel this action before the system begins")
         print("sudo is required as these changes are systemwide upgrades/updates for Python")
         time.sleep(10)
-        call("sudo pip3 install aiohttp --upgrade ", shell=True)
-        call("sudo pip3 install asyncio --upgrade ", shell=True)
-        call("sudo pip3 install bs4 --upgrade ", shell=True)
-        call("sudo pip3 install dnspython --upgrade ", shell=True)
-        call("sudo pip3 install tqdm --upgrade ", shell=True)
-        call("sudo pip3 install datetime --upgrade ", shell=True)
-        call("sudo pip3 install requests --upgrade ", shell=True)
-        call("sudo pip3 install socksipy-branch --upgrade ", shell=True)
-        call("sudo pip3 install httplib2 --upgrade ", shell=True)
-        call("sudo pip3 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 sudo pip3 install -U", shell=True)
+        call("sudo pip3.6 install aiohttp --upgrade ", shell=True)
+        call("sudo pip3.6 install asyncio --upgrade ", shell=True)
+        call("sudo pip3.6 install bs4 --upgrade ", shell=True)
+        call("sudo pip3.6 install dnspython --upgrade ", shell=True)
+        call("sudo pip3.6 install tqdm --upgrade ", shell=True)
+        call("sudo pip3.6 install datetime --upgrade ", shell=True)
+        call("sudo pip3.6 install requests --upgrade ", shell=True)
+        call("sudo pip3.6 install socksipy-branch --upgrade ", shell=True)
+        call("sudo pip3.6 install httplib2 --upgrade ", shell=True)
+        call("sudo pip3.6 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 sudo pip3 install -U", shell=True)
         pass
     if chce == '3':
         exit()
@@ -687,7 +687,7 @@ def cloud():
         scandepth = "--dept normal"
     elif depth == 3:
         scandepth = "--dept full"
-    cloud = subprocess.Popen('python ' + pwd + "/cloudbuster.py " + str(target_site) + scandepth, shell=True)
+    cloud = subprocess.Popen('python3.6 ' + pwd + "/cloudbuster.py " + str(target_site) + scandepth, shell=True)
     cloud.communicate()
     subprocess._cleanup()
     print("Cloud Resolving Finished")
@@ -744,7 +744,7 @@ def vulnscan():
     elif chce == '3':
         os.system('clear')
         path = os.path.dirname(str(os.path.realpath(__file__)))
-        lfisuite = subprocess.Popen(path + "/lfisuite.py ", shell=True)
+        lfisuite = subprocess.Popen('python3.6 ' + path + "/lfisuite.py ", shell=True)
         lfisuite.communicate()
         subprocess._cleanup()
     elif chce == '4':
@@ -996,7 +996,7 @@ def fmenu():
         afsite = input("Enter the site eg target.com: ")
         print(B)
         pwd = os.path.dirname(str(os.path.realpath(__file__)))
-        findadmin = subprocess.Popen(pwd + "/modules/adminfinder.py -w lists/adminlist.txt -u " + str(afsite),
+        findadmin = subprocess.Popen('python3.6 ' + pwd + "/modules/adminfinder.py -w lists/adminlist.txt -u " + str(afsite),
                                      shell=True)
         findadmin.communicate()
         subprocess._cleanup()
@@ -1004,7 +1004,7 @@ def fmenu():
     elif chce == '3':
         print(B)
         pwd = os.path.dirname(str(os.path.realpath(__file__)))
-        ftpcrawl = subprocess.Popen(pwd + "/modules/toxin.py -i " , shell=True)
+        ftpcrawl = subprocess.Popen('python3.6 ' + pwd + "/modules/toxin.py -i " , shell=True)
         ftpcrawl.communicate()
         subprocess._cleanup()
 
@@ -1021,7 +1021,7 @@ def fmenu():
         print(B)
         pwd = os.path.dirname(str(os.path.realpath(__file__)))
         dnsbrute = subprocess.Popen(
-            pwd + "/modules/dnsbrute.py -w lists/subdomains -u " + str(target_site) + att + " -t 200"
+            'python3.6 ' + pwd + "/modules/dnsbrute.py -w lists/subdomains -u " + str(target_site) + att + " -t 200"
             , shell=True)
         dnsbrute.communicate()
         subprocess._cleanup()
@@ -1056,7 +1056,7 @@ def fmenu():
             injtest()
         elif chce2 == '2':
             path = os.path.dirname(str(os.path.realpath(__file__)))
-            lfisuite = subprocess.Popen(path + "/lfisuite.py ", shell=True)
+            lfisuite = subprocess.Popen('python3.6 ' + path + "/lfisuite.py ", shell=True)
             lfisuite.communicate()
             subprocess._cleanup()
         elif chce2 == '3':
@@ -1081,18 +1081,18 @@ def fmenu():
             path = os.path.dirname(str(os.path.realpath(__file__)))
             print("Updating Python Module First: Cloudbuster files. Please wait.")
             time.sleep(2)
-            cloudupdate = subprocess.Popen(path + "/lists/update.py ", shell=True)
+            cloudupdate = subprocess.Popen('python3.6' + path + "/lists/update.py ", shell=True)
             cloudupdate.communicate()
             subprocess._cleanup()
             print("Cloudbuster features updated!, Moving onto Python Modules and Dependencies...")
             time.sleep(4)
             sys.stdout.flush()
             print(
-                "This will install the missing modules and upgrade them to current versions then update your Python3 entirely")
+                "This will install the missing modules and upgrade them to current versions then update your Python3.6 entirely")
             print("You will have 10 seconds to cancel this action before the system begins")
             print("sudo is required as these changes are systemwide upgrades/updates for Python")
             time.sleep(10)
-            call("sudo pip3 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 sudo pip3 install -U",
+            call("sudo pip3.6 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 sudo pip3.6 install -U",
                  shell=True)
             pass
         elif chce2 == '0':
