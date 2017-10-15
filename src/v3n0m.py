@@ -75,7 +75,6 @@ except:
 __name__ = '__main__'
 
 
-
 def logo():
     cache_Check()
     sql_list_counter()
