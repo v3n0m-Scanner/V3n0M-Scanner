@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # -*- coding: latin-1 -*-
 # This file is part of v3n0m
 # See LICENSE for license details.
@@ -17,6 +17,7 @@ try:
     from os import getpid, kill, path
     from sys import argv, stdout
     from random import randint
+    from aiohttp import web
 
 except:
     exit()
@@ -41,7 +42,7 @@ def banner():
         .---..----..-..-..-..-..-.
         `| |'| || | >  < | || .` |
          `-' `----''-'`-``-'`-'`-'
-           V3n0M Metasploitable Scanner Version 0.1.1
+           V3n0M Metasploitable Scanner Version 0.1.2
 
     ''')
 
@@ -202,7 +203,7 @@ def makeips(amount):
         except:
             print("Failed to save")
     if chce == '2':
-        pp = pprint.PrettyPrinter(width=66, compact=True)
+        pp = pprint.PrettyPrinter(width=68, compact=True)
         pp.pprint(IPList)
         print("Do you wish to start Toxin again or Exit to V3n0M")
         print("[1] Stay within Toxin")
@@ -272,31 +273,32 @@ class CoroutineLimiter:
                 self._sem.release()
 
 
-@asyncio.coroutine
-def fetch(url, session):
-    with aiohttp.Timeout(10):
-        response = yield from session.get(url)
+async def fetch(url, session):
+    with aiohttp.Timeout(3):
+        response = await session.get(url)
+        if response != 200:
+            response.close()
+            pass
         try:
-            return (yield from response.text())
+            body = await response.read()
+            return body
         finally:
             if sys.exc_info()[0] is not None:
                 # on exceptions, close the connection altogether
                 response.close()
             else:
-                yield from response.release()
+                await response.release()
                 # Error Thrown: TimeoutException from None
-
 
 
 async def bound_fetch(sem, url, session):
 # Getter function with semaphore, to reduce choking/bottlenecking
     async with sem:
         hodor = url.rstrip('\n') #strip trailing line from ip
-        hold_the_door = str("ftp://"+hodor+":21")
+        hold_the_door = str("ftp://" + hodor)
         print(repr("Checking If Online:" + hold_the_door))  #debug message to check correct address is being taken
         return await fetch(hold_the_door, session)
         pass
-
 
 
 async def run(r):

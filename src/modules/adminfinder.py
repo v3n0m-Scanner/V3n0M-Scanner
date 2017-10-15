@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # This file is part of v3n0m
 # See LICENSE for license details.
 
@@ -6,10 +6,10 @@
 
 # import http.cookiejar
 
+import http.client
 import queue
 import subprocess
 import time
-import http.client
 from argparse import ArgumentParser
 from os import getpid, kill
 from signal import SIGINT, signal

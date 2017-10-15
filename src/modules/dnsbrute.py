@@ -2,9 +2,9 @@
 # This file is part of v3n0m
 # See LICENSE for license details.
 
-import json
-import gzip
 import argparse
+import gzip
+import json
 import subprocess
 import time as time2
 from os import getpid, kill
@@ -155,7 +155,6 @@ found = []
 threads = []
 exitFlag = 0
 threadID = 1
-
 
 
 print(" [*] Starting " + str(maxthreads) + " threads to process " + str(len(subdomains)) + " subdomains.")

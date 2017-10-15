@@ -1,10 +1,10 @@
-Latest News: First stage of expanding LFI features, LFI-Suite modified for V3n0M, will be the core of new LFI features to be fully intergrated.
+Latest News: Updated and tweaked Misc Options including updates, LFI Integration and others.
 
 
 
 + All bug reports are appreciated, some features havnt been tested yet due to lack of free time.
 
-Current Version: Release 419
+Current Version: Release 420
 ![v3n0m Scanner](http://i.imgur.com/A96CipT.png "V3n0M-Scanner")
 ![Example of SQLi Dorker](https://github.com/v3n0m-Scanner/V3n0M-Scanner/blob/master/src/AnimatedDemo.gif?raw=true "Example of Dorker Features")
 
@@ -38,7 +38,7 @@ This program is for finding and executing various vulnerabilities. It scavenges 
 + Largest and most powerful d0rker online, 14k+d0rks searched over ~ Engines at once.
 + Free and Open /src/
 + CrossPlatform Python based toolkit
-+ Release 419 Released on 11th September 2017
++ Release 420 Released on 15th October 2017
 + Licensed under GPLv3
 + Tested on: ArchLinux 4.9.42, Ubuntu, Debian, Kali, Windows, MacOS, BlackArch, Manjaro/ArchLinux ARM Ed. Android-Termux
 
@@ -76,16 +76,8 @@ $ python3 setup.py install --user
 ## Credits to:
     -SageHack for allowing Cloudbuster to be adapted for use within V3n0M
     -D35m0nd142 for allowing Collaboration and the use of LFI Suite within V3n0M
+    -b4ltazar & all members of darkc0de.com for inspiring the project with darkd0rk3r
 
-## Original Header:
-
-    - This was written for educational purpose and pentest only. Use it at your own risk.
-    - Author will be not responsible for any damage!
-    - !!! Special greetz for my friend sinner_01 !!!
-    - Toolname        : darkd0rk3r.py
-    - Coder           : baltazar a.k.a b4ltazar <b4ltazar@gmail.com>
-    - Version         : 1.0
-    - greetz for all members of ex darkc0de.com, ljuska.org
 
 
 

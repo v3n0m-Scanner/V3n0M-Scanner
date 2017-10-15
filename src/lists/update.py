@@ -1,10 +1,15 @@
-import urllib.request
-import zipfile
+#!/usr/bin/python3
+# -*- coding: latin-1 -*-
+# This file is part of v3n0m
+# See LICENSE for license details.
+
 import os
 import sys
+import urllib.request
+import zipfile
 
 
-def progressbar(blocknum, blocksize, totalsize):
+def progressBar(blocknum, blocksize, totalsize):
     readsofar = blocknum * blocksize
     if totalsize > 0:
         percent = readsofar * 1e2 / totalsize
@@ -15,9 +20,9 @@ def progressbar(blocknum, blocksize, totalsize):
         sys.stderr.write("\n")
 
 
-def download(url, file, progressbar=None):
+def download(url, file, progressBar=None):
     print('Downloading %s' % url)
-    urllib.request.urlretrieve(url, file, progressbar)
+    urllib.request.urlretrieve(url, file, progressBar)
 
 
 def unzip(file):
@@ -30,7 +35,7 @@ downloads = [
     ['https://www.cloudflare.com/ips-v6', 'lists/ips-v6', None],
     ['http://crimeflare.net:82/domains/ipout.zip',
         'lists/ipout.zip',
-        progressbar]
+     progressBar]
 ]
 
 for d in downloads:

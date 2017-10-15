@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 #  LFISuite: LFI Automatic Exploiter and Scanner
 # Author: D35m0nd142, <d35m0nd142@gmail.com> ** Python 3.6 V3n0M Version Modifications by NovaCygni
 # Twitter: @D35m0nd142 ** Not Applicable
@@ -6,7 +6,6 @@
 # Tutorial Video: https://www.youtube.com/watch?v=6sY1Skx8MBc
 # Github Repository: https://github.com/D35m0nd142/LFISuite
 import base64
-import os
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -27,7 +26,7 @@ def download(file_url, local_filename):
 
 
 netcat_url = "https://github.com/D35m0nd142/LFISuite/raw/master/nc.exe"
-LFS_VERSION = '1.1'  # DO NOT MODIFY THIS FOR ANY REASON!!
+LFS_V3n0M_VERSION = '1.1'  # DO NOT MODIFY THIS FOR ANY REASON!!
 
 # --------- Auto-Hack Global Variables ----------#
 ahactive = False
@@ -145,7 +144,7 @@ def banner():
    .********, /*. .#/   .*##(/,.        ,/(###(*.     .,*****,.  ./##(/,. .,**,.           .*/(/,          
              ./#(/*.
 
-	V3n0M Version Change V0.1 """)
+	V3n0M Version Change V0.2 """)
 
     print("/*-------------------------------------------------------------------------*\\")
     print("| Local File Inclusion Automatic Exploiter and Scanner + Reverse Shell      |")
@@ -159,7 +158,7 @@ def banner():
 
 
 def check_for_update():
-    lfisuite_github_url = "https://raw.githubusercontent.com/D35m0nd142/LFISuite/master/lfisuite.py"
+    lfisuite_github_url = "https://raw.githubusercontent.com/v3n0m-Scanner/V3n0M-Scanner/master/src/lfisuite.py"
     keyword = "LFS_VERSION = '"
     updated = False
     print("\n[*] Checking for LFISuite updates..")
@@ -177,7 +176,7 @@ def check_for_update():
             currversion = "%s%s" % (currversion, c)
 
         fcurrversion = float(currversion)
-        if fcurrversion > float(LFS_VERSION):
+        if fcurrversion > float(LFS_V3n0M_VERSION):
             updated = True
             print("[+] New LFISuite version found. Updating..")
             download(lfisuite_github_url, sys.argv[0])
