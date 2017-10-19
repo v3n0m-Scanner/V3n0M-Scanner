@@ -1,11 +1,15 @@
 #!/usr/bin/python
 # -*- coding: latin-1 -*-
 #This file is part of V3n0M
+import http.client
+import os
+import re
+import socket
+import urllib.error
+import urllib.parse
+import urllib.request
 import urllib.request
 from ipaddress import ip_address, IPv4Network, IPv6Network
-import re, os, urllib.request, urllib.error, urllib.parse
-import socket
-import http.client
 
 
 class CloudFlareNetwork:
@@ -32,7 +36,8 @@ class CloudFlareNetwork:
         else:
             return self.in_network(address, self.IPV6_NETWORKS)
 
-    def in_network(self, host, networks):
+    @staticmethod
+    def in_network(host, networks):
         for network in networks:
             if host in network:
                 return True
@@ -282,7 +287,8 @@ class PageTitle(object):
             headers['Host'] = self.host
         return headers
 
-    def parse_title(self, html):
+    @staticmethod
+    def parse_title(html):
         html = str(html)
         get_title = re.compile(
             '<title>(.*?)</title>',
@@ -311,7 +317,8 @@ class CloudBuster:
 
         return False
 
-    def check_ip(self, ip):
+    @staticmethod
+    def check_ip(ip):
         net = CloudFlareNetwork()
         print(net.in_range(ip))
 
@@ -381,7 +388,8 @@ class CloudBuster:
                     return target
         return None
 
-    def is_interesting(self, target):
+    @staticmethod
+    def is_interesting(target):
         return target.ip and not target.protected
 
     def match(self, possible_target):
@@ -431,9 +439,9 @@ class CloudBuster:
         return hosts
 
     class Options:
-        '''
+        """
         Scan even if the site is not protected
-        '''
+        """
         SCAN_ANYWAY = False
 
         '''
@@ -519,9 +527,9 @@ args = parser.parse_args()
 
 
 class Options:
-    '''
+    """
     Scan even if the site is not protected
-    '''
+    """
     SCAN_ANYWAY = False
 
     '''

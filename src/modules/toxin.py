@@ -232,8 +232,6 @@ def makeips(amount):
 
 class CoroutineLimiter:
         """
-        Inspired by twisted.internet.defer.DeferredSemaphore
-
         If `invoke_as_tasks` is true, wrap the invoked coroutines in Task
         objects. This will ensure ensure that the coroutines happen in the
         same order `.invoke()` was called, if the tasks are given
