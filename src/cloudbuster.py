@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # -*- coding: latin-1 -*-
 #This file is part of V3n0M
 import http.client
@@ -11,6 +11,9 @@ import urllib.request
 import urllib.request
 from ipaddress import ip_address, IPv4Network, IPv6Network
 
+
+# Lines with possible problems 321, 340, 409, 414, 424, 425, 426, 437
+# Pycharm shows errors, ie, cannot find reference domain in none|list
 
 class CloudFlareNetwork:
 
@@ -59,7 +62,7 @@ class HostByName(object):
         try:
             #ip = socket.gethostbyname(self.domain)
             ip = socket.getaddrinfo(self.domain, 80)[1][4][0]
-        except:
+        except Exception:
             ip = None
 
         self.ips[self.domain] = ip
@@ -113,7 +116,7 @@ class HttpResponse(object):
                 }
             )
             response = connection.getresponse()
-        except:
+        except Exception:
             response = None
 
         connection.close()
@@ -156,7 +159,7 @@ class Target:
     def cloudflare_ray(self):
         try:
             return self.response.getheader('CF-RAY')
-        except:
+        except Exception:
             return None
 
     @property
@@ -168,7 +171,7 @@ class Target:
                     + self.response.getheader('X-Powered-By')
             else:
                 return self.response.getheader('Server')
-        except:
+        except Exception:
             return None
 
     @property
@@ -182,7 +185,7 @@ class Target:
     def reason(self):
         try:
             return self.response.reason
-        except:
+        except Exception:
             return None
 
     @property
@@ -267,7 +270,7 @@ class PageTitle(object):
 
         try:
             html = urllib.request.urlopen(request, timeout=20).read()
-        except:
+        except Exception:
             html = None
 
         title = self.parse_title(html)
@@ -312,7 +315,7 @@ class CloudBuster:
         }
 
     def resolving(self):
-        if self.target['main'] and self.target['main'].ip:
+        if self.target['main'] and self.target['main'].ip:  # Cannot find reference `ip` in `none|list`
             return True
 
         return False
@@ -331,7 +334,7 @@ class CloudBuster:
         if not self.target['main'] or type(self.target['main']) != Target:
             return False
 
-        return self.target['main'].protected
+        return self.target['main'].protected  #Cannot find reference protected in `none|list`
 
     def scan_subdomains(self, subdomains=None, dept=None):
         if subdomains:

@@ -5,7 +5,7 @@
 
 try:
     import re, random, threading, socket, urllib.request, urllib.error, urllib.parse, http.cookiejar, subprocess, \
-        time, sys, os, math, itertools, queue, asyncio, aiohttp, argparse, socks, httplib2, requests, codecs
+        time, sys, os, math, itertools, queue, asyncio, aiohttp, argparse, socks, httplib2, requests
     from signal import SIGINT, signal
     import bs4, tqdm
     from glob import glob
@@ -47,8 +47,8 @@ except:
         print("Note: This will entirely reinstall all current installed modules aswell to clear possible problems")
         time.sleep(10)
         for dist in pip.get_installed_distributions():
-            call("pip3.6 install --upgrade --no-deps --force-reinstall " + dist.project_name, shell=True)
-            call("pip3.6 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip3.6 install -U",
+            call("pip3 install --upgrade --no-deps --force-reinstall " + dist.project_name, shell=True)
+            call("pip3 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip3 install -U",
                  shell=True)
             pass
         pass
@@ -58,16 +58,16 @@ except:
             "This will install the missing modules and upgrade them to current versions then update your Python3.6 entirely")
         print("You will have 10 seconds to cancel this action before the system begins")
         time.sleep(10)
-        call("pip3.6 install aiohttp --upgrade ", shell=True)
-        call("pip3.6 install asyncio --upgrade ", shell=True)
-        call("pip3.6 install bs4 --upgrade ", shell=True)
-        call("pip3.6 install dnspython --upgrade ", shell=True)
-        call("pip3.6 install tqdm --upgrade ", shell=True)
-        call("pip3.6 install datetime --upgrade ", shell=True)
-        call("pip3.6 install requests --upgrade ", shell=True)
-        call("pip3.6 install socksipy-branch --upgrade ", shell=True)
-        call("pip3.6 install httplib2 --upgrade ", shell=True)
-        call("pip3.6 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip3.6 install -U", shell=True)
+        call("pip3 install aiohttp --upgrade ", shell=True)
+        call("pip3 install asyncio --upgrade ", shell=True)
+        call("pip3 install bs4 --upgrade ", shell=True)
+        call("pip3 install dnspython --upgrade ", shell=True)
+        call("pip3 install tqdm --upgrade ", shell=True)
+        call("pip3 install datetime --upgrade ", shell=True)
+        call("pip3 install requests --upgrade ", shell=True)
+        call("pip3 install socksipy-branch --upgrade ", shell=True)
+        call("pip3 install httplib2 --upgrade ", shell=True)
+        call("pip3 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip3 install -U", shell=True)
         pass
     if chce == '3':
         exit()
@@ -1208,7 +1208,7 @@ def fmenu():
             print("You will have 10 seconds to cancel this action before the system begins")
             print("sudo is required as these changes are systemwide upgrades/updates for Python")
             time.sleep(10)
-            call("pip3.6 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip3.6 install -U",
+            call("pip3 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip3 install -U",
                  shell=True)
             pass
         elif chce2 == '0':
@@ -1284,17 +1284,6 @@ def enable_proxy():
         pass
 
 
-try:
-    codecs.lookup('mbcs')
-except LookupError:
-    ascii_encoding = codecs.lookup('latin-1')
-
-    def mbcs_bypass(name, encoding=ascii_encoding):
-        if name == "mbcs":
-            return encoding
-
-    codecs.register(mbcs_bypass)
-
 # Colours
 W = "\033[0m"
 R = "\033[31m"
@@ -1341,7 +1330,7 @@ timeout = 7
 file = "/etc/passwd"
 ProxyEnabled = False
 menu = True
-current_version = str("420  ")
+current_version = str("421  ")
 while True:
     fmenu()
 

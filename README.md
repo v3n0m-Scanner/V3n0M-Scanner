@@ -4,7 +4,7 @@ Latest News: Updated and tweaked Misc Options including updates, LFI Integration
 
 + All bug reports are appreciated, some features havnt been tested yet due to lack of free time.
 
-Current Version: Release 420
+Current Version: Release 421
 ![v3n0m Scanner](http://i.imgur.com/A96CipT.png "V3n0M-Scanner")
 ![Example of SQLi Dorker](https://github.com/v3n0m-Scanner/V3n0M-Scanner/blob/master/src/AnimatedDemo.gif?raw=true "Example of Dorker Features")
 
@@ -38,7 +38,7 @@ This program is for finding and executing various vulnerabilities. It scavenges 
 + Largest and most powerful d0rker online, 14k+d0rks searched over ~ Engines at once.
 + Free and Open /src/
 + CrossPlatform Python based toolkit
-+ Release 420 Released on 15th October 2017
++ Release 421 Released on 5th November 2017
 + Licensed under GPLv3
 + Tested on: ArchLinux 4.9.42, Ubuntu, Debian, Kali, Windows, MacOS, BlackArch, Manjaro/ArchLinux ARM Ed. Android-Termux
 
