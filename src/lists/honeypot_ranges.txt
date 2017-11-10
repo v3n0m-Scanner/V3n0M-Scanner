@@ -1,9 +1,19 @@
 # This file is part of v3n0m
 # See LICENSE for license details. #
 172.31.*.*
-192.168.*.*
+192.*.*.*
 10.*.*.*
+255.*.*.*
+100.64.*.*
+127.*.*.*
+169.254.*.*
+172.16.0.0
 0.*.*.*
+198.18.*.*
+198.51.*.*
+203.0.*.*
+224.*.*.*
+240.*.*.*
 6.*.*.* # : Aarmy Information Systems Center
 21.*.*.* # : US Defense Information Systems Agency
 22.*.*.* # : Defense Information Systems Agency
