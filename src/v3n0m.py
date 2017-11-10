@@ -80,7 +80,7 @@ def logo():
     sql_list_counter()
     lfi_list_counter()
     print(R + "\n----------------------------------------------------------------")
-    print(" Release Date Oct 15th 2017    " + B + "        Author: NovaCygni       " + R + " ")
+    print(" Release Date Nov 10th 2017    " + B + "        Author: NovaCygni       " + R + " ")
     print("        Proxy Enabled " + G + " [", ProxyEnabled, "] " + R + "                               ")
     print("        Cache & Log Status " + B + " [", cachestatus, "] " + R + "           ")
     print(" " + O + "Features:" + "SQli-Dorker DNS-Bruteforcer AdminPage-Finder " + R + "         ")
@@ -1096,7 +1096,7 @@ def fmenu():
     logo()
     print("[1] Dork and Vuln Scan")
     print("[2] Admin page finder")
-    print("[3] Toxin - **NOT RELEASED YET: NOT FINISHED: DONT BOTHER TRYING **")
+    print("[3] Toxin - Mass IP/Port/Services Vuln Scanner")
     print("[4] DNS brute")
     print("[5] Enable Tor/Proxy Support")
     print("[6] Cloudflare Resolving")
@@ -1206,7 +1206,6 @@ def fmenu():
             print(
                 "This will install the missing modules and upgrade them to current versions then update your Python3.6 entirely")
             print("You will have 10 seconds to cancel this action before the system begins")
-            print("sudo is required as these changes are systemwide upgrades/updates for Python")
             time.sleep(10)
             call("pip3 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip3 install -U",
                  shell=True)
@@ -1330,7 +1329,7 @@ timeout = 7
 file = "/etc/passwd"
 ProxyEnabled = False
 menu = True
-current_version = str("421  ")
+current_version = str("422  ")
 while True:
     fmenu()
 
