@@ -3,8 +3,7 @@
 # Author: D35m0nd142, <d35m0nd142@gmail.com> ** Python 3.6 V3n0M Version Modifications by NovaCygni
 # Twitter: @D35m0nd142 ** Not Applicable
 # Python version: 3.6
-# Tutorial Video: https://www.youtube.com/watch?v=6sY1Skx8MBc
-# Github Repository: https://github.com/D35m0nd142/LFISuite
+# Github Repository: https://github.com/v3n0m-Scanner/V3n0M-Scanner/edit/master/src/lfisuite.py
 import base64
 import urllib.error
 import urllib.parse
@@ -829,7 +828,7 @@ def phpfilter_extract(content):
             found.append(ftemp)
 
     final = ""
-    if len(found) > 0:
+    if len(found) > 50:
         maxim = 0
         x = ""
         index = -1
