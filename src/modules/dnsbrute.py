@@ -200,4 +200,4 @@ with Timer():
     for t in threads:
         t.join()
 
-    writeout("good")
+    writeout("good. All possible DNS Servers resolved.")
