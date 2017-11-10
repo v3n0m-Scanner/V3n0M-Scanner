@@ -18,6 +18,7 @@ try:
     from sys import argv, stdout
     from random import randint
     from aiohttp import web
+    import async_timeout
 
 except:
     exit()
@@ -168,15 +169,23 @@ def makeips(amount):
     # Path to Honeypot file with IP's and Ranges that should NOT be generated. Only a retard wouldnt do this!
     c.loadIPs("lists/honeypot_ranges.txt")
     amt = int(amount)
-    for i in range(0, amt):
-        ip = c.generateValidIP()
-        try:
-            assert (c.checkIP(ip) == False)
-        except:
-            print(ip + " Failed to generate")
-            raise
-        IPList.append(ip)
-    print("Ips Generated: " + str(len(IPList)))
+    ping = ping_checker()
+    a_holder = int(amt / 10)
+    b_holder = 0
+    global c_holder
+    c_holder = 0
+    while b_holder <= amt:
+        for i in range(0, a_holder):
+            ip = c.generateValidIP()
+            try:
+                assert (c.checkIP(ip) == False)
+                b_holder += 1
+            except:
+                print(ip + " Failed to generate")
+                b_holder -= 1
+                raise
+            IPList.append(ip)
+    print("Ips Generated That are online: " + str(len(IPList) - a_holder))
     print("[1] Save IP addresses to file")
     print("[2] Print IP addresses")
     print("[3] Return to Toxins Menu")
@@ -220,10 +229,8 @@ def makeips(amount):
         print("[0] Exit")
         choice = input("Which Option:")
         if choice == '1':
-            number = 250
-            loop = asyncio.get_event_loop()
-            future = asyncio.ensure_future(run(number))
-            loop.run_until_complete(future)
+            in_a_loop = asyncio.get_event_loop()
+            in_a_loop.run_until_complete(main(in_a_loop))
         if choice == '0':
             exit()
     if chce == '0':
@@ -271,51 +278,82 @@ class CoroutineLimiter:
                 self._sem.release()
 
 
-async def fetch(url, session):
-    with aiohttp.Timeout(3):
-        response = await session.get(url)
-        if response != 200:
-            response.close()
-            pass
-        try:
-            body = await response.read()
-            return body
-        finally:
-            if sys.exc_info()[0] is not None:
-                # on exceptions, close the connection altogether
-                response.close()
-            else:
-                await response.release()
-                # Error Thrown: TimeoutException from None
+class ping_checker(object):
+    status = {'alive': [], 'dead': []}  # Populated while we are running
+    hosts = []  # List of all hosts/ips in our input queue
+
+    # How many ping process at the time.
+    thread_count = 1
+
+    # Lock object to keep track the threads in loops, where it can potentially be race conditions.
+    lock = threading.Lock()
+
+    def ping(self, ip):
+        # Use the system ping command with count of 1 and wait time of 1.
+        ret = subprocess.call(['ping', '-c', '1', '-W', '1', ip],
+                              stdout=open('/dev/null', 'w'), stderr=open('/dev/null', 'w'))
+
+        return ret == 0  # Return True if our ping command succeeds
+
+    def pop_queue(self):
+        ip = None
+
+        self.lock.acquire()  # Grab or wait+grab the lock.
+
+        if self.hosts:
+            ip = self.hosts.pop()
+
+        self.lock.release()  # Release the lock, so another thread could grab it.
+
+        return ip
+
+    def dequeue(self):
+        while True:
+            ip = self.pop_queue()
+
+            if not ip:
+                return None
+
+            result = 'alive' if self.ping(ip) else 'dead'
+            self.status[result].append(ip)
+
+    def start(self):
+        threads = []
+
+        for i in range(self.thread_count):
+            # Create self.thread_count number of threads that together will
+            # cooperate removing every ip in the list. Each thread will do the
+            # job as fast as it can.
+            t = threading.Thread(target=self.dequeue)
+            t.start()
+            threads.append(t)
+
+        # Wait until all the threads are done. .join() is blocking.
+        [t.join() for t in threads]
+
+        return self.status
 
 
-async def bound_fetch(sem, url, session):
-# Getter function with semaphore, to reduce choking/bottlenecking
-    async with sem:
-        hodor = url.rstrip('\n') #strip trailing line from ip
-        hold_the_door = str("ftp://" + hodor)
-        print(repr("Checking If Online:" + hold_the_door))  #debug message to check correct address is being taken
-        return await fetch(hold_the_door, session)
-        pass
+async def download_coroutine(session, url):
+    with async_timeout.timeout(3):
+        async with session.get(url) as response:
+            filename = os.path.basename(url)
+            with open(filename, 'wb') as f_handle:
+                while True:
+                    chunk = await response.content.read(1024)
+                    if not chunk:
+                        break
+                    f_handle.write(chunk)
+            return await response.release()
 
 
-async def run(r):
-    tasks = []
-    # create instance of Semaphore thats 1/10th of the amount of IPs to be scanned
-    sem = asyncio.Semaphore(r/10)
-    # Create client session that will ensure we dont open new connection
-    # per each request.
-    async with aiohttp.ClientSession() as session:
-        # Try to pull 1 IP at a time and return it as a simple string.
-        with open('IPLogList.txt') as cachedIPs:
-            for line in cachedIPs:
-                line.rstrip()
-                #print("Stripped Line Debug:" + line) #Stripped Line Debug:4.30.73.175 # Ok so at this stage the IP address is fine.
-                # pass Semaphore and session to every GET request
-                task = await bound_fetch(sem, line, session)
-                tasks.append(task)
-        responses = await asyncio.gather(*tasks)
-        print("Responses Debugging:" + str(responses)) #Ends up throwing a list, containing, "none, none, none, none, none"
+async def main(in_a_loop):
+    urls = LoadedIPCache
+    async with aiohttp.ClientSession(loop=in_a_loop) as session:
+        tasks = [download_coroutine(session, url) for url in urls]
+        await asyncio.gather(*tasks)
+
+
 
 
 def menu():
@@ -328,6 +366,3 @@ def menu():
 while True:
         menu()
 
-
-#The method for getting FTP welcome message I used before
-#welcome_lines = await client.connect(host)
