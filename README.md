@@ -1,10 +1,7 @@
-Latest News: Updated and tweaked Misc Options including updates, LFI Integration and others.
-
-
 
 + All bug reports are appreciated, some features havnt been tested yet due to lack of free time.
 
-Current Version: Release 421
+Current Version: Release 422
 ![v3n0m Scanner](http://i.imgur.com/A96CipT.png "V3n0M-Scanner")
 ![Example of SQLi Dorker](https://github.com/v3n0m-Scanner/V3n0M-Scanner/blob/master/src/AnimatedDemo.gif?raw=true "Example of Dorker Features")
 
@@ -19,13 +16,13 @@ This program is for finding and executing various vulnerabilities. It scavenges 
 
 ## Very useful for executing:
 
+
 + Cloudflare Resolver[Cloudbuster]
-+ Metasploit Modules Scans[To be released]
 + LFI->RCE and XSS Scanning[LFI->RCE & XSS]
 + SQL Injection Vuln Scanner[SQLi]
 + Extremely Large D0rk Target Lists
 + AdminPage Finding
-+ Toxin Vulnerable FTPs Scanner
++ Toxin [Vulnerable FTPs Scanner] [To Be Released Soon]
 + DNS BruteForcer
 + Python 3.6 Asyncio based scanning
 
@@ -38,9 +35,9 @@ This program is for finding and executing various vulnerabilities. It scavenges 
 + Largest and most powerful d0rker online, 14k+d0rks searched over ~ Engines at once.
 + Free and Open /src/
 + CrossPlatform Python based toolkit
-+ Release 421 Released on 5th November 2017
++ Release 422 Released on 10th November 2017
 + Licensed under GPLv3
-+ Tested on: ArchLinux 4.9.42, Ubuntu, Debian, Kali, Windows, MacOS, BlackArch, Manjaro/ArchLinux ARM Ed. Android-Termux
++ Tested on: ArchLinux 4.9.61, Ubuntu, Debian, Kali, Windows, MacOS, BlackArch, Manjaro/ArchLinux ARM Ed. Android-Termux
 
 Note for Ubuntu users: Please make sure you have installed --> `sudo apt-get install python3-bs4`
                        Otherwise you may get Syntax Error stopping the program from running.
