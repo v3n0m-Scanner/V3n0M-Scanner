@@ -18,7 +18,10 @@ try:
     from sys import argv, stdout
     from random import randint
     from aiohttp import web
+    from aio_ping import Ping,VerbosePing
     import async_timeout
+    import inspect
+    from functools import wraps
 
 except:
     exit()
@@ -163,35 +166,68 @@ class IPChecker:
             return False
 
 
-def makeips(amount):
-    IPList = []
+async def ping(hostname, verbose=False, handle_signals=False, **kw):
+    """
+    Send @count ping to @hostname with the given @timeout
+    """
+    global IPList
+    global IPList_Holder
+    global amount_of_addresses_generated
+    ping = (VerbosePing if verbose else Ping)(verbose=verbose, **kw)
+    if handle_signals: ping.add_signal_handler()
+    await ping.init(hostname)
+    try:
+        res = await ping.looped()
+        ping.close()
+        return res
+    #Passing the AttributeError to Return False, not sure why I need this but otherwise
+    #It throws a error about "self.stats doesnt have a attribute pktsRcvd"
+    except(AttributeError):
+        amount_of_addresses_generated -= 1
+        res = False
+        return res
+
+
+
+global IPList
+global IPList_Holder
+global amount_of_addresses_generated
+
+async def makeips(amount):
+    global usearch
     c = IPChecker()
+    IPList = []
+    IPList_Holder = []
     # Path to Honeypot file with IP's and Ranges that should NOT be generated. Only a retard wouldnt do this!
     c.loadIPs("lists/honeypot_ranges.txt")
-    amt = int(amount)
-    ping = ping_checker()
-    a_holder = int(amt / 10)
-    b_holder = 0
-    global c_holder
-    c_holder = 0
-    while b_holder <= amt:
-        for i in range(0, a_holder):
+    total_requested_addresses = int(amount)
+    tenths_of_requested_addresses = int(total_requested_addresses / 10)
+    amount_of_addresses_generated = 0
+    while amount_of_addresses_generated <= total_requested_addresses:
+        for i in range(0, tenths_of_requested_addresses):
             ip = c.generateValidIP()
             try:
                 assert (c.checkIP(ip) == False)
-                b_holder += 1
+                amount_of_addresses_generated += 1
+                IPList_Holder.append(ip)
             except:
                 print(ip + " Failed to generate")
-                b_holder -= 1
+                amount_of_addresses_generated -= 1
                 raise
-            IPList.append(ip)
-    print("Ips Generated That are online: " + str(len(IPList) - a_holder))
+        futures = []
+        for p in range(0, tenths_of_requested_addresses):
+            loop = asyncio.get_event_loop()
+            for hostname in IPList_Holder:
+                tasks = [loop.create_task(ping(hostname, False, count=1, timeout=1.35))]
+                futures.append(loop.run_in_executor(None, ping(tasks)))
+#todo - Code to be continued and expanded here.
+
+    print("Ips Generated That are online: " + str(len(IPList) - tenths_of_requested_addresses))
     print("[1] Save IP addresses to file")
     print("[2] Print IP addresses")
     print("[3] Return to Toxins Menu")
     print("[4] Setup Port specific attacks")
     print("[0] Exit Toxin Module")
-    # Create a secondry Log file for working with without corrupting main IP List.
     log = "IPLogList.txt"
     logfile = open(log, "a")
     for t in IPList:
@@ -212,7 +248,7 @@ def makeips(amount):
         except:
             print("Failed to save")
     if chce == '2':
-        pp = pprint.PrettyPrinter(width=68, compact=True)
+        pp = pprint.PrettyPrinter(width=70, compact=True)
         pp.pprint(IPList)
         print("Do you wish to start Toxin again or Exit to V3n0M")
         print("[1] Stay within Toxin")
@@ -278,61 +314,6 @@ class CoroutineLimiter:
                 self._sem.release()
 
 
-class ping_checker(object):
-    status = {'alive': [], 'dead': []}  # Populated while we are running
-    hosts = []  # List of all hosts/ips in our input queue
-
-    # How many ping process at the time.
-    thread_count = 1
-
-    # Lock object to keep track the threads in loops, where it can potentially be race conditions.
-    lock = threading.Lock()
-
-    def ping(self, ip):
-        # Use the system ping command with count of 1 and wait time of 1.
-        ret = subprocess.call(['ping', '-c', '1', '-W', '1', ip],
-                              stdout=open('/dev/null', 'w'), stderr=open('/dev/null', 'w'))
-
-        return ret == 0  # Return True if our ping command succeeds
-
-    def pop_queue(self):
-        ip = None
-
-        self.lock.acquire()  # Grab or wait+grab the lock.
-
-        if self.hosts:
-            ip = self.hosts.pop()
-
-        self.lock.release()  # Release the lock, so another thread could grab it.
-
-        return ip
-
-    def dequeue(self):
-        while True:
-            ip = self.pop_queue()
-
-            if not ip:
-                return None
-
-            result = 'alive' if self.ping(ip) else 'dead'
-            self.status[result].append(ip)
-
-    def start(self):
-        threads = []
-
-        for i in range(self.thread_count):
-            # Create self.thread_count number of threads that together will
-            # cooperate removing every ip in the list. Each thread will do the
-            # job as fast as it can.
-            t = threading.Thread(target=self.dequeue)
-            t.start()
-            threads.append(t)
-
-        # Wait until all the threads are done. .join() is blocking.
-        [t.join() for t in threads]
-
-        return self.status
-
 
 async def download_coroutine(session, url):
     with async_timeout.timeout(3):
@@ -360,7 +341,9 @@ def menu():
     banner()
     global IPList
     amount = input("How many IP addresses do you want to scan: ")
-    makeips(amount)
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(makeips(amount))
+
 
 
 while True:

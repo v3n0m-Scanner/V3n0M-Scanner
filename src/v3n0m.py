@@ -1,11 +1,9 @@
 #!/usr/bin/python3
 # -*- coding: latin-1 -*-
-# noinspection PyBroadException
-
 
 try:
     import re, random, threading, socket, urllib.request, urllib.error, urllib.parse, http.cookiejar, subprocess, \
-        time, sys, os, math, itertools, queue, asyncio, aiohttp, argparse, socks, httplib2, requests
+        time, sys, os, math, itertools, queue, asyncio, aiohttp, argparse, socks, httplib2, requests, zipfile
     from signal import SIGINT, signal
     import bs4, tqdm
     from glob import glob
@@ -14,7 +12,12 @@ try:
     from random import SystemRandom
     from socket import *
     from datetime import *
-
+    from aiohttp import web
+    from aio_ping import ping
+    import async_timeout
+    import tty
+    import inspect
+    from functools import wraps
 
 except:
     print("\n|------ PYTHON PROBLEM DETECTED! Recovery Menu Enabled -----| ")
@@ -67,6 +70,8 @@ except:
         call("pip3 install requests --upgrade ", shell=True)
         call("pip3 install socksipy-branch --upgrade ", shell=True)
         call("pip3 install httplib2 --upgrade ", shell=True)
+        call("pip3 install aio_ping --upgrade ", shell=True)
+        call("pip3 install zipfile --upgrade", shell=True)
         call("pip3 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip3 install -U", shell=True)
         pass
     if chce == '3':
@@ -80,7 +85,7 @@ def logo():
     sql_list_counter()
     lfi_list_counter()
     print(R + "\n----------------------------------------------------------------")
-    print(" Release Date Nov 10th 2017    " + B + "        Author: NovaCygni       " + R + " ")
+    print(" Release Date Nov 23rd 2017    " + B + "        Author: NovaCygni       " + R + " ")
     print("        Proxy Enabled " + G + " [", ProxyEnabled, "] " + R + "                               ")
     print("        Cache & Log Status " + B + " [", cachestatus, "] " + R + "           ")
     print(" " + O + "Features:" + "SQli-Dorker DNS-Bruteforcer AdminPage-Finder " + R + "         ")
@@ -836,12 +841,11 @@ def vulnscan():
     print(R + "\n[1] SQLi Testing, " + O + "Will verify the Vuln links and print the Injectable URL to the screen")
     print(
         R + "[2] SQLi Testing Auto Mode " + O + "Will attempt to Verify vuln sites then Column count if MySQL detected")
-    print(R + "[3] Launch LFI Suite")
-    print(R + "[4] XSS Testing")
-    print(R + "[5] Save valid Sorted and confirmed vuln urls to file")
-    print(R + "[6] Print all the UNSORTED urls ")
-    print(R + "[7] Print all Sorted and Confirmed Vulns from last scan again")
-    print(R + "[8] Back to main menu")
+    print(R + "[3] XSS Testing")
+    print(R + "[4] Save valid Sorted and confirmed vuln urls to file")
+    print(R + "[5] Print all the UNSORTED urls ")
+    print(R + "[6] Print all Sorted and Confirmed Vulns from last scan again")
+    print(R + "[7] Back to main menu")
     chce = input(":")
     if chce == '1':
         os.system('clear')
@@ -859,18 +863,12 @@ def vulnscan():
         print()
     elif chce == '3':
         os.system('clear')
-        path = os.path.dirname(str(os.path.realpath(__file__)))
-        lfisuite = subprocess.Popen('python3.6 ' + path + "/lfisuite.py ", shell=True)
-        lfisuite.communicate()
-        subprocess._cleanup()
-    elif chce == '4':
-        os.system('clear')
         vuln = []
         xsstest()
         print(B + "\r\x1b[K [*] Scan complete, " + O + str(len(vuln)) + B + " vuln sites found.")
         print()
         endsub = 0
-    elif chce == '5':
+    elif chce == '4':
         print(B + "\nSaving valid urls (" + str(len(finallist)) + ") to file")
         listname = input("Filename: ")
         list_name = open(listname, "w", encoding='utf-8')
@@ -880,17 +878,17 @@ def vulnscan():
         list_name.close()
         print("Urls saved, please check", listname)
         endsub = 0
-    elif chce == '6':
+    elif chce == '5':
         print(W + "\nPrinting valid urls:\n")
         finallist.sort()
         for t in finallist:
             print(B + t)
         endsub = 0
-    elif chce == '7':
+    elif chce == '6':
         print(B + "\nVuln found ", len(vuln))
         print(vuln)
         endsub = 0
-    elif chce == '8':
+    elif chce == '7':
         endsub = 1
         fmenu()
     else:
@@ -919,78 +917,35 @@ def CreateTempFolder(self):
         self.temp += os.sep
 
 
-def upgrade():
-    import time
-    global page
-    global revision
-    try:
-        print(R + ' [+]' + W + ' checking for latest version...')
-        try:
-            sock = ignoringGet(
-                'https://raw.githubusercontent.com/v3n0m-Scanner/V3n0M-Scanner/master/src/v3n0m.py')
-            page = sock
-            try:
-                if str("Release 412" or "Release 413" or
-                               "Release 44" or "Release 45" or "Release 46" or "Release 47" or "Release 48" or "Release 49"
-                       or "Release 5" or "Release 6" or "Release 7" or "Release 8" or "Release 9") in page:
-                    revision = int(411)
-                else:
-                    revision = current_version
-                    print(R + ' [!]' + W + ' Current version is either Latest or No Update was detected')
-                    time.sleep(4)
-                    pass
-            except KeyboardInterrupt:
-                pass
-        except KeyboardInterrupt:
-            pass
-        if revision >= current_version:
-            print(R + " [!] [Program Debug Info] I did revision as", G + str(revision), R + "and current version as",
-                  G + str(current_version))
-            print(R + ' [!]' + W + ' a new version is ' + G + 'available!' + W)
-            print(R + ' [-]' + W + '   revision:    ' + G + str(revision), 'or Higher Available' + W)
-            response = input(R + ' [+]' + W + ' do you want to upgrade to the latest version? (y/n): ')
-            if not response.lower().startswith('y'):
-                print(R + ' [-]' + W + ' upgrading ' + O + 'aborted' + W)
-                fmenu()
-                return
-            print(R + ' [+] ' + G + 'downloading' + W + ' update...')
-            try:
-                sock = urllib.request.urlopen(
-                    'https://raw.githubusercontent.com/v3n0m-Scanner/V3n0M-Scanner/master/src/v3n0m.py')
-                page = sock.read()
-            except IOError:
-                page = ''
-            if page == '':
-                print(R + ' [+] ' + O + 'unable to download latest version' + W)
-            f = open('v3n0m_new.py', 'w')
-            f.write(page)
-            f.close()
-            this_file = __file__
-            if this_file.startswith('./'):
-                this_file = this_file[2:]
-            f = open('update_v3n0m.sh', 'w')
-            f.write('''#!/bin/sh\n
-                           rm -rf ''' + this_file + '''\n
-                           mv v3n0m_new.py ''' + this_file + '''\n
-                           rm -rf update_v3n0m.sh\n
-                           chmod +x ''' + this_file + '''\n
-                          ''')
-            f.close()
-            returncode = call(['chmod', '+x', 'update_v3n0m.sh'])
-            if returncode != 0:
-                print(R + ' [!]' + O + ' permission change returned unexpected code: ' + str(returncode) + W)
-                fmenu()
-            # Run the script
-            returncode = call(['sh', 'update_v3n0m.sh'])
-            if returncode != 0:
-                print(R + ' [!]' + O + ' upgrade script returned unexpected code: ' + str(returncode) + W)
-                fmenu()
-            print(R + ' [+] ' + G + 'updated!' + W + ' type "./' + this_file + '" to run again')
-        else:
-            pass
-    except Exception:
-        print(R + '\n (^C)' + O + str(Exception) + W)
-    fmenu()
+def progressBar(blocknum, blocksize, totalsize):
+    readsofar = blocknum * blocksize
+    if totalsize > 0:
+        percent = readsofar * 1e2 / totalsize
+        s = "\r%5.1f%% %*d / %d" % (
+            percent, len(str(totalsize)), readsofar, totalsize)
+        sys.stderr.write(s)
+    if readsofar >= totalsize:  # near the end
+        sys.stderr.write("\n")
+
+
+def download(url, file, progressBar=None):
+    print('Downloading %s' % url)
+    urllib.request.urlretrieve(url, file, progressBar)
+
+
+def unzip(file):
+    with zipfile.ZipFile(file+'', 'w') as myzip:
+        myzip.write(file)
+    os.remove(file+'')
+
+downloads = [
+    ['https://www.cloudflare.com/ips-v4', 'ips-v4', progressBar],
+    ['https://www.cloudflare.com/ips-v6', 'ips-v6', progressBar],
+    ['http://crimeflare.net:82/domains/ipout.zip', 'ipout.zip',
+     progressBar]
+]
+
+
 
 
 # noinspection PyBroadException
@@ -1096,7 +1051,7 @@ def fmenu():
     logo()
     print("[1] Dork and Vuln Scan")
     print("[2] Admin page finder")
-    print("[3] Toxin - Mass IP/Port/Services Vuln Scanner")
+    print("[3] Toxin - Mass IP/Port/Services Vuln Scanner *Not Released Yet* ")
     print("[4] DNS brute")
     print("[5] Enable Tor/Proxy Support")
     print("[6] Cloudflare Resolving")
@@ -1118,12 +1073,19 @@ def fmenu():
         subprocess._cleanup()
 
     elif chce == '3':
+        import time
         print(B)
+        euid = os.geteuid()
+        if euid != 0:
+            print("Script Not started as root, aquiring root...")
+            print("Once root is aquired please reselect Toxin from main menu")
+            time.sleep(4)
+            args = ['sudo', sys.executable] + sys.argv + [os.environ]
+            os.execlpe('sudo', *args)
         pwd = os.path.dirname(str(os.path.realpath(__file__)))
-        ftpcrawl = subprocess.Popen('python3.6 ' + pwd + "/modules/toxin.py -i " , shell=True)
+        ftpcrawl = subprocess.Popen('sudo python3.6 ' + pwd + "/modules/toxin.py -i " , shell=True)
         ftpcrawl.communicate()
         subprocess._cleanup()
-
     elif chce == '4':
         target_site = input("Enter the site eg target.com: ")
         print("[1] Normal Scan suitable for average sites")
@@ -1191,15 +1153,23 @@ def fmenu():
             except Exception:
                 print("No Cache or Log Files to delete!")
         elif chce2 == '5':
+            import time
+            euid = os.geteuid()
+            if euid == 0:
+                print("You Cannot perform any upgrades or repairs while logged in with root permissions, please restart v3n0m.")
+                time.sleep(6)
+                killpid()
             import pip
             from subprocess import call
             import time
-            path = os.path.dirname(str(os.path.realpath(__file__)))
             print("Updating V3n0M Module Features First: Cloudbuster files. Please wait.")
             time.sleep(3)
-            cloudupdate = subprocess.Popen(path + "/lists/update.py ", shell=True)
-            cloudupdate.communicate()
-            subprocess._cleanup()
+            for d in downloads:
+                download(d[0], d[1], d[2])
+            unzip('ipout.zip')
+            os.replace(Path('ips-v4'), Path('./lists/ips-v4'))
+            os.replace(Path('ips-v6'), Path('./lists/ips-v6'))
+            print('Everything up to date!')
             print("Cloudbuster features updated!, Moving onto Python Modules and Dependencies...")
             time.sleep(4)
             sys.stdout.flush()
@@ -1329,7 +1299,7 @@ timeout = 7
 file = "/etc/passwd"
 ProxyEnabled = False
 menu = True
-current_version = str("422  ")
+current_version = str("423  ")
 while True:
     fmenu()
 
