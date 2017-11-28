@@ -211,7 +211,7 @@ def classicinj(url):
     global sql_list_count
     try:
         try:
-            resp = urllib.request.urlopen(aug_url)
+            resp = urllib.request.urlopen(aug_url, timeout=3)
         except:  # if response is not Code:200 then instead of passing nothing causing hanging
             resp = str("v3n0m")  # to throw a value to stop null/non-200-status messages hanging the scanner
         hits = str(resp.read())
@@ -497,7 +497,7 @@ def injtest():
                     hold_door = str(line.rstrip())+"'"
                     hold_the_door = line.rstrip()
                     try:
-                        resp = urllib.request.urlopen(hold_door)
+                        resp = urllib.request.urlopen(hold_door, timeout=3)
                         hits = str(resp.read())
                     except: # In event of Exception throw pointless str so scan at least just continues.
                         hits = '0'
