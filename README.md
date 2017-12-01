@@ -1,7 +1,7 @@
 
 + All bug reports are appreciated, some features havnt been tested yet due to lack of free time.
 
-Current Version: Release 423
+Current Version: Release 424
 ![v3n0m Scanner](http://i.imgur.com/A96CipT.png "V3n0M-Scanner")
 ![Example of SQLi Dorker](https://github.com/v3n0m-Scanner/V3n0M-Scanner/blob/master/src/AnimatedDemo.gif?raw=true "Example of Dorker Features")
 
@@ -35,7 +35,7 @@ This program is for finding and executing various vulnerabilities. It scavenges 
 + Largest and most powerful d0rker online, 14k+d0rks searched over ~ Engines at once.
 + Free and Open /src/
 + CrossPlatform Python based toolkit
-+ Release 423 Released on 23rd November 2017
++ Release 424 Released on 1st December 2017
 + Licensed under GPLv3
 + Tested on: ArchLinux 4.9.61, Ubuntu, Debian, Kali, Windows, MacOS, BlackArch, Manjaro/ArchLinux ARM Ed. Android-Termux
 
@@ -73,6 +73,7 @@ $ python3 setup.py install --user
     Submit a bug report with prefix "Query" at the start.
 
 ## Credits to:
+    -Architect for the initial encouragement and support in V3n0ms early days
     -SageHack for allowing Cloudbuster to be adapted for use within V3n0M
     -D35m0nd142 for allowing Collaboration and the use of LFI Suite within V3n0M
     -b4ltazar & all members of darkc0de.com for inspiring the project with darkd0rk3r

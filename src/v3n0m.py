@@ -85,7 +85,7 @@ def logo():
     sql_list_counter()
     lfi_list_counter()
     print(R + "\n----------------------------------------------------------------")
-    print(" Release Date Nov 23rd 2017    " + B + "        Author: NovaCygni       " + R + " ")
+    print(" Release Date Dec 1st 2017     " + B + "        Author: NovaCygni       " + R + " ")
     print("        Proxy Enabled " + G + " [", ProxyEnabled, "] " + R + "                               ")
     print("        Cache & Log Status " + B + " [", cachestatus, "] " + R + "           ")
     print(" " + O + "Features:" + "SQli-Dorker DNS-Bruteforcer AdminPage-Finder " + R + "         ")
@@ -209,9 +209,10 @@ def classicinj(url):
     aug_url = url + "'"
     global sql_list_counter
     global sql_list_count
+    open("sqli_confirmed", "r+", encoding='utf-8')
     try:
         try:
-            resp = urllib.request.urlopen(aug_url, timeout=3)
+            resp = urllib.request.urlopen(aug_url, timeout=2)
         except:  # if response is not Code:200 then instead of passing nothing causing hanging
             resp = str("v3n0m")  # to throw a value to stop null/non-200-status messages hanging the scanner
         hits = str(resp.read())
@@ -467,7 +468,7 @@ def injtest():
     sqli_confirmed = open(os.path.realpath(holder), "a")
     if not customSelected:
         log = "v3n0m-sqli.txt"
-        logfile = open(log, "a")
+        logfile = open(log, "a", encoding='utf-8')
         vb = len(usearch) / int(numthreads)
         i = int(vb)
         m = len(usearch) % int(numthreads)
@@ -492,12 +493,12 @@ def injtest():
     else:
         try:
             log = input('Enter file name and location: ')
-            with open(log) as hodor:
+            with open(log, encoding='utf-8') as hodor:
                 for line in hodor:
                     hold_door = str(line.rstrip())+"'"
                     hold_the_door = line.rstrip()
                     try:
-                        resp = urllib.request.urlopen(hold_door, timeout=3)
+                        resp = urllib.request.urlopen(hold_door, timeout=2)
                         hits = str(resp.read())
                     except: # In event of Exception throw pointless str so scan at least just continues.
                         hits = '0'
@@ -834,9 +835,9 @@ def vulnscan():
     global rce_log_file
     global xss_log_file
     global vuln
-    lfi_log_file = open("v3n0m-lfi.txt", "a")
-    rce_log_file = open("v3n0m-rce.txt", "a")
-    xss_log_file = open("v3n0m-xss.txt", "a")
+    lfi_log_file = open("v3n0m-lfi.txt", "a", encoding='utf-8')
+    rce_log_file = open("v3n0m-rce.txt", "a", encoding='utf-8')
+    xss_log_file = open("v3n0m-xss.txt", "a", encoding='utf-8')
     endsub = 0
     print(R + "\n[1] SQLi Testing, " + O + "Will verify the Vuln links and print the Injectable URL to the screen")
     print(
@@ -900,7 +901,7 @@ def vulnscan():
 def ignoringGet(url):
     try:
         try:
-            responce = requests.get(url)
+            responce = requests.get(url, timeout=2)
             responce.raise_for_status()
         except Exception:
             return ''
@@ -975,7 +976,7 @@ async def search(pages_pulled_as_one):
                 domains = set()
                 for name in names:
                     basename = re.search(r"(?<=(://))[^/]*(?=/)", name)
-                    if (basename is None) or any([x.strip() in name for x in search_Ignore.splitlines(keepends=True)]):
+                    if (basename is None) or any([x.strip().lower() in name for x in search_Ignore.splitlines(keepends=True)]):
                         basename = re.search(r"(?<=://).*", name)
                     if basename is not None:
                         basename = basename.group(0)
@@ -1276,30 +1277,36 @@ def cache_Check():
 
 def sql_list_counter():
     global sql_count
-    f = open("sqli_confirmed")
-    l = [x for x in f.readlines() if x != "\n"]
-    sql_count = (len(l))
+    try:
+        f = open("v3n0m-sqli.txt", encoding='utf-8')
+        l = [x for x in f.readlines() if x != "\n"]
+        sql_count = (len(l))
+    except FileNotFoundError:
+        sql_count = 0
 
 
 def lfi_list_counter():
     global lfi_count
-    f = open("lfi_confirmed")
-    l = [x for x in f.readlines() if x != "\n"]
-    lfi_count = (len(l))
+    try:
+        f = open("v3n0m-lfi.txt", encoding='utf-8')
+        l = [x for x in f.readlines() if x != "\n"]
+        lfi_count = (len(l))
+    except FileNotFoundError:
+        lfi_count = 0
 
-
-
+list_count = 0
+lfi_count = 0
 subprocess.call("clear", shell=True)
 arg_end = "--"
 arg_eva = "+"
 colMax = 60  # Change this at your will
 endsub = 1
 gets = 0
-timeout = 7
+timeout = 2
 file = "/etc/passwd"
 ProxyEnabled = False
 menu = True
-current_version = str("423  ")
+current_version = str("424  ")
 while True:
     fmenu()
 
