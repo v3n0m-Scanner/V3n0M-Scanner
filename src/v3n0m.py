@@ -80,16 +80,27 @@ except:
 __name__ = '__main__'
 
 
+def donations():
+    import time
+    print(B + "\n---------------------------------------------------------")
+    print(":" + G + "Bitcoin Address:" + R +  "1DdfZzCFFFvRVkyVjG2ZPG7Udu6kMDh7Eb   " + B +" ")
+    print(":" + G + "Etherium Address:" + R + "0x28AeAC2046b39da6A4De06B590c5FE8B0e65e3f0" + B + " ")
+    print(":" + O + "All donations help keep this project going!")
+    print(B + "----------------------------------------------------------")
+    time.sleep(10)
+    fmenu()
+
+
 def logo():
     cache_Check()
     sql_list_counter()
     lfi_list_counter()
     print(R + "\n----------------------------------------------------------------")
-    print(" Release Date Dec 1st 2017     " + B + "        Author: NovaCygni       " + R + " ")
+    print(" Release Date Feb 18th 2018    " + B + "        Author: NovaCygni       " + R + " ")
     print("        Proxy Enabled " + G + " [", ProxyEnabled, "] " + R + "                               ")
     print("        Cache & Log Status " + B + " [", cachestatus, "] " + R + "           ")
-    print(" " + O + "Features:" + "SQli-Dorker DNS-Bruteforcer AdminPage-Finder " + R + "         ")
-    print("   " + O + "Toxin-Vulnerable-IPs-Scanner Cloudflare-Resolver XSS&LFI>RCE " + R + "")
+    print(" " + O + "Please check the Misc Options for Donations Options, Thankyou " + R + "         ")
+    print(" " + O + "Donating helps keep this project alive and active. " + R + "         ")
     print("                    _____       _____                           ")
     print("          " + G + "         |____ |     |  _  |    " + R + "                      ")
     print("             __   __   / /_ __ | |/' |_ _" + G + "_ ___             " + R + "     ")
@@ -779,7 +790,7 @@ def fscan():
             i += 1
     numthreads = input('\nEnter no. of threads, Between 50 and 500: ')
     pages_pulled_as_one = input('Enter no. of Search Engine Pages to be scanned per d0rk,  \n'
-                                ' Between 20 and 100, increments of 20. Ie> 20:40:60:80:100   : ')
+                                ' Between 25 and 100, increments of 25. Ie> 20:50:75:100   : ')
     print("\nNumber of SQL errors :", "26")
     print("LFI payloads    :", len(lfis))
     print("XSS payloads    :", len(xsses))
@@ -788,7 +799,7 @@ def fscan():
     print("Dorks           :", len(loaded_Dorks))
     print("Pages           :", pages_pulled_as_one)
     print("Timeout         :", timeout)
-    time.sleep(5)
+    time.sleep(6)
     loop = asyncio.get_event_loop()
     usearch = loop.run_until_complete(search(pages_pulled_as_one))
     vulnscan()
@@ -871,7 +882,7 @@ def vulnscan():
         endsub = 0
     elif chce == '4':
         print(B + "\nSaving valid urls (" + str(len(finallist)) + ") to file")
-        listname = input("Filename: ")
+        listname = input("Filename: ").encode('utf-8')
         list_name = open(listname, "w", encoding='utf-8')
         finallist.sort()
         for t in finallist:
@@ -963,11 +974,11 @@ async def search(pages_pulled_as_one):
                 query = dork + "+site:" + site
                 futures = []
                 loop = asyncio.get_event_loop()
-                for i in range(10):
+                for i in range(25):
                     results_web = "http://www.bing.com/search?q=" + query + "&go=Submit&first=" + str(
                         (page + i) * 50 + 1) + "&count=50"
                     futures.append(loop.run_in_executor(None, ignoringGet, results_web))
-                page += 10
+                page += 25
                 stringreg = re.compile('(?<=href=")(.*?)(?=")')
                 names = []
                 for future in futures:
@@ -999,7 +1010,7 @@ async def search(pages_pulled_as_one):
                                                    "| Collected urls: %s Since start of scan \n"
                                                    " | D0rks: %s/%s Progressed so far \n"
                                                    " | Percent Done: %s \n"
-                                                   " | Current page no.: <%s> in Cycles of 10 Page results pulled in Asyncio\n"
+                                                   " | Current page no.: <%s> in Cycles of 25 Pages of results pulled in Asyncio\n"
                                                    " | Dork In Progress: %s\n"
                                                    " | Elapsed Time: %s\n" % (R +
                                                                               site, repr(urls_len), progress,
@@ -1127,6 +1138,7 @@ def fmenu():
         print("[3] Print contents of Log files")
         print("[4] Flush Cache and Delete Logs *Warning will erase Toxin Logs/Saves aswell* ")
         print("[5] Perform forced update of ALL installed Python packages and dependancies on system")
+        print("[6] Donations information")
         print("[0] Return to main menu")
         chce2 = input(":")
         if chce2 == '1':
@@ -1181,6 +1193,8 @@ def fmenu():
             call("pip3 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip3 install -U",
                  shell=True)
             pass
+        elif chce2 == '6':
+            donations()
         elif chce2 == '0':
             fmenu()
 
@@ -1306,7 +1320,7 @@ timeout = 2
 file = "/etc/passwd"
 ProxyEnabled = False
 menu = True
-current_version = str("424  ")
+current_version = str("425  ")
 while True:
     fmenu()
 

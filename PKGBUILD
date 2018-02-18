@@ -1,5 +1,5 @@
 pkgname='v3n0m'
-pkgver=254.9c9b79b
+pkgver=254.9c9b7ab
 pkgrel=1
 groups=('blackarch' 'blackarch-scanner' 'blackarch-webapp' 'blackarch-recon')
 pkgdesc='A tool to automate mass SQLi d0rk scans and Metasploit Vulns.'

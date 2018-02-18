@@ -5,7 +5,7 @@ from distutils.core import setup
 try:
     try:
         setup(name='V3n0M',
-              version='424',
+              version='425',
             description="Popular SQLi and Pentesting scanner in Python 3.6",
             author='NovaCygni',
             author_email='404 Not Found',
@@ -17,7 +17,7 @@ try:
         from setuptools import setup
 
         setup(name='V3n0M',
-              version='424',
+              version='425',
             description="Popular SQLi and Pentesting scanner in Python 3.6",
             author='NovaCygni',
             author_email='404 Not Found',

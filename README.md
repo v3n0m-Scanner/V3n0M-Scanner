@@ -1,7 +1,8 @@
 
 + All bug reports are appreciated, some features havnt been tested yet due to lack of free time.
++ Please check the programs donatations options in the Misc options, every small donation helps keep this project alive and active.
 
-Current Version: Release 424
+Current Version: Release 425
 ![v3n0m Scanner](http://i.imgur.com/A96CipT.png "V3n0M-Scanner")
 ![Example of SQLi Dorker](https://github.com/v3n0m-Scanner/V3n0M-Scanner/blob/master/src/AnimatedDemo.gif?raw=true "Example of Dorker Features")
 
@@ -35,9 +36,9 @@ This program is for finding and executing various vulnerabilities. It scavenges 
 + Largest and most powerful d0rker online, 14k+d0rks searched over ~ Engines at once.
 + Free and Open /src/
 + CrossPlatform Python based toolkit
-+ Release 424 Released on 1st December 2017
++ Release 425 Released on 18th Febuary 2018
 + Licensed under GPLv3
-+ Tested on: ArchLinux 4.9.61, Ubuntu, Debian, Kali, Windows, MacOS, BlackArch, Manjaro/ArchLinux ARM Ed. Android-Termux
++ Tested on: ArchLinux 4.14, Ubuntu, Debian, Kali, Windows, MacOS, BlackArch, Manjaro/ArchLinux ARM Ed. Android-Termux
 
 Note for Ubuntu users: Please make sure you have installed --> 
 `sudo apt-get install python3-bs4` and `apt-get install python3-setuptools`
