@@ -1,0 +1,25 @@
+#ParrotSec Install Script 
+#Anonymous.Onion
+
+git clone https://github.com/v3n0m-Scanner/V3n0M-Scanner.git
+sudo apt-get install libssl-dev
+
+wget https://www.python.org/ftp/python/3.6.3/Python-3.6.3.tgz
+tar -xvzf Python-3.6.3.tgz
+cd Python-3.6.3.tgz
+./configure
+make
+sudo make install
+cd
+
+cd V3n0M-Scanner/
+python3 setup.py install --user
+cd src 
+sudo python3 V3n0m.py
+2
+1
+python3 V3n0m.py
+
+
+Thats it 
+:-)  
