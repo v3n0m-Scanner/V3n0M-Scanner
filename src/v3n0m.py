@@ -19,12 +19,12 @@ try:
     import inspect
     from functools import wraps
 
-except:
+except Exception as verb:
     print("\n|------ PYTHON PROBLEM DETECTED! Recovery Menu Enabled -----| ")
     print(" ")
     print(" ")
     print(" Exception Error Message encountered: "
-          "" + str(Exception))
+          "" + str(verb))
     print(" ")
     print(" ")
     print("|--- You are advised to run either or both steps below   ---| ")
