@@ -25,5 +25,5 @@ try:
             package_dir={'v3n0m': 'src'},
             packages=['v3n0m'], install_requires=['aiohttp', 'httplib2', 'socksipy-branch', 'requests', 'url', 'bs4',
                                         'pip', 'dnspython', 'tqdm', 'aioftp', 'termcolor', 'aio_ping', 'async_timeout'])
-except Exception:
-    print(Exception)
+except Exception as verb:
+    print(str(verb))

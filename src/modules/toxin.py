@@ -166,72 +166,31 @@ class IPChecker:
             return False
 
 
-async def ping(hostname, verbose=False, handle_signals=False, **kw):
-    """
-    Send @count ping to @hostname with the given @timeout
-    """
-    global IPList
-    global IPList_Holder
-    global amount_of_addresses_generated
-    ping = (VerbosePing if verbose else Ping)(verbose=verbose, **kw)
-    if handle_signals: ping.add_signal_handler()
-    await ping.init(hostname)
-    try:
-        res = await ping.looped()
-        ping.close()
-        return res
-    #Passing the AttributeError to Return False, not sure why I need this but otherwise
-    #It throws a error about "self.stats doesnt have a attribute pktsRcvd"
-    except(AttributeError):
-        amount_of_addresses_generated -= 1
-        res = False
-        return res
-
-
-
-global IPList
-global IPList_Holder
-global amount_of_addresses_generated
-
-async def makeips(amount):
-    global usearch
-    c = IPChecker()
+def makeips(amount):
     IPList = []
-    IPList_Holder = []
+    c = IPChecker()
     # Path to Honeypot file with IP's and Ranges that should NOT be generated. Only a retard wouldnt do this!
     c.loadIPs("lists/honeypot_ranges.txt")
-    total_requested_addresses = int(amount)
-    tenths_of_requested_addresses = int(total_requested_addresses / 10)
-    amount_of_addresses_generated = 0
-    while amount_of_addresses_generated <= total_requested_addresses:
-        for i in range(0, tenths_of_requested_addresses):
-            ip = c.generateValidIP()
-            try:
-                assert (c.checkIP(ip) == False)
-                amount_of_addresses_generated += 1
-                IPList_Holder.append(ip)
-            except:
-                print(ip + " Failed to generate")
-                amount_of_addresses_generated -= 1
-                raise
-        futures = []
-        for p in range(0, tenths_of_requested_addresses):
-            loop = asyncio.get_event_loop()
-            for hostname in IPList_Holder:
-                tasks = [loop.create_task(ping(hostname, False, count=1, timeout=1.35))]
-                futures.append(loop.run_in_executor(None, ping(tasks)))
-#todo - Code to be continued and expanded here.
-
-    print("Ips Generated That are online: " + str(len(IPList) - tenths_of_requested_addresses))
+    amt = int(amount)
+    for i in range(0, amt):
+        ip = c.generateValidIP()
+        try:
+            assert (c.checkIP(ip) == False)
+        except:
+            print(ip + " Failed to generate")
+            raise
+        IPList.append(ip)
+    print("Ips Generated: " + str(len(IPList)))
     print("[1] Save IP addresses to file")
     print("[2] Print IP addresses")
     print("[3] Return to Toxins Menu")
     print("[4] Setup Port specific attacks")
     print("[0] Exit Toxin Module")
+    # Create a secondry Log file for working with without corrupting main IP List.
     log = "IPLogList.txt"
     logfile = open(log, "a")
     for t in IPList:
-        logfile.write(t + "\n")
+        logfile.write("ftp://" + t + ":21" + "\n")
     logfile.close()
     chce = input("Option: ")
     if chce == '1':
@@ -248,7 +207,7 @@ async def makeips(amount):
         except:
             print("Failed to save")
     if chce == '2':
-        pp = pprint.PrettyPrinter(width=70, compact=True)
+        pp = pprint.PrettyPrinter(width=66, compact=True)
         pp.pprint(IPList)
         print("Do you wish to start Toxin again or Exit to V3n0M")
         print("[1] Stay within Toxin")
@@ -265,8 +224,10 @@ async def makeips(amount):
         print("[0] Exit")
         choice = input("Which Option:")
         if choice == '1':
-            in_a_loop = asyncio.get_event_loop()
-            in_a_loop.run_until_complete(main(in_a_loop))
+            number = 250
+            loop = asyncio.get_event_loop()
+            future = asyncio.ensure_future(run(number))
+            loop.run_until_complete(future)
         if choice == '0':
             exit()
     if chce == '0':
@@ -275,6 +236,8 @@ async def makeips(amount):
 
 class CoroutineLimiter:
         """
+        Inspired by twisted.internet.defer.DeferredSemaphore
+
         If `invoke_as_tasks` is true, wrap the invoked coroutines in Task
         objects. This will ensure ensure that the coroutines happen in the
         same order `.invoke()` was called, if the tasks are given
@@ -314,38 +277,48 @@ class CoroutineLimiter:
                 self._sem.release()
 
 
-
-async def download_coroutine(session, url):
-    with async_timeout.timeout(3):
-        async with session.get(url) as response:
-            filename = os.path.basename(url)
-            with open(filename, 'wb') as f_handle:
-                while True:
-                    chunk = await response.content.read(1024)
-                    if not chunk:
-                        break
-                    f_handle.write(chunk)
-            return await response.release()
+# modified fetch function with semaphore, to reduce choking/bottlenecking
+async def fetch(url, session):
+    async with session.get(url) as response:
+        delay = response.headers.get("DELAY")
+        date = response.headers.get("DATE")
+        print("{}:{} with delay {}".format(date, response.url, delay))
+        return await response.read()
 
 
-async def main(in_a_loop):
-    urls = LoadedIPCache
-    async with aiohttp.ClientSession(loop=in_a_loop) as session:
-        tasks = [download_coroutine(session, url) for url in urls]
-        await asyncio.gather(*tasks)
+async def bound_fetch(sem, url, session):
+# Getter function with semaphore, to reduce choking/bottlenecking
+    async with sem:
+        await fetch(url, session)
 
 
+async def run(r):
+    tasks = []
+    # create instance of Semaphore thats 1/10th of the amount of IPs to be scanned
+    sem = asyncio.Semaphore(r/10)
+    # Create client session that will ensure we dont open new connection
+    # per each request.
+    async with aiohttp.ClientSession() as session:
+        # Try to pull 1 IP at a time and return it as a simple string.
+        with open('IPLogList.txt') as cachedIPs:
+            for line in cachedIPs:
+                # Debug printer to check if correct IPs are being generated and sent.
+                #print(line)
+                #todo WORK NEEDS TO BE DONE AT THIS POINT!
+                for i in range(r):
+                    # pass Semaphore and session to every GET request
+                    task = asyncio.ensure_future(bound_fetch(sem, line, session))
+                    tasks.append(task)
+        responses = await asyncio.gather(*tasks)
+        await responses
 
 
 def menu():
     banner()
     global IPList
     amount = input("How many IP addresses do you want to scan: ")
-    loop = asyncio.get_event_loop()
-    loop.run_until_complete(makeips(amount))
-
+    makeips(amount)
 
 
 while True:
         menu()
-

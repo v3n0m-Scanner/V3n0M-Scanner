@@ -127,7 +127,6 @@ gen_headers = {'User-Agent': 'Mozilla/5.0 (Windows; U; Windows NT 6.1; rv:2.2) G
 
 # noinspection PyPep8
 def banner():
-    os.system('cls' if os.name == 'nt' else 'clear')
     print("""
 
                          .//// *,                                 ,//// *,

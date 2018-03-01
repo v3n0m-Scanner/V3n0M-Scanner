@@ -19,12 +19,12 @@ try:
     import inspect
     from functools import wraps
 
-except:
+except Exception as verb:
     print("\n|------ PYTHON PROBLEM DETECTED! Recovery Menu Enabled -----| ")
     print(" ")
     print(" ")
     print(" Exception Error Message encountered: "
-          "" + str(Exception))
+          "" + str(verb))
     print(" ")
     print(" ")
     print("|--- You are advised to run either or both steps below   ---| ")
@@ -46,6 +46,11 @@ except:
     if chce == '1':
         sys.stdout.flush()
         print("Warning This will force upgrade all Python3.6 modules")
+        euid = os.geteuid()
+        if euid == 0:
+            print("You Cannot perform any upgrades or repairs while logged in with root permissions, please restart v3n0m.")
+            time.sleep(6)
+            os.kill(os.getpid(), 9)
         print("You will have 10 seconds to cancel this action before the system begins")
         print("Note: This will entirely reinstall all current installed modules aswell to clear possible problems")
         time.sleep(10)
@@ -59,6 +64,11 @@ except:
         sys.stdout.flush()
         print(
             "This will install the missing modules and upgrade them to current versions then update your Python3.6 entirely")
+        euid = os.geteuid()
+        if euid == 0:
+            print("You Cannot perform any upgrades or repairs while logged in with root permissions, please restart v3n0m.")
+            time.sleep(6)
+            os.kill(os.getpid(), 9)
         print("You will have 10 seconds to cancel this action before the system begins")
         time.sleep(10)
         call("pip3 install aiohttp --upgrade ", shell=True)
@@ -627,9 +637,9 @@ def injtest():
                         sqli_confirmed.write("\n" + hold_the_door)
                     else:
                         pass
-        except FileNotFoundError or Exception:
+        except FileNotFoundError or Exception as verb:
             print("Target file not found!")
-            print(Exception)
+            print(str(verb))
             time.sleep(2)
             fmenu()
 
@@ -917,8 +927,8 @@ def ignoringGet(url):
         except Exception:
             return ''
         return responce.text
-    except Exception:
-        print(Exception)
+    except Exception as verb:
+        print(str(verb))
 
 
 
@@ -1087,15 +1097,8 @@ def fmenu():
     elif chce == '3':
         import time
         print(B)
-        euid = os.geteuid()
-        if euid != 0:
-            print("Script Not started as root, aquiring root...")
-            print("Once root is aquired please reselect Toxin from main menu")
-            time.sleep(4)
-            args = ['sudo', sys.executable] + sys.argv + [os.environ]
-            os.execlpe('sudo', *args)
         pwd = os.path.dirname(str(os.path.realpath(__file__)))
-        ftpcrawl = subprocess.Popen('sudo python3.6 ' + pwd + "/modules/toxin.py -i " , shell=True)
+        ftpcrawl = subprocess.Popen('python3.6 ' + pwd + "/modules/toxin.py -i " , shell=True)
         ftpcrawl.communicate()
         subprocess._cleanup()
     elif chce == '4':
@@ -1215,6 +1218,7 @@ random.shuffle(lfis)
 
 # noinspection PyBroadException
 def enable_proxy():
+    import time
     global ProxyEnabled
     try:
         requiresID = bool(
@@ -1235,7 +1239,9 @@ def enable_proxy():
                     socks.socket = socks.socksocket
                     print(" Socks 4 Proxy Support Enabled")
                     ProxyEnabled = str("True ")
-                except Exception:
+                except Exception as verb:
+                    print(str(verb))
+                    time.sleep(5)
                     pass
             else:
                 try:
@@ -1243,7 +1249,9 @@ def enable_proxy():
                     socks.socket = socks.socksocket
                     print(" Socks 4 Proxy Support Enabled")
                     ProxyEnabled = str("True ")
-                except Exception:
+                except Exception as verb:
+                    print(str(verb))
+                    time.sleep(5)
                     pass
         elif proxytype == str("socks5"):
             if requiresID:
@@ -1254,7 +1262,9 @@ def enable_proxy():
                     print(" Socks 5 Proxy Support Enabled")
                     socks.socket = socks.socksocket
                     ProxyEnabled = str("True ")
-                except Exception:
+                except Exception as verb:
+                    print(str(verb))
+                    time.sleep(5)
                     pass
             else:
                 try:
@@ -1262,7 +1272,9 @@ def enable_proxy():
                     socks.socket = socks.socksocket
                     print(" Socks 5 Proxy Support Enabled")
                     ProxyEnabled = str("True ")
-                except Exception:
+                except Exception as verb:
+                    print(str(verb))
+                    time.sleep(5)
                     pass
     except Exception:
         pass
@@ -1316,7 +1328,6 @@ arg_eva = "+"
 colMax = 60  # Change this at your will
 endsub = 1
 gets = 0
-timeout = 2
 file = "/etc/passwd"
 ProxyEnabled = False
 menu = True
