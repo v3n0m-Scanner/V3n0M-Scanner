@@ -23,7 +23,6 @@ def download(file_url, local_filename):
     web_file.close()
     local_file.close()
 
-
 netcat_url = "https://github.com/D35m0nd142/LFISuite/raw/master/nc.exe"
 LFS_V3n0M_VERSION = '1.1'  # DO NOT MODIFY THIS FOR ANY REASON!!
 
