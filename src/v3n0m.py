@@ -82,7 +82,7 @@ except Exception as verb:
         call("pip3 install httplib2 --upgrade --user", shell=True)
         call("pip3 install aio_ping --upgrade --user", shell=True)
         call("pip3 install zipfile --upgrade --user", shell=True)
-        call("pip3 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip3 install -U", shell=True)
+        call("pip3 freeze --local --user | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip3 install -U --user", shell=True)
         subprocess._cleanup()
     if chce == '3':
         exit()
