@@ -18,7 +18,6 @@ try:
     from sys import argv, stdout
     from random import randint
     from aiohttp import web
-    from aio_ping import Ping,VerbosePing
     import async_timeout
     import inspect
     from functools import wraps
@@ -180,6 +179,7 @@ def makeips(amount):
             print(ip + " Failed to generate")
             raise
         IPList.append(ip)
+
     print("Ips Generated: " + str(len(IPList)))
     print("[1] Save IP addresses to file")
     print("[2] Print IP addresses")
@@ -224,93 +224,13 @@ def makeips(amount):
         print("[0] Exit")
         choice = input("Which Option:")
         if choice == '1':
-            number = 250
-            loop = asyncio.get_event_loop()
-            future = asyncio.ensure_future(run(number))
-            loop.run_until_complete(future)
+            print("")
+
         if choice == '0':
             exit()
     if chce == '0':
         exit()
 
-
-class CoroutineLimiter:
-        """
-        Inspired by twisted.internet.defer.DeferredSemaphore
-
-        If `invoke_as_tasks` is true, wrap the invoked coroutines in Task
-        objects. This will ensure ensure that the coroutines happen in the
-        same order `.invoke()` was called, if the tasks are given
-        to `asyncio.gather`.
-        """
-
-        def __init__(self, limit, *, loop=None, invoke_as_tasks=False):
-            if limit <= 0:
-                raise ValueError('Limit must be nonzero and positive')
-            if loop is None:
-                loop = asyncio.get_event_loop()
-            self._loop = loop
-            self._sem = asyncio.Semaphore(limit, loop=loop)
-            self._count = itertools.count(1)
-            self._invoke_as_tasks = invoke_as_tasks
-
-        def invoke(self, coro_callable, *args):
-            coro = self._invoke(coro_callable, *args)
-            if self._invoke_as_tasks:
-                return self._loop.create_task(coro)
-            else:
-                return coro
-
-        async def _invoke(self, coro_callable, *args):
-            n = next(self._count)
-            fmt = 'Acquiring semaphore for coroutine {count} with args {args}'
-            print(fmt.format(count=n, args=args))
-            await self._sem.acquire()
-            fmt = 'Semaphore acquired. Invoking coroutine {count} with args {args}'
-            print(fmt.format(count=n, args=args))
-            try:
-                return await coro_callable(*args)
-            finally:
-                print('Coroutine {count} finished, releasing semaphore'.format(
-                    count=n,
-                ))
-                self._sem.release()
-
-
-# modified fetch function with semaphore, to reduce choking/bottlenecking
-async def fetch(url, session):
-    async with session.get(url) as response:
-        delay = response.headers.get("DELAY")
-        date = response.headers.get("DATE")
-        print("{}:{} with delay {}".format(date, response.url, delay))
-        return await response.read()
-
-
-async def bound_fetch(sem, url, session):
-# Getter function with semaphore, to reduce choking/bottlenecking
-    async with sem:
-        await fetch(url, session)
-
-
-async def run(r):
-    tasks = []
-    # create instance of Semaphore thats 1/10th of the amount of IPs to be scanned
-    sem = asyncio.Semaphore(r/10)
-    # Create client session that will ensure we dont open new connection
-    # per each request.
-    async with aiohttp.ClientSession() as session:
-        # Try to pull 1 IP at a time and return it as a simple string.
-        with open('IPLogList.txt') as cachedIPs:
-            for line in cachedIPs:
-                # Debug printer to check if correct IPs are being generated and sent.
-                #print(line)
-                #todo WORK NEEDS TO BE DONE AT THIS POINT!
-                for i in range(r):
-                    # pass Semaphore and session to every GET request
-                    task = asyncio.ensure_future(bound_fetch(sem, line, session))
-                    tasks.append(task)
-        responses = await asyncio.gather(*tasks)
-        await responses
 
 
 def menu():

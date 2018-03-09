@@ -55,10 +55,10 @@ except Exception as verb:
         print("Note: This will entirely reinstall all current installed modules aswell to clear possible problems")
         time.sleep(10)
         for dist in pip.get_installed_distributions():
-            call("pip3 install --upgrade --no-deps --force-reinstall " + dist.project_name, shell=True)
-            call("pip3 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip3 install -U",
+            call("pip3 install --upgrade --no-deps --force-reinstall --user " + dist.project_name, shell=True)
+            call("pip3 freeze --local --user | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip3 install -U --user",
                  shell=True)
-            pass
+            subprocess._cleanup()
         pass
     if chce == '2':
         sys.stdout.flush()
@@ -71,19 +71,19 @@ except Exception as verb:
             os.kill(os.getpid(), 9)
         print("You will have 10 seconds to cancel this action before the system begins")
         time.sleep(10)
-        call("pip3 install aiohttp --upgrade ", shell=True)
-        call("pip3 install asyncio --upgrade ", shell=True)
-        call("pip3 install bs4 --upgrade ", shell=True)
-        call("pip3 install dnspython --upgrade ", shell=True)
-        call("pip3 install tqdm --upgrade ", shell=True)
-        call("pip3 install datetime --upgrade ", shell=True)
-        call("pip3 install requests --upgrade ", shell=True)
-        call("pip3 install socksipy-branch --upgrade ", shell=True)
-        call("pip3 install httplib2 --upgrade ", shell=True)
-        call("pip3 install aio_ping --upgrade ", shell=True)
-        call("pip3 install zipfile --upgrade", shell=True)
+        call("pip3 install aiohttp --upgrade --user ", shell=True)
+        call("pip3 install asyncio --upgrade --user", shell=True)
+        call("pip3 install bs4 --upgrade --user", shell=True)
+        call("pip3 install dnspython --upgrade --user", shell=True)
+        call("pip3 install tqdm --upgrade --user", shell=True)
+        call("pip3 install datetime --upgrade --user", shell=True)
+        call("pip3 install requests --upgrade --user", shell=True)
+        call("pip3 install socksipy-branch --upgrade --user", shell=True)
+        call("pip3 install httplib2 --upgrade --user", shell=True)
+        call("pip3 install aio_ping --upgrade --user", shell=True)
+        call("pip3 install zipfile --upgrade --user", shell=True)
         call("pip3 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip3 install -U", shell=True)
-        pass
+        subprocess._cleanup()
     if chce == '3':
         exit()
 
@@ -1193,8 +1193,9 @@ def fmenu():
                 "This will install the missing modules and upgrade them to current versions then update your Python3.6 entirely")
             print("You will have 10 seconds to cancel this action before the system begins")
             time.sleep(10)
-            call("pip3 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip3 install -U",
+            call("pip3 freeze --local --user | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip3 install -U --user",
                  shell=True)
+            subprocess._cleanup()
             pass
         elif chce2 == '6':
             donations()
