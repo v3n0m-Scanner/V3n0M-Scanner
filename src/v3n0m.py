@@ -830,7 +830,7 @@ def cloud():
         scandepth = "--dept normal"
     elif depth == 3:
         scandepth = "--dept full"
-    cloud = subprocess.Popen('python3.6 ' + pwd + "/cloudbuster.py " + str(target_site) + scandepth, shell=True)
+    cloud = subprocess.Popen('python3 ' + pwd + "/cloudbuster.py " + str(target_site) + scandepth, shell=True)
     cloud.communicate()
     subprocess._cleanup()
     print("Cloud Resolving Finished")
@@ -1089,7 +1089,7 @@ def fmenu():
         afsite = input("Enter the site eg target.com: ")
         print(B)
         pwd = os.path.dirname(str(os.path.realpath(__file__)))
-        findadmin = subprocess.Popen('python3.6 ' + pwd + "/modules/adminfinder.py -w lists/adminlist.txt -u " + str(afsite),
+        findadmin = subprocess.Popen('python3 ' + pwd + "/modules/adminfinder.py -w lists/adminlist.txt -u " + str(afsite),
                                      shell=True)
         findadmin.communicate()
         subprocess._cleanup()
@@ -1098,7 +1098,7 @@ def fmenu():
         import time
         print(B)
         pwd = os.path.dirname(str(os.path.realpath(__file__)))
-        ftpcrawl = subprocess.Popen('python3.6 ' + pwd + "/modules/toxin.py -i " , shell=True)
+        ftpcrawl = subprocess.Popen('python3 ' + pwd + "/modules/toxin.py -i " , shell=True)
         ftpcrawl.communicate()
         subprocess._cleanup()
     elif chce == '4':
@@ -1150,7 +1150,7 @@ def fmenu():
             injtest()
         elif chce2 == '2':
             path = os.path.dirname(str(os.path.realpath(__file__)))
-            lfisuite = subprocess.Popen('python3.6 ' + path + "/lfisuite.py ", shell=True)
+            lfisuite = subprocess.Popen('python3 ' + path + "/lfisuite.py ", shell=True)
             lfisuite.communicate()
             subprocess._cleanup()
         elif chce2 == '3':
