@@ -38,7 +38,7 @@ This program is for finding and executing various vulnerabilities. It scavenges 
 + CrossPlatform Python based toolkit
 + Release 425 Released on 18th Febuary 2018
 + Licensed under GPLv3
-+ Tested on: ArchLinux 4.14, Ubuntu, Debian, Kali, Windows, MacOS, BlackArch, Manjaro/ArchLinux ARM Ed. Android-Termux
++ Tested on: ArchLinux 4.14, Ubuntu, Debian, Kali, MacOS, BlackArch, Manjaro/ArchLinux ARM Ed. Android-Termux
 
 Note for Ubuntu users: Please make sure you have installed --> 
 `sudo apt-get install python3-bs4` and `apt-get install python3-setuptools`
