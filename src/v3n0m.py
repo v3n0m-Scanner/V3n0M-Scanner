@@ -18,6 +18,7 @@ try:
     import tty
     import inspect
     from functools import wraps
+    import toxin
 
 except Exception as verb:
     print("\n|------ PYTHON PROBLEM DETECTED! Recovery Menu Enabled -----| ")
@@ -808,7 +809,6 @@ def fscan():
     print("Threads         :", numthreads)
     print("Dorks           :", len(loaded_Dorks))
     print("Pages           :", pages_pulled_as_one)
-    print("Timeout         :", timeout)
     time.sleep(6)
     loop = asyncio.get_event_loop()
     usearch = loop.run_until_complete(search(pages_pulled_as_one))
@@ -1097,10 +1097,7 @@ def fmenu():
     elif chce == '3':
         import time
         print(B)
-        pwd = os.path.dirname(str(os.path.realpath(__file__)))
-        ftpcrawl = subprocess.Popen('python3 ' + pwd + "/modules/toxin.py -i " , shell=True)
-        ftpcrawl.communicate()
-        subprocess._cleanup()
+        toxin.menu()
     elif chce == '4':
         target_site = input("Enter the site eg target.com: ")
         print("[1] Normal Scan suitable for average sites")

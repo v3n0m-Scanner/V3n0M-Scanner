@@ -17,10 +17,6 @@ try:
     from os import getpid, kill, path
     from sys import argv, stdout
     from random import randint
-    from aiohttp import web
-    import async_timeout
-    import inspect
-    from functools import wraps
 
 except:
     exit()
@@ -45,7 +41,7 @@ def banner():
         .---..----..-..-..-..-..-.
         `| |'| || | >  < | || .` |
          `-' `----''-'`-``-'`-'`-'
-           V3n0M Metasploitable Scanner Version 0.1.2
+           V3n0M Metasploitable Scanner Version 0.1.3
 
     ''')
 
@@ -179,7 +175,6 @@ def makeips(amount):
             print(ip + " Failed to generate")
             raise
         IPList.append(ip)
-
     print("Ips Generated: " + str(len(IPList)))
     print("[1] Save IP addresses to file")
     print("[2] Print IP addresses")
@@ -190,7 +185,7 @@ def makeips(amount):
     log = "IPLogList.txt"
     logfile = open(log, "a")
     for t in IPList:
-        logfile.write("ftp://" + t + ":21" + "\n")
+        logfile.write(t + "\n")
     logfile.close()
     chce = input("Option: ")
     if chce == '1':
@@ -224,13 +219,108 @@ def makeips(amount):
         print("[0] Exit")
         choice = input("Which Option:")
         if choice == '1':
-            print("")
-
+            number = 250
+            loop = asyncio.get_event_loop()
+            future = asyncio.ensure_future(run(number))
+            loop.run_until_complete(future)
         if choice == '0':
             exit()
     if chce == '0':
         exit()
 
+
+class CoroutineLimiter:
+        """
+        Inspired by twisted.internet.defer.DeferredSemaphore
+
+        If `invoke_as_tasks` is true, wrap the invoked coroutines in Task
+        objects. This will ensure ensure that the coroutines happen in the
+        same order `.invoke()` was called, if the tasks are given
+        to `asyncio.gather`.
+        """
+
+        def __init__(self, limit, *, loop=None, invoke_as_tasks=False):
+            if limit <= 0:
+                raise ValueError('Limit must be nonzero and positive')
+            if loop is None:
+                loop = asyncio.get_event_loop()
+            self._loop = loop
+            self._sem = asyncio.Semaphore(limit, loop=loop)
+            self._count = itertools.count(1)
+            self._invoke_as_tasks = invoke_as_tasks
+
+        def invoke(self, coro_callable, *args):
+            coro = self._invoke(coro_callable, *args)
+            if self._invoke_as_tasks:
+                return self._loop.create_task(coro)
+            else:
+                return coro
+
+        async def _invoke(self, coro_callable, *args):
+            n = next(self._count)
+            fmt = 'Acquiring semaphore for coroutine {count} with args {args}'
+            print(fmt.format(count=n, args=args))
+            await self._sem.acquire()
+            fmt = 'Semaphore acquired. Invoking coroutine {count} with args {args}'
+            print(fmt.format(count=n, args=args))
+            try:
+                return await coro_callable(*args)
+            finally:
+                print('Coroutine {count} finished, releasing semaphore'.format(
+                    count=n,
+                ))
+                self._sem.release()
+
+
+# modified fetch function with semaphore, to reduce choking/bottlenecking
+async def fetch(url, session):
+    print(url)
+    try:
+        async with session.get(str(url)) as response:
+            return await response.read()
+    except aiohttp.client_exceptions.InvalidURL:
+        pass
+    except RuntimeError:
+        pass
+
+
+async def bound_fetch(sem, url, session):
+# Getter function with semaphore, to reduce choking/bottlenecking
+    async with sem:
+        hold_door = []
+        hold_the_door = ""
+        hodor = url.rstrip('\n') #strip trailing line from ip
+        try:
+            hold_door = socket.gethostbyaddr(hodor) #convert ip to url
+        except socket.herror:
+            pass
+        try:
+            chakra = hold_door[0]
+            hold_the_door = str(chakra) #take the first slice, the "url address" from the gethostbyaddr output & Do as str
+        except IndexError:
+            pass
+        #print(hold_the_door) #debug message to check correct slice is being taken
+        await fetch(hold_the_door, session) #Will print the slice regardless
+        pass
+
+
+
+async def run(r):
+    tasks = []
+    # create instance of Semaphore thats 1/10th of the amount of IPs to be scanned
+    sem = asyncio.Semaphore(r/10)
+    # Create client session that will ensure we dont open new connection
+    # per each request.
+    async with aiohttp.ClientSession() as session:
+        # Try to pull 1 IP at a time and return it as a simple string.
+        with open('IPLogList.txt') as cachedIPs:
+            for line in cachedIPs:
+                line.rstrip()
+                #print("Stripped Line Debug:" + line) #Stripped Line Debug:4.30.73.175 # Ok so at this stage the IP address is fine.
+                # pass Semaphore and session to every GET request
+                task = bound_fetch(sem, line, session)
+                tasks.append(task)
+    await asyncio.gather(*tasks)
 
 
 def menu():
@@ -239,6 +329,3 @@ def menu():
     amount = input("How many IP addresses do you want to scan: ")
     makeips(amount)
 
-
-while True:
-        menu()
