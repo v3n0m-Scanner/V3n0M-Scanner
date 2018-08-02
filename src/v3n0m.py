@@ -524,115 +524,115 @@ def injtest():
                         hits = str(resp.read())
                     except: # In event of Exception throw pointless str so scan at least just continues.
                         hits = '0'
-                    elif str("error in your SQL syntax") in hits:
+                    if str("error in your SQL syntax") in hits:
                         print(hold_the_door + " is vulnerable --> MySQL Classic")
                         sql_list_count += 1
                         sqli_confirmed.write("\n" + hold_the_door)
-                    elif str("mysql_fetch") in hits:
+                    if str("mysql_fetch") in hits:
                         print(hold_the_door + " is Vulnerable --> MiscError")
                         sql_list_count += 1
                         sqli_confirmed.write("\n" + hold_the_door)
-                    elif str("num_rows") in hits:
+                    if str("num_rows") in hits:
                         print(hold_the_door + " is Vulnerable --> MiscError2")
                         sql_list_count += 1
                         sqli_confirmed.write("\n" + hold_the_door)
-                    elif str("ORA-01756") in hits:
+                    if str("ORA-01756") in hits:
                         print(hold_the_door + " is Vulnerable --> Oracle")
                         sql_list_count += 1
                         sqli_confirmed.write("\n" + hold_the_door)
-                    elif str("Error Executing Database Query") in hits:
+                    if str("Error Executing Database Query") in hits:
                         print(hold_the_door + " is Vulnerable --> JDBC_CFM")
                         sql_list_count += 1
                         sqli_confirmed.write("\n" + hold_the_door)
-                    elif str("SQLServer JDBC Driver") in hits:
+                    if str("SQLServer JDBC Driver") in hits:
                         print(hold_the_door + " is Vulnerable --> JDBC_CFM2")
                         sql_list_count += 1
                         sqli_confirmed.write("\n" + hold_the_door)
-                    elif str("OLE DB Provider for SQL Server") in hits:
+                    if str("OLE DB Provider for SQL Server") in hits:
                         print(hold_the_door + " is Vulnerable --> MSSQL_OLEdb")
                         sql_list_count += 1
                         sqli_confirmed.write("\n" + hold_the_door)
-                    elif str("Unclosed quotation mark") in hits:
+                    if str("Unclosed quotation mark") in hits:
                         print(hold_the_door + " is Vulnerabe --> MSSQL_Uqm")
                         sql_list_count += 1
                         sqli_confirmed.write("\n" + hold_the_door)
-                    elif str("ODBC Microsoft Access Driver") in hits:
+                    if str("ODBC Microsoft Access Driver") in hits:
                         print(hold_the_door + " is Vulnerable --> MS-Access_ODBC")
                         sql_list_count += 1
                         sqli_confirmed.write("\n" + hold_the_door)
-                    elif str("Microsoft JET Database") in hits:
+                    if str("Microsoft JET Database") in hits:
                         print(hold_the_door + " is Vulnerable --> MS-Access_JETdb")
                         sql_list_count += 1
                         sqli_confirmed.write("\n" + hold_the_door)
-                    elif str("Error Occurred While Processing Request") in hits:
+                    if str("Error Occurred While Processing Request") in hits:
                         print(hold_the_door + " is Vulnerable --> Processing Request")
                         sql_list_count += 1
                         sqli_confirmed.write("\n" + hold_the_door)
-                    elif str("Microsoft JET Database") in hits:
+                    if str("Microsoft JET Database") in hits:
                         print(hold_the_door + " is Vulnerable --> MS-Access JetDb")
                         sql_list_count += 1
                         sqli_confirmed.write("\n" + hold_the_door)
-                    elif str("Error Occurred While Processing Request") in hits:
+                    if str("Error Occurred While Processing Request") in hits:
                         print(hold_the_door + " is Vulnerable --> Processing Request ")
                         sql_list_count += 1
                         sqli_confirmed.write("\n" + hold_the_door)
-                    elif str("Server Error") in hits:
+                    if str("Server Error") in hits:
                         print(hold_the_door + " is Vulnerable --> Server Error")
                         sql_list_count += 1
                         sqli_confirmed.write("\n" + hold_the_door)
-                    elif str("ODBC Drivers error") in hits:
+                    if str("ODBC Drivers error") in hits:
                         print(hold_the_door + " is Vulnerable --> ODBC Drivers error")
                         sql_list_count += 1
                         sqli_confirmed.write("\n" + hold_the_door)
-                    elif str("Invalid Querystring") in hits:
+                    if str("Invalid Querystring") in hits:
                         print(hold_the_door + " is Vulnerable --> Invalid Querystring")
                         sql_list_count += 1
                         sqli_confirmed.write("\n" + hold_the_door)
-                    elif str("OLE DB Provider for ODBC") in hits:
+                    if str("OLE DB Provider for ODBC") in hits:
                         print(hold_the_door + " is Vulnerable --> OLE DB Provider for ODBC")
                         sql_list_count += 1
                         sqli_confirmed.write("\n" + hold_the_door)
-                    elif str("VBScript Runtime") in hits:
+                    if str("VBScript Runtime") in hits:
                         print(hold_the_door + " is Vulnerable --> VBScript Runtime")
                         sql_list_count += 1
                         sqli_confirmed.write("\n" + hold_the_door)
-                    elif str("ADODB.Field") in hits:
+                    if str("ADODB.Field") in hits:
                         print(hold_the_door + " is Vulnerable --> ADODB.Field")
                         sql_list_count += 1
                         sqli_confirmed.write("\n" + hold_the_door)
-                    elif str("BOF or EOF") in hits:
+                    if str("BOF or EOF") in hits:
                         print(hold_the_door + " is Vulnerable --> BOF or EOF")
                         sql_list_count += 1
                         sqli_confirmed.write("\n" + hold_the_door)
-                    elif str("ADODB.Command") in hits:
+                    if str("ADODB.Command") in hits:
                         print(hold_the_door + " is Vulnerable --> ADODB.Command")
                         sql_list_count += 1
                         sqli_confirmed.write("\n" + hold_the_door)
-                    elif str("JET Database") in hits:
+                    if str("JET Database") in hits:
                         print(hold_the_door + " is Vulnerable --> JET Database")
                         sql_list_count += 1
                         sqli_confirmed.write("\n" + hold_the_door)
-                    elif str("mysql_fetch_array") in hits:
+                    if str("mysql_fetch_array") in hits:
                         print(hold_the_door + " is Vulnerabe --> mysql_fetch_array")
                         sql_list_count += 1
                         sqli_confirmed.write("\n" + hold_the_door)
-                    elif str("Syntax error") in hits:
+                    if str("Syntax error") in hits:
                         print(hold_the_door + " is Vulnerable --> Syntax error")
                         sql_list_count += 1
                         sqli_confirmed.write("\n" + hold_the_door)
-                    elif str("mysql_numrows()") in hits:
+                    if str("mysql_numrows()") in hits:
                         print(hold_the_door + " is Vulnerable --> mysql_numrows()")
                         sql_list_count += 1
                         sqli_confirmed.write("\n" + hold_the_door)
-                    elif str("GetArray()") in hits:
+                    if str("GetArray()") in hits:
                         print(hold_the_door + " is Vulnerable --> GetArray()")
                         sql_list_count += 1
                         sqli_confirmed.write("\n" + hold_the_door)
-                    elif str("FetchRow()") in hits:
+                    if str("FetchRow()") in hits:
                         print(hold_the_door + " is Vulnerable --> FetchRow()")
                         sql_list_count += 1
                         sqli_confirmed.write("\n" + hold_the_door)
-                    elif str("Input string was not in a correct format") in hits:
+                    if str("Input string was not in a correct format") in hits:
                         print(hold_the_door + " is Vulnerable --> Input String Error")
                         sql_list_count += 1
                         sqli_confirmed.write("\n" + hold_the_door)
