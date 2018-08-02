@@ -524,7 +524,7 @@ def injtest():
                         hits = str(resp.read())
                     except: # In event of Exception throw pointless str so scan at least just continues.
                         hits = '0'
-                    if str("error in your SQL syntax") in hits:
+                    elif str("error in your SQL syntax") in hits:
                         print(hold_the_door + " is vulnerable --> MySQL Classic")
                         sql_list_count += 1
                         sqli_confirmed.write("\n" + hold_the_door)
