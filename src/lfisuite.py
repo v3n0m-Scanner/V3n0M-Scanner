@@ -1902,7 +1902,7 @@ while validChoice is False:
     print(" 2) Scanner         ")
     print(" x) Exit            ")
     print("--------------------")
-    choice = input(" -> ")
+    choice = int(input())
 
     if choice == "x" or choice == int("3"):
         exit()
