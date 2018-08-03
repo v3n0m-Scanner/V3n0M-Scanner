@@ -72,6 +72,7 @@ except Exception as verb:
             os.kill(os.getpid(), 9)
         print("You will have 10 seconds to cancel this action before the system begins")
         time.sleep(10)
+        call("pip3 install termcolor --upgrade --user ", shell=True)
         call("pip3 install aiohttp --upgrade --user ", shell=True)
         call("pip3 install asyncio --upgrade --user", shell=True)
         call("pip3 install bs4 --upgrade --user", shell=True)
