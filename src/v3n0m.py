@@ -802,7 +802,7 @@ def fscan():
             i += 1
     numthreads = input('\nEnter no. of threads, Between 50 and 500: ')
     pages_pulled_as_one = input('Enter no. of Search Engine Pages to be scanned per d0rk,  \n'
-                                ' Between 25 and 100, increments of 25. Ie> 20:50:75:100   : ')
+                                ' Between 25 and 100, increments of 25. Ie> 25:50:75:100   : ')
     print("\nNumber of SQL errors :", "26")
     print("LFI payloads    :", len(lfis))
     print("XSS payloads    :", len(xsses))
