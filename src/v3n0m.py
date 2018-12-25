@@ -108,7 +108,7 @@ def logo():
     sql_list_counter()
     lfi_list_counter()
     print(R + "\n----------------------------------------------------------------")
-    print(" Release Date Feb 18th 2018    " + B + "        Author: NovaCygni       " + R + " ")
+    print(" Release Date Dec 25th 2018    " + B + "        Author: NovaCygni       " + R + " ")
     print("        Proxy Enabled " + G + " [", ProxyEnabled, "] " + R + "                               ")
     print("        Cache & Log Status " + B + " [", cachestatus, "] " + R + "           ")
     print(" " + O + "Please check the Misc Options for Donations Options, Thankyou " + R + "         ")
@@ -970,7 +970,7 @@ async def search(pages_pulled_as_one):
                 domains = set()
                 for name in names:
                     basename = re.search(r"(?<=(://))[^/]*(?=/)", name)
-                    if (basename is None) or any([x.strip().lower() in name for x in search_Ignore.splitlines(keepends=True)]):
+                    if (basename is None) or re.search("google",name) or re.search("facebook",name) or re.search("twitter",name) or re.search("gov",name) or re.search("fbi",name) or re.search("javascript",name) or re.search("stackoverflow",name) or re.search("microsoft",name) or re.search("24img.com",name) or re.search("v3n0m",name) or re.search("venom",name) or re.search("evilzone",name) or re.search("iranhackers",name) or re.search("pastebin",name) or re.search("charity",name) or re.search("school",name) or re.search("learning",name):
                         basename = re.search(r"(?<=://).*", name)
                     if basename is not None:
                         basename = basename.group(0)
