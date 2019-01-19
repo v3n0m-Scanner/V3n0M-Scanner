@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-# -*- coding: latin-1 -*-
+# -*- coding: UTF-8 -*-
 
 try:
     import re, random, threading, socket, urllib.request, urllib.error, urllib.parse, http.cookiejar, subprocess, \
@@ -999,7 +999,7 @@ async def search(pages_pulled_as_one):
                                                                               site, repr(urls_len), progress,
                                                                               totalprogress,
                                                                               repr(percent), repr(page), dork,
-                                                                              '%s:%s:%s' % (hours, minutes, seconds)))
+                                                                              '%s:%s:%s' % (hours, minutes, seconds))).encode('utf-8')
                 sys.stdout.flush()
                 if urls_len == urls_len_last:
                     page = int(pages_pulled_as_one)
