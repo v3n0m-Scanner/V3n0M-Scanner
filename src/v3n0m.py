@@ -999,7 +999,7 @@ async def search(pages_pulled_as_one):
                                                                               site, repr(urls_len), progress,
                                                                               totalprogress,
                                                                               repr(percent), repr(page), dork,
-                                                                              '%s:%s:%s' % (hours, minutes, seconds))).encode('utf-8')
+                                                                              '%s:%s:%s' % (hours, minutes, seconds)))
                 sys.stdout.flush()
                 if urls_len == urls_len_last:
                     page = int(pages_pulled_as_one)
