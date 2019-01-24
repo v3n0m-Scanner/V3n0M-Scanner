@@ -1112,6 +1112,7 @@ def fmenu():
         print("[4] Flush Cache and Delete Logs *Warning will erase Toxin Logs/Saves aswell* ")
         print("[5] Perform forced update of ALL installed Python packages and dependancies on system")
         print("[6] Donations information")
+        print("[7] Start SQLmap *GUI MODE ONLY*")
         print("[0] Return to main menu")
         chce2 = input(":")
         if chce2 == '1':
@@ -1169,6 +1170,9 @@ def fmenu():
             pass
         elif chce2 == '6':
             donations()
+        elif chce2 == '7':
+            from subprocess import call
+            call("sudo sqlmap --wizard", shell=True)
         elif chce2 == '0':
             fmenu()
 
