@@ -11,8 +11,7 @@ try:
             author_email='404 Not Found',
             url='https://github.com/v3n0m-Scanner/V3n0M-Scanner',
             package_dir={'v3n0m': 'src'},
-            packages=['v3n0m'], requires=['aiohttp', 'httplib2', 'socksipy-branch', 'requests', 'url', 'bs4',
-                                        'pip', 'dnspython', 'tqdm', 'aioftp', 'termcolor', 'aio_ping', 'async_timeout'])
+            packages=['v3n0m'])
     except:
         from setuptools import setup
 
@@ -23,7 +22,6 @@ try:
             author_email='404 Not Found',
             url='https://github.com/v3n0m-Scanner/V3n0M-Scanner',
             package_dir={'v3n0m': 'src'},
-            packages=['v3n0m'], install_requires=['aiohttp', 'httplib2', 'socksipy-branch', 'requests', 'url', 'bs4',
-                                        'pip', 'dnspython', 'tqdm', 'aioftp', 'termcolor', 'aio_ping', 'async_timeout'])
+            packages=['v3n0m'])
 except Exception as verb:
     print(str(verb))
