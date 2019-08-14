@@ -1010,9 +1010,10 @@ async def search(pages_pulled_as_one):
         try:
             host = url.split("/", 3)
             domain = host[2]
-            if domain not in tmplist and "=" in url:
-                finallist.append(url)
-                tmplist.append(domain)
+            for site in sitearray:
+                if domain not in tmplist and "=" in url and site in url:
+                    finallist.append(url)
+                    tmplist.append(domain)
         except KeyboardInterrupt:
             os.system('clear')
             chce1 = input(':')
