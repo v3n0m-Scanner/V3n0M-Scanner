@@ -2,7 +2,7 @@
 + All bug reports are appreciated, some features havnt been tested yet due to lack of free time.
 + Please check the programs donatations options in the Misc options, every small donation helps keep this project alive and active.
 
-Current Version: Release 425
+Current Version: Release 426
 ![v3n0m Scanner](http://i.imgur.com/A96CipT.png "V3n0M-Scanner")
 ![Example of SQLi Dorker](https://github.com/v3n0m-Scanner/V3n0M-Scanner/blob/master/src/AnimatedDemo.gif?raw=true "Example of Dorker Features")
 
