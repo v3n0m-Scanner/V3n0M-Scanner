@@ -1,0 +1,440 @@
+# This file is part of v3n0m
+# See LICENSE for license details. #
+172.31.*.*
+192.*.*.*
+10.*.*.*
+255.*.*.*
+100.64.*.*
+127.*.*.*
+169.254.*.*
+172.16.0.0
+0.*.*.*
+198.18.*.*
+198.51.*.*
+203.0.*.*
+224.*.*.*
+240.*.*.*
+6.*.*.* # : Aarmy Information Systems Center
+21.*.*.* # : US Defense Information Systems Agency
+22.*.*.* # : Defense Information Systems Agency
+24.8.*.* # # @Home, USA
+24.88.*.* # # [Roadrunner, USA
+24.112.*.* # # [@Home, Canada
+24.132.*.* # # [A2000 #, Netherlands
+24.188.*.* # : Cablevisio Systems Corp (USA)
+26.*.*.* # : Defense Information Systems Agency
+29.*.*.* # : Defense Information Systems Agency
+30.*.*.* # : Defense Information Systems Agency
+49.*.*.* # : Joint Tactical Command
+50.*.*.* # : Joint Tactical Command
+53.*.*.* # DaimlerChrysler AG
+55.*.*.* # : Army National Guard Bureau
+62.0-30.*.*
+62.52.*.* # : Commundo
+62.52.*.* # : Debitel
+62.62.*.* # : lahm (9 # Online French)
+62.69.140.* # : AddCOM
+62.96.*.* # : I-net
+62.137.*.* # Freeserve, UK
+62.150.*.* # T-Online
+62.255.*.*
+62.156.*.* # : Erotik-Welt
+62.157.*.* # : 1 # & 1 #
+62.158.*.* # # [T-Online, Germany
+62.180.*.* # : Planet Intercom
+64.9.*.* # # Adelphia, USA
+64.44.*.* # # Darwin Networks Community, USA
+64.224.*.* # : (FBI's honeypot)
+64.225.*.* # : (FBI's honeypot)
+64.226.*.* # : (FBI's honeypot)
+80.*.*.* # : lahm
+81.*.*.* # : lahm
+128.4.0.0 # : University of Delaware
+128.8.0.0 # : University of Maryland
+128.10.0.0 # : Purdue University
+128.11.22.* # : Yahoo, Inc. #
+128.11.23.* # : Yahoo, Inc. #
+128.11.68.* # : Yahoo, Inc. # (NETBLK-FOUR11 #DS559 #-68 #-19 #)
+128.11.69.* # : Yahoo, Inc. # (NETBLK-FOUR11 #DS216 #-69 #-19 #)
+128.11.70.* # : Yahoo, Inc. # (NETBLK-FOUR11 #DS698 #-70 #-19 #)
+128.11.71.* # : Yahoo, Inc. # (NETBLK-FOUR11 #DS699 #-71 #-20 #)
+128.11.96.* # : FortuneCity Ltd. #
+128.36.0.0 # Yale University (NET-YALE-NET)
+128.37.0.0 # : Army Yuma Proving Ground
+128.38.0.0 # Naval Surface Warfare Center (NET-NSWC-NET)
+128.39.0.0 # Norwegian Telecommunications Administration (NET-NTANET)
+128.40.0.0 # University College London (NET-UCL-ETHERNET)
+128.41.0.0 # University College London (NET-CL-CS-SERVICE)
+128.42.0.0 # Rice University (NET-RICE-NET)
+128.43.0.0 # Defence Researc
+128.47.*.* # : Army Communications Electronics Command (NET-TACTNET)
+128.50.*.* # : Department of Defense (NET-COINS)
+128.51.*.* # : Department of Defense (NET-COINSTNET)
+128.56.*.* # : U. #S. # Naval Academy (NET-USNA-NET)
+128.63.*.* # : Army Ballistics Research Laboratory (NET-BRL-SUBNET)
+128.80.*.* # : Army Communications Electronics Command (CECOM) (NET-CECOMNET)
+128.98.*.* # : Defence Evaluation and Research Agency (NET-DERA-UK)
+128.99.0.0 # Northrop Grumman Corporation - Automation Sciences Laboratory (NET-NORTHROP-NET)
+128.100.0.0 # University of Toronto Computing and Communications (NET-TORONTO)
+128.101.0.0 # University of Minnesota (NET-UMN-NET)
+128.102.0.0 # : NASA Ames Research Center
+128.103.0.0 # Harvard University (NET-HARVA
+128.149.0.0 # : NASA Headquarters
+128.150.0.0 # National Science Foundation (NET-NSF-LAN)
+128.151.0.0 # University of Rochester (NET-UR-NET)
+128.152.0.0 # Hughes Electronics (NET- HAC-ENET)
+128.153.0.0 # Clarkson University (NET-CLARKSON)
+128.154.*.* # : NASA Wallops Flight Facility (NET-WFF-NET)
+128.155.*.* # : NASA Langley Research Center (NET-LARC-NET)
+128.156.*.* # : NASA Lewis Network Control Center (NET- LERC)
+128.157.*.* # : NASA Johnson Space Center (NET-JSC-NET)
+128.158.*.* # : NASA Ames Research Center (NET-MSFC-NET)
+128.159.*.* # : NASA Ames Research Center (NET-KSC-NET)
+128.160.*.* # : Naval Research Laboratory (NET- SSCNET)
+128.161.*.* # : NASA Ames Research Center (NET-NSN-NET)
+128.183.*.* # : NASA Goddard Space Flight Center (NET-GSFC)
+128.190.0.0 # : Army Belvoir Reasearch and Development Center
+128.216.*.* # : MacDill Air Force Base (NET-CC-PRNET)
+128.217.*.* # : NASA Kennedy Space Center (NET-NASA-KSC-OIS)
+128.236.*.* # : U. #S. # Air Force Academy (NET-USAFA-NET
+129.11.0.0 # : University of Leeds (NET-LEEDS)
+129.12.0.0 # : University of Kent at Canterbury (NET-UKC)
+129.13.0.0 # : University of Karlsruhe
+129.48.0.0 # : Wright-Patterson Air Force Base
+129.50.0.0 # : NASA Marshall Space Flight Center (NET-PSCN)
+129.51.0.0 # : Patrick Air Force Base (NET-NS) PAFB)
+129.52.0.0 # : Wright-Patterson Air Force Base
+129.54.0.0 # : Vandenberg Air Force Base
+129.69.0.0 # : University of Stuttgart (NET-NI-STG-NET)
+129.70.0.0 # : University of Bielefeld
+129.73.*.* # : Siemens
+129.92.0.0 # : Air Force Institute of Technology
+129.99.0.0 # : NASA Ames Research Center
+129.139.0.0 # : Army Armament Research Development and Engineering Center
+129.163.0.0 # : NASA/Johnson Space Center (NET-NASA-JSCSSE)
+129.164.0.0 # : NASA IVV (NET-E) NASA-IVV)
+129.165.0.0 # : NASA Goddard Space Flight Center (NET-NASA-GSFCSSE)
+129.166.0.0 # : NASA - John F. # Kennedy Space Center (NET-NASA-JFKSSE)
+129.167.0.0 # : NASA Marshall Space Flight Center (NET-NASA-MSFCSSE)
+129.168.0.0 # : NASA Lewis Research Center (NET-NASA-LRCSSE)
+129.187.0.0 # : Leibniz-Rechenzentrum der Bayerischen Akademie
+129.198.0.0 # : Air Force Flight Test Center
+129.209.0.0 # : Army Ballistics Research Laboratory
+129.217.0.0 # : University of Dortmund
+129.229.0.0 # : U. #S. # Army Corps of Engineers
+129.233.0.0 # : Fraunhofer Institut f?r Produktionstechnik u. # Automatisierung
+129.251.0.0 # : United States Air Force Academy
+130.40.0.0 # : NASA Johnson Space Center
+130.75.0.0 # : University of Hannover
+130.112.0.0 # : Netherlands Energy Research Foundation ECN
+130.114.0.0 # : Army Aberdeen Proving Ground Installation Support Activity (NET-APGNET)
+130.115.0.0 # : Erasmus University Rotterdam
+130.123.0.0 # : Massey University
+130.133.0.0 # : Freie Universitaet Berlin
+130.165.0.0 # : U. #S. #Army Corps of Engineers
+130.167.0.0 # : NASA Headquarters
+130.183.0.0 # : Max-Planck-Institut fur Plasmaphysik
+130.211.0.* # : UUNet
+130.241.0.0 # : Gothenburg University (NET-GU-NET)
+130.247.0.0 # : Boeing Military Aircraft
+131.3.*.* # : Mather Air Force Base
+131.6.0.0 # : Langley Air Force Base
+131.10.0.0 # : Barksdale Air Force Base
+131.17.0.0 # : Sheppard Air Force Base
+131.21.0.0 # : Hahn Air Base (NET-HAHNNET)
+131.22.0.0 # : Keesler Air Force Base
+131.25.0.0 # : Patrick Air Force Base
+131.35.0.0 # : Fairchild Air Force Base
+131.36.0.0 # : Yokota Air Base
+131.37.0.0 # : Elmendorf Air Force Base
+131.38.0.0 # : Hickam Air Force Base
+131.40.0.0 # : Bergstrom Air Force Base
+131.44.0.0 # : Randolph Air Force Base
+131.47.0.0 # : Andersen Air Force Base
+131.50.0.0 # : Davis-Monthan Air Force Base
+131.54.0.0 # : Air Force Concentrator Network
+131.61.0.0 # : McConnell Air Force Base
+131.62.0.0 # : Norton Air Force Base
+131.92.0.0 # : Army Information Systems Command - Aberdeen
+131.110.0.0 # : NASA/Michoud Assembly Facility
+131.121.0.0 # : United States Naval Academy
+131.122.0.0 # : United States Naval Academy
+131.155.*.* # # [Eindhoven University, Netherlands
+131.169.0.0 # : Deutsches Elektronen Synchrotron
+131.174.*.* # # Nijmegen University, Netherlands
+131.176.0.0 # : European Space Operations Center
+131.182.0.0 # : NASA Headquarters
+131.188.0.0 # : University Erlangen Nuremberg
+131.211.0.* # : UUNet
+131.220.0.0 # : University of Bonn
+131.236.0.0 # : University College, Australian Defense Force Academy
+131.246.0.0 # : University Kaiserslautern
+132.68.*.* # # [Technological Institute, Israel
+132.95-108.*.* # ???
+134.2.0.0 # : Universitaet Tuebingen
+134.11.0.0 # : The Pentagon (NET-PENTNET)
+134.12.0.0 # : NASA Ames Research Center
+134.21.0.0 # : University of Fribourg
+134.78.0.0 # : Army Information Systems Command-ATCOM
+134.80.0.0 # : Army Information Systems Command
+134.91.*.* # : Uni Duisburg
+134.95.*.* # : Uni K?ln
+134.118.0.0 # : NASA/Johnson Space Center
+134.147.0.0 # : Ruhr-Universitaet Bochum
+134.155.0.0 # : University of Mannheim
+134.164.0.0 # : Army Engineer Waterways Experiment Station
+134.176.0.0 # : Universitaet Giessen
+134.194.0.0 # : U. #S. # Army Aberdeen Test Center
+134.229.0.0 # : Navy Regional Data Automation Center
+134.230.0.0 # : Navy Regional Data Automation Center
+134.240.0.0 # : U. #S. # Military Academy
+134.245.0.0 # : Universitaet Kiel
+136.156.0.0 # : European Centre for Medium-Range Weather Forecasts
+136.172.0.0 # : Deutsches Klimarechenzentrum
+136.178.0.0 # : NASA Research Network
+136.199.0.0 # : Universitaet Trier
+137.1.0.0 # : Whiteman Air Force Base
+137.2.0.0 # : George Air Force Base
+137.3.0.0 # : Little Rock Air Force Base
+137.5.0.0 # : Air Force Concentrator Network
+137.6.0.0 # : Air Force Concentrator Network
+137.12.0.0 # : Air Force Concentrator Network
+137.223.0.0 # : Siemens Nixdorf Information Systems
+137.226.0.0 # : Aachen University of Technology
+137.240.0.0 # : Air Force Materiel Command
+137.242.0.0 # : Air Force Logistics Command
+137.250.0.0 # : University of Augsburg (NET-AUX)
+137.251.0.0 # : Fraunhofer-Institut f?r Arbeitswirtschaft und Organisation
+138.13.0.0 # : Air Force Systems Command
+138.27.0.0 # : Army Information Systems Command
+138.30.0.0 # : National Space Development Agency of Japan
+138.61.0.0 # : Mainz
+138.76.0.0 # : NASA Headquarters
+138.115.0.0 # : NASA Information and Electronic Systems Laboratory
+138.136.*.* # : Navy Computers and Telecommunications Station
+138.137.0.0 # : Navy Regional Data Automation Center
+138.139.0.0 # : Marine Corps Air Station
+138.140.0.0 # : Navy Regional Data Automation Center
+138.141.0.0 # : Navy Regional Data Automation Center
+138.142.0.0 # : Navy Regional Data Automation Center
+138.143.0.0 # : Navy Regional Data Automation Center
+138.156.0.0 # : Marine Corps Central Design & Prog. # Activity
+138.158.0.0 # : Marine Corps Central Design & Prog. # Activity
+138.168.0.0 # : Marine Corps Central Design & Prog. # Activity
+138.193.0.0 # : NASA/Yellow Creek
+139.2.0.0 # : University of Dortmund
+139.4.0.0 # : EUnet Deutschland GmbH
+139.5.0.0 # : University of Dortmund
+139.6.0.0 # : Fachhochschule K?ln
+139.7.0.0 # : Mannesmann Mobilfunk GmbH
+139.8.0.0 # : S & P Media GmbH
+139.10-16.*.* # University of Dortmund (NETBLK-UNIDO11 #)
+139.11.0.0 # : Universit?t der Bundeswehr Hamburg
+139.13.0.0 # : Fachhochschule Wilhelmshaven
+139.14.0.0 # : Universit?t Koblenz-Landau
+139.15.*.* # : Robert Bosch GmbH
+139.17.0.0 # : Geo-Forschungs-Zentrum Potsdam
+139.18.0.0 # : Universit?t Leipzig (NET-UNILE-LAN)
+139.19.0.0 # : Max-Planck-Institut f?r Informatik
+139.20-29.*.* #  : European Regional Internet Registry/RIPE NCC
+139.21.0.0 # : Siemens Business Services
+139.22.0.0 # : Siemens Business Services
+139.23.0.0 # : Siemens Business Services
+139.25.0.0 # : Siemens Business Services
+139.27.*.* # : Thyssen Stahl AG
+139.28.0.0 # : Bremer Vulkan AG
+139.30.0.0 # : University of Rostock
+139.75.0.0 # : Alfred Wegener Institute for Polar and Marine Research
+139.88.0.0 # : NASA Lewis Research Center
+139.142.*.* # : Front end portal of a security network filtering hundreds of client subscription IPs. # If you find a vulnerable pub, IIS, SQL, or * #nix -- LEAVE IT ALONE
+139.161.0.0 # : Army Information Systems Command
+139.169.0.0 # : NASA/Johnson Space Center
+139.229.0.0 # : NASA Ames Research Center
+140.139.0.0 # : HQ US Army Medical Research and Development Command
+140.239.81.184-192 # Marine Biological Laboratory
+141.*.*.* # : Fast nur Deutsche Firmen
+144.99.0.0 # United States Army Information Systems Command (NET-CRLSLBKS-NET)
+144.109.0.0 # Army Information Systems Command (NET-NCMBRLNDNET)
+144.143.0.0 # Headquarters, Third United States Army (NET-AC2 #IS)
+144.144.0.0 # Headquarters, Third United States Army (NET-AC2 #IS1 #)
+144.146.0.0 # Commander, Army Information Systems Center (NET-FTIRWIN1 # )
+144.147.0.0 # Commander, Army Information Systems Center (NET-FTIRWIN2 # )
+144.192.0.0 # United States Army Information Services Command-Campbell (NET-CAMPBELL-GW1 #)
+144.232.*.* # # Sprintlink, USA
+144.233.0.0 # Defense Intelligence Agency (NET-DODIIS1 #)
+144.234.0.0 # Defense Intelligence Agency (NET-DODIIS2 #)
+144.235.0.0 # Defense Intelligence Agency (NET-DODIIS3 #)
+144.236.0.0 # Defense Intelligence Agency (NET-DODIIS4 #)
+144.237.0.0 # Defense Intelligence Agency (NET-DODIIS5 #)
+144.238.0.0 # Defense Intelligence Agency (NET-DODIIS6 #)
+144.239.0.0 # Defense Intelligence Agency (NET-DODIIS7 #)
+144.240.0.0 # Defense Intelligence Agency (NET-DODIIS
+144.241.0.0 # Defense Intelligence Agency (NET-DODIIS9 #)
+144.242.0.0 # Defense Intelligence Agency (NET-DODIIS10 #)
+144.247.0.0 # SUPSHIP, Groton, U. #S. #N. # (NET-SOSGNET)
+144.249.0.0 # Air Products and Chemicals Incorporated (NET-APCI-NET)
+144.252.0.0 # U. #S. # Army LABCOM (NET-LABCOM-ETDL)
+145.*.*.* # : Niederlande, Frankreich und Deutschland
+147.103.0.0 # : Army Information Systems Software Center
+147.104.0.0 # : Army Information Systems Software Center
+147.164.0.0 # : Army Information Systems Command
+147.165.0.0 # : Army Information Systems Command
+147.198.0.0 # : Army Information Systems Command
+147.199.0.0 # : Army Information Systems Command
+147.238.0.0 # : Army Information Systems Command
+147.240.0.0 # : US Army Tank-Automotive Command
+147.251.*.* # # [ContacTel, Czech Republic
+149.201.0.0 # : Fachhochschule Aachen (NET-HAC-LAN)
+149.202.*.* # : Siemens Nixdorf Informationssysteme AG
+149.202.*.* # : European Regional Internet Registry/RIPE NCC
+149.203.*.* # : Medizinische Akademie Magdeburg
+149.204.*.* # : Alcanet International Deutschland GmbH
+149.205.0.0 # : FH Merseburg
+149.206.*.* # : Thyssen Stahl AG
+149.206.*.* # : European Regional Internet Registry/RIPE NCC
+149.207.0.0 # : Telefunken Systemtechnik Ulm
+149.211.*.* # : Thyssen Stahl AG
+149.212.0.0 # : Siemens-Nixdorf Informationssystemer A/S
+149.216.*.* # : Degussa AG
+149.217.0.0 # : Max-Planck-Institut f?r Kernphysik
+149.218.0.0 # : Hirschmann GmbH & Co
+149.219.0.0 # : Westdeutscher Rundfunk Koeln
+149.220.0.0 # : Forschungszentrum Rossendorf
+149.221.0.0 # : Rheinisch Bergische Presse-Data GmbH
+149.222.*.* # : Fachhochschule Kiel
+149.232.*.* # : Quantum Software GmbH
+149.233.0.0 # : Lahmeyer International GmbH
+149.234.*.* # : Schering AG Berlin
+149.235.0.0 # : iXOS Software GmbH
+149.236.0.0 # : Bruker Analytische Messtechnik GmbH
+149.237.*.* # : Wiechers & Partner Datentechnik GmbH
+149.238.*.* # : ZF Friedrichshafen AG
+149.239.*.* # : European Regional Internet Registry/RIPE NCC
+149.240.*.* # : Carl Schenk AG
+149.242.*.* # : Koerber AG
+149.243.0.0 # : ERNO Raumfahrttechnik
+149.244.0.0 # : Knorr-Bremse AG, M?nchen
+149.246.0.0 # : Siemens AG, OeN NKE A2 #
+149.248.0.0 # : TA Triumph-Adler AG
+149.250.0.0 # : Hoechst AG, Frankfurt
+149.251.0.0 # : Electricite de France - Direction Etudes Recherche
+149.252.0.0 # : USDOE, NV Operations Office
+149.253.0.0 # : DIRM/ITD
+149.254.*.* # : Mercury Personal Communications, Ltd. #
+149.99.130-150.* # : Kanadischer Provider
+145.253.*.* # : Arcor
+149.225.*.* # : MSN
+150.144.0.0 # : NASA Goodard Space Flight Center
+150.149.0.0 # : Army Information Systems Command
+150.197.0.0 # : Korea Aerospace Research Institute
+151.3.*.* # IUnet (NET-IUNET-BNET3 #)
+152.203.*.* # : Compuserv
+152.166.*.* # : AOL
+152.170.*.* # : AOL
+152.172.*.* # : AOL
+152.205.*.* # : AOL
+152.207.*.* # : AOL
+153.92.0.0 # : Deutsches Forschungsnetz
+153.93.0.0 # : Bundesanstalt f?r Wasserbau
+153.94.0.0 # : Transtec AG
+153.96.0.0 # : Fraunhofer Institut f?r Informations- und Datenverarbeitung IITB
+153.97.0.0 # : Fraunhofer Institut f?r Informations- und Datenverarbeitung IITB
+153.98.0.0 # : Eurocontrol Karlsruhe
+153.99.*.* # : European Regional Internet Registry/RIPE NCC
+153.100.0.0 # : RWE Energie AG
+153.101.*.* # : European Regional Internet Registry/RIPE NCC
+155.7.*.* # : American Forces Information (NET-AFISHQ-NET1 #)
+155.8.*.* # : U. #S. # ArmyFort Gordon (NET-GORDON-NET5 #)
+155.9.*.* # : United States Army Information Systems Command (NET-LWOOD-NET2 #)
+155.74.*.* # : PEO STAMIS (NET-CEAP2 #)
+155.75.*.* # : US Army Corps of Engineers (NET-CEAP3 #)
+155.76.*.* # : PEO STAMIS (NET-CEAP4 #)
+155.77.*.* # : PEO STAMIS (NET-CEAP5 #)
+155.78.*.* # : PEO STAMIS (NET-CEAP6 #)
+155.79.*.* # : US Army Corps of Engineers (NET-CEAP7 #)
+155.80.*.* # : PEO STAMIS (NET-CEAP
+155.81.*.* # : PEO STAMIS (NET-CEAP9 #)
+155.82.*.* # : PEO STAMIS (NET-CEAP10 #)
+155.83.*.* # : US Army Corps of Enginers (NET-CEAP11 #)
+155.84.*.* # : PEO STAMIS (NET-CEAP12 #)
+155.85.*.* # : PEO STAMIS (NET-CEAP13 #)
+155.86.*.* # : US Army Corps of Engineers (NET-CEAP14 #)
+155.87.*.* # : PEO STAMIS (NET-CEAP15 #)
+155.88.*.* # : PEO STAMIS (NET-CEAP16 #)
+155.178.*.* # : Federal Aviation Administration (NET-FAA)
+155.213.*.* # : USAISC Fort Benning (NET-FTBENNNET3 #
+155.214.*.* # : Director of Information Management (NET-CARSON-TCACC )
+155.215.*.* # : USAISC-FT DRUM (NET-DRUM-TCACCIS)
+155.216.*.* # : TCACCIS Project Management Office (NET-FTDIX-TCACCI)
+155.217.*.* # : Directorate of Information Management (NET- EUSTIS-EMH1 #)
+155.218.*.* # : USAISC (NET-WVA-EMH2 #)
+155.219.*.* # : DOIM/USAISC Fort Sill (NET-SILL-TCACCIS)
+155.220.*.* # : USAISC-DOIM (NET-FTKNOX-NET4 #)
+155.221.*.* # : USAISC-Ft Ord (NET-FTORD-NET2 #)
+156.*.*.* # : US Courts, Siemens, State of Minnesota
+158.3.0.0 # : U. #S. # Army TACOM
+158.8.0.0 # : US Army Soldier Support Center
+158.12.0.0 # : US Army Harry Diamond Laboratories
+159.1.0.0 # : Washington State Dept. # of State and Ind. #
+159.206.0.0 # : Air Canada
+160.46.0.0 # : BMW AG, Berlin production plant
+160.47.0.0 # : BMW AG, Dingolfingen production plant
+160.48.0.0 # : BMW AG, Landshut production plant
+160.49.0.0 # : BMW AG, Munich production plant
+160.50.0.0 # : BMW AG, Munich research and admin. # sites
+160.51.0.0 # : BMW AG, Regensburg production plant
+160.52.0.0 # : BMW AG, Steyr production plant
+160.132.0.0 # : US Army Recruiting Command
+163.12.0.0 # : Navy Aviation Supply Office
+164.59-60.*.* # : Schering AG (NETBLK-TBLK-SCHERING)
+164.60.0.0 # : Schering AG (NET-SCHERING2 #)
+164.61.0.0 # : Kaufhof Holding AG, Koeln
+164.224.0.0 # : Secretary of the Navy (NET-SECNAV-LAN)
+164.225.0.0 # : U. #S. # Army Intelligence and Security Command
+164.231.0.0 # : Military Sealift Command
+169.*.*.* # windows default
+169.120.*.* # : J. # P. # Morgan & Co (USA)
+171.224.*.* # : AOL Deutschland
+171.223.*.* # : ???
+172.16.*.* # # [XS4 #ALL, Netherlands
+172.128-180.*.* # : America Online, Inc. #
+192.114.63.* # : Netvision
+192.168.*.* # # [private network
+193.*.*.* # : lahm
+193.79.178.* # : UUNet
+193.101.100.* #:Siemens
+193.122.199.* #:SONNET (Flatrate) (TOT)
+193.159.*.* # : T-Online
+193.189.224.* # :Siemens
+193.189.231.* # :Siemens
+193.190.215.* #:SONNET (Flatrate) (TOT)
+194.8.193.* # : Net-Cologne
+194.8.197.* # : Net-Cologne
+194.31.232.* # : DE-CIX
+194.90.0.* # : Netvision
+194.100.*.* # # MBinternet, Finland
+194.121.59.* # : Microsoft
+194.174.230.* #:Siemens
+194.179.124.* #:Microsoft
+194.203.122.* #:UUNet
+194.230.*.* # : PLUSNET AG (Schweitz)
+195.3.*.* # : T-Online
+195.7.49.* # : Siemens
+195.10.*.* # : (FBI's honeypot)
+195.40.101.* # : Siemens
+195.66.*.* # # Sonera, Netherlands
+195.86.*.* # # Chello/Capacity, Netherlands
+195.93.*.* # : AOL Deutschland
+195.130.*.* # # [Pandora, Belgium
+195.186.*.* # : Bluewin (Schweiz)
+195.238.160.* # :SONNET (Flatrate) (TOT)
+195.238.164.* # :SONNET (Flatrate) (TOT)
+195.238.163.* # :SONNET (Flatrate) (TOT)
+195.238.174.* #:SONNET (Flatrate) (TOT)
+199.31.*.0 # : US Army Information Systems Command
+199.203.4.* # : Netvision
+199.203.230.* #:Microsoft
+204.34.138.0 # GSI (NET-GSI-13 #
+204.34.139.0 # HQ, JFMO Korea, Headquarters (NET-JFMO-KOREA)
+204.34.140.0 # DISA D75 # (NET-TPOCNET)
+204.34.141.0 # U. # S. # Naval Air Facility, Atsugi Japan (NET-NAFATSUGI01 #)
