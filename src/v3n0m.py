@@ -846,7 +846,8 @@ def vulnscan():
     print(R + "[4] Save valid Sorted and confirmed vuln urls to file")
     print(R + "[5] Print all the UNSORTED urls ")
     print(R + "[6] Print all Sorted and Confirmed Vulns from last scan again")
-    print(R + "[7] Back to main menu")
+    print(R + "[7] Print all Sorted urls")
+    print(R + "[8] Back to main menu")
     chce = input(":")
     if chce == '1':
         os.system('clear')
@@ -880,9 +881,9 @@ def vulnscan():
         print("Urls saved, please check", listname)
         endsub = 0
     elif chce == '5':
-        print(W + "\nPrinting valid urls:\n")
-        finallist.sort()
-        for t in finallist:
+        print(W + "\nPrinting Unsorted urls:\n")
+        unsorted.sort()
+        for t in unsorted:
             print(B + t)
         endsub = 0
     elif chce == '6':
@@ -890,6 +891,11 @@ def vulnscan():
         print(vuln)
         endsub = 0
     elif chce == '7':
+        print(W + "\nPrinting Sorted urls:\n")
+        finallist.sort()
+        for t in finallist:
+            print(B + t)
+    elif chce == '8':
         endsub = 1
         fmenu()
     else:
@@ -960,7 +966,7 @@ async def search(pages_pulled_as_one):
             progress += 1
             page = 0
             while page < int(pages_pulled_as_one):
-                query = dork + "+site:" + site
+                query = dork + " site:" + site
                 futures = []
                 loop = asyncio.get_event_loop()
                 for i in range(25):
@@ -1011,8 +1017,10 @@ async def search(pages_pulled_as_one):
                     page = int(pages_pulled_as_one)
                 urls_len_last = urls_len
     tmplist = []
+    unsorted = []
     print("\n\n[+] URLS (unsorted) : Contains all the trash results still including duplicates: ", len(urls))
     for url in urls:
+        unsorted.appen(url)
         try:
             host = url.split("/", 3)
             domain = host[2]
