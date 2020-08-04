@@ -90,7 +90,6 @@ except Exception as verb:
 
 __name__ = '__main__'
 
-
 def donations():
     import time
     print(B + "\n---------------------------------------------------------")
@@ -744,15 +743,18 @@ def fscan():
     global numthreads
     global threads
     global finallist
+    global unsorted
     global finallist2
     global col
     global darkurl
     global sitearray
     global loaded_Dorks
     global sqli_confirmed
+    global unsorted
     threads = []
     finallist = []
     finallist2 = []
+    unsorted = []
     col = []
     darkurl = []
     loaded_Dorks = []
@@ -1017,10 +1019,9 @@ async def search(pages_pulled_as_one):
                     page = int(pages_pulled_as_one)
                 urls_len_last = urls_len
     tmplist = []
-    unsorted = []
     print("\n\n[+] URLS (unsorted) : Contains all the trash results still including duplicates: ", len(urls))
     for url in urls:
-        unsorted.appen(url)
+        unsorted.append(url)
         try:
             host = url.split("/", 3)
             domain = host[2]
