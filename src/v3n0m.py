@@ -761,7 +761,7 @@ def fscan():
     print(W)
     sites = input(
         "\nChoose your target(domain) ie .com , to attempt to force the domain restriction use *, ie *.com : ")
-    sitearray = [sites]
+    sitearray = list(map(str,sites.split(',')))
     for item in search_ignore:
         if item in sites.lower():
             print("!!!!!!Go Away!!!!!!!")
@@ -1026,7 +1026,7 @@ async def search(pages_pulled_as_one):
             host = url.split("/", 3)
             domain = host[2]
             for site in sitearray:
-                if domain not in tmplist and "=" in url and site in url and 'gov' not in url and 'edu' not in url and 'fbi' not in url and 'cia' not in url and 'pentest' not in url and 'github' not in url and 'wordpress' not in url and 'askjeeves' not in url and 'hackforums' not in url and 'twitter' not in url and 'facebook' not in url and 'phpfreaks' not in url and 'codingforums' not in url and 'phpbuilder' not in url and 'iranhack' not in url and 'phpbuddy' not in url and 'youtube' not in url and 'google' not in url and 'msdn' not in url and 'hack' not in url and 'school' not in url and 'bank' not in url and 'd0rks' not in url and 'yahoo' not in url and 'mossad' not in url and 'nsa' not in url and 'emergency' not in url and 'foundation' not in url and 'learning' not in url and 'school' not in url and 'charity' not in url and 'pastebin' not in url and 'iranhackers' not in url and 'evilzone' not in url and 'venom' not in url and 'v3n0m' not in url and '24img' not in url and 'microsoft' not in url and 'stackoverflow' not in url and 'javascript' not in url:
+                if domain not in tmplist and "=" in url and any(x in url for x in sitearray) and site in url and 'gov' not in url and 'edu' not in url and 'fbi' not in url and 'cia' not in url and 'pentest' not in url and 'github' not in url and 'wordpress' not in url and 'askjeeves' not in url and 'hackforums' not in url and 'twitter' not in url and 'facebook' not in url and 'phpfreaks' not in url and 'codingforums' not in url and 'phpbuilder' not in url and 'iranhack' not in url and 'phpbuddy' not in url and 'youtube' not in url and 'google' not in url and 'msdn' not in url and 'hack' not in url and 'school' not in url and 'bank' not in url and 'd0rks' not in url and 'yahoo' not in url and 'mossad' not in url and 'nsa' not in url and 'emergency' not in url and 'foundation' not in url and 'learning' not in url and 'school' not in url and 'charity' not in url and 'pastebin' not in url and 'iranhackers' not in url and 'evilzone' not in url and 'venom' not in url and 'v3n0m' not in url and '24img' not in url and 'microsoft' not in url and 'stackoverflow' not in url and 'javascript' not in url:
                     finallist.append(url)
                     tmplist.append(domain)
         except KeyboardInterrupt:
@@ -1131,6 +1131,7 @@ def fmenu():
         print("[7] Start SQLmap *GUI MODE ONLY*")
         print("[8] Skip to custom XSS list checking")
         print("[9] FTP Crawler")
+        print("[10] Skip to custom target list")
         print("[0] Return to main menu")
         chce2 = input(":")
         if chce2 == '1':
@@ -1302,6 +1303,8 @@ def fmenu():
             ftpcrawl = subprocess.Popen("ftpcrawler.py -i " + randomip, shell=True)
             ftpcrawl.communicate()
             
+        elif chce2 =='10':
+            import target
             
 d0rk = [line.strip() for line in open("lists/d0rks", 'r', encoding='utf-8')]
 header = [line.strip() for line in open("lists/header", 'r', encoding='utf-8')]
