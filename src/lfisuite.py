@@ -4,7 +4,6 @@
 # Twitter: @D35m0nd142 ** Not Applicable
 # Python version: 3.6
 # Github Repository: https://github.com/v3n0m-Scanner/V3n0M-Scanner/edit/master/src/lfisuite.py
-import os
 import base64
 import urllib.error
 import urllib.parse
@@ -1900,9 +1899,9 @@ while validChoice is False:
     print("--------------------")
     print(" 1) Exploiter       ")
     print(" 2) Scanner         ")
-    print(" x) Exit            ")
+    print(" 3) Exit            ")
     print("--------------------")
-    choice = int(input())
+    choice = input(" -> ")
 
     if choice == "x" or choice == int("3"):
         exit()
@@ -1914,11 +1913,11 @@ while validChoice is False:
             gen_headers['Cookie'] = input_cookie
             # gen_headers['Cookie'] = "security=low; PHPSESSID=n3o05a33llklde1r2upt98r1k2"
 
-    if choice == int("2") or choice == "b":
+    if choice == int("2") or choice == "2":
         scanner()
-    elif choice == int("1") or choice == "a":
+    elif choice == int("1") or choice == "1":
         echoice = int("11")
-        while (echoice < 1 or echoice > 10) and echoice != "x":
+        while (echoice < 1 or echoice > 10) and echoice != 3:
             print(colored("\n.:: LFI Exploiter ::.\n", "white"))
             print("____________________________\n")
             print("    Available Injections    ")
@@ -1932,44 +1931,44 @@ while validChoice is False:
             print(" 7) data://		    	   ")
             print(" 8) expect://		  	   ")
             print(" 9) Auto-Hack  			   ")
-            print(" x) Back 				   ")
+            print(" 10) Back 				   ")
             print("____________________________")
             echoice = input("\n -> ")
 
-            if echoice == int("1") or echoice == "a":
+            if echoice == int("1") or echoice == "1":
                 printChoice("/proc/self/environ")  #
                 run_self_environ()
-            elif echoice == int("2") or echoice == "b":
+            elif echoice == int("2") or echoice == "2":
                 printChoice("php://filter wrapper")
                 run_phpfilter()
-            elif echoice == int("3") or echoice == "c":
+            elif echoice == int("3") or echoice == "3":
                 printChoice("php://input wrapper")
                 run_phpinput()
                 print("\n[-] This website is not vulnerable to the php://input injection attack.\n")
-            elif echoice == int("4") or echoice == "d":
+            elif echoice == int("4") or echoice == "4":
                 printChoice("/proc/self/fd")
                 run_self_fd()
                 print("\n[!] This website is not vulnerable to the /proc/self/fd attack!\n")
-            elif echoice == int("5") or echoice == "e":
+            elif echoice == int("5") or echoice == "5":
                 printChoice("Access log")
                 run_access_log()
-            elif echoice == int("6") or echoice == "f":
+            elif echoice == int("6") or echoice == "6":
                 printChoice("phpinfo")
                 run_phpinfo()
                 print("\n[!] This website is not vulnerable to the phpinfo injection attack!\n")
-            elif echoice == int("7") or echoice == "g":
+            elif echoice == int("7") or echoice == "7":
                 printChoice("data:// wrapper")
                 run_data()
                 print("\n[!] This website is not vulnerable to the data:// injection attack!\n")
-            elif echoice == int("8") or echoice == "h":
+            elif echoice == int("8") or echoice == "8":
                 printChoice("expect:// wrapper")
                 run_expect()
                 print("\n[!] This website is not vulnerable to the expect:// injection attack!\n")
-            elif echoice == int("9") or echoice == "i":
+            elif echoice == int("9") or echoice == "9":
                 printChoice("Auto Hack")
                 run_autoHack()
                 print("\n[!] This website is not vulnerable to any of our attacks!\n")
-            elif echoice == int("10") or echoice == "x":
+            elif echoice == int("10") or echoice == "10":
                 print("")
                 validChoice = False
             else:
