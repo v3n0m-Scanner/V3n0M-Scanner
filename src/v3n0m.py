@@ -519,7 +519,7 @@ def xsstest():
 # So dont worry, itll be replaced soon enough
 # noinspection PyBroadException
 def classicinj(url):
-    sql_log_file = open("v3n0m-sqli.txt", "r+", encoding='utf-8')
+    sql_log_file = open("v3n0m-sqli.txt", "a", encoding='utf-8')
     aug_url = url + "'"
     global sql_list_counter
     global sql_list_count
