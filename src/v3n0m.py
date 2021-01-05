@@ -1063,11 +1063,11 @@ def vulnscan():
 
 
 # noinspection PyBroadException
-
 def ignoringGet(url):
+    custom_user_agent = "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0"
     try:
         try:
-            responce = requests.get(url, timeout=2)
+            responce = requests.get(url,headers={"User-Agent": custom_user_agent})
             responce.raise_for_status()
         except Exception:
             return ''
