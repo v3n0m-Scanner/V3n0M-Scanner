@@ -1,3 +1,5 @@
+***USE TOR IN - CURRENT STATE IT WILL ONLY WORK WITH TOR WITH TORRC MAX CIRCUIT DIRTINESS SET TO 10***
+
 
 + All bug reports are appreciated, some features havnt been tested yet due to lack of free time.
 + Please check the programs donatations options in the Misc options, every small donation helps keep this project alive and active.
