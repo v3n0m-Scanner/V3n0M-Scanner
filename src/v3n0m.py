@@ -1064,8 +1064,10 @@ def vulnscan():
 
 # noinspection PyBroadException
 def ignoringGet(url):
+    header = [line.strip() for line in open("lists/header", 'r', encoding='utf-8')]
+    ua = random.choice(header)
     headers = {
-    "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.67 Safari/537.36",
+    "user-agent": ua,
 }
     try:
         try:
