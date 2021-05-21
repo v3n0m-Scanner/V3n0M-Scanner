@@ -445,3 +445,6 @@
 204.34.139.0 		# HQ, JFMO Korea, Headquarters (NET-JFMO-KOREA)
 204.34.140.0 		# DISA D75 (NET-TPOCNET)
 204.34.141.0 		# U.S. Naval Air Facility, Atsugi Japan (NET-NAFATSUGI01)
+
+216.25.*.*			# EXTREMELY DANGEROUS (e.g. 216.25.0.0 - 216.25.127.255 (AS11305) Aptum Colocation)
+					# <managed hosting and managed services for feds>

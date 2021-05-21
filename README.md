@@ -1,8 +1,7 @@
-***USE TOR IN - CURRENT STATE IT WILL ONLY WORK WITH TOR WITH TORRC MAX CIRCUIT DIRTINESS SET TO 10***
+***USE TOR - IN CURRENT STATE, IT WILL ONLY WORK WITH TOR WITH TORRC MAX CIRCUIT DIRTINESS @ 10***
 
 
 + All bug reports are appreciated, some features havnt been tested yet due to lack of free time.
-+ Please check the programs donatations options in the Misc options, every small donation helps keep this project alive and active.
 
 Current Version: Release 430
 ![v3n0m Scanner](http://i.imgur.com/A96CipT.png "V3n0M-Scanner")
@@ -88,3 +87,125 @@ $ python3 setup.py install --user
 
 ##Make Love and Smoke Trees...
 
+***DISTRIBUTION FILES***
+	- A list of files used in this project, for those that do not understand the structure or what things do.
+
+v3n0m/ - main
+├─build/ - build/working dir
+│   └─lib/ - local library files
+│       └─v3n0m/
+│           ├─cloudbuster.py
+│           ├─lfisuite.py
+│           ├─target.py
+│           ├─toxin.py
+│           └─v3n0m.py
+├─src/
+│   ├─desktop-menu/
+│   │   ├─v3n0m.desktop
+│   │   └─v3n0m.ico
+│   ├─lists/
+│   │   ├─adminlist.txt
+│   │   ├─columns
+│   │   ├─d0rks
+│   │   ├─DNSCached.txt.gz
+│   │   ├─header
+│   │   ├─honeypot_ranges.txt
+│   │   ├─ipout
+│   │   ├─ips-v4
+│   │   ├─ips-v6
+│   │   ├─pathtotest.txt
+│   │   ├─pathtotest_huge.txt
+│   │   ├─search_ignore
+│   │   ├─subdomains
+│   │   ├─tables
+│   │   ├─vuln-ftp-checklist.txt
+│   │   └─xsses
+│   ├─modules/
+│   │   ├─xss-strike/
+│   │   │   ├─core/
+│   │   │   │   ├─__pycache__/
+│   │   │   │   │   ├─__init__.cpython-38.pyc
+│   │   │   │   │   ├─arjun.cpython-38.pyc
+│   │   │   │   │   ├─checker.cpython-38.pyc
+│   │   │   │   │   ├─colors.cpython-38.pyc
+│   │   │   │   │   ├─config.cpython-38.pyc
+│   │   │   │   │   ├─dom.cpython-38.pyc
+│   │   │   │   │   ├─encoders.cpython-38.pyc
+│   │   │   │   │   ├─filterChecker.cpython-38.pyc
+│   │   │   │   │   ├─fuzzer.cpython-38.pyc
+│   │   │   │   │   ├─generator.cpython-38.pyc
+│   │   │   │   │   ├─htmlParser.cpython-38.pyc
+│   │   │   │   │   ├─jsContexter.cpython-38.pyc
+│   │   │   │   │   ├─log.cpython-38.pyc
+│   │   │   │   │   ├─photon.cpython-38.pyc
+│   │   │   │   │   ├─prompt.cpython-38.pyc
+│   │   │   │   │   ├─requester.cpython-38.pyc
+│   │   │   │   │   ├─updater.cpython-38.pyc
+│   │   │   │   │   ├─utils.cpython-38.pyc
+│   │   │   │   │   ├─wafDetector.cpython-38.pyc
+│   │   │   │   │   └─zetanize.cpython-38.pyc
+│   │   │   │   ├─__init__.py
+│   │   │   │   ├─arjun.py
+│   │   │   │   ├─checker.py
+│   │   │   │   ├─colors.py
+│   │   │   │   ├─config.py
+│   │   │   │   ├─dom.py
+│   │   │   │   ├─encoders.py
+│   │   │   │   ├─filterChecker.py
+│   │   │   │   ├─fuzzer.py
+│   │   │   │   ├─generator.py
+│   │   │   │   ├─htmlParser.py
+│   │   │   │   ├─jsContexter.py
+│   │   │   │   ├─log.py
+│   │   │   │   ├─photon.py
+│   │   │   │   ├─prompt.py
+│   │   │   │   ├─requester.py
+│   │   │   │   ├─updater.py
+│   │   │   │   ├─utils.py
+│   │   │   │   ├─wafDetector.py
+│   │   │   │   └─zetanize.py
+│   │   │   ├─db/
+│   │   │   │   ├─definitions.json
+│   │   │   │   └─wafSignatures.json
+│   │   │   ├─modes/
+│   │   │   │   ├─__pycache__/
+│   │   │   │   │   ├─__init__.cpython-38.pyc
+│   │   │   │   │   ├─bruteforcer.cpython-38.pyc
+│   │   │   │   │   ├─crawl.cpython-38.pyc
+│   │   │   │   │   ├─scan.cpython-38.pyc
+│   │   │   │   │   └─singleFuzz.cpython-38.pyc
+│   │   │   │   ├─__init__.py
+│   │   │   │   ├─bruteforcer.py
+│   │   │   │   ├─crawl.py
+│   │   │   │   ├─scan.py
+│   │   │   │   └─singleFuzz.py
+│   │   │   ├─plugins/
+│   │   │   │   ├─__pycache__/
+│   │   │   │   │   ├─__init__.cpython-38.pyc
+│   │   │   │   │   └─retireJs.cpython-38.pyc
+│   │   │   │   ├─__init__.py
+│   │   │   │   └─retireJs.py
+│   │   │   ├─V3n0mWrapper.py
+│   │   │   └─xsstrike.py
+│   │   ├─adminfinder.py*
+│   │   ├─dnsbrute.py*
+│   │   ├─ftpcrawler.py
+│   │   ├─honeypot_ranges.txt*
+│   │   ├─socks.py
+│   │   ├─vuln-ftp-checklist.txt
+│   │   └─X-Strike.py
+│   ├─AnimatedDemo.gif
+│   ├─cloudbuster.py
+│   ├─honeytest.py*
+│   ├─lfisuite.py*
+│   ├─target.py
+│   ├─toxin.py*
+│   └─v3n0m.py
+├─COPYING.GPL
+├─Dockerfile
+├─Dockerfile_README.md
+├─LICENSE
+├─Parrot Security Additional
+├─PKGBUILD
+├─README.md
+└─setup.py
