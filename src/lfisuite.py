@@ -4,7 +4,7 @@
 # Twitter: @D35m0nd142 ** Not Applicable
 # Python version: 3.6
 # Github Repository: https://github.com/v3n0m-Scanner/V3n0M-Scanner/edit/master/src/lfisuite.py
-import os
+import os, sys
 import base64
 import urllib.error
 import urllib.parse
@@ -1904,8 +1904,8 @@ while validChoice is False:
     print("--------------------")
     choice = input(" -> ")
 
-    if choice == "x" or choice == int("3"):
-        exit()
+    if choice == "3":
+        sys.exit(0)
     if choice == int("1") or choice == int("2"):
         validChoice = True
         input_cookie = input(
