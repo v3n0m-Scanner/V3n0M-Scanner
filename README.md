@@ -90,7 +90,8 @@ $ python3 setup.py install --user
 ***DISTRIBUTION FILES***
 	- A list of files used in this project, for those that do not understand the structure or what things do.
 
-```v3n0m/ - main
+```bash
+v3n0m/ - main
 ├─build/ - build/working dir
 │   └─lib/ - local library files
 │       └─v3n0m/
