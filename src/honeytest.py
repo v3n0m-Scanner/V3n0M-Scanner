@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
-#
+# This file is part of v3n0m
+# See LICENSE for license details.
 # Phaaaat hax telnet loader by Freak (credit for inspiration)
 # Only change this if you know what exactly it does!
 # Uses a keep-alive connection and can be traced!
