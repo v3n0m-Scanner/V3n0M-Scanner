@@ -1,10 +1,11 @@
-## Offensive Security Tool for Vulnerability Scanning & Pentesting
-![v3n0m Scanner](http://i.imgur.com/A96CipT.png "V3n0M-Scanner")
+# Venom
+![venom](https://i.ibb.co/M9FNKgM/snake-6470753.png)
+
+#### Offensive Security Tool for Vulnerability Scanning & Pentesting
 ![build](https://img.shields.io/github/v/tag/V3n0M-Scanner/V3n0M-Scanner?color=green&label=Venom)
 ![os](https://img.shields.io/badge/OS-Linux,%20Windows-green.svg)
 ![pythonver](https://img.shields.io/badge/python-3.6%2B-green.svg)
-
-![Example of SQLi Dorker](https://github.com/v3n0m-Scanner/V3n0M-Scanner/blob/master/src/AnimatedDemo.gif?raw=true "Example of Dorker Features")
+[![License: GPL v2](https://img.shields.io/badge/License-GPLv2-green.svg)](https://www.gnu.org/licenses/gpl-2.0)
 
 ##### Features
 - [x] In its current state, it will only work with torrc `MAX CIRCUIT DIRTINESS` of 10
@@ -24,6 +25,8 @@
 - [x] Cross-platform Python-based toolkit
 - [x] Licensed under GPLv3
 - [x] Built by hackers with full transparency
+
+![Example of SQLi Dorker](https://github.com/v3n0m-Scanner/V3n0M-Scanner/blob/master/src/AnimatedDemo.gif?raw=true "Example of Dorker Features")
 
 ## Install note
 
