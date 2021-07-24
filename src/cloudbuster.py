@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 # -*- coding: latin-1 -*-
-#This file is part of V3n0M
+# This file is part of v3n0m
+# See LICENSE for license details.
+
 import http.client
 import os
 import re

@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-#  LFISuite: LFI Automatic Exploiter and Scanner
+# This file is part of v3n0m
+# See LICENSE for license details.
+# LFISuite: LFI Automatic Exploiter and Scanner
 # Author: D35m0nd142, <d35m0nd142@gmail.com> ** Python 3.6 V3n0M Version Modifications by NovaCygni
 # Twitter: @D35m0nd142 ** Not Applicable
 # Python version: 3.6
