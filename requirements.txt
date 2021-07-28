@@ -1,0 +1,10 @@
+aiohttp==3.7.4.post0
+asyncio==3.4.3
+bs4==0.0.1
+DateTime==4.3
+dnspython==2.1.0
+httplib2==0.19.1
+requests==2.26.0
+SocksiPy-branch==1.1
+termcolor==1.1.0
+tqdm==4.61.2
