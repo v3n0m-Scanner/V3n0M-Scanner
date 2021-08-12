@@ -1485,27 +1485,16 @@ def fmenu():
         elif chce2 == '13':
             donations()
 
-
-
 d0rk = [line.strip() for line in open("lists/d0rks", 'r', encoding='utf-8')]
 header = [line.strip() for line in open("lists/header", 'r', encoding='utf-8')]
 xsses = [line.strip() for line in open("lists/xsses", 'r', encoding='utf-8')]
 lfis = [line.strip() for line in open("lists/pathtotest.txt", 'r', encoding='utf-8')]
 tables = [line.strip() for line in open("lists/tables", 'r', encoding='utf-8')]
 columns = [line.strip() for line in open("lists/columns", 'r', encoding='utf-8')]
-search_ignore = ['gov', 'fbi', 'javascript', 'stackoverflow',
-                 'microsoft', '24img.com', 'v3n0m', 'venom',
-                 'evilzone', 'iranhackers', 'pastebin', 'charity',
-                 'school', 'learning', 'foundation', 'hostpital',
-                 'medical', 'doctors', 'emergency', 'nsa', 'cia',
-                 'mossad', 'yahoo', 'dorks', 'd0rks', 'bank', 'school',
-                 'hack', 'msdn', 'google', 'youtube', 'phpbuddy', 'iranhack',
-                 'phpbuilder', 'codingforums', 'phpfreaks', 'facebook', 'twitter',
-                 'hackforums', 'askjeeves', 'wordpress', 'github', 'pentest']
+search_ignore = [line.strip() for line in open("lists/ignore", 'r', encoding='utf-8')]
 
 random.shuffle(header)
 random.shuffle(lfis)
-
 
 # noinspection PyBroadException
 def enable_proxy():
