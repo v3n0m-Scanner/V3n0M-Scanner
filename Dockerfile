@@ -8,7 +8,7 @@ RUN apt-get update \
         python3-setuptools \
     && rm -rf /var/lib/apt/lists/*
 
-RUN git clone https://github.com/v3n0m-Scanner/V3n0M-Scanner.git
+RUN git clone https://github.com/vittring/V3n0M-Scanner.git
 
 WORKDIR /V3n0M-Scanner
 
