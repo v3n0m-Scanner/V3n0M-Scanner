@@ -32,15 +32,9 @@
 
 Clone the repository:
 ```
-git clone https://github.com/v3n0m-Scanner/V3n0M-Scanner.git
-cd V3n0M-Scanner/
-python3 setup.py install --user
-```
-
-We support Docker!
-```
-docker build -t v3n0m .
-docker run -it v3n0m
+docker pull vittring/venom:latest
+docker build -t vittring/venom:latest .
+docker run -ti vittring/venom:latest
 ```
 
 Ubuntu users:
@@ -53,9 +47,9 @@ Please `apt-get install python3-dev` | `apt-get install python-dev`
     Submit a bug report/pull request with prefix "Query" at the start.
 
 ## Credits to:
-    -Architect for the initial encouragement and support in V3n0ms early days
-    -SageHack for allowing Cloudbuster to be adapted for use within V3n0M
-    -D35m0nd142 for allowing Collaboration and the use of LFI Suite within V3n0M
-    -b4ltazar & all members of darkc0de.com for inspiring the project with darkd0rk3r
+    - Architect for the initial encouragement and support in V3n0ms early days
+    - SageHack for allowing Cloudbuster to be adapted for use within V3n0M
+    - D35m0nd142 for allowing Collaboration and the use of LFI Suite within V3n0M
+    - b4ltazar & all members of darkc0de.com for inspiring the project with darkd0rk3r
 
-## Make Love and Smoke Trees...
+## Make Love and Smoke Trees.
