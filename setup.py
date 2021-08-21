@@ -15,5 +15,6 @@ setup(
     author_email='404 Not Found',
     url='https://github.com/v3n0m-Scanner/V3n0M-Scanner',
     package_dir={'v3n0m': 'src'},
-    packages=['v3n0m']
+    packages=['v3n0m'],
+    classifiers=['Programming Language :: Python :: 2.6']
 )

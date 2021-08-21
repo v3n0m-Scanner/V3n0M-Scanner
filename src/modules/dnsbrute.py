@@ -22,6 +22,7 @@ def killpid(signum=0, frame=0):
     print("\r\x1b[K")
     os.kill(os.getpid(), 9)
 
+
 signal(SIGINT, killpid)
 
 
@@ -47,19 +48,40 @@ class Timer:
         self.start = time2.time()
 
     def __exit__(self, *args):
-        seconds = int(time2.strftime('%S', time2.gmtime(taken)))
-        minutes = int(time2.strftime('%M', time2.gmtime(taken)))
-        hours = int(time2.strftime('%H', time2.gmtime(taken)))
+        seconds = int(time2.strftime("%S", time2.gmtime(taken)))
+        minutes = int(time2.strftime("%M", time2.gmtime(taken)))
+        hours = int(time2.strftime("%H", time2.gmtime(taken)))
         if minutes > 0:
             if hours > 0:
-                print(" [*] Time elapsed " + str(hours) + " hours, " + str(minutes) + " minutes and " + str(
-                        seconds) + " seconds at " + str(round(len(subdomains) / taken, 2)) + " lookups per second.")
+                print(
+                    " [*] Time elapsed "
+                    + str(hours)
+                    + " hours, "
+                    + str(minutes)
+                    + " minutes and "
+                    + str(seconds)
+                    + " seconds at "
+                    + str(round(len(subdomains) / taken, 2))
+                    + " lookups per second."
+                )
             else:
-                print(" [*] Time elapsed " + str(minutes) + " minutes and " + str(seconds) + " seconds at " + str(
-                        round(len(subdomains) / taken, 2)) + " lookups per second.")
+                print(
+                    " [*] Time elapsed "
+                    + str(minutes)
+                    + " minutes and "
+                    + str(seconds)
+                    + " seconds at "
+                    + str(round(len(subdomains) / taken, 2))
+                    + " lookups per second."
+                )
         else:
-            print(" [*] Time elapsed " + str(seconds) + " seconds at " + str(
-                    round(len(subdomains) / taken, 2)) + " lookups per second.")
+            print(
+                " [*] Time elapsed "
+                + str(seconds)
+                + " seconds at "
+                + str(round(len(subdomains) / taken, 2))
+                + " lookups per second."
+            )
 
 
 def killpid():
@@ -68,7 +90,7 @@ def killpid():
 
 
 def writeout(state):
-    logfile = open("logs/" + domain + ".log", 'w')
+    logfile = open("logs/" + domain + ".log", "w")
     for item in found:
         logfile.write("%s\n" % item)
     if state == "good":
@@ -77,7 +99,12 @@ def writeout(state):
     else:
         print()
         print(
-                " [*] Scan aborted, " + str(progdone) + " lookups processed and " + str(len(found)) + " subdomains found.")
+            " [*] Scan aborted, "
+            + str(progdone)
+            + " lookups processed and "
+            + str(len(found))
+            + " subdomains found."
+        )
     print(" [*] Results saved to logs/" + domain + ".log")
 
 
@@ -87,7 +114,7 @@ def process_data(threadName, q):
         if not workQueue.empty():
             data = q.get()
             queueLock.release()
-            host = data.strip() + '.' + domain.strip()
+            host = data.strip() + "." + domain.strip()
             try:
                 answers = resolver.query(host)
                 try:
@@ -95,13 +122,31 @@ def process_data(threadName, q):
                     if len(host) < 16:
                         stdout.write("\r\x1b[K")
                         stdout.flush()
-                        print("\r" + str(host) + "\t\t" + str(output[0]) + " " + str(output[2]))
-                        found.append(str(host) + "\t\t" + str(output[0]) + " " + str(output[2]))
+                        print(
+                            "\r"
+                            + str(host)
+                            + "\t\t"
+                            + str(output[0])
+                            + " "
+                            + str(output[2])
+                        )
+                        found.append(
+                            str(host) + "\t\t" + str(output[0]) + " " + str(output[2])
+                        )
                     else:
                         stdout.write("\r\x1b[K")
                         stdout.flush()
-                        print("\r" + str(host) + "\t" + str(output[0]) + " " + str(output[2]))
-                        found.append(str(host) + "\t" + str(output[0]) + " " + str(output[2]))
+                        print(
+                            "\r"
+                            + str(host)
+                            + "\t"
+                            + str(output[0])
+                            + " "
+                            + str(output[2])
+                        )
+                        found.append(
+                            str(host) + "\t" + str(output[0]) + " " + str(output[2])
+                        )
                 except:
                     stdout.write("\r\x1b[K")
                     stdout.flush()
@@ -113,11 +158,11 @@ def process_data(threadName, q):
             queueLock.release()
 
 
-parser = argparse.ArgumentParser(prog='dnsbrute', usage='dnsbrute [options]')
-parser.add_argument('-u', "--url", type=str, help='url eg. target.com')
+parser = argparse.ArgumentParser(prog="dnsbrute", usage="dnsbrute [options]")
+parser.add_argument("-u", "--url", type=str, help="url eg. target.com")
 parser.add_argument("-w", "--wordlist", type=str, help="wordlist")
-parser.add_argument('-t', "--threads", type=int, help='number of threads')
-parser.add_argument('-att', "--att", type=str, help='att')
+parser.add_argument("-t", "--threads", type=int, help="number of threads")
+parser.add_argument("-att", "--att", type=str, help="att")
 args = parser.parse_args()
 
 
@@ -131,20 +176,40 @@ if args.threads:
     maxthreads = args.threads
 
 
-dnsservers = ["8.8.8.8", "8.8.4.4", "4.2.2.1", "4.2.2.2", "4.2.2.3", "4.2.2.4", "4.2.2.5", "4.2.2.6", "4.2.35.8",
-              "4.2.49.4", "4.2.49.3", "4.2.49.2", "209.244.0.3", "209.244.0.4", "208.67.222.222", "208.67.220.220",
-              "192.121.86.114", "192.121.121.14", "216.111.65.217", "192.76.85.133", "151.202.0.85"]
+dnsservers = [
+    "8.8.8.8",
+    "8.8.4.4",
+    "4.2.2.1",
+    "4.2.2.2",
+    "4.2.2.3",
+    "4.2.2.4",
+    "4.2.2.5",
+    "4.2.2.6",
+    "4.2.35.8",
+    "4.2.49.4",
+    "4.2.49.3",
+    "4.2.49.2",
+    "209.244.0.3",
+    "209.244.0.4",
+    "208.67.222.222",
+    "208.67.220.220",
+    "192.121.86.114",
+    "192.121.121.14",
+    "216.111.65.217",
+    "192.76.85.133",
+    "151.202.0.85",
+]
 signal(SIGINT, killpid)
 domain = args.url
 maked = "mkdir -p logs"
 process = subprocess.Popen(maked.split(), stdout=subprocess.PIPE)
 poutput = process.communicate()[0]
-subdomains = [line.strip() for line in open(args.wordlist, 'r')]
+subdomains = [line.strip() for line in open(args.wordlist, "r")]
 if args.att:
-    with gzip.GzipFile(open("lists/DNSCached.txt.gz"), 'r') as CacheClose:        # 4. gzip
-        json_bytes = CacheClose.read()                          # 3. bytes (i.e. UTF-8)
-        json_str = json_bytes.decode('utf-8')            # 2. string
-        data = json.loads(json_str)                      # 1. dat
+    with gzip.GzipFile(open("lists/DNSCached.txt.gz"), "r") as CacheClose:  # 4. gzip
+        json_bytes = CacheClose.read()  # 3. bytes (i.e. UTF-8)
+        json_str = json_bytes.decode("utf-8")  # 2. string
+        data = json.loads(json_str)  # 1. dat
         dnsservers = data
 
 resolver = dns.resolver.Resolver()
@@ -157,7 +222,13 @@ exitFlag = 0
 threadID = 1
 
 
-print(" [*] Starting " + str(maxthreads) + " threads to process " + str(len(subdomains)) + " subdomains.")
+print(
+    " [*] Starting "
+    + str(maxthreads)
+    + " threads to process "
+    + str(len(subdomains))
+    + " subdomains."
+)
 print()
 
 queueLock.acquire()
@@ -185,9 +256,18 @@ with Timer():
             rate = round(progdone / token, 2)
             percent = round(float(100.00) / len(subdomains) * progdone, 2)
             eta = round(token / percent * 100 - token, 2)
-            printoutput = " [*] " + str(percent) + "% complete, " + str(progdone) + "/" + str(
-                    len(subdomains)) + " lookups at " + str(rate) + " lookups/second. ETA: " + str(
-                    time2.strftime('%H:%M:%S', time2.gmtime(eta)))
+            printoutput = (
+                " [*] "
+                + str(percent)
+                + "% complete, "
+                + str(progdone)
+                + "/"
+                + str(len(subdomains))
+                + " lookups at "
+                + str(rate)
+                + " lookups/second. ETA: "
+                + str(time2.strftime("%H:%M:%S", time2.gmtime(eta)))
+            )
             Printer(printoutput)
             progstart = time2.time()
         else:

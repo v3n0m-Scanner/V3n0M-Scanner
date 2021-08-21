@@ -4,8 +4,7 @@
 # See LICENSE for license details.
 
 try:
-    import re, random, threading, socket, urllib.request, urllib.error, urllib.parse, http.cookiejar, subprocess, \
-        time, sys, os, math, itertools, queue, asyncio, aiohttp, argparse, socks, httplib2, requests, codecs
+    import re, random, threading, socket, urllib.request, urllib.error, urllib.parse, http.cookiejar, subprocess, time, sys, os, math, itertools, queue, asyncio, aiohttp, argparse, socks, httplib2, requests, codecs
     from signal import SIGINT, signal
     import pprint
     from aiohttp import ClientSession
@@ -31,23 +30,25 @@ R = "\033[31m"
 G = "\033[32m"
 O = "\033[33m"
 B = "\033[34m"
-msf_Vulns = [line.strip() for line in open("lists/vuln-ftp-checklist.txt", 'r')]
+msf_Vulns = [line.strip() for line in open("lists/vuln-ftp-checklist.txt", "r")]
 global LoadedIPCache
 
 
 def banner():
-    print('''       NovaCygni's
+    print(
+        """       NovaCygni's
         .---..----..-..-..-..-..-.
         `| |'| || | >  < | || .` |
          `-' `----''-'`-``-'`-'`-'
            V3n0M Metasploitable Scanner Version 0.1.3
 
-    ''')
-
+    """
+    )
 
 
 class IPChecker:
     """A class to check if an IP is in a range of IPs"""
+
     ipdict = {}
     fulls = [{}, {}, {}]
 
@@ -61,35 +62,41 @@ class IPChecker:
             self.fulls[2][i] = self.fulls[1]
 
     def loadIPs(self, filename):
-        with open(filename, 'r', encoding='utf-8') as f:
+        with open(filename, "r", encoding="utf-8") as f:
             i = 0
             for line in f:
                 i += 1
                 try:
                     ip = line.split("#")[0].strip()
                 except:
-                    raise ValueError("Error while parsing line: \"" + line + "\"")
+                    raise ValueError('Error while parsing line: "' + line + '"')
                 if len(ip) == 0:
                     continue
                 if not re.match("^[0-9\*-]+\.[0-9\*-]+\.[0-9\*-]+\.[0-9\*-]+$", ip):
-                    raise ValueError("Error in format while parsing line: \"" + line + "\"")
+                    raise ValueError(
+                        'Error in format while parsing line: "' + line + '"'
+                    )
                 added = self.addIP(ip)
                 if added != 0:
-                    raise ValueError(str(added) + ": Error while parsing IP on line: \"" + line + "\"")
+                    raise ValueError(
+                        str(added) + ': Error while parsing IP on line: "' + line + '"'
+                    )
 
     def generateValidIP(self):
         ip = ""
         curdict = self.ipdict
-        for i in range(0,4):
-            randip = randint(0,255)
-            while (randip in curdict.keys()) and ((i!=3 and (len(curdict[randip].keys())>=255)) or i==3):
-                randip = randint(0,255)
+        for i in range(0, 4):
+            randip = randint(0, 255)
+            while (randip in curdict.keys()) and (
+                (i != 3 and (len(curdict[randip].keys()) >= 255)) or i == 3
+            ):
+                randip = randint(0, 255)
             if randip in curdict.keys():
                 curdict = curdict[randip]
             else:
                 curdict = {}
             ip += str(randip)
-            if i!=3:
+            if i != 3:
                 ip += "."
             else:
                 ip += ""
@@ -169,7 +176,7 @@ def makeips(amount):
     for i in range(0, amt):
         ip = c.generateValidIP()
         try:
-            assert (c.checkIP(ip) == False)
+            assert c.checkIP(ip) == False
         except:
             print(ip + " Failed to generate")
             raise
@@ -187,7 +194,7 @@ def makeips(amount):
         logfile.write(t + "\n")
     logfile.close()
     chce = input("Option: ")
-    if chce == '1':
+    if chce == "1":
         print("Save IP addresses?")
         listname = input("Filename: ")
         try:
@@ -200,75 +207,77 @@ def makeips(amount):
             print("Urls saved, please check", listname)
         except:
             print("Failed to save")
-    if chce == '2':
+    if chce == "2":
         pp = pprint.PrettyPrinter(width=66, compact=True)
         pp.pprint(IPList)
         print("Do you wish to start Toxin again or Exit to V3n0M")
         print("[1] Stay within Toxin")
         print("[2] Exit to V3n0M")
         chc = input("Option: ")
-        if chc == '1':
+        if chc == "1":
             menu()
-        if chc == '2':
+        if chc == "2":
             exit()
-    if chce == '3':
+    if chce == "3":
         menu()
-    if chce == '4':
+    if chce == "4":
         print("[1] Launch FTP Checks")
         print("[0] Exit")
         choice = input("Which Option:")
-        if choice == '1':
+        if choice == "1":
             number = 250
             loop = asyncio.get_event_loop()
             future = asyncio.ensure_future(run(number))
             loop.run_until_complete(future)
-        if choice == '0':
+        if choice == "0":
             exit()
-    if chce == '0':
+    if chce == "0":
         exit()
 
 
 class CoroutineLimiter:
-        """
-        Inspired by twisted.internet.defer.DeferredSemaphore
+    """
+    Inspired by twisted.internet.defer.DeferredSemaphore
 
-        If `invoke_as_tasks` is true, wrap the invoked coroutines in Task
-        objects. This will ensure ensure that the coroutines happen in the
-        same order `.invoke()` was called, if the tasks are given
-        to `asyncio.gather`.
-        """
+    If `invoke_as_tasks` is true, wrap the invoked coroutines in Task
+    objects. This will ensure ensure that the coroutines happen in the
+    same order `.invoke()` was called, if the tasks are given
+    to `asyncio.gather`.
+    """
 
-        def __init__(self, limit, *, loop=None, invoke_as_tasks=False):
-            if limit <= 0:
-                raise ValueError('Limit must be nonzero and positive')
-            if loop is None:
-                loop = asyncio.get_event_loop()
-            self._loop = loop
-            self._sem = asyncio.Semaphore(limit, loop=loop)
-            self._count = itertools.count(1)
-            self._invoke_as_tasks = invoke_as_tasks
+    def __init__(self, limit, *, loop=None, invoke_as_tasks=False):
+        if limit <= 0:
+            raise ValueError("Limit must be nonzero and positive")
+        if loop is None:
+            loop = asyncio.get_event_loop()
+        self._loop = loop
+        self._sem = asyncio.Semaphore(limit, loop=loop)
+        self._count = itertools.count(1)
+        self._invoke_as_tasks = invoke_as_tasks
 
-        def invoke(self, coro_callable, *args):
-            coro = self._invoke(coro_callable, *args)
-            if self._invoke_as_tasks:
-                return self._loop.create_task(coro)
-            else:
-                return coro
+    def invoke(self, coro_callable, *args):
+        coro = self._invoke(coro_callable, *args)
+        if self._invoke_as_tasks:
+            return self._loop.create_task(coro)
+        else:
+            return coro
 
-        async def _invoke(self, coro_callable, *args):
-            n = next(self._count)
-            fmt = 'Acquiring semaphore for coroutine {count} with args {args}'
-            print(fmt.format(count=n, args=args))
-            await self._sem.acquire()
-            fmt = 'Semaphore acquired. Invoking coroutine {count} with args {args}'
-            print(fmt.format(count=n, args=args))
-            try:
-                return await coro_callable(*args)
-            finally:
-                print('Coroutine {count} finished, releasing semaphore'.format(
+    async def _invoke(self, coro_callable, *args):
+        n = next(self._count)
+        fmt = "Acquiring semaphore for coroutine {count} with args {args}"
+        print(fmt.format(count=n, args=args))
+        await self._sem.acquire()
+        fmt = "Semaphore acquired. Invoking coroutine {count} with args {args}"
+        print(fmt.format(count=n, args=args))
+        try:
+            return await coro_callable(*args)
+        finally:
+            print(
+                "Coroutine {count} finished, releasing semaphore".format(
                     count=n,
-                ))
-                self._sem.release()
+                )
+            )
+            self._sem.release()
 
 
 # modified fetch function with semaphore, to reduce choking/bottlenecking
@@ -284,38 +293,39 @@ async def fetch(url, session):
 
 
 async def bound_fetch(sem, url, session):
-# Getter function with semaphore, to reduce choking/bottlenecking
+    # Getter function with semaphore, to reduce choking/bottlenecking
     async with sem:
         hold_door = []
         hold_the_door = ""
-        hodor = url.rstrip('\n') #strip trailing line from ip
+        hodor = url.rstrip("\n")  # strip trailing line from ip
         try:
-            hold_door = socket.gethostbyaddr(hodor) #convert ip to url
+            hold_door = socket.gethostbyaddr(hodor)  # convert ip to url
         except socket.herror:
             pass
         try:
             chakra = hold_door[0]
-            hold_the_door = str(chakra) #take the first slice, the "url address" from the gethostbyaddr output & Do as str
+            hold_the_door = str(
+                chakra
+            )  # take the first slice, the "url address" from the gethostbyaddr output & Do as str
         except IndexError:
             pass
-        #print(hold_the_door) #debug message to check correct slice is being taken
-        await fetch(hold_the_door, session) #Will print the slice regardless
+        # print(hold_the_door) #debug message to check correct slice is being taken
+        await fetch(hold_the_door, session)  # Will print the slice regardless
         pass
-
 
 
 async def run(r):
     tasks = []
     # create instance of Semaphore thats 1/10th of the amount of IPs to be scanned
-    sem = asyncio.Semaphore(r/10)
+    sem = asyncio.Semaphore(r / 10)
     # Create client session that will ensure we dont open new connection
     # per each request.
     async with aiohttp.ClientSession() as session:
         # Try to pull 1 IP at a time and return it as a simple string.
-        with open('IPLogList.txt') as cachedIPs:
+        with open("IPLogList.txt") as cachedIPs:
             for line in cachedIPs:
                 line.rstrip()
-                #print("Stripped Line Debug:" + line) #Stripped Line Debug:4.30.73.175 # Ok so at this stage the IP address is fine.
+                # print("Stripped Line Debug:" + line) #Stripped Line Debug:4.30.73.175 # Ok so at this stage the IP address is fine.
                 # pass Semaphore and session to every GET request
                 task = bound_fetch(sem, line, session)
                 tasks.append(task)
@@ -327,4 +337,3 @@ def menu():
     global IPList
     amount = input("How many IP addresses do you want to scan: ")
     makeips(amount)
-

