@@ -3,16 +3,19 @@
 # See LICENSE for license details.
 
 try:
-    import re, random, threading, socket, urllib.request, urllib.error, urllib.parse, http.cookiejar, subprocess, \
-        time, sys, os, math, itertools, queue, asyncio, aiohttp, argparse, socks, httplib2, requests, codecs
+    import re, random, threading, socket, urllib.request, urllib.error, urllib.parse, http.cookiejar, subprocess, time, sys, os, math, itertools, queue, asyncio, aiohttp, argparse, socks, httplib2, requests, codecs
     from signal import SIGINT, signal
     from codecs import lookup, register
     from random import SystemRandom
 
 except:
-    print(" please make sure you have all of the following modules: asyncio, aiohttp, codecs, requests")
+    print(
+        " please make sure you have all of the following modules: asyncio, aiohttp, codecs, requests"
+    )
     print(" httplib2, signal, itertools")
-    print("Error a module was not found,  'sudo pip3 install <package name>' to install")
+    print(
+        "Error a module was not found,  'sudo pip3 install <package name>' to install"
+    )
     exit()
 
 import ftplib
@@ -22,15 +25,17 @@ from sys import argv, stdout
 from threading import Thread, Lock
 
 
-msf_Vulns = [line.strip() for line in open("vuln-ftp-checklist.txt", 'r')]
-honeypot_ranges = str(line.rsplit('\n') for line in open("honeypot_ranges.txt", 'r'))
+msf_Vulns = [line.strip() for line in open("vuln-ftp-checklist.txt", "r")]
+honeypot_ranges = str(line.rsplit("\n") for line in open("honeypot_ranges.txt", "r"))
 
 
 def killpid(signum=0, frame=0):
     print("\r\x1b[K")
     os.kill(os.getpid(), 9)
 
+
 signal(SIGINT, killpid)
+
 
 class myThread(Thread):
     def __init__(self, threadID, name, q):
@@ -49,19 +54,40 @@ class Timer:
 
     def __exit__(self, *args):
         taken = time.time() - self.start
-        seconds = int(time.strftime('%S', time.gmtime(taken)))
-        minutes = int(time.strftime('%M', time.gmtime(taken)))
-        hours = int(time.strftime('%H', time.gmtime(taken)))
+        seconds = int(time.strftime("%S", time.gmtime(taken)))
+        minutes = int(time.strftime("%M", time.gmtime(taken)))
+        hours = int(time.strftime("%H", time.gmtime(taken)))
         if minutes > 0:
             if hours > 0:
-                print(" [*] Time elapsed " + str(hours) + " hours, " + str(minutes) + " minutes and " + str(
-                    seconds) + " seconds at " + str(round(len(IPList) / taken, 2)) + " scans per second.")
+                print(
+                    " [*] Time elapsed "
+                    + str(hours)
+                    + " hours, "
+                    + str(minutes)
+                    + " minutes and "
+                    + str(seconds)
+                    + " seconds at "
+                    + str(round(len(IPList) / taken, 2))
+                    + " scans per second."
+                )
             else:
-                print(" [*] Time elapsed " + str(minutes) + " minutes and " + str(seconds) + " seconds at " + str(
-                    round(len(IPList) / taken, 2)) + " scans per second.")
+                print(
+                    " [*] Time elapsed "
+                    + str(minutes)
+                    + " minutes and "
+                    + str(seconds)
+                    + " seconds at "
+                    + str(round(len(IPList) / taken, 2))
+                    + " scans per second."
+                )
         else:
-            print(" [*] Time elapsed " + str(seconds) + " seconds at " + str(
-                round(len(IPList) / taken, 2)) + " scans per second.")
+            print(
+                " [*] Time elapsed "
+                + str(seconds)
+                + " seconds at "
+                + str(round(len(IPList) / taken, 2))
+                + " scans per second."
+            )
 
 
 class Printer:
@@ -73,18 +99,34 @@ class Printer:
 def writeLog(iLogIP, wlcmMsg, anon):
     if anon == 1:
         anon = "Anonymous login allowed!\n\n---------------------------------------"
-        FTPLogFile = open('FTPAnonLogFile.txt', 'a')
-        FTPLogFile.write('\nFTP found dbg 2 @' + iLogIP + '\n' + 'Welcome message from FTP:\n' + wlcmMsg + '\n' + anon)
+        FTPLogFile = open("FTPAnonLogFile.txt", "a")
+        FTPLogFile.write(
+            "\nFTP found dbg 2 @"
+            + iLogIP
+            + "\n"
+            + "Welcome message from FTP:\n"
+            + wlcmMsg
+            + "\n"
+            + anon
+        )
         FTPLogFile.close()
     if anon == 0:
         anon = "Anonymous login NOT allowed!\n\n---------------------------------------"
-        FTPLogFile = open('FTPPrivateLogFile.txt', 'a')
-        FTPLogFile.write('\nFTP found dbg 3 @' + iLogIP + '\n' + 'Welcome message from FTP:\n' + wlcmMsg + '\n' + anon)
+        FTPLogFile = open("FTPPrivateLogFile.txt", "a")
+        FTPLogFile.write(
+            "\nFTP found dbg 3 @"
+            + iLogIP
+            + "\n"
+            + "Welcome message from FTP:\n"
+            + wlcmMsg
+            + "\n"
+            + anon
+        )
         FTPLogFile.close()
 
 
 def writeheaders(header):
-    headerlog = open('headers.txt', 'a')
+    headerlog = open("headers.txt", "a")
     headerlog.write(header)
     headerlog.close()
 
@@ -117,23 +159,34 @@ def ftpscan(threadName, q):
             queueLock.release()
             loginftp = False
             progdone = len(IPList) - workQueue.qsize()
-            livelog = " [>] Trying " + str(progdone) + "/" + str(len(IPList)) + " " + data
+            livelog = (
+                " [>] Trying " + str(progdone) + "/" + str(len(IPList)) + " " + data
+            )
             Printer(livelog)
             try:
                 connection = FTP(data, timeout=3)
                 wlcmMsg = connection.getwelcome()
-                wlcmMsg2 = str(wlcmMsg.split('\n', 1)[0])
+                wlcmMsg2 = str(wlcmMsg.split("\n", 1)[0])
                 loginftp = True
                 FTPs.append(data)
                 FCheck = False
                 iphead = str(data) + "%" + str(wlcmMsg2)
                 headers.append(str(iphead))
                 tagget = str(wlcmMsg2) in msf_Vulns
-                if tagget >=0:
+                if tagget >= 0:
                     vulns_got = str("True")
                 else:
                     vulns_got = str("False")
-                print("\r\x1b[K [*] Found FTP @ " + O + str(data) + B + "  >  " + str(wlcmMsg2) +  " & Possible Vuln Detected=" + str(vulns_got))
+                print(
+                    "\r\x1b[K [*] Found FTP @ "
+                    + O
+                    + str(data)
+                    + B
+                    + "  >  "
+                    + str(wlcmMsg2)
+                    + " & Possible Vuln Detected="
+                    + str(vulns_got)
+                )
                 IPNumX = connection.retrlines(vulns_got)
                 if loginftp:
                     try:
@@ -158,31 +211,31 @@ def killpid(signum=0, frame=0):
 
 
 def log(result, ip, banner):
-    output = open('logo-output.txt', 'a')
-    output.write('IP: %s\nBanner: %s\nExploits: \n' % (ip, banner))
+    output = open("logo-output.txt", "a")
+    output.write("IP: %s\nBanner: %s\nExploits: \n" % (ip, banner))
     for r in result:
-        output.write('\t' + r + '\n')
-    output.write('-----------------  NEXT  ------------------------\n')
+        output.write("\t" + r + "\n")
+    output.write("-----------------  NEXT  ------------------------\n")
     output.close()
 
 
 def scan_string(header):
     result = []
-    pwd = path.join(path.dirname(str(path.realpath(__file__))), 'metasploit-vulns.txt')
-    vuln_banners = open(pwd, 'r')
+    pwd = path.join(path.dirname(str(path.realpath(__file__))), "metasploit-vulns.txt")
+    vuln_banners = open(pwd, "r")
     for banner in vuln_banners:
-        b = banner.split('\t')
-        payload = 'microsoft'
+        b = banner.split("\t")
+        payload = "microsoft"
         try:
             if any("/driver/" in s for s in b):
-                c = b[0].split('/driver/')
-                payload = str(c[1]).split('_')[0]
+                c = b[0].split("/driver/")
+                payload = str(c[1]).split("_")[0]
             if not any("/driver/" in s for s in b):
-                c = b[0].split('/ftp/')
-                payload = str(c[1]).split('_')[0]
+                c = b[0].split("/ftp/")
+                payload = str(c[1]).split("_")[0]
         except:
             pass
-            if payload == 'ms09':
+            if payload == "ms09":
                 if payload.lower() in header.lower():
                     result.append(banner)
     return result
@@ -195,30 +248,41 @@ def vulnscan(queries):
         try:
             results = []
             queryls = []
-            queryls = query.split('%')
+            queryls = query.split("%")
             ip = queryls[0]
             banner = queryls[1]
             results = scan_string(banner)
             if results:
                 log(results, ip, banner)
-                print(R + 'Banner: ' + O + banner)
-                print(B + 'IP: ' + O + ip)
-                print(O + "\n[+]" + B + " Bingo! Found (possible) matching exploits for " + O + str(ip) + B)
+                print(R + "Banner: " + O + banner)
+                print(B + "IP: " + O + ip)
+                print(
+                    O
+                    + "\n[+]"
+                    + B
+                    + " Bingo! Found (possible) matching exploits for "
+                    + O
+                    + str(ip)
+                    + B
+                )
                 for r in results:
                     print(R + r)
-                print('-----------------  NEXT  ------------------------\n')
+                print("-----------------  NEXT  ------------------------\n")
             else:
                 pass
         except:
             pass
 
 
-parser = argparse.ArgumentParser(prog='ftpscanner', usage='ftpscanner [options]')
-parser.add_argument('-t', "--threads", type=int, help='number of threads (default: 1000)')
-parser.add_argument('-i', "--ips", type=int, help='number of random ips to scan')
+parser = argparse.ArgumentParser(prog="ftpscanner", usage="ftpscanner [options]")
+parser.add_argument(
+    "-t", "--threads", type=int, help="number of threads (default: 1000)"
+)
+parser.add_argument("-i", "--ips", type=int, help="number of random ips to scan")
 args = parser.parse_args()
 
-print('''  __ _
+print(
+    """  __ _
  / _| |_ _ __  ___  ___ __ _ _ __  _ __   ___ _ __
 | |_| __| '_ \/ __|/ __/ _` | '_ \| '_ \ / _ \ '__|
 |  _| |_| |_) \__ \ (_| (_| | | | | | | |  __/ |
@@ -226,7 +290,8 @@ print('''  __ _
         |_| Original By Sam & d4rkcat
         V3n0M Metasploitable Scanner Version 1.0
               Python3 Recode&Upgrade: By NovaCygni
-''')
+"""
+)
 
 if len(argv) == 1:
     parser.print_help()
@@ -281,7 +346,11 @@ with Timer():
     for t in threads:
         t.join()
 
-print("\r\x1b[K\n [*] All threads complete, " + str(len(FTPs)) + " IPs found.. Starting Vuln Scan..")
+print(
+    "\r\x1b[K\n [*] All threads complete, "
+    + str(len(FTPs))
+    + " IPs found.. Starting Vuln Scan.."
+)
 
 if FTPs:
     vulnscan(headers)
