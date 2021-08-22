@@ -1916,7 +1916,7 @@ O = "\033[33m"
 B = "\033[34m"
 
 
-def cache_check():
+def cache_Check():
     global cachestatus
     my_file1 = Path("v3n0m-lfi.txt")
     my_file2 = Path("v3n0m-rce.txt")
