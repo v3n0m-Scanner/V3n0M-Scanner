@@ -1590,7 +1590,7 @@ def f_menu():
         print(W + "")
         enable_proxy()
     elif chce == "6":
-        cloud()
+        cloudflare_resolver()
         f_menu()
     elif chce == "7":
         current = os.getcwd()
