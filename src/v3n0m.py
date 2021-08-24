@@ -22,11 +22,11 @@ try:
     import toxin
     from urllib3.exceptions import InsecureRequestWarning
 
-"""
-    Recovery menu. Very hack, much force, very efficient.
-    Maybe this can be replaced later, for some reason it requires being run every instance.
-    This is a memory drain and resource hog but it gets the job done. R. Stallman forgive us all.
-"""
+
+#    Recovery menu. Very hack, much force, very efficient.
+#    Maybe this can be replaced later, for some reason it requires being run every instance.
+#    This is a memory drain and resource hog but it gets the job done. R. Stallman forgive us all.
+#
     requests.packages.urllib3.disable_warnings()
 except Exception as verb:
     print("\n|------ PYTHON PROBLEM DETECTED! Recovery Menu Enabled -----| ")
@@ -1584,16 +1584,17 @@ def f_menu():
         toxin.menu()
     elif chce == "4":
         target_site = input("Enter the site eg target.com: ")
-        print("[1] Normal Scan suitable for average sites")
-        print(
-            "[2] Scan All The Things, if its on the internet, we'll find it... Go cook a cake, this will take a LONG time"
-        )
+        print("[1] Normal Scan")
+        print("[2] Scan All The Things; if it's on the internet, we'll find it...")
         scan_everything = input(":")
         att = ""
         if scan_everything == "1":
             att = str(" ")
         elif scan_everything == "2":
             att = str("att")
+        print("Go cook a cake, this will take a LONG time.") 
+        # [*] Time elapsed 8 minutes and 17 seconds at 40.19 lookups per second.
+        # ^C gives time to complete even after sigkill received. ex: 200 threads == ~10 mins.
         print(B)
         pwd = os.path.dirname(str(os.path.realpath(__file__)))
         dnsbrute = subprocess.Popen(
@@ -1602,7 +1603,7 @@ def f_menu():
             + "/modules/dnsbrute.py -w lists/subdomains -u "
             + str(target_site)
             + att
-            + " -t 200",
+            + " -t 200", # number of threads to assign can be adjusted
             shell=True,
         )
         dnsbrute.communicate()
