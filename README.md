@@ -23,7 +23,7 @@
 - [x] Largest and most powerful d0rker online, searching 14k+ dorks over several engines at once.
 - [x] Free and Open /src/
 - [x] Cross-platform Python-based toolkit
-- [x] Licensed under GPLv3
+- [x] Licensed under GPLv2
 - [x] Built by hackers with full transparency
 
 ![Example of SQLi Dorker](https://github.com/v3n0m-Scanner/V3n0M-Scanner/blob/master/src/AnimatedDemo.gif?raw=true "Example of Dorker Features")
