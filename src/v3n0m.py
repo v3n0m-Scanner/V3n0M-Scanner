@@ -1850,7 +1850,7 @@ xsses = [line.strip() for line in open("lists/xsses", "r", encoding="utf-8")]
 lfis = [line.strip() for line in open("lists/pathtotest.txt", "r", encoding="utf-8")]
 tables = [line.strip() for line in open("lists/tables", "r", encoding="utf-8")]
 columns = [line.strip() for line in open("lists/columns", "r", encoding="utf-8")]
-search_ignore = [line.strip() for line in open("lists/ignore.txt", "r", encoding="utf-8")]
+search_ignore = [line.strip() for line in open("lists/ignore", "r", encoding="utf-8")]
 
 random.shuffle(header)
 random.shuffle(lfis)
