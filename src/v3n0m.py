@@ -22,11 +22,10 @@ try:
     import toxin
     from urllib3.exceptions import InsecureRequestWarning
 
-
-#    Recovery menu. Very hack, much force, very efficient.
-#    Maybe this can be replaced later, for some reason it requires being run every instance.
-#    This is a memory drain and resource hog but it gets the job done. R. Stallman forgive us all.
-#
+    #    Recovery menu. Very hack, much force, very efficient.
+    #    Maybe this can be replaced later, for some reason it requires being run every instance.
+    #    This is a memory drain and resource hog but it gets the job done. R. Stallman forgive us all.
+    #
     requests.packages.urllib3.disable_warnings()
 except Exception as verb:
     print("\n|------ PYTHON PROBLEM DETECTED! Recovery Menu Enabled -----| ")
@@ -71,7 +70,9 @@ except Exception as verb:
             )
             time.sleep(6)
             os.kill(os.getpid(), 9)
-        print("You will have 10 seconds to cancel (Ctrl^C) this action before the process begins.")
+        print(
+            "You will have 10 seconds to cancel (Ctrl^C) this action before the process begins."
+        )
         print(
             "Note: this will entirely reinstall all current modules as well, to clear possible problems."
         )
@@ -100,7 +101,9 @@ except Exception as verb:
             )
             time.sleep(6)
             os.kill(os.getpid(), 9)
-        print("You will have 10 seconds to cancel this action before the system begins.")
+        print(
+            "You will have 10 seconds to cancel this action before the system begins."
+        )
         time.sleep(10)
         call("pip3 install termcolor --upgrade --user ", shell=True)
         call("pip3 install aiohttp --upgrade --user ", shell=True)
@@ -156,6 +159,7 @@ def donations():
 # It also displays whether Tor etc. is involved.
 #
 # cachestatus() essentially shows your current vulns each concurrent run.
+
 
 def logo():
     cache_Check()
@@ -680,15 +684,13 @@ def sqli_scanning(url):
             resp = urllib.request.urlopen(aug_url, timeout=2)
         except:
 
-#   If response is not, code 200 instead of passing nothing, causing hanging.
-#   It hangs enough.
-#
-            resp = str(
-                "v3n0m"
-            )
+            #   If response is not, code 200 instead of passing nothing, causing hanging.
+            #   It hangs enough.
+            #
+            resp = str("v3n0m")
 
-#   Let's throw a value to stop null/non 200 status messages hanging the scanner.
-#
+        #   Let's throw a value to stop null/non 200 status messages hanging the scanner.
+        #
         hits = str(resp.read())
         with open("v3n0m-sqli.txt", "a+", encoding="utf-8") as sqli_log_file:
             if str("error in your SQL syntax") in hits:
@@ -836,7 +838,7 @@ def sqli_scanning(url):
         pass
 
 
-def life_pulse(): # Don't change this because you will break me.
+def life_pulse():  # Don't change this because you will break me.
     global life
     pulse_1 = datetime.now()
     life = pulse_1 - pulse
@@ -1588,7 +1590,7 @@ def f_menu():
             att = str(" ")
         elif scan_everything == "2":
             att = str("att")
-        print("Go cook a cake, this will take a LONG time.") 
+        print("Go cook a cake, this will take a LONG time.")
         # [*] Time elapsed 8 minutes and 17 seconds at 40.19 lookups per second.
         # ^C gives time to complete even after sigkill received. ex: 200 threads == ~10 mins.
         print(B)
@@ -1599,7 +1601,7 @@ def f_menu():
             + "/modules/dnsbrute.py -w lists/subdomains -u "
             + str(target_site)
             + att
-            + " -t 200", # number of threads to assign can be adjusted
+            + " -t 200",  # number of threads to assign can be adjusted
             shell=True,
         )
         dnsbrute.communicate()
@@ -1854,9 +1856,9 @@ random.shuffle(lfis)
 
 def enable_proxy():
 
-#    Declare global ProxyEnabled and ask for input to proxytype.
-#    User selects type of proxy, pass/no pass, etc.
-#    Later this will default to Tor / 127.0.0.1.
+    #    Declare global ProxyEnabled and ask for input to proxytype.
+    #    User selects type of proxy, pass/no pass, etc.
+    #    Later this will default to Tor / 127.0.0.1.
 
     import time
 
@@ -1912,7 +1914,7 @@ def enable_proxy():
                         password=input("Proxy Account Password  :"),
                     )
 
-# Highly recommend Tor. It's not slow at all, literally.
+                    # Highly recommend Tor. It's not slow at all, literally.
 
                     print(" Socks 5 Proxy Support Enabled")
                     socks.socket = socks.socksocket
@@ -1960,6 +1962,7 @@ def cache_Check():
         cachestatus = "** Cache NOT Empty**"
     else:
         cachestatus = "Logs Cache is Empty "
+
 
 # This is the counter section, to displays found SQLi, LFI, XSS vulns, etc.
 # Declare global count for each saved value, display value to stderr above f_menu().

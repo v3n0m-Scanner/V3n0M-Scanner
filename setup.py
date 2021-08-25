@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 
-from setuptools import setup
+from setuptools import setup, find_namespace_packages
+
+packages=find_namespace_packages(include=['v3n0m.*'])
 
 with open("README.md", "r") as descript:
     long_describe = descript.read()
@@ -19,6 +21,7 @@ setup(
     license='GPL',
     package_dir={'v3n0m': 'src'},
     packages=['v3n0m'],
+
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
