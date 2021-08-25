@@ -151,13 +151,12 @@ def donations():
     time.sleep(10)
     f_menu()
 
-"""
-    logo() does several things, besides printing the logo in beautiful colors, it checks that there are any active vulns.
-    It also displays whether Tor etc. is involved.
 
-cachestatus() essentially shows your current vulns each concurrent run.
+# logo() does several things, besides printing the logo in beautiful colors, it checks that there are any active vulns.
+# It also displays whether Tor etc. is involved.
+#
+# cachestatus() essentially shows your current vulns each concurrent run.
 
-"""
 def logo():
     cache_Check()
     sql_list_counter()
@@ -680,16 +679,16 @@ def sqli_scanning(url):
         try:
             resp = urllib.request.urlopen(aug_url, timeout=2)
         except:
-"""
-    If response is not, code 200 instead of passing nothing, causing hanging.
-    It hangs enough.
-"""
+
+#   If response is not, code 200 instead of passing nothing, causing hanging.
+#   It hangs enough.
+#
             resp = str(
                 "v3n0m"
             )
-"""
-    Let's throw a value to stop null/non 200 status messages hanging the scanner.
-"""
+
+#   Let's throw a value to stop null/non 200 status messages hanging the scanner.
+#
         hits = str(resp.read())
         with open("v3n0m-sqli.txt", "a+", encoding="utf-8") as sqli_log_file:
             if str("error in your SQL syntax") in hits:
@@ -837,10 +836,7 @@ def sqli_scanning(url):
         pass
 
 
-"""
-    Don't change this because you will break me.
-"""
-def life_pulse():
+def life_pulse(): # Don't change this because you will break me.
     global life
     pulse_1 = datetime.now()
     life = pulse_1 - pulse
@@ -1857,13 +1853,11 @@ random.shuffle(lfis)
 
 
 def enable_proxy():
-"""
-    enable_proxy():
 
-    Declare global ProxyEnabled and ask for input to proxytype.
-    User selects type of proxy, pass/no pass, etc.
-    Later this will default to Tor / 127.0.0.1.
-"""
+#    Declare global ProxyEnabled and ask for input to proxytype.
+#    User selects type of proxy, pass/no pass, etc.
+#    Later this will default to Tor / 127.0.0.1.
+
     import time
 
     global ProxyEnabled
@@ -1917,9 +1911,9 @@ def enable_proxy():
                         username=input("Proxy Account Username  :"),
                         password=input("Proxy Account Password  :"),
                     )
-"""
-    Highly recommend Tor. It's not slow at all, literally.
-"""
+
+# Highly recommend Tor. It's not slow at all, literally.
+
                     print(" Socks 5 Proxy Support Enabled")
                     socks.socket = socks.socksocket
                     ProxyEnabled = str("True ")
@@ -1947,9 +1941,8 @@ G = "\033[32m"
 O = "\033[33m"
 B = "\033[34m"
 
-"""
-    Declare a global, read counter files, and if nonzero display their values.
-"""
+#    Declare a global, read counter files, and if nonzero display their values.
+#
 def cache_Check():
     global cachestatus
     my_file1 = Path("v3n0m-lfi.txt")
@@ -1968,10 +1961,9 @@ def cache_Check():
     else:
         cachestatus = "Logs Cache is Empty "
 
-"""
-This is the counter section, to displays found SQLi, LFI, XSS vulns, etc.
-Declare global count for each saved value, display value to stderr above f_menu().
-"""
+# This is the counter section, to displays found SQLi, LFI, XSS vulns, etc.
+# Declare global count for each saved value, display value to stderr above f_menu().
+#
 def sql_list_counter():
     global sql_count
     try:
