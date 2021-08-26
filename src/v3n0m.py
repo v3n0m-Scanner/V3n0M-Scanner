@@ -22,6 +22,10 @@ try:
     import toxin
     from urllib3.exceptions import InsecureRequestWarning
 
+    #    Recovery menu. Very hack, much force, very efficient.
+    #    Maybe this can be replaced later, for some reason it requires being run every instance.
+    #    This is a memory drain and resource hog but it gets the job done. R. Stallman forgive us all.
+    #
     requests.packages.urllib3.disable_warnings()
 except Exception as verb:
     print("\n|------ PYTHON PROBLEM DETECTED! Recovery Menu Enabled -----| ")
@@ -49,7 +53,7 @@ except Exception as verb:
     print(" ")
     print(" ")
     print(
-        " Note: Both recovery options will at the end, perform a check at the end so everything is upto date"
+        " Note: Both recovery options perform a check that everything is up to date afterwards."
     )
     chce = input(":")
     import time
@@ -58,17 +62,19 @@ except Exception as verb:
 
     if chce == "1":
         sys.stdout.flush()
-        print("Warning This will force upgrade all Python3.6 modules")
+        print("Warning: this will force upgrade all Python 3.6 modules required.")
         euid = os.geteuid()
         if euid == 0:
             print(
-                "You Cannot perform any upgrades or repairs while logged in with root permissions, please restart v3n0m."
+                "You cannot perform any upgrades or repairs while logged in with root permissions, please restart v3n0m."
             )
             time.sleep(6)
             os.kill(os.getpid(), 9)
-        print("You will have 10 seconds to cancel this action before the system begins")
         print(
-            "Note: This will entirely reinstall all current installed modules aswell to clear possible problems"
+            "You will have 10 seconds to cancel (Ctrl^C) this action before the process begins."
+        )
+        print(
+            "Note: this will entirely reinstall all current modules as well, to clear possible problems."
         )
         time.sleep(10)
         for dist in pip.get_installed_distributions():
@@ -86,16 +92,18 @@ except Exception as verb:
     if chce == "2":
         sys.stdout.flush()
         print(
-            "This will install the missing modules and upgrade them to current versions then update your Python3.6 entirely"
+            "This will install the missing modules and upgrade them to current versions then update your Python 3.6."
         )
         euid = os.geteuid()
         if euid == 0:
             print(
-                "You Cannot perform any upgrades or repairs while logged in with root permissions, please restart v3n0m."
+                "You cannot perform any upgrades or repairs while logged in with root permissions, please restart v3n0m."
             )
             time.sleep(6)
             os.kill(os.getpid(), 9)
-        print("You will have 10 seconds to cancel this action before the system begins")
+        print(
+            "You will have 10 seconds to cancel this action before the system begins."
+        )
         time.sleep(10)
         call("pip3 install termcolor --upgrade --user ", shell=True)
         call("pip3 install aiohttp --upgrade --user ", shell=True)
@@ -147,6 +155,12 @@ def donations():
     f_menu()
 
 
+# logo() does several things, besides printing the logo in beautiful colors, it checks that there are any active vulns.
+# It also displays whether Tor etc. is involved.
+#
+# cachestatus() essentially shows your current vulns each concurrent run.
+
+
 def logo():
     cache_Check()
     sql_list_counter()
@@ -173,7 +187,7 @@ def logo():
     print(
         " "
         + O
-        + "Please check the Misc Options for Donations Options, Thank you "
+        + "Please check the misc options in the menu for donations options, thank you. "
         + R
         + "         "
     )
@@ -668,10 +682,15 @@ def sqli_scanning(url):
     try:
         try:
             resp = urllib.request.urlopen(aug_url, timeout=2)
-        except:  # if response is not Code:200 then instead of passing nothing causing hanging
-            resp = str(
-                "v3n0m"
-            )  # to throw a value to stop null/non-200-status messages hanging the scanner
+        except:
+
+            #   If response is not, code 200 instead of passing nothing, causing hanging.
+            #   It hangs enough.
+            #
+            resp = str("v3n0m")
+
+        #   Let's throw a value to stop null/non 200 status messages hanging the scanner.
+        #
         hits = str(resp.read())
         with open("v3n0m-sqli.txt", "a+", encoding="utf-8") as sqli_log_file:
             if str("error in your SQL syntax") in hits:
@@ -819,7 +838,7 @@ def sqli_scanning(url):
         pass
 
 
-def life_pulse():
+def life_pulse():  # Don't change this because you will break me.
     global life
     pulse_1 = datetime.now()
     life = pulse_1 - pulse
@@ -1563,16 +1582,17 @@ def f_menu():
         toxin.menu()
     elif chce == "4":
         target_site = input("Enter the site eg target.com: ")
-        print("[1] Normal Scan suitable for average sites")
-        print(
-            "[2] Scan All The Things, if its on the internet, we'll find it... Go cook a cake, this will take a LONG time"
-        )
+        print("[1] Normal Scan")
+        print("[2] Scan All The Things; if it's on the internet, we'll find it...")
         scan_everything = input(":")
         att = ""
         if scan_everything == "1":
             att = str(" ")
         elif scan_everything == "2":
             att = str("att")
+        print("Go cook a cake, this will take a LONG time.")
+        # [*] Time elapsed 8 minutes and 17 seconds at 40.19 lookups per second.
+        # ^C gives time to complete even after sigkill received. ex: 200 threads == ~10 mins.
         print(B)
         pwd = os.path.dirname(str(os.path.realpath(__file__)))
         dnsbrute = subprocess.Popen(
@@ -1581,7 +1601,7 @@ def f_menu():
             + "/modules/dnsbrute.py -w lists/subdomains -u "
             + str(target_site)
             + att
-            + " -t 200",
+            + " -t 200",  # number of threads to assign can be adjusted
             shell=True,
         )
         dnsbrute.communicate()
@@ -1590,7 +1610,7 @@ def f_menu():
         print(W + "")
         enable_proxy()
     elif chce == "6":
-        cloud()
+        cloudflare_resolver()
         f_menu()
     elif chce == "7":
         current = os.getcwd()
@@ -1835,6 +1855,11 @@ random.shuffle(lfis)
 
 
 def enable_proxy():
+
+    #    Declare global ProxyEnabled and ask for input to proxytype.
+    #    User selects type of proxy, pass/no pass, etc.
+    #    Later this will default to Tor / 127.0.0.1.
+
     import time
 
     global ProxyEnabled
@@ -1888,6 +1913,9 @@ def enable_proxy():
                         username=input("Proxy Account Username  :"),
                         password=input("Proxy Account Password  :"),
                     )
+
+                    # Highly recommend Tor. It's not slow at all, literally.
+
                     print(" Socks 5 Proxy Support Enabled")
                     socks.socket = socks.socksocket
                     ProxyEnabled = str("True ")
@@ -1915,7 +1943,8 @@ G = "\033[32m"
 O = "\033[33m"
 B = "\033[34m"
 
-
+#    Declare a global, read counter files, and if nonzero display their values.
+#
 def cache_Check():
     global cachestatus
     my_file1 = Path("v3n0m-lfi.txt")
@@ -1935,6 +1964,9 @@ def cache_Check():
         cachestatus = "Logs Cache is Empty "
 
 
+# This is the counter section, to displays found SQLi, LFI, XSS vulns, etc.
+# Declare global count for each saved value, display value to stderr above f_menu().
+#
 def sql_list_counter():
     global sql_count
     try:

