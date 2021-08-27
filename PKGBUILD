@@ -1,8 +1,8 @@
 pkgname='v3n0m'
-pkgver=254.9c9b7ad
+pkgver=383.1a9c19d4
 pkgrel=1
 groups=('blackarch' 'blackarch-scanner' 'blackarch-webapp' 'blackarch-recon')
-pkgdesc='A tool to automate mass SQLi d0rk scans and Metasploit Vulns.'
+pkgdesc='Offensive Security Tool for Vulnerability Scanning & Pentesting'
 arch=('any')
 url='https://github.com/v3n0m-Scanner/V3n0M-Scanner'
 license=('GPL3')

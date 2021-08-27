@@ -6,6 +6,7 @@
 ![os](https://img.shields.io/badge/OS-Linux,%20Windows-green.svg)
 ![pythonver](https://img.shields.io/badge/python-3.6%2B-green.svg)
 [![License: GPL v2](https://img.shields.io/badge/License-GPLv2-green.svg)](https://www.gnu.org/licenses/gpl-2.0)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 ##### Features
 - [x] In its current state, it will only work with torrc `MAX CIRCUIT DIRTINESS` of 10
