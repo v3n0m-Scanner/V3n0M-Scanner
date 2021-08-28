@@ -3,164 +3,26 @@
 # This file is part of v3n0m
 # See LICENSE for license details.
 
-try:
-    import re, random, threading, socket, urllib.request, urllib.error, urllib.parse, http.cookiejar, subprocess, time, sys, os, math, itertools, queue, asyncio, aiohttp, argparse, socks, httplib2, requests, zipfile, concurrent.futures
-    from signal import SIGINT, signal
-    import bs4, tqdm
-    from glob import glob
-    from pathlib import Path
-    from codecs import lookup, register
-    from random import SystemRandom
-    from socket import *
-    from datetime import *
-    from aiohttp import web
-    from aio_ping import ping
-    import async_timeout
-    import tty
-    import inspect
-    from functools import wraps
-    import toxin
-    from urllib3.exceptions import InsecureRequestWarning
+import re, random, threading, socket, urllib.request, urllib.error, urllib.parse, http.cookiejar, subprocess, time, sys, os, math, itertools, queue, asyncio, aiohttp, argparse, socks, httplib2, requests, zipfile, concurrent.futures
+from signal import SIGINT, signal
+import bs4, tqdm
+from glob import glob
+from pathlib import Path
+from codecs import lookup, register
+from random import SystemRandom
+from socket import *
+from datetime import *
+from aiohttp import web
+import async_timeout
+import inspect
+from functools import wraps
+import toxin
+from urllib3.exceptions import InsecureRequestWarning
 
-    #    Recovery menu. Very hack, much force, very efficient.
-    #    Maybe this can be replaced later, for some reason it requires being run every instance.
-    #    This is a memory drain and resource hog but it gets the job done. R. Stallman forgive us all.
-    #
-    requests.packages.urllib3.disable_warnings()
-except Exception as verb:
-    print("\n|------ PYTHON PROBLEM DETECTED! Recovery Menu Enabled -----| ")
-    print(" ")
-    print(" ")
-    print(" Exception Error Message encountered: " "" + str(verb))
-    print(" ")
-    print(" ")
-    print("|--- You are advised to run either or both steps below   ---| ")
-    print(
-        "|--- Recovery Menu :::: please let me know if you have any problems with it!   ---| "
-    )
-    print(
-        "| --Note, if your running Ubuntu you may need to run --> sudo apt-get install python3-bs4 --| "
-    )
-    print(" ")
-    print(
-        "             V3n0M python modules can be updated with either option below            "
-    )
-    print("[1] Run Pip3.6 and Auto-Update Python3.6 modules to latest versions, ")
-    print(
-        "[2] Auto-Install all the required v3n0m modules specified in the program requirements"
-    )
-    print("[3] Exit")
-    print(" ")
-    print(" ")
-    print(
-        " Note: Both recovery options perform a check that everything is up to date afterwards."
-    )
-    chce = input(":")
-    import time
-    import pip
-    from subprocess import call
-
-    if chce == "1":
-        sys.stdout.flush()
-        print("Warning: this will force upgrade all Python 3.6 modules required.")
-        euid = os.geteuid()
-        if euid == 0:
-            print(
-                "You cannot perform any upgrades or repairs while logged in with root permissions, please restart v3n0m."
-            )
-            time.sleep(6)
-            os.kill(os.getpid(), 9)
-        print(
-            "You will have 10 seconds to cancel (Ctrl^C) this action before the process begins."
-        )
-        print(
-            "Note: this will entirely reinstall all current modules as well, to clear possible problems."
-        )
-        time.sleep(10)
-        for dist in pip.get_installed_distributions():
-            call(
-                "pip3 install --upgrade --no-deps --force-reinstall --user "
-                + dist.project_name,
-                shell=True,
-            )
-            call(
-                "pip3 freeze --local --user | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip3 install -U --user",
-                shell=True,
-            )
-            subprocess._cleanup()
-        pass
-    if chce == "2":
-        sys.stdout.flush()
-        print(
-            "This will install the missing modules and upgrade them to current versions then update your Python 3.6."
-        )
-        euid = os.geteuid()
-        if euid == 0:
-            print(
-                "You cannot perform any upgrades or repairs while logged in with root permissions, please restart v3n0m."
-            )
-            time.sleep(6)
-            os.kill(os.getpid(), 9)
-        print(
-            "You will have 10 seconds to cancel this action before the system begins."
-        )
-        time.sleep(10)
-        call("pip3 install termcolor --upgrade --user ", shell=True)
-        call("pip3 install aiohttp --upgrade --user ", shell=True)
-        call("pip3 install asyncio --upgrade --user", shell=True)
-        call("pip3 install bs4 --upgrade --user", shell=True)
-        call("pip3 install dnspython --upgrade --user", shell=True)
-        call("pip3 install tqdm --upgrade --user", shell=True)
-        call("pip3 install datetime --upgrade --user", shell=True)
-        call("pip3 install requests --upgrade --user", shell=True)
-        call("pip3 install socksipy-branch --upgrade --user", shell=True)
-        call("pip3 install httplib2 --upgrade --user", shell=True)
-        call("pip3 install aio_ping --upgrade --user", shell=True)
-        call("pip3 install zipfile --upgrade --user", shell=True)
-        call(
-            "pip3 freeze --local --user | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip3 install -U --user",
-            shell=True,
-        )
-        subprocess._cleanup()
-    if chce == "3":
-        exit()
-__name__ = "__main__"
-
-
-def donations():
-    import time
-
-    print(B + "\n---------------------------------------------------------")
-    print(
-        ":"
-        + G
-        + "Bitcoin Address:"
-        + R
-        + "1DdfZzCFFFvRVkyVjG2ZPG7Udu6kMDh7Eb   "
-        + B
-        + " "
-    )
-    print(
-        ":"
-        + G
-        + "Etherium Address:"
-        + R
-        + "0x28AeAC2046b39da6A4De06B590c5FE8B0e65e3f0"
-        + B
-        + " "
-    )
-    print(":" + O + "All donations help keep this project going!")
-    print(B + "----------------------------------------------------------")
-    time.sleep(10)
-    f_menu()
-
-
-# logo() does several things, besides printing the logo in beautiful colors, it checks that there are any active vulns.
-# It also displays whether Tor etc. is involved.
+#   Recovery menu: removed in current vers. 
+#   To install modules for Venom, please 'pip install -r requirements.txt --no-cache'
+#   Ref: https://github.com/v3n0m-Scanner/V3n0M-Scanner/pull/195
 #
-# cachestatus() essentially shows your current vulns each concurrent run.
-
-
 def logo():
     cache_Check()
     sql_list_counter()
