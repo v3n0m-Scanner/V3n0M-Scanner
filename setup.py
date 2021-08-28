@@ -7,7 +7,7 @@ packages=find_namespace_packages(include=['v3n0m.*'])
 with open("README.md", "r") as descript:
     long_describe = descript.read()
 
-version = '431'
+version = '4.3.2'
 
 setup(
     name="venom",
@@ -18,7 +18,7 @@ setup(
     author='NovaCygni',
     author_email='novacygni@hotmail.co.uk',
     url='https://github.com/v3n0m-Scanner/V3n0M-Scanner',
-    license='GPL',
+    license='GPL3',
     package_dir={'v3n0m': 'src'},
     packages=['v3n0m'],
 

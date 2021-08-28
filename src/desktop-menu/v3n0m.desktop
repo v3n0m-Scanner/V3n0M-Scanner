@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=v3n0m
 Icon=/usr/share/icons/v3n0m.ico
-Comment=A Scanner for finding vulnerable websites/Ip's
+Comment=Offensive Security Tool for Vulnerability Scanning & Pentesting
 Exec=/usr/bin/v3n0m
 Terminal=true
 Type=Application
