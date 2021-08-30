@@ -2,9 +2,8 @@
 ![venom](https://i.ibb.co/M9FNKgM/snake-6470753.png)
 
 #### Offensive Security Tool for Vulnerability Scanning & Pentesting
-![build](https://img.shields.io/github/v/tag/V3n0M-Scanner/V3n0M-Scanner?color=green&label=Venom)
 ![os](https://img.shields.io/badge/OS-Linux,%20Windows-green.svg)
-![pythonver](https://img.shields.io/badge/python-3.6%2B-green.svg)
+[![pythonver](https://img.shields.io/badge/python-3.6%2B-green.svg)](https://www.python.org/downloads/release/python-3614)
 [![License: GPLV3](https://img.shields.io/badge/License-GPLv3-green.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
@@ -24,16 +23,19 @@
 - [x] Largest and most powerful d0rker online, searching 14k+ dorks over several engines at once.
 - [x] Free and Open /src/
 - [x] Cross-platform Python-based toolkit
-- [x] Licensed under GPLv2
+- [x] Licensed under GPLv3
 - [x] Built by hackers with full transparency
 
 ![Example of SQLi Dorker](https://github.com/v3n0m-Scanner/V3n0M-Scanner/blob/master/src/AnimatedDemo.gif?raw=true "Example of Dorker Features")
 
 ## Install note
 
-Clone the repository:
-```
+Pull it from [Docker Hub](https://hub.docker.com/repository/docker/vittring/venom):
+```bash
 docker pull vittring/venom:latest
+```
+or build it from here:
+```bash
 docker build -t vittring/venom:latest .
 docker run -ti vittring/venom:latest
 ```
