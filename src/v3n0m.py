@@ -554,9 +554,11 @@ def sqli_scanning(url):
         #   Let's throw a value to stop null/non 200 status messages hanging the scanner.
         #
         hits = str(resp.read())
+        remove_dups = []
         with open("v3n0m-sqli.txt", "a+", encoding="utf-8") as sqli_log_file:
             for error in sqli_errors:
-                if str(error) in hits:
+                if str(error) in hits and url not in remove_dups:
+                    remove_dups.append(url)
                     print(url + " is vulnerable --> %s" % str(error))
                     sqli_log_file.write("\n" + url)
                     vuln.append(hits)
