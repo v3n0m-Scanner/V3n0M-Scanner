@@ -3,8 +3,8 @@ aiohttp==3.8.0.post0
 asyncio==3.4.3
 bs4==0.0.1
 dnspython==2.1.0
-tqdm==4.61.2
+tqdm==4.62.3
 DateTime==4.3
-requests==2.26.0
-SocksiPy-branch==1.1
-httplib2==0.19.1
+requests==2.27.1
+SocksiPy-branch==1.01
+httplib2==0.20.2
