@@ -8,7 +8,7 @@
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 ##### Features
-- [x] In its current state, it will only work with torrc `MAX CIRCUIT DIRTINESS` of 10
+- [x] USE PROXIES/VPN 
 - [x] Cloudflare Resolver [Cloudbuster]
 - [x] LFI->RCE and XSS Scanning [LFI to RCE & XSS]
 - [x] SQL Injection Vuln Scanner [SQLi]
