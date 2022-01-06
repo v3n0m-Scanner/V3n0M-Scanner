@@ -3,7 +3,7 @@
 FROM python:3.6-slim
 
 LABEL maintainer="Architect" \
-      email="darkarch@riseup.net"
+      email="scissortail@riseup.net"
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
