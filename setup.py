@@ -31,7 +31,7 @@ setup(
         'Programming Language :: Python :: 3.6'],
     install_requires=[
         'termcolor==1.1.0',
-        'aiohttp==3.7.4.post0',
+        'aiohttp==3.8.0.post0',
         'asyncio==3.4.3',
         'bs4==0.0.1',
         'dnspython==2.1.0',
