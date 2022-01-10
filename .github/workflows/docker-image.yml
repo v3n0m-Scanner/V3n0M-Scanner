@@ -1,22 +1,22 @@
 name: CI
+
 on:
   push:
-    branches:
-      - 'main' 
-    tags:
-      - 'v*'
+    branches: [ master ]  
   pull_request:
-    branches:
-      - 'main'
+    branches: [ patch-* ]
+  schedule: 
+    - cron: '19 20 * * 0'
+    
 jobs:
-  build:
+  snyk:
     runs-on: ubuntu-latest
-  steps:
+    steps:
     -
       name: Checkout
-      uses: actions/checkout@v2
-    -
-      name: Login to Docker Hub
+    - uses: actions/checkout@v2
+   
+    - name: Login to Docker Hub
       uses: docker/login-action@v1
       with:
         username: ${{ secrets.DOCKER_HUB_USERNAME }}
