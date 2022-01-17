@@ -7,7 +7,7 @@ packages=find_namespace_packages(include=['v3n0m.*'])
 with open("README.md", "r") as descript:
     long_describe = descript.read()
 
-version = '4.3.2'
+version = '4.3.3'
 
 setup(
     name="venom",
