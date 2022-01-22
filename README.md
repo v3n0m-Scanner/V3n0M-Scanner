@@ -1,5 +1,5 @@
 # Venom
-![venom](https://i.ibb.co/M9FNKgM/snake-6470753.png)
+![venom](venom.png)
 
 #### Offensive Security Tool for Vulnerability Scanning & Pentesting
 ![os](https://img.shields.io/badge/OS-Linux,%20Windows-green.svg)
@@ -7,8 +7,10 @@
 [![License: GPLV3](https://img.shields.io/badge/License-GPLv3-green.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
+##### Version 4.3.3 now requires PROXIES/VPN.
+
 ##### Features
-- [x] USE PROXIES/VPN 
+- [x] USE PROXIES/VPN [Required]
 - [x] Cloudflare Resolver [Cloudbuster]
 - [x] LFI->RCE and XSS Scanning [LFI to RCE & XSS]
 - [x] SQL Injection Vuln Scanner [SQLi]
@@ -30,21 +32,14 @@
 
 ## Install note
 
-Pull it from [Docker Hub](https://hub.docker.com/repository/docker/vittring/venom):
-```bash
-docker pull vittring/venom:latest
-```
-or build it from here:
-```bash
-docker build -t vittring/venom:latest .
-docker run -ti vittring/venom:latest
-```
-
 Ubuntu users:
 Please make sure you `sudo apt-get install python3-bs4` | `apt-get install python3-setuptools`
 
 Kali users:
 Please `apt-get install python3-dev` | `apt-get install python-dev`
+
+Docker users:
+Please see `Dockerfile_README.md`
 
 ## Contact Information:
     Submit a bug report/pull request with prefix "Query" at the start.

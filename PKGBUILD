@@ -1,5 +1,5 @@
 pkgname='v3n0m'
-pkgver=383.1a9c19d4
+pkgver=429.b7fe9b2
 pkgrel=1
 groups=('blackarch' 'blackarch-scanner' 'blackarch-webapp' 'blackarch-recon')
 pkgdesc='Offensive Security Tool for Vulnerability Scanning & Pentesting'
@@ -16,20 +16,15 @@ sha1sums=('SKIP')
 
 pkgver() {
   cd "$srcdir/V3n0M-Scanner"
-
   echo $(git rev-list --count HEAD).$(git rev-parse --short HEAD)
 }
 
 package() {
   cd "$srcdir/V3n0M-Scanner"
-
   mkdir -p "$pkgdir/usr/bin"
   mkdir -p "$pkgdir/usr/share/v3n0m"
-
   python setup.py install --root="$pkgdir" --prefix=/usr --optimize=1
-
   cp -a src/* "$pkgdir/usr/share/v3n0m"
-
   install -Dm644 -t "$pkgdir/usr/share/doc/v3n0m/" README.md
   install -Dm644 LICENSE "$pkgdir/usr/share/licenses/v3n0m/LICENSE"
   install -Dm644 "src/desktop-menu/v3n0m.ico" \

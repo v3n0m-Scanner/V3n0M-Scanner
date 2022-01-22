@@ -23,111 +23,49 @@ from urllib3.exceptions import InsecureRequestWarning
 #   To install modules for Venom, please 'pip install -r requirements.txt --no-cache'
 #   Ref: https://github.com/v3n0m-Scanner/V3n0M-Scanner/pull/195
 #
-def logo():
+def logo(): 
     cache_Check()
     sql_list_counter()
     lfi_list_counter()
     rce_list_counter()
     xss_list_counter()
     misc_list_counter()
-    print(R + "\n----------------------------------------------------------------")
-    print(
-        " Release Date JUL 31 2020    "
-        + B
-        + "        Author: NovaCygni       "
-        + R
-        + " "
-    )
-    print(
-        "        Proxy Enabled " + G + " [",
-        ProxyEnabled,
-        "] " + R + "                               ",
-    )
-    print(
-        "        Cache & Log Status " + B + " [", cachestatus, "] " + R + "           "
-    )
-    print(
-        " "
-        + O
-        + "Please check the misc options in the menu for donations options, thank you. "
-        + R
-        + "         "
-    )
-    print(
-        " "
-        + O
-        + "Donating helps keep this project alive and active. "
-        + R
-        + "         "
-    )
-    print("                    _____       _____                           ")
-    print(
-        "          "
-        + G
-        + "         |____ |     |  _  |    "
-        + R
-        + "                      "
-    )
-    print(
-        "             __   __   / /_ __ | |/' |_ _"
-        + G
-        + "_ ___             "
-        + R
-        + "     "
-    )
-    print(
-        "             \ \ / /  "
-        + G
-        + " \ \ '"
-        + R
-        + "_ \|  /| | '_ ` _ \                 "
-    )
-    print(
-        "              \ V"
-        + G
-        + " /.___/ / | | \ |_"
-        + R
-        + "/ / | | | | |                "
-    )
-    print(
-        "    Official   \_/"
-        + G
-        + " \____/|_"
-        + R
-        + "| |_|"
-        + G
-        + "\___/|_| |_| "
-        + R
-        + "|_| Release",
-        current_version,
-        " ",
-    )
-    print(
-        " Confirmed SQLI Vulns In Database:" + O + " [",
-        sql_count,
-        "] " + R + "         ",
-    )
-    print(
-        " Confirmed LFI Vulns In Database:" + O + " [",
-        lfi_count,
-        "] " + R + "                       ",
-    )
-    print(
-        " Confirmed XSS Vulns In Database:" + O + " [",
-        xss_count,
-        "] " + R + "                        ",
-    )
-    print(
-        " Confirmed RCE Vulns In Database:" + O + "[",
-        rce_count,
-        "] " + R + "                         ",
-    )
-    print(
-        " Confirmed MISC Vulns In Database:" + O + "[",
-        misc_count,
-        "] " + R + "                        ",
-    )
-    print("----------------------------------------------------------------\n")
+    print("                                                                                           ")
+    print("                                                                                           ")
+    print("                                               :=*#%%@%%#+-:         :-=+****+=:.          ")
+    print("     Venom <  4.3.3  >                      .+%@@@@@@%*==--=+#%#+- :**+--:...::=+#%*-      ")
+    print("  Enhanced Dorking & Vuln Scans           :#@@@@@@@+.          :=*%#=.             -#%-    ")
+    print("      Now with eleet banner              +@@@@@@@@:     :**=+***+====*#=.            :%#.  ")
+    print("                      ...........:---. #@@@@@@@@-     -@.-=::::-=--+=+#@*:            #%   ")
+    print("                :---:....::::.        =@@@@@@@@*      =%.+-#+++=:--:+=+%@@%-           %#  ")
+    print("            -=+*+*#%@@@@@@@@@@@@@%%#*:%@@@@@@@=        %:%@@@@@@@#*=:--+#@@@%:         -@- ")
+    print("         -*#+==-:..       .:-=*#@@@@@:@@@@@@#           *@@@@@@@@@@@%+=-=*@@@@*         @* ")
+    print("        ::                       .-=*:%@@@@@             +@@-...:=*@@@@+--%@@@@@-       #% ")
+    print("                                      +@@@@*              -#        -%@@++:%@@@@@=      *% ")
+    print("       long live blackhats          .*:@@@@+               .+         -%@==*@@@@@@*     ## ")
+    print("    RIP NovaCygni / d4rkc4t        -@@%=@@@*                 =          +@#-+@@@@@@+    @+ ")
+    print("  + everyone else at d4rkc0d3     .@@@@@*%@@.   :=.           :          .#*=-#@@@@@-  :@: ")
+    print("                                  *@@@@@@#*@#     =*-         :            @#==#@@@@@  +%  ")
+    print("          .-=+*%@@@@@%#+=:        %@@@@@@@@+*%:    +@*        :-           :@-=:#@@@@- @-  ")
+    print("       :+%#++=::-==*@@@@@@@#=.    +@@@@@@@@@@**+:   #@*       .+            #@---=@@@*=#   ")
+    print("     -##+---:-=-::-::=*@@@@@@@*:   @@@@@@@@@@@@%#+-  .-=      .#            -@-+:+:@@#=.   ")
+    print("   :#+=-::::..:-=--=:-:-+%@@@@@@#: :@@@@@@@@@@@@@@#*=.        .%          .#:@+.+:##@%     ")
+    print("  =@=-:::-+*+==--=+==--:--*@@@@@@@*. *@@@@@@@@@@@@@@@#=:      .@         :%-=@ = *:@@%     ")
+    print(" +#:::-+#+.         :=*=-:-=#@@@@@@@= .*@@@@@@@@@@@@@@%-=:    +=       .*#. #=  -.++@#     ")
+    print("-@=::+*-*              -++:-:=*@@@@@@%:  :=*#%@@@%#*=:   :+==%+.     :*#:  -#   :.==@=     ")
+    print("%#::=%--*                :+:-:-=#@@@@@@*.                    .#-: .=%*:   :%.    =:@@.     ")
+    print("@*===*--+=                 ==..:=+%@@@@@@=                    -=-:+-     :#      +-@*      ")
+    print("*@+*-#--:=+:             .=%@%.   .-%@@@@@@=             .-=*#==-::    .*+       *%@       ")
+    print(".@@%:#+-=--=+=::....::-*%@@@@@@=     .+%@@@@@*:  -==+****+-:    .:.::-:+.       :@@-       ")
+    print(" :@@@#%*--------:--==*@@@@@@@@#-*.      .=*#@@@@*=-.             .=:-:+:       +@@=        ")
+    print("  .%@@@@@%##****#%@@@@@@@@@@+.   +=            ...:==============-. =: -     -%@@:         ")
+    print("    -%@@@@@@@@@@@@@@@@@@@*:       :*:                                :     -%@@%.          ")
+    print("      :+#@@@@@@@@@@%#+=:            =#:                                :=*@@@@+            ")
+    print("          .::-::.                     *#-                        :=+#%@@@@@@+              ")
+    print("                                       :#@#=:             .:=*#@@@@@@@@@@#-                ")
+    print("                                         :*@@@%#*+====+*%@@@@@@@@@@@@@#=                   ")
+    print("             E O F                         -+#@@@@@@@@@@@@@@@@@@%*=:                       ")
+    print("                                                                                           \n")
 
 
 def vbulletin5_scanning(url):
@@ -174,9 +112,7 @@ def vbulletin_test():
     i = int(vb)
     m = len(usearch) % int(numthreads)
     z = 0
-    print("\n[+] Preparing for Vbulletin 5.x scanning ...")
-    print("[+] Can take a while and appear not to be doing anything...")
-    print("[!] Please be patient if you can see this message, its Working ...\n")
+    print(B + "\n[+] I'm working, please just hang out for a minute...\n")
     try:
         if len(threads) <= int(numthreads):
             for x in range(0, int(numthreads)):
@@ -254,9 +190,7 @@ def wp_filemanager_test():
     i = int(vb)
     m = len(usearch) % int(numthreads)
     z = 0
-    print("\n[+] Preparing for WordPress FileManager scanning ...")
-    print("[+] Can take a while and appear not to be doing anything...")
-    print("[!] Please be patient if you can see this message, its Working ...\n")
+    print(B + "\n[+] I'm working, please just hang out for a minute...\n")
     try:
         if len(threads) <= int(numthreads):
             for x in range(0, int(numthreads)):
@@ -340,9 +274,7 @@ def vb56_test():
     i = int(vb)
     m = len(usearch) % int(numthreads)
     z = 0
-    print("\n[+] Preparing for vBulletin Ver < 5.6.2 scanning ...")
-    print("[+] Can take a while and appear not to be doing anything...")
-    print("[!] Please be patient if you can see this message, its Working ...\n")
+    print(B + "\n[+] I'm working, please just hang out for a minute...\n")
     try:
         if len(threads) <= int(numthreads):
             for x in range(0, int(numthreads)):
@@ -430,9 +362,7 @@ def lfi_testing():
     i = int(vb)
     m = len(usearch) % int(numthreads)
     z = 0
-    print("\n[+] Preparing for LFI scanning ...")
-    print("[+] Can take a while and appear not to be doing anything...")
-    print("[!] Please be patient if you can see this message, its Working ...\n")
+    print(B + "\n[+] I'm working, please just hang out for a minute...\n")
     try:
         if len(threads) <= int(numthreads):
             for x in range(0, int(numthreads)):
@@ -518,9 +448,7 @@ def xss_scanning(url):
 
 
 def xss_testing():
-    print(B + "\n[+] Preparing for XSS scanning ...")
-    print("[+] Can take a while ...")
-    print("[!] Working ...\n")
+    print(B + "\n[+] I'm working, please just hang out for a minute...\n")
     vb = len(usearch) / int(numthreads)
     i = int(vb)
     m = len(usearch) % int(numthreads)
@@ -588,9 +516,7 @@ def sqli_testing():
     i = int(vb)
     m = len(usearch) % int(numthreads)
     z = 0
-    print(B + "\n[+] Preparing for SQLi scanning ...")
-    print("[+] Can take a while and appear not to be doing anything...")
-    print("[!] Please be patient if you can see this message, its Working ...\n")
+    print(B + "\n[+] I'm working, please just hang out for a minute...\n")
     try:
         if len(threads) <= int(numthreads):
             for x in range(0, int(numthreads)):
@@ -609,11 +535,10 @@ def sqli_testing():
 
 def column_finder():
     print(B + "\n[+] Preparing for Column Finder ...")
-    print("[+] Can take a while ...")
-    print("[!] Working ...")
+    print(B + "\n[+] I'm working, please just hang out for a minute...\n")
     for host in col:
         print(R + "\n[+] Target: ", O + host)
-        print(R + "[+] Attempting to find the number of columns ...")
+        print(B + "\n[+] I'm working, please just hang out for a minute...\n")
         print("[+] Testing: ", end=" ")
         checkfor = []
         host = host.rsplit("'", 1)[0]
@@ -852,10 +777,10 @@ def f_scan():
         while i < int(dorks):
             loaded_Dorks.append(d0rk[i])
             i += 1
-    numthreads = input("\nEnter no. of threads, Between 50 and 500: ")
+    numthreads = input("\nEnter no. of threads - 50-500: ")
     pages_pulled_as_one = input(
         "Enter no. of Search Engine Pages to be scanned per d0rk,  \n"
-        " Between 25 and 100, increments of 25. Ie> 25:50:75:100   : "
+        "Between 25 and 100 @ increments of 25: "
     )
     print("\nNumber of SQL errors :", "26")
     print("LFI payloads    :", len(lfis))
@@ -872,15 +797,15 @@ def f_scan():
 
 def cloudflare_resolver():
     import time
-
     logo()
-    target_site = input("Enter the site eg target.com: \n")
+    target_site = input("Enter the target domain (example.com):  \n")
     print(B)
     pwd = os.path.dirname(str(os.path.realpath(__file__)))
-    print(
-        "Depth Level: 1) Scan top 30 subdomains 2) Scan top 200 subdomains 3) Scan over 9000+ subdomains "
+    print("Depth Level: 1) Scan top 30 subdomains.   ")
+    print("             2) Scan top 200 subdomains.  ")
+    print("             3) Scan over 9000+ subdomains. [elite] \n"
     )
-    depth = input("Input Depth Level, 1, 2 or 3 : ")
+    depth = input("Input depth level: ")
     scandepth = ""
     if depth == 1:
         scandepth = "--dept simple"
@@ -912,26 +837,26 @@ def scan_option():
     endsub = 0
     print(
         R
-        + "\n[1] SQLi Testing, "
+        + "\n [1] SQLi testing: "
         + O
-        + "Will verify the Vuln links and print the Injectable URL to the screen"
+        + "verify the vuln links and print the injectable URL to the screen"
     )
     print(
         R
-        + "[2] SQLi Testing Auto Mode "
+        + " [2] SQLi testing auto mode: "
         + O
-        + "Will attempt to Verify vuln sites then Column count if MySQL detected"
+        + "attempt to verify vuln sites then column count if MySQL detected"
     )
-    print(R + "[3] XSS Testing")
-    print(R + "[4] LFI/RCE Testing")
-    print(R + "[5] Save valid Sorted and confirmed vuln urls to file")
-    print(R + "[6] Print all the UNSORTED urls ")
-    print(R + "[7] Print all Sorted and Confirmed Vulns from last scan again")
-    print(R + "[8] Print all Sorted urls")
-    print(R + "[9] XSSTRIKE testing")
-    print(R + "[10]Scan all the things")
+    print(R +  "[3] XSS Testing")
+    print(R +  "[4] LFI/RCE Testing")
+    print(R +  "[5] Save valid Sorted and confirmed vuln URLs to file")
+    print(R +  "[6] Print all the UNSORTED URLs ")
+    print(R +  "[7] Print all Sorted and Confirmed Vulns from last scan again")
+    print(R +  "[8] Print all Sorted URLs")
+    print(R +  "[9] XSSTRIKE testing")
+    print(R + "[10] Scan all the things")
     print(R + "[11] Back to main menu")
-    print(R + "[12] MISC Vulns ")
+    print(R + "[12] MISC Vulns")
     chce = input(":")
     if chce == "1":
         os.system("clear")
@@ -939,7 +864,7 @@ def scan_option():
         sqli_testing()
         print(
             B
-            + "\r\x1b[K [*] Scan complete, "
+            + "\r\x1b[ [*] Scan complete, "
             + O
             + str(len(col))
             + B
@@ -953,7 +878,7 @@ def scan_option():
         column_finder()
         print(
             B
-            + "\r\x1b[K [*] Scan complete, "
+            + "\r\x1b[ [*] Scan complete, "
             + O
             + str(len(vuln))
             + B
@@ -967,7 +892,7 @@ def scan_option():
         xss_testing()
         print(
             B
-            + "\r\x1b[K [*] Scan complete, "
+            + "\r\x1b[  [*] Scan complete, "
             + O
             + str(len(vuln))
             + B
@@ -981,7 +906,7 @@ def scan_option():
         endsub = 0
         print(
             B
-            + "\r\x1b[K [*] Scan complete, "
+            + "\r\x1b[  [*] Scan complete, "
             + O
             + str(len(vuln))
             + B
@@ -990,17 +915,17 @@ def scan_option():
         print()
         scan_option()
     elif chce == "5":
-        print(B + "\nSaving valid urls (" + str(len(finallist)) + ") to file")
+        print(B + "\nSaving valid URLs (" + str(len(finallist)) + ") to file")
         listname = input("Filename: ").encode("utf-8")
         list_name = open(listname, "w", encoding="utf-8")
         finallist.sort()
         for t in finallist:
             list_name.write(t + "\n")
         list_name.close()
-        print("Urls saved, please check", listname)
+        print("URLs saved, please check", listname)
         scan_option()
     elif chce == "6":
-        print(W + "\nPrinting Unsorted urls:\n")
+        print(W + "\nPrinting unsorted URLs:\n")
         unsorted.sort()
         for t in unsorted:
             print(B + t)
@@ -1009,7 +934,7 @@ def scan_option():
         print(B + "\nVuln found ", len(vuln))
         print(vuln)
     elif chce == "8":
-        print(W + "\nPrinting Sorted urls:\n")
+        print(W + "\nPrinting sorted URLs:\n")
         finallist.sort()
         for t in finallist:
             print(B + t)
@@ -1023,39 +948,39 @@ def scan_option():
     elif chce == "10":
         vuln = []
         print("\n[+] Preparing for SQLI scanning ...")
-        print("[+] Can take a while and appear not to be doing anything...")
-        print("[!] Please be patient if you can see this message, its Working ...\n")
+        print(B + "\n[+] I'm working, please just hang out for a minute...\n")
+
         for url in finallist:
             sqli_scanning(url)
         print("\n[+] Preparing for Vbulletin 5.6.x scanning ...")
-        print("[+] Can take a while and appear not to be doing anything...")
-        print("[!] Please be patient if you can see this message, its Working ...\n")
+        print(B + "\n[+] I'm working, please just hang out for a minute...\n")
+
         for url in finallist:
             vb56_scanning(url)
         print("\n[+] Preparing for WordPress File Manager scanning ...")
-        print("[+] Can take a while and appear not to be doing anything...")
-        print("[!] Please be patient if you can see this message, its Working ...\n")
+        print(B + "\n[+] I'm working, please just hang out for a minute...\n")
+
         for url in finallist:
             wp_filemanager_scanning(url)
         print("\n[+] Preparing for Vbulletin 5.x scanning ...")
-        print("[+] Can take a while and appear not to be doing anything...")
-        print("[!] Please be patient if you can see this message, its Working ...\n")
+        print(B + "\n[+] I'm working, please just hang out for a minute...\n")
+
         for url in finallist:
             vbulletin5_scanning(url)
         print("\n[+] Preparing for LFI > RCE  scanning...")
-        print("[+] Can take a while and appear not to be doing anything...")
-        print("[!] Please be patient if you can see this message, its Working ...\n")
+        print(B + "\n[+] I'm working, please just hang out for a minute...\n")
+
         for url in finallist:
             lfi_scanning(url)
         print("\n[+] Preparing for XSS scanning ...")
-        print("[+] Can take a while and appear not to be doing anything...")
-        print("[!] Please be patient if you can see this message, its Working ...\n")
+        print(B + "\n[+] I'm working, please just hang out for a minute...\n")
+
         for url in finallist:
             xss_scanning(url)
 
         print(
             B
-            + "\r\x1b[K [*] Scan complete, "
+            + "\r\x1b[ [*] Scan complete, "
             + O
             + str(len(col))
             + B
@@ -1074,7 +999,7 @@ def scan_option():
             vb56_test()
             print(
                 B
-                + "\r\x1b[K [*] Scan complete, "
+                + "\r\x1b[ [*] Scan complete, "
                 + O
                 + str(len(col))
                 + B
@@ -1085,7 +1010,7 @@ def scan_option():
             wp_filemanager_test()
             print(
                 B
-                + "\r\x1b[K [*] Scan complete, "
+                + "\r\x1b[ [*] Scan complete, "
                 + O
                 + str(len(col))
                 + B
@@ -1204,13 +1129,13 @@ async def search(pages_pulled_as_one):
                 sys.stdout.flush()
                 logo()
                 sys.stdout.write(
-                    W + "\r\x1b[K " + R + "| Domain: <%s> Has been targeted \n "
-                    "| Collected urls: %s Since start of scan \n"
-                    " | D0rks: %s/%s Progressed so far \n"
-                    " | Percent Done: %s \n"
-                    " | Current page no.: <%s> in Cycles of 25 Pages of results pulled in Asyncio\n"
-                    " | Dork In Progress: %s\n"
-                    " | Elapsed Time: %s\n"
+                    W + "\r\x1b[ " + R + "| Thx, domain <%s> has been targeted. \n "
+                    "| Collected <%s> URLs since start of scan. \n"
+                    " | D0rks: %s/%s progressed so far. \n"
+                    " | Percent Done: %s. \n"
+                    " | Current page no.: <%s>. \n"
+                    " | Dork In Progress: %s. \n"
+                    " | Elapsed Time: %s. \n"
                     % (
                         R + site,
                         repr(urls_len),
@@ -1229,7 +1154,7 @@ async def search(pages_pulled_as_one):
     tmplist = []
 
     print(
-        "\n\n[+] URLS (unsorted) : Contains all the trash results still including duplicates: ",
+        "\n\n[+] URLS (unsorted): ",
         len(urls),
     )
     for url in urls:
@@ -1251,7 +1176,7 @@ async def search(pages_pulled_as_one):
             logo()
             print(G + "Program Paused" + R)
             print("[1] Unpause")
-            print("[2] Skip rest of scan and Continue with current results")
+            print("[2] Skip rest of scan and continue with current results")
             print("[3] Return to main menu")
             if chce1 == "1":
                 return
@@ -1263,7 +1188,7 @@ async def search(pages_pulled_as_one):
                 pass
             continue
     print(
-        "[+] URLS (sorted)  : Trash, Duplicates, Dead-Links and other rubbish removed ",
+        "[+] URLS (sorted) with rubbish removed: ",
         len(finallist),
     )
     return finallist
@@ -1280,12 +1205,11 @@ def f_menu():
     logo()
     print("[1] Dork and Vuln Scan")
     print("[2] Admin page finder")
-    print("[3] Toxin - Mass IP/Port/Services Vuln Scanner *Not Released Yet* ")
+    print("[3] Toxin - Mass IP/port/services *Not Released Yet* ")
     print("[4] DNS brute")
-    print("[5] Enable Tor/Proxy Support")
-    print("[6] Cloudflare Resolving")
-    print("[7] E-Z XSSTRIKE")
-    print("[8] Misc Options")
+    print("[5] Cloudflare Resolving")
+    print("[6] XSSTRIKE (thx to @s0md3v!)")
+    print("[7] Misc Options")
     print("[0] Exit\n")
     chce = input(":")
 
@@ -1307,22 +1231,22 @@ def f_menu():
         subprocess._cleanup()
     elif chce == "3":
         import time
-
         print(B)
         toxin.menu()
     elif chce == "4":
         target_site = input("Enter the site eg target.com: ")
-        print("[1] Normal Scan")
-        print("[2] Scan All The Things; if it's on the internet, we'll find it...")
+        print("[1] normal scan")
+        print("[2] scan ALL the things")
         scan_everything = input(":")
         att = ""
         if scan_everything == "1":
             att = str(" ")
         elif scan_everything == "2":
             att = str("att")
-        print("Go cook a cake, this will take a LONG time.")
+        print("Go bake a cake, this will take a LONG time.")
         # [*] Time elapsed 8 minutes and 17 seconds at 40.19 lookups per second.
-        # ^C gives time to complete even after sigkill received. ex: 200 threads == ~10 mins.
+        # Ctrl^C gives time to complete even after sigkill() rcvd. ex: 200 threads == ~10 mins.
+        # You cannot stop it safely any other way. Sorry.
         print(B)
         pwd = os.path.dirname(str(os.path.realpath(__file__)))
         dnsbrute = subprocess.Popen(
@@ -1337,38 +1261,31 @@ def f_menu():
         dnsbrute.communicate()
         subprocess._cleanup()
     elif chce == "5":
-        print(W + "")
-        enable_proxy()
-    elif chce == "6":
         cloudflare_resolver()
         f_menu()
-    elif chce == "7":
+    elif chce == "6":
         current = os.getcwd()
         os.chdir(current + "/modules/xss-strike")
         xss = subprocess.Popen("python V3n0mWrapper.py", shell=True)
         xss.communicate()
-    elif chce == "8":
+    elif chce == "7":
         print(W + "")
         os.system("clear")
         logo()
-        print("[1] Skip to custom SQLi list checking")
-        print("[2] SKip to custom XSS list checking")
-        print("[3] Skip to custom LFI list checking")
-        print("[4] Skip to custom Vbulletin 5.x list checking ")
-        print("[5] Skip to custom Vbulletin < 5.6.2 list checking")
-        print("[6] Skip to custom WordPress FileManager list checking")
-        print("[7] Launch LFI Suite")
-        print("[8] FTP Crawler")
-        print("[9] Skip to custom target list")
-        print("[10]Print contents of log files")
-        print(
-            "[11]Flush Cache and Delete Logs *Warning will erase Toxin Logs/Saves aswell* "
-        )
-        print(
-            "[12]Perform forced update of ALL installed Python packages and dependancies on system"
-        )
-        print("[13]Donations information")
-        print("[0] Return to main menu")
+        print(" [1] Skip to SQLi list checking")
+        print(" [2] SKip to XSS list checking")
+        print(" [3] Skip to LFI list checking")
+        print(" [4] Skip to Vbulletin 5.x list checking ")
+        print(" [5] Skip to Vbulletin < 5.6.2 list checking")
+        print(" [6] Skip to WordPress FileManager list checking")
+        print(" [7] Launch LFI Suite")
+        print(" [8] FTP crawler")
+        print(" [9] Skip to target list")
+        print("[10] Print contents of log files")
+        print("[11] rm -rf cache and logs")
+        print("[12] Perform forced update of ALL installed Python packages and dependancies on system")
+        print("[13] Donations information")
+        print(" [0] Return to main menu")
         chce2 = input(":")
         if chce2 == "1":
 
@@ -1429,6 +1346,7 @@ def f_menu():
             with concurrent.futures.ThreadPoolExecutor() as executor:
                 for i in range(threadcount):
                     executor.submit(lfi_url)
+
         elif chce2 == "4":
 
             def vb5_url():
@@ -1504,32 +1422,33 @@ def f_menu():
 
         elif chce2 == "9":
             import target
+
         elif chce2 == "10":
             for filename in glob("*.txt"):
                 print(filename)
-            print("Dumping output of Cache complete, Sleeping for 5 seconds")
+            print("Dumping output of cache complete. Sleeping for 5 seconds.")
             time.sleep(5)
             with concurrent.futures.ThreadPoolExecutor() as executor:
                 for i in range(threadcount):
                     executor.submit(lfi_url)
+
         elif chce2 == "11":
             try:
-                print("Checking if Cache or Logs even exist!")
+                print("Checking if cache or logs exist.")
                 time.sleep(1)
                 for filename in glob("*.txt"):
                     os.remove(filename)
-                    print("Cache has been cleared, all logs have been deleted")
+                    print("Cache has been cleared & all logs have been deleted.")
                     time.sleep(2)
             except Exception:
-                print("No Log Files To Flush!")
+                print("No log files to flush!")
+
         elif chce2 == "12":
             import time
 
             euid = os.geteuid()
             if euid == 0:
-                print(
-                    "You Cannot perform any upgrades or repairs while logged in with root permissions, please restart v3n0m."
-                )
+                print("You cannot perform any upgrades or repairs while logged in as superuser.")
                 time.sleep(6)
                 killpid()
             import pip
@@ -1537,7 +1456,7 @@ def f_menu():
             import time
 
             print(
-                "Updating V3n0M Module Features First: Cloudbuster files. Please wait."
+                "Updating Cloudbuster files. Please wait."
             )
             time.sleep(3)
             for d in downloads:
@@ -1547,27 +1466,19 @@ def f_menu():
             os.replace(Path("ips-v6"), Path("./lists/ips-v6"))
             print("Everything up to date!")
             print(
-                "Cloudbuster features updated!, Moving onto Python Modules and Dependencies..."
-            )
+                "Cloudbuster features updated! Moving onto python modules and dependencies...")
             time.sleep(4)
             sys.stdout.flush()
-            print(
-                "This will install the missing modules and upgrade them to current versions then update your Python3.6 entirely"
-            )
-            print(
-                "You will have 10 seconds to cancel this action before the system begins"
-            )
+            print("Update && upgrade, then upgrade python.")
+            print("You will have 10 seconds. Cancel this action with Ctrl^C.")
             time.sleep(10)
-            call(
-                "pip3 freeze --local --user | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip3 install -U --user",
-                shell=True,
-            )
+            call("pip3 freeze --local --user | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip3 install -U --user", shell=True,)
             subprocess._cleanup()
             pass
         elif chce2 == "13":
             donations()
     elif chce == "0":
-        print(R + "\n Exiting ...")
+        print(R + "\n Exiting cleanly..")
         print(W)
         sys.exit(0)
 
@@ -1582,90 +1493,6 @@ search_ignore = [line.strip() for line in open("lists/ignore", "r", encoding="ut
 sqli_errors = [line.strip() for line in open("lists/sqli_errors", "r", encoding="utf-8")]
 random.shuffle(header)
 random.shuffle(lfis)
-
-
-def enable_proxy():
-
-    #    Declare global ProxyEnabled and ask for input to proxytype.
-    #    User selects type of proxy, pass/no pass, etc.
-    #    Later this will default to Tor / 127.0.0.1.
-
-    import time
-
-    global ProxyEnabled
-    try:
-        requiresID = bool(
-            input(
-                "Requires Username/Password? Leave Blank if not required, otherwise type y/yes/true/True  :"
-            )
-        )
-        print(requiresID)
-        print("Please select Proxy Type - Options = socks4, socks5  : ")
-        proxytype = input(str())
-        print(" Please enter Proxy IP address - ie. 127.0.0.66  :")
-        proxyip = input(int)
-        print(" Please enter Proxy Port - ie. 1076  :")
-        proxyport = input(int)
-        if proxytype == str("socks4"):
-            if requiresID:
-                try:
-                    socks.setdefaultproxy(
-                        socks.PROXY_TYPE_SOCKS4,
-                        proxyip,
-                        proxyport,
-                        username=input("Proxy Account Username  :"),
-                        password=input("Proxy Account Password  :"),
-                    )
-                    socks.socket = socks.socksocket
-                    print(" Socks 4 Proxy Support Enabled")
-                    ProxyEnabled = str("True ")
-                except Exception as verb:
-                    print(str(verb))
-                    time.sleep(5)
-                    pass
-            else:
-                try:
-                    socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS4, proxyip, proxyport)
-                    socks.socket = socks.socksocket
-                    print(" Socks 4 Proxy Support Enabled")
-                    ProxyEnabled = str("True ")
-                except Exception as verb:
-                    print(str(verb))
-                    time.sleep(5)
-                    pass
-        elif proxytype == str("socks5"):
-            if requiresID:
-                try:
-                    socks.setdefaultproxy(
-                        socks.PROXY_TYPE_SOCKS5,
-                        proxyip,
-                        proxyport,
-                        username=input("Proxy Account Username  :"),
-                        password=input("Proxy Account Password  :"),
-                    )
-
-                    # Highly recommend Tor. It's not slow at all, literally.
-
-                    print(" Socks 5 Proxy Support Enabled")
-                    socks.socket = socks.socksocket
-                    ProxyEnabled = str("True ")
-                except Exception as verb:
-                    print(str(verb))
-                    time.sleep(5)
-                    pass
-            else:
-                try:
-                    socks.setdefaultproxy(socks.PROXY_TYPE_SOCKS5, proxyip, proxyport)
-                    socks.socket = socks.socksocket
-                    print(" Socks 5 Proxy Support Enabled")
-                    ProxyEnabled = str("True ")
-                except Exception as verb:
-                    print(str(verb))
-                    time.sleep(5)
-                    pass
-    except Exception:
-        pass
-
 
 W = "\033[0m"
 R = "\033[31m"
@@ -1689,9 +1516,9 @@ def cache_Check():
         or my_file4.is_file()
         or my_file5.is_file()
     ):
-        cachestatus = "** Cache NOT Empty**"
+        cachestatus = "contains some things"
     else:
-        cachestatus = "Logs Cache is Empty "
+        cachestatus = "empty"
 
 
 # This is the counter section, to displays found SQLi, LFI, XSS vulns, etc.
@@ -1758,6 +1585,6 @@ gets = 0
 file = "/etc/passwd"
 ProxyEnabled = False
 menu = True
-current_version = str("432  ")
+current_version = str("433  ")
 while True:
     f_menu()

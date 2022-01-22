@@ -1,9 +1,9 @@
 # This project is LIVE
 
-FROM python:3.6-slim
+FROM python:3.8.12-slim-bullseye
 
 LABEL maintainer="Architect" \
-      email="darkarch@riseup.net"
+      email="scissortail@riseup.net"
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \

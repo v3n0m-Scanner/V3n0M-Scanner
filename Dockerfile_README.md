@@ -1,15 +1,16 @@
 # Venom
-![venom](https://i.ibb.co/M9FNKgM/snake-6470753.png)
+![venom](venom.png)
 
 #### Offensive Security Tool for Vulnerability Scanning & Pentesting
-![build](https://img.shields.io/github/v/tag/V3n0M-Scanner/V3n0M-Scanner?color=green&label=Venom)
 ![os](https://img.shields.io/badge/OS-Linux,%20Windows-green.svg)
-![pythonver](https://img.shields.io/badge/python-3.6%2B-green.svg)
-[![License: GPL v2](https://img.shields.io/badge/License-GPLv2-green.svg)](https://www.gnu.org/licenses/gpl-2.0)
+[![pythonver](https://img.shields.io/badge/python-3.6%2B-green.svg)](https://www.python.org/downloads/release/python-3614)
+[![License: GPLV3](https://img.shields.io/badge/License-GPLv3-green.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
+##### Version 4.3.3 now requires PROXIES/VPN.
+
 ##### Features
-- [x] In its current state, it will only work with torrc `MAX CIRCUIT DIRTINESS` of 10
+- [x] USE PROXIES/VPN [Required]
 - [x] Cloudflare Resolver [Cloudbuster]
 - [x] LFI->RCE and XSS Scanning [LFI to RCE & XSS]
 - [x] SQL Injection Vuln Scanner [SQLi]
@@ -31,27 +32,29 @@
 
 ## Install note
 
-Clone the repository:
+Pull it from [Docker Hub](https://hub.docker.com/repository/docker/vittring/venom):
+```bash
+docker pull vittring/venom:devel
 ```
-docker pull vittring/venom:latest
-docker build -t vittring/venom:latest .
-docker run -ti vittring/venom:latest
+or build bleeding edge from here:
+```bash
+docker build -t vittring/venom:devel .
+docker run -ti vittring/venom:devel
 ```
 
 Ubuntu users:
-Please make sure you `sudo apt-get install python3-bs4 && apt-get install python3-setuptools`
+Please make sure you `sudo apt-get install python3-bs4` | `apt-get install python3-setuptools`
 
 Kali users:
-Please `apt-get install python3-dev && apt-get install python-dev`
+Please `apt-get install python3-dev` | `apt-get install python-dev`
 
 ## Contact Information:
-    You could send me an email: darkarch[at]riseup[dot]net
-    or send a bug report/pull request with prefix "Query" at the start.
-    More information on contributing available in the git repo.
+    Submit a bug report/pull request with prefix "Query" at the start.
 
 ## Credits to:
+    - Architect for the initial encouragement and support in V3n0ms early days
     - SageHack for allowing Cloudbuster to be adapted for use within V3n0M
     - D35m0nd142 for allowing Collaboration and the use of LFI Suite within V3n0M
-    - b4ltazar & all members of darkc0de[dot]com for inspiring the project with darkd0rk3r
+    - b4ltazar & all members of darkc0de.com for inspiring the project with darkd0rk3r
 
-## Make Love and Smoke Trees
+## Make Love and Smoke Trees.

@@ -85,15 +85,14 @@ def classicxss(url):
                     vuln.append(url)
             except:
                 if len(xss + url) < 147:
-                    sys.stdout.write(B + "\r\x1b[K [*] Testing %s%s" % (url, xss))
+                    sys.stdout.write(B + "\r\x1b[ [*] Testing %s%s" % (url, xss))
                     sys.stdout.flush()
 
 
 # noinspection PyBroadException
 def xsstest():
-    print(B + "\n[+] Preparing for XSS scanning ...")
-    print("[+] Can take a while ...")
-    print("[!] Working ...\n")
+    print(B + "\n[+] Preparing for XSS scanning.. \n")
+    print(B + "\n[+] I'm working, please just hang out for a minute.. \n")    
     vb = len(usearch) / int(numthreads)
     i = int(vb)
     m = len(usearch) % int(numthreads)
@@ -386,9 +385,8 @@ def injtest():
         i = int(vb)
         m = len(usearch) % int(numthreads)
         z = 0
-        print(B + "\n[+] Preparing for SQLi scanning ...")
-        print("[+] Can take a while and appear not to be doing anything...")
-        print("[!] Please be patient if you can see this message, its Working ...\n")
+        print(B + "\n[+] Preparing for SQLi scanning ... \n")
+        print(B + "\n[+] I'm working, please just hang out for a minute...\n")        
         try:
             if len(threads) <= int(numthreads):
                 for x in range(0, int(numthreads)):
@@ -513,7 +511,7 @@ def injtest():
 
 # noinspection PyBroadException
 def colfinder():
-    print(B + "\n[+] Preparing for Column Finder ...")
+    print(B + "\n[+] Preparing for column Finder ...")
     print("[+] Can take a while ...")
     print("[!] Working ...")
     for host in col:
@@ -741,7 +739,7 @@ def fscan():
     loaded_Dorks = []
     print(W)
     dorks = input(
-        "Choose the number of random dorks Per Target (0 for all.. may take awhile!)   : "
+        "Choose the number of random dorks Per Target (0 for all.. may take awhile!): "
     )
     print("")
     if int(dorks) == 0:
@@ -757,7 +755,7 @@ def fscan():
     numthreads = input("\nEnter no. of threads, Between 50 and 500: ")
     pages_pulled_as_one = input(
         "Enter no. of Search Engine Pages to be scanned per d0rk,  \n"
-        " Between 25 and 100, increments of 25. Ie> 25:50:75:100   : "
+        " Between 25 and 100, increments of 25. Ie> 25:50:75:100: "
     )
     print("\nNumber of SQL errors :", "26")
     print("LFI payloads    :", len(lfis))
@@ -997,7 +995,7 @@ async def search(pages_pulled_as_one):
                 pass
             continue
     print(
-        "[+] URLS (sorted)  : Trash, Duplicates, Dead-Links and other rubbish removed ",
+        "[+] URLS (sorted) with rubbish removed: ",
         len(finallist),
     )
     return finallist
@@ -1082,7 +1080,6 @@ G = "\033[32m"
 O = "\033[33m"
 B = "\033[34m"
 
-
 def cache_Check():
     global cachestatus
     my_file1 = Path("v3n0m-lfi.txt")
@@ -1097,10 +1094,9 @@ def cache_Check():
         or my_file4.is_file()
         or my_file5.is_file()
     ):
-        cachestatus = "** Cache NOT Empty**"
+        cachestatus = "contains some things"
     else:
-        cachestatus = "Logs Cache is Empty "
-
+        cachestatus = "empty"
 
 def sql_list_counter():
     global sql_count
@@ -1133,6 +1129,6 @@ gets = 0
 file = "/etc/passwd"
 ProxyEnabled = False
 menu = True
-current_version = str("426  ")
+current_version = str("433  ")
 while True:
     fmenu()

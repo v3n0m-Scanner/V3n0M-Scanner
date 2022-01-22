@@ -7,7 +7,7 @@ packages=find_namespace_packages(include=['v3n0m.*'])
 with open("README.md", "r") as descript:
     long_describe = descript.read()
 
-version = '4.3.2'
+version = '4.3.3'
 
 setup(
     name="venom",
@@ -31,14 +31,14 @@ setup(
         'Programming Language :: Python :: 3.6'],
     install_requires=[
         'termcolor==1.1.0',
-        'aiohttp==3.7.4.post0',
+        'aiohttp==3.8.1',
         'asyncio==3.4.3',
         'bs4==0.0.1',
         'dnspython==2.1.0',
-        'tqdm==4.61.2',
+        'tqdm==4.62.3',
         'DateTime==4.3',
-        'requests==2.26.0',
-        'SocksiPy-branch==1.1',
-        'httplib2==0.19.1'
+        'requests==2.27.1',
+        'SocksiPy-branch==1.01',
+        'httplib2==0.20.2'
       ]
 )
