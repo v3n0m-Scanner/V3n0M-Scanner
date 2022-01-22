@@ -2,7 +2,8 @@
 name = "venom"
 version = "4.3.3"
 description = "Offensive Security Tool for Vulnerability Scanning & Pentesting"
-authors = ["NovaCygni <novacygni@hotmail.co.uk>"]
+authors = ["NovaCygni <novacygni@hotmail.co.uk>", "Katt Stof <katrinastofferman@autistici.org>", "b4ltazar <b4ltazar@gmail.com>",
+        "d4rkcat <rfarage@yandex.com>", "Architect <scissortail@riseup.net>"]
 license = "GPL3"
 
 [tool.poetry.dependencies]
