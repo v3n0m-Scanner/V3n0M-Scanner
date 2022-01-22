@@ -46,8 +46,9 @@ def htmlParser(response, encoding):
                     Type, quote, name, value = "", "", "", ""
                     if "=" in part:
                         quote = re.search(r'=([\'`"])?', part).group(1)
-                        name_and_value = part.split("=")[0], "=".join(
-                            part.split("=")[1:]
+                        name_and_value = (
+                            part.split("=")[0],
+                            "=".join(part.split("=")[1:]),
                         )
                         if xsschecker == name_and_value[0]:
                             Type = "name"

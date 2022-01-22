@@ -161,13 +161,7 @@ def honeyserver():
     while 1:
         try:
             c, addr = s.accept()
-            Thread(
-                target=clientHandler,
-                args=(
-                    c,
-                    addr,
-                ),
-            ).start()
+            Thread(target=clientHandler, args=(c, addr)).start()
         except:
             pass
 
@@ -298,13 +292,7 @@ while 1:
     try:
         while running >= 256:
             time.sleep(0.3)
-        Thread(
-            target=check,
-            args=(
-                [raw_input()],
-                fh,
-            ),
-        ).start()
+        Thread(target=check, args=([raw_input()], fh)).start()
     except KeyboardInterrupt:
         os.kill(os.getpid(), 9)
     except Exception:

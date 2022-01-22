@@ -34,7 +34,9 @@ def wafDetector(url, params, headers, GET, delay, timeout):
                     score += 1
             if codeSign:
                 if re.search(codeSign, code, re.I):
-                    score += 0.5  # increase the overall score by a smaller amount because http codes aren't strong indicators
+                    score += (
+                        0.5
+                    )  # increase the overall score by a smaller amount because http codes aren't strong indicators
             if headersSign:
                 if re.search(headersSign, headers, re.I):
                     score += 1

@@ -92,7 +92,7 @@ def classicxss(url):
 # noinspection PyBroadException
 def xsstest():
     print(B + "\n[+] Preparing for XSS scanning.. \n")
-    print(B + "\n[+] I'm working, please just hang out for a minute.. \n")    
+    print(B + "\n[+] I'm working, please just hang out for a minute.. \n")
     vb = len(usearch) / int(numthreads)
     i = int(vb)
     m = len(usearch) % int(numthreads)
@@ -386,7 +386,7 @@ def injtest():
         m = len(usearch) % int(numthreads)
         z = 0
         print(B + "\n[+] Preparing for SQLi scanning ... \n")
-        print(B + "\n[+] I'm working, please just hang out for a minute...\n")        
+        print(B + "\n[+] I'm working, please just hang out for a minute...\n")
         try:
             if len(threads) <= int(numthreads):
                 for x in range(0, int(numthreads)):
@@ -994,10 +994,7 @@ async def search(pages_pulled_as_one):
             else:
                 pass
             continue
-    print(
-        "[+] URLS (sorted) with rubbish removed: ",
-        len(finallist),
-    )
+    print("[+] URLS (sorted) with rubbish removed: ", len(finallist))
     return finallist
 
 
@@ -1080,6 +1077,7 @@ G = "\033[32m"
 O = "\033[33m"
 B = "\033[34m"
 
+
 def cache_Check():
     global cachestatus
     my_file1 = Path("v3n0m-lfi.txt")
@@ -1097,6 +1095,7 @@ def cache_Check():
         cachestatus = "contains some things"
     else:
         cachestatus = "empty"
+
 
 def sql_list_counter():
     global sql_count

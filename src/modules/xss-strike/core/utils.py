@@ -153,7 +153,9 @@ def genGen(
                                 for end in ends:
                                     if tag == "d3v" or tag == "a":
                                         if ">" in ends:
-                                            end = ">"  # we can't use // as > with "a" or "d3v" tag
+                                            end = (
+                                                ">"
+                                            )  # we can't use // as > with "a" or "d3v" tag
                                     breaker = ""
                                     if badTag:
                                         breaker = "</" + r(badTag) + ">"
