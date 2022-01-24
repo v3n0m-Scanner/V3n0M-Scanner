@@ -1281,7 +1281,6 @@ def f_menu():
         print(
             "[12] Perform forced update of ALL installed Python packages and dependancies on system"
         )
-        print("[13] Donations information")
         print(" [0] Return to main menu")
         chce2 = input(":")
         if chce2 == "1":
@@ -1476,8 +1475,6 @@ def f_menu():
             )
             subprocess._cleanup()
             pass
-        elif chce2 == "13":
-            donations()
     elif chce == "0":
         print(R + "\n Exiting cleanly..")
         print(W)
