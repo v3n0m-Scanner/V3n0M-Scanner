@@ -19,53 +19,55 @@ from functools import wraps
 import toxin
 from urllib3.exceptions import InsecureRequestWarning
 
-#   Recovery menu: removed in current vers. 
+#   Recovery menu: removed in current vers.
 #   To install modules for Venom, please 'pip install -r requirements.txt --no-cache'
 #   Ref: https://github.com/v3n0m-Scanner/V3n0M-Scanner/pull/195
 #
-def logo(): 
+def logo():
     cache_Check()
     sql_list_counter()
     lfi_list_counter()
     rce_list_counter()
     xss_list_counter()
     misc_list_counter()
-    print("                                                                                           ")
-    print("                                                                                           ")
-    print("                                               :=*#%%@%%#+-:         :-=+****+=:.          ")
-    print("     Venom <  4.3.3  >                      .+%@@@@@@%*==--=+#%#+- :**+--:...::=+#%*-      ")
-    print("  Enhanced Dorking & Vuln Scans           :#@@@@@@@+.          :=*%#=.             -#%-    ")
-    print("      Now with eleet banner              +@@@@@@@@:     :**=+***+====*#=.            :%#.  ")
-    print("                      ...........:---. #@@@@@@@@-     -@.-=::::-=--+=+#@*:            #%   ")
-    print("                :---:....::::.        =@@@@@@@@*      =%.+-#+++=:--:+=+%@@%-           %#  ")
-    print("            -=+*+*#%@@@@@@@@@@@@@%%#*:%@@@@@@@=        %:%@@@@@@@#*=:--+#@@@%:         -@- ")
-    print("         -*#+==-:..       .:-=*#@@@@@:@@@@@@#           *@@@@@@@@@@@%+=-=*@@@@*         @* ")
-    print("        ::                       .-=*:%@@@@@             +@@-...:=*@@@@+--%@@@@@-       #% ")
-    print("                                      +@@@@*              -#        -%@@++:%@@@@@=      *% ")
-    print("       long live blackhats          .*:@@@@+               .+         -%@==*@@@@@@*     ## ")
-    print("    RIP NovaCygni / d4rkc4t        -@@%=@@@*                 =          +@#-+@@@@@@+    @+ ")
-    print("  + everyone else at d4rkc0d3     .@@@@@*%@@.   :=.           :          .#*=-#@@@@@-  :@: ")
-    print("                                  *@@@@@@#*@#     =*-         :            @#==#@@@@@  +%  ")
-    print("          .-=+*%@@@@@%#+=:        %@@@@@@@@+*%:    +@*        :-           :@-=:#@@@@- @-  ")
-    print("       :+%#++=::-==*@@@@@@@#=.    +@@@@@@@@@@**+:   #@*       .+            #@---=@@@*=#   ")
-    print("     -##+---:-=-::-::=*@@@@@@@*:   @@@@@@@@@@@@%#+-  .-=      .#            -@-+:+:@@#=.   ")
-    print("   :#+=-::::..:-=--=:-:-+%@@@@@@#: :@@@@@@@@@@@@@@#*=.        .%          .#:@+.+:##@%     ")
-    print("  =@=-:::-+*+==--=+==--:--*@@@@@@@*. *@@@@@@@@@@@@@@@#=:      .@         :%-=@ = *:@@%     ")
-    print(" +#:::-+#+.         :=*=-:-=#@@@@@@@= .*@@@@@@@@@@@@@@%-=:    +=       .*#. #=  -.++@#     ")
-    print("-@=::+*-*              -++:-:=*@@@@@@%:  :=*#%@@@%#*=:   :+==%+.     :*#:  -#   :.==@=     ")
-    print("%#::=%--*                :+:-:-=#@@@@@@*.                    .#-: .=%*:   :%.    =:@@.     ")
-    print("@*===*--+=                 ==..:=+%@@@@@@=                    -=-:+-     :#      +-@*      ")
-    print("*@+*-#--:=+:             .=%@%.   .-%@@@@@@=             .-=*#==-::    .*+       *%@       ")
-    print(".@@%:#+-=--=+=::....::-*%@@@@@@=     .+%@@@@@*:  -==+****+-:    .:.::-:+.       :@@-       ")
-    print(" :@@@#%*--------:--==*@@@@@@@@#-*.      .=*#@@@@*=-.             .=:-:+:       +@@=        ")
-    print("  .%@@@@@%##****#%@@@@@@@@@@+.   +=            ...:==============-. =: -     -%@@:         ")
-    print("    -%@@@@@@@@@@@@@@@@@@@*:       :*:                                :     -%@@%.          ")
-    print("      :+#@@@@@@@@@@%#+=:            =#:                                :=*@@@@+            ")
-    print("          .::-::.                     *#-                        :=+#%@@@@@@+              ")
-    print("                                       :#@#=:             .:=*#@@@@@@@@@@#-                ")
-    print("                                         :*@@@%#*+====+*%@@@@@@@@@@@@@#=                   ")
-    print("             E O F                         -+#@@@@@@@@@@@@@@@@@@%*=:                       ")
-    print("                                                                                           \n")
+    print(
+        """                                                                                               
+                                                                                               
+                                                   :=*#%%@%%#+-:         :-=+****+=:.          
+         Venom <  4.3.3  >                      .+%@@@@@@%*==--=+#%#+- :**+--:...::=+#%*-      
+      Enhanced Dorking & Vuln Scans           :#@@@@@@@+.          :=*%#=.             -#%-    
+          Now with eleet banner              +@@@@@@@@:     :**=+***+====*#=.            :%#.  
+                          ...........:---. #@@@@@@@@-     -@.-=::::-=--+=+#@*:            #%   
+                    :---:....::::.        =@@@@@@@@*      =%.+-#+++=:--:+=+%@@%-           %#  
+                -=+*+*#%@@@@@@@@@@@@@%%#*:%@@@@@@@=        %:%@@@@@@@#*=:--+#@@@%:         -@- 
+             -*#+==-:..       .:-=*#@@@@@:@@@@@@#           *@@@@@@@@@@@%+=-=*@@@@*         @* 
+            ::                       .-=*:%@@@@@             +@@-...:=*@@@@+--%@@@@@-       #% 
+                                          +@@@@*              -#        -%@@++:%@@@@@=      *% 
+           long live blackhats          .*:@@@@+               .+         -%@==*@@@@@@*     ## 
+        RIP NovaCygni / d4rkc4t        -@@%=@@@*                 =          +@#-+@@@@@@+    @+ 
+      + everyone else at d4rkc0d3     .@@@@@*%@@.   :=.           :          .#*=-#@@@@@-  :@: 
+                                      *@@@@@@#*@#     =*-         :            @#==#@@@@@  +%  
+              .-=+*%@@@@@%#+=:        %@@@@@@@@+*%:    +@*        :-           :@-=:#@@@@- @-  
+           :+%#++=::-==*@@@@@@@#=.    +@@@@@@@@@@**+:   #@*       .+            #@---=@@@*=#   
+         -##+---:-=-::-::=*@@@@@@@*:   @@@@@@@@@@@@%#+-  .-=      .#            -@-+:+:@@#=.   
+       :#+=-::::..:-=--=:-:-+%@@@@@@#: :@@@@@@@@@@@@@@#*=.        .%          .#:@+.+:##@%     
+      =@=-:::-+*+==--=+==--:--*@@@@@@@*. *@@@@@@@@@@@@@@@#=:      .@         :%-=@ = *:@@%     
+     +#:::-+#+.         :=*=-:-=#@@@@@@@= .*@@@@@@@@@@@@@@%-=:    +=       .*#. #=  -.++@#     
+    -@=::+*-*              -++:-:=*@@@@@@%:  :=*#%@@@%#*=:   :+==%+.     :*#:  -#   :.==@=     
+    %#::=%--*                :+:-:-=#@@@@@@*.                    .#-: .=%*:   :%.    =:@@.     
+    @*===*--+=                 ==..:=+%@@@@@@=                    -=-:+-     :#      +-@*      
+    *@+*-#--:=+:             .=%@%.   .-%@@@@@@=             .-=*#==-::    .*+       *%@       
+    .@@%:#+-=--=+=::....::-*%@@@@@@=     .+%@@@@@*:  -==+****+-:    .:.::-:+.       :@@-       
+     :@@@#%*--------:--==*@@@@@@@@#-*.      .=*#@@@@*=-.             .=:-:+:       +@@=        
+      .%@@@@@%##****#%@@@@@@@@@@+.   +=            ...:==============-. =: -     -%@@:         
+        -%@@@@@@@@@@@@@@@@@@@*:       :*:                                :     -%@@%.          
+          :+#@@@@@@@@@@%#+=:            =#:                                :=*@@@@+            
+              .::-::.                     *#-                        :=+#%@@@@@@+              
+                                           :#@#=:             .:=*#@@@@@@@@@@#-                
+                                             :*@@@%#*+====+*%@@@@@@@@@@@@@#=                   
+                 E O F                         -+#@@@@@@@@@@@@@@@@@@%*=:                       
+                                                                                               \n"""
+    )
 
 
 def vbulletin5_scanning(url):
@@ -797,14 +799,14 @@ def f_scan():
 
 def cloudflare_resolver():
     import time
+
     logo()
     target_site = input("Enter the target domain (example.com):  \n")
     print(B)
     pwd = os.path.dirname(str(os.path.realpath(__file__)))
     print("Depth Level: 1) Scan top 30 subdomains.   ")
     print("             2) Scan top 200 subdomains.  ")
-    print("             3) Scan over 9000+ subdomains. [elite] \n"
-    )
+    print("             3) Scan over 9000+ subdomains. [elite] \n")
     depth = input("Input depth level: ")
     scandepth = ""
     if depth == 1:
@@ -847,13 +849,13 @@ def scan_option():
         + O
         + "attempt to verify vuln sites then column count if MySQL detected"
     )
-    print(R +  "[3] XSS Testing")
-    print(R +  "[4] LFI/RCE Testing")
-    print(R +  "[5] Save valid Sorted and confirmed vuln URLs to file")
-    print(R +  "[6] Print all the UNSORTED URLs ")
-    print(R +  "[7] Print all Sorted and Confirmed Vulns from last scan again")
-    print(R +  "[8] Print all Sorted URLs")
-    print(R +  "[9] XSSTRIKE testing")
+    print(R + "[3] XSS Testing")
+    print(R + "[4] LFI/RCE Testing")
+    print(R + "[5] Save valid Sorted and confirmed vuln URLs to file")
+    print(R + "[6] Print all the UNSORTED URLs ")
+    print(R + "[7] Print all Sorted and Confirmed Vulns from last scan again")
+    print(R + "[8] Print all Sorted URLs")
+    print(R + "[9] XSSTRIKE testing")
     print(R + "[10] Scan all the things")
     print(R + "[11] Back to main menu")
     print(R + "[12] MISC Vulns")
@@ -1027,9 +1029,7 @@ def scan_option():
 def ignoring_get(url):
     header = [line.strip() for line in open("lists/header", "r", encoding="utf-8")]
     ua = random.choice(header)
-    headers = {
-        "user-agent": ua,
-    }
+    headers = {"user-agent": ua}
     try:
         try:
             response = requests.get(url, headers=headers)
@@ -1087,7 +1087,7 @@ async def search(pages_pulled_as_one):
             progress += 1
             page = 0
             while page < int(pages_pulled_as_one):
-                query =  dork + " site:" + site 
+                query = dork + " site:" + site
                 futures = []
                 loop = asyncio.get_event_loop()
                 for i in range(25):
@@ -1153,10 +1153,7 @@ async def search(pages_pulled_as_one):
                 urls_len_last = urls_len
     tmplist = []
 
-    print(
-        "\n\n[+] URLS (unsorted): ",
-        len(urls),
-    )
+    print("\n\n[+] URLS (unsorted): ", len(urls))
     for url in urls:
         unsorted.append(url)
         try:
@@ -1187,10 +1184,7 @@ async def search(pages_pulled_as_one):
             else:
                 pass
             continue
-    print(
-        "[+] URLS (sorted) with rubbish removed: ",
-        len(finallist),
-    )
+    print("[+] URLS (sorted) with rubbish removed: ", len(finallist))
     return finallist
 
 
@@ -1231,6 +1225,7 @@ def f_menu():
         subprocess._cleanup()
     elif chce == "3":
         import time
+
         print(B)
         toxin.menu()
     elif chce == "4":
@@ -1283,8 +1278,9 @@ def f_menu():
         print(" [9] Skip to target list")
         print("[10] Print contents of log files")
         print("[11] rm -rf cache and logs")
-        print("[12] Perform forced update of ALL installed Python packages and dependancies on system")
-        print("[13] Donations information")
+        print(
+            "[12] Perform forced update of ALL installed Python packages and dependancies on system"
+        )
         print(" [0] Return to main menu")
         chce2 = input(":")
         if chce2 == "1":
@@ -1448,16 +1444,16 @@ def f_menu():
 
             euid = os.geteuid()
             if euid == 0:
-                print("You cannot perform any upgrades or repairs while logged in as superuser.")
+                print(
+                    "You cannot perform any upgrades or repairs while logged in as superuser."
+                )
                 time.sleep(6)
                 killpid()
             import pip
             from subprocess import call
             import time
 
-            print(
-                "Updating Cloudbuster files. Please wait."
-            )
+            print("Updating Cloudbuster files. Please wait.")
             time.sleep(3)
             for d in downloads:
                 download(d[0], d[1], d[2])
@@ -1466,17 +1462,19 @@ def f_menu():
             os.replace(Path("ips-v6"), Path("./lists/ips-v6"))
             print("Everything up to date!")
             print(
-                "Cloudbuster features updated! Moving onto python modules and dependencies...")
+                "Cloudbuster features updated! Moving onto python modules and dependencies..."
+            )
             time.sleep(4)
             sys.stdout.flush()
             print("Update && upgrade, then upgrade python.")
             print("You will have 10 seconds. Cancel this action with Ctrl^C.")
             time.sleep(10)
-            call("pip3 freeze --local --user | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip3 install -U --user", shell=True,)
+            call(
+                "pip3 freeze --local --user | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip3 install -U --user",
+                shell=True,
+            )
             subprocess._cleanup()
             pass
-        elif chce2 == "13":
-            donations()
     elif chce == "0":
         print(R + "\n Exiting cleanly..")
         print(W)
@@ -1490,7 +1488,9 @@ lfis = [line.strip() for line in open("lists/pathtotest.txt", "r", encoding="utf
 tables = [line.strip() for line in open("lists/tables", "r", encoding="utf-8")]
 columns = [line.strip() for line in open("lists/columns", "r", encoding="utf-8")]
 search_ignore = [line.strip() for line in open("lists/ignore", "r", encoding="utf-8")]
-sqli_errors = [line.strip() for line in open("lists/sqli_errors", "r", encoding="utf-8")]
+sqli_errors = [
+    line.strip() for line in open("lists/sqli_errors", "r", encoding="utf-8")
+]
 random.shuffle(header)
 random.shuffle(lfis)
 

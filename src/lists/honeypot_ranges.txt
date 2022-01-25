@@ -1,12 +1,3 @@
-# This file is part of v3n0m
-# See LICENSE for license details.
-# This is a list of 2021 updated honeypot ranges.
-# Honestly, I should probably add an SSH honeypot text list as well. TO-DO.
-# If you find a vulnerable pub, IIS, SQL, or *nix -- LEAVE IT ALONE. (But I like v&s.)
-# I'll be creating a script to include in the source that prevents n00bs from getting arrested.
-# You should have permission to scan or test any sites and if you don't, discontinue scanning these ranges.
-# Some have active IDS. If you aren't aware of that, you should not touch these hostile nets.
-
 172.31.*.*			# ???
 192.*.*.*			# ???
 10.*.*.*			# ???

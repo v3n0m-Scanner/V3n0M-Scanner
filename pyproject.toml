@@ -1,0 +1,31 @@
+[tool.poetry]
+name = "venom"
+version = "4.3.3"
+description = "Offensive Security Tool for Vulnerability Scanning & Pentesting"
+authors = ["NovaCygni <novacygni@hotmail.co.uk>", "Katt Stof <katrinastofferman@autistici.org>", "b4ltazar <b4ltazar@gmail.com>",
+        "d4rkcat <rfarage@yandex.com>", "Architect <scissortail@riseup.net>"]
+license = "GPL3"
+
+[tool.poetry.dependencies]
+python = ">3.6,<4.0"
+termcolor = "^1.1.0"
+aiohttp = "^3.8.1"
+asyncio = "^3.4.3"
+bs4 = "^0.0.1"
+dnspython = "^2.2.0"
+tqdm = "^4.62.3"
+requests = "^2.27.1"
+httplib2 = "^0.20.2"
+
+[tool.poetry.dev-dependencies]
+SocksiPy-branch = "^1.01"
+DateTime = "^4.3"
+
+[tool.black]
+line-length = 88
+target-version = ['py37']
+include = '\.pyi?$'
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

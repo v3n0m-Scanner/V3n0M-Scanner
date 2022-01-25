@@ -272,11 +272,7 @@ class CoroutineLimiter:
         try:
             return await coro_callable(*args)
         finally:
-            print(
-                "Coroutine {count} finished, releasing semaphore".format(
-                    count=n,
-                )
-            )
+            print("Coroutine {count} finished, releasing semaphore".format(count=n))
             self._sem.release()
 
 

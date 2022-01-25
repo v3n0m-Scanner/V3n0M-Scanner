@@ -116,7 +116,7 @@ def process_data(threadName, q):
             queueLock.release()
             host = data.strip() + "." + domain.strip()
             try:
-                answers = resolver.query(host)
+                answers = dns.resolver.Resolver.resolve(host)
                 try:
                     output = gethostbyaddr(host)
                     if len(host) < 16:
