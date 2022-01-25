@@ -1032,7 +1032,7 @@ def ignoring_get(url):
     headers = {"user-agent": ua}
     try:
         try:
-            response = requests.get(url, headers=headers)
+            response = requests.get(url, headers=headers,timeout=5)
             response.raise_for_status()
         except Exception:
             return ""
