@@ -24,11 +24,12 @@ RUN groupadd venom && \
     curl \
     build-essential \
     python3-setuptools \
-    ca-certificates
+    python3-dev \
+    python3-bs4 \
+    ca-certificates \
+    libffi-dev
 
-## Change ownership
-COPY --chown=venom:venom V3n0M-Scanner /home/venom/
-
+#Install poetry & cleanup
 RUN apt-get clean && \
     rm -rf -- /var/lib/apt/lists/* /var/cache/* && \
     chown venom /opt && \
@@ -38,14 +39,11 @@ RUN apt-get clean && \
     python -m venv $VENV_PATH && \
     rm -rf /var/lib/apt/lists/*
 
-## Switch to user (anything that's not setuid)
-USER venom
-
-## Clone repo & install deps with Poetry
+## Clone repo & install deps with Pip & Poetry
 #  https://github.com/python-poetry/poetry
-RUN git clone https://github.com/vittring/V3n0M-Scanner.git && \
-RUN cd /home/venom/V3n0M-Scanner && \
+RUN git clone https://github.com/vittring/V3n0M-Scanner.git scan/
+WORKDIR scan/src
+RUN pip install aiohttp tqdm SocksiPy-branch httplib2 requests bs4
 RUN poetry install
 
-## Init
-ENTRYPOINT ["python3.8", "v3n0m.py"]
+ENTRYPOINT ["python3", "v3n0m.py"]
