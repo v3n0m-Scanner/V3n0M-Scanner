@@ -3,7 +3,29 @@
 # This file is part of v3n0m
 # See LICENSE for license details.
 
-import re, random, threading, socket, urllib.request, urllib.error, urllib.parse, http.cookiejar, subprocess, time, sys, os, math, itertools, queue, asyncio, aiohttp, argparse, socks, httplib2, requests, zipfile, concurrent.futures
+import re
+import random
+import threading
+import socket
+import urllib.request
+import urllib.error
+import urllib.parse
+import http.cookiejar
+import subprocess
+import time
+import sys
+import os
+import math
+import itertools
+import queue
+import asyncio
+import aiohttp
+import argparse
+import socks
+import httplib2
+import requests
+import zipfile
+import concurrent.futures
 from signal import SIGINT, signal
 import bs4, tqdm
 from glob import glob
@@ -980,14 +1002,7 @@ def scan_option():
         for url in finallist:
             xss_scanning(url)
 
-        print(
-            B
-            + "\r\x1b[ [*] Scan complete, "
-            + O
-            + str(len(col))
-            + B
-            + " vuln sites found."
-        )
+        print(B + "[*] Scan complete, " + O + str(len(col)) + B + " vuln sites found.")
     elif chce == "11":
         endsub = 1
         f_menu()
