@@ -39,6 +39,9 @@ Please make sure you `sudo apt-get install python3-bs4` | `apt-get install pytho
 Kali users:
 Please `apt-get install python3-dev` | `apt-get install python-dev`
 
+_NOTE_ - Install Poetry for dependecies:
+`curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python`
+
 Docker users:
 Please see [Dockerfile](docker/README.md)
 
