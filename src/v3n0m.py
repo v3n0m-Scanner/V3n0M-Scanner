@@ -41,10 +41,7 @@ from functools import wraps
 import toxin
 from urllib3.exceptions import InsecureRequestWarning
 
-#   Recovery menu: removed in current vers.
-#   To install modules for Venom, please 'pip install -r requirements.txt --no-cache'
-#   Ref: https://github.com/v3n0m-Scanner/V3n0M-Scanner/pull/195
-#
+
 def logo():
     cache_Check()
     sql_list_counter()
