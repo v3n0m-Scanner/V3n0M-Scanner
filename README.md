@@ -1,6 +1,5 @@
-<p align="center">
-<img src="venom.png" alt="venom">
-</p>
+# Venom
+![venom](venom.png)
 
 #### Offensive Security Framework for Vulnerability Scanning & Pentesting
 ![os](https://img.shields.io/badge/OS-Linux,%20Windows-green.svg)
@@ -28,10 +27,11 @@
 - [x] Cross-platform Python-based toolkit
 - [x] Licensed under GPLv3
 - [x] Built by hackers with full transparency
+- [x] No more issues with dependencies from pre-alpha release
 
 ![Example of SQLi Dorker](https://github.com/v3n0m-Scanner/V3n0M-Scanner/blob/master/src/AnimatedDemo.gif?raw=true "Example of Dorker Features")
 
-## Install note
+_NOTE_ - You MUST install these on Ubuntu and Kali.
 
 Ubuntu users:
 Please make sure you `sudo apt-get install python3-bs4` | `apt-get install python3-setuptools`
@@ -39,8 +39,11 @@ Please make sure you `sudo apt-get install python3-bs4` | `apt-get install pytho
 Kali users:
 Please `apt-get install python3-dev` | `apt-get install python-dev`
 
+_NOTE_ - Install Poetry for dependecies:
+`curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python`
+
 Docker users:
-Please see `Dockerfile_README.md`
+Please see [Dockerfile](docker/README.md)
 
 ## Contact Information:
     Submit a bug report/pull request with prefix "Query" at the start.

@@ -63,3 +63,6 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+
+# Files we don't want to track
+src/v3n0m-*.txt

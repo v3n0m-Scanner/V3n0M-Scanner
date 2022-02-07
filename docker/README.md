@@ -1,5 +1,5 @@
 # Venom
-![venom](venom.png)
+![venom](../venom.png)
 
 #### Offensive Security Tool for Vulnerability Scanning & Pentesting
 ![os](https://img.shields.io/badge/OS-Linux,%20Windows-green.svg)
@@ -27,11 +27,9 @@
 - [x] Cross-platform Python-based toolkit
 - [x] Licensed under GPLv3
 - [x] Built by hackers with full transparency
+- [x] No more issues with dependencies from pre-alpha release
 
-![Example of SQLi Dorker](https://github.com/v3n0m-Scanner/V3n0M-Scanner/blob/master/src/AnimatedDemo.gif?raw=true "Example of Dorker Features")
-
-## Install note
-
+## Install from Docker Hub
 Pull it from [Docker Hub](https://hub.docker.com/repository/docker/vittring/venom):
 ```bash
 docker pull vittring/venom:devel
@@ -42,14 +40,7 @@ docker build -t vittring/venom:devel .
 docker run -ti vittring/venom:devel
 ```
 
-Ubuntu users:
-Please make sure you `sudo apt-get install python3-bs4` | `apt-get install python3-setuptools`
-
-Kali users:
-Please `apt-get install python3-dev` | `apt-get install python-dev`
-
-## Contact Information:
-    Submit a bug report/pull request with prefix "Query" at the start.
+That's it!
 
 ## Credits to:
     - Architect for the initial encouragement and support in V3n0ms early days
