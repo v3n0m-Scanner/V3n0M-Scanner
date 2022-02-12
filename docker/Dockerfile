@@ -9,6 +9,11 @@ FROM python:3.8.12-slim-bullseye
 LABEL maintainer="Architect" \
       email="scissortail@riseup.net"
 
+# Harden Dockerfile
+ENV USER venom
+ENV WORKDIR /usr/src/$USER
+
+
 # Environment variables for Poetry
 ENV PIP_NO_CACHE_DIR=off \
     PIP_DISABLE_PIP_VERSION_CHECK=on \
@@ -19,11 +24,9 @@ ENV PIP_NO_CACHE_DIR=off \
 ENV PATH="$POETRY_PATH/bin:$VENV_PATH/bin:$PATH"
 
 # Add non-root user for running
-RUN groupadd venom && \
-    useradd --no-log-init -g venom venom \
-    && mkdir /home/venom \
-    && chown -R venom:venom /home/venom \
-    && chown venom /opt
+RUN useradd --create-home --system --shell /bin/false $USER
+RUN mkdir --parents $WORKDIR
+RUN chown $USER:$USER --recursive $WORKDIR
 
 # Install base dependencies
 RUN apt-get update \
@@ -39,8 +42,8 @@ RUN curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poet
     && rm -rf /var/lib/apt/lists/*
 
 # Clone repo & install dependencies
-RUN git clone --recursive https://github.com/vittring/V3n0M-Scanner.git /opt/venom
-WORKDIR /opt/venom
+RUN git clone --recursive https://github.com/vittring/V3n0M-Scanner.git $WORKDIR/scan
+WORKDIR $WORKDIR/scan
 
 # Magic
 RUN poetry install
@@ -49,8 +52,8 @@ RUN poetry install
 RUN pip install aiohttp tqdm SocksiPy-branch httplib2 requests bs4
 
 # Switching to non-root user/CHROOT
-USER venom
-WORKDIR src/
+USER $USER
+WORKDIR $WORKDIR/scan/src
 
 # Run Venom
 ENTRYPOINT ["python3", "v3n0m.py"]
