@@ -22,7 +22,6 @@
 - [x] Python 3.6 asyncio based scanning
 - [x] Cloudflare resolver
 - [x] Extremely quick "Toxin" Vulnerable IP scanner to scan potentially millions of ips for known vulnerable services.
-- [x] Largest and most powerful d0rker online, searching 14k+ dorks over several engines at once.
 - [x] Free and Open /src/
 - [x] Cross-platform Python-based toolkit
 - [x] Licensed under GPLv3
