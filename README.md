@@ -5,6 +5,8 @@
 ![os](https://img.shields.io/badge/OS-Linux,%20Windows-green.svg)
 [![pythonver](https://img.shields.io/badge/python-3.6%2B-green.svg)](https://www.python.org/downloads/release/python-3614)
 [![License: GPLV3](https://img.shields.io/badge/License-GPLv3-green.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![Docker Pulls](https://img.shields.io/docker/pulls/vittring/venom.svg)](https://hub.docker.com/r/vittring/venom/)
+[![Docker Image Size](https://img.shields.io/docker/image-size/vittring/venom.svg?sort=date)](https://hub.docker.com/r/vittring/venom/)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 ### Version 4.3.3 now requires PROXIES/VPN.
@@ -17,6 +19,7 @@
 - [x] Extremely Large D0rk Target Lists
 - [x] Detects known WAFs
 - [x] AdminPage Finding
+- [x] CCTV/Networked Interfaces discovery [WIP] <<<<
 - [x] Vulnerable FTPs Scanner [Toxin]
 - [x] DNS Bruteforcer
 - [x] Python 3.6 asyncio based scanning
@@ -30,7 +33,9 @@
 
 ![Example of SQLi Dorker](https://github.com/v3n0m-Scanner/V3n0M-Scanner/blob/master/src/AnimatedDemo.gif?raw=true "Example of Dorker Features")
 
-_NOTE_ - You MUST install these on Ubuntu and Kali.
+__This is outdated.__
+
+__NOTE:__ You MUST install these on Ubuntu and Kali.
 
 Ubuntu users:
 Please make sure you `sudo apt-get install python3-bs4` | `apt-get install python3-setuptools`
@@ -38,7 +43,8 @@ Please make sure you `sudo apt-get install python3-bs4` | `apt-get install pytho
 Kali users:
 Please `apt-get install python3-dev` | `apt-get install python-dev`
 
-_NOTE_ - Install Poetry for dependecies:
+__NOTE:__ Install Poetry for deps:
+
 `curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python`
 
 Docker users:
