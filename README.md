@@ -19,6 +19,7 @@
 - [x] Extremely Large D0rk Target Lists
 - [x] Detects known WAFs
 - [x] AdminPage Finding
+- [x] CCTV/Networked Interfaces discovery [WIP] <<<<
 - [x] Vulnerable FTPs Scanner [Toxin]
 - [x] DNS Bruteforcer
 - [x] Python 3.6 asyncio based scanning
@@ -32,7 +33,9 @@
 
 ![Example of SQLi Dorker](https://github.com/v3n0m-Scanner/V3n0M-Scanner/blob/master/src/AnimatedDemo.gif?raw=true "Example of Dorker Features")
 
-_NOTE_ - You MUST install these on Ubuntu and Kali.
+__This is outdated.__
+
+__NOTE:__ You MUST install these on Ubuntu and Kali.
 
 Ubuntu users:
 Please make sure you `sudo apt-get install python3-bs4` | `apt-get install python3-setuptools`
@@ -40,7 +43,8 @@ Please make sure you `sudo apt-get install python3-bs4` | `apt-get install pytho
 Kali users:
 Please `apt-get install python3-dev` | `apt-get install python-dev`
 
-_NOTE_ - Install Poetry for dependecies:
+__NOTE:__ Install Poetry for deps:
+
 `curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python`
 
 Docker users:
