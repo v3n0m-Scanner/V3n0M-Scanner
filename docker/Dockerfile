@@ -2,7 +2,7 @@
 #
 # This file is part of Venom
 # See LICENSE for license details.
-FROM python:3.8.12-slim-bullseye
+FROM python:3.10.3-slim-bullseye
 
 # Contact info for critical/security issues only
 # Use subject title "Venom *critical issue*: short description"
