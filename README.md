@@ -45,7 +45,10 @@ Please `apt-get install python3-dev` | `apt-get install python-dev`
 
 __NOTE:__ Install Poetry for deps:
 
-`curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python`
+`curl -sSL https://install.python-poetry.org | python3 -
+poetry install # install deps
+poetry update # when you want to check for deps updates`
+
 
 Docker users:
 Please see [Dockerfile](docker/README.md)

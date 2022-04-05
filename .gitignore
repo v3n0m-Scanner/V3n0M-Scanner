@@ -4,6 +4,9 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# Image signing
+docker/*.pub
+
 # C extensions
 *.so
 
