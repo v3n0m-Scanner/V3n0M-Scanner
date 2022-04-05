@@ -54,6 +54,18 @@ coverage.xml
 .hypothesis/
 .pytest_cache/
 cover/
+src/modules/xss-strike/*.html
+src/modules/xss-strike/*tests*
+src/*.txt
+
+# XSS-strike submodule tests
+src/modules/xss-strike/*.txt
+
+# Files we don't want to track
+# Submodules
+src/modules/xss-strike/.git*
+src/modules/xss-strike/*poetry*
+src/modules/xss-strike/*.toml
 
 # Sphinx documentation
 docs/
@@ -66,6 +78,3 @@ venv/
 ENV/
 env.bak/
 venv.bak/
-
-# Files we don't want to track
-src/v3n0m-*.txt
