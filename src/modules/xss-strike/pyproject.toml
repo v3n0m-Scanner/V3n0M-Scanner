@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "xss-strike"
+version = "0.1.0"
+description = "Advanced XSS Detection Suite"
+authors = ["s0m3d3v <s0md3v@gmail.com>"]
+license = "GPL3"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+tld = "^0.12.6"
+fuzzywuzzy = "^0.18.0"
+requests = "^2.27.1"
+
+[tool.poetry.dev-dependencies]
+SocksiPy-branch = "^1.01"
+DateTime = "^4.3"
+
+[tool.black]
+line-length = 88
+target-version = ['py37']
+include = '\.pyi?$'
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

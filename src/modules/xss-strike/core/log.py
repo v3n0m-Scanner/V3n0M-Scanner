@@ -1,11 +1,11 @@
 import logging
 from .colors import *
 
-__all__ = ["setup_logger", "console_log_level", "file_log_level", "log_file"]
+__all__ = ['setup_logger', 'console_log_level', 'file_log_level', 'log_file']
 
-console_log_level = "INFO"
+console_log_level = 'INFO'
 file_log_level = None
-log_file = "xsstrike.log"
+log_file = 'xsstrike.log'
 
 """
 Default Logging Levels
@@ -21,9 +21,9 @@ RUN_LEVEL_NUM = 22
 GOOD_LEVEL_NUM = 25
 
 
-logging.addLevelName(VULN_LEVEL_NUM, "VULN")
-logging.addLevelName(RUN_LEVEL_NUM, "RUN")
-logging.addLevelName(GOOD_LEVEL_NUM, "GOOD")
+logging.addLevelName(VULN_LEVEL_NUM, 'VULN')
+logging.addLevelName(RUN_LEVEL_NUM, 'RUN')
+logging.addLevelName(GOOD_LEVEL_NUM, 'GOOD')
 
 
 def _vuln(self, msg, *args, **kwargs):
@@ -47,14 +47,38 @@ logging.Logger.good = _good
 
 
 log_config = {
-    "DEBUG": {"value": logging.DEBUG, "prefix": "{}[*]{}".format(yellow, end)},
-    "INFO": {"value": logging.INFO, "prefix": info},
-    "RUN": {"value": RUN_LEVEL_NUM, "prefix": run},
-    "GOOD": {"value": GOOD_LEVEL_NUM, "prefix": good},
-    "WARNING": {"value": logging.WARNING, "prefix": "[!!]".format(yellow, end)},
-    "ERROR": {"value": logging.ERROR, "prefix": bad},
-    "CRITICAL": {"value": logging.CRITICAL, "prefix": "{}[--]{}".format(red, end)},
-    "VULN": {"value": VULN_LEVEL_NUM, "prefix": "{}[++]{}".format(green, red)},
+    'DEBUG': {
+        'value': logging.DEBUG,
+        'prefix': '{}[*]{}'.format(yellow, end),
+    },
+    'INFO': {
+        'value': logging.INFO,
+        'prefix': info,
+    },
+    'RUN': {
+        'value': RUN_LEVEL_NUM,
+        'prefix': run,
+    },
+    'GOOD': {
+        'value': GOOD_LEVEL_NUM,
+        'prefix': good,
+    },
+    'WARNING': {
+        'value': logging.WARNING,
+        'prefix': '[!!]'.format(yellow, end),
+    },
+    'ERROR': {
+        'value': logging.ERROR,
+        'prefix': bad,
+    },
+    'CRITICAL': {
+        'value': logging.CRITICAL,
+        'prefix': '{}[--]{}'.format(red, end),
+    },
+    'VULN': {
+        'value': VULN_LEVEL_NUM,
+        'prefix': '{}[++]{}'.format(green, red),
+    }
 }
 
 
@@ -62,12 +86,12 @@ class CustomFormatter(logging.Formatter):
     def format(self, record):
         msg = super().format(record)
         if record.levelname in log_config.keys():
-            msg = "%s %s %s" % (log_config[record.levelname]["prefix"], msg, end)
+            msg = '%s %s %s' % (log_config[record.levelname]['prefix'], msg, end)
         return msg
 
 
 class CustomStreamHandler(logging.StreamHandler):
-    default_terminator = "\n"
+    default_terminator = '\n'
 
     def emit(self, record):
         """
@@ -75,8 +99,8 @@ class CustomStreamHandler(logging.StreamHandler):
         :param record:
         :return:
         """
-        if record.msg.endswith("\r"):
-            self.terminator = "\r"
+        if record.msg.endswith('\r'):
+            self.terminator = '\r'
             super().emit(record)
             self.terminator = self.default_terminator
         else:
@@ -86,7 +110,7 @@ class CustomStreamHandler(logging.StreamHandler):
 def _switch_to_no_format_loggers(self):
     self.removeHandler(self.console_handler)
     self.addHandler(self.no_format_console_handler)
-    if hasattr(self, "file_handler") and hasattr(self, "no_format_file_handler"):
+    if hasattr(self, 'file_handler') and hasattr(self, 'no_format_file_handler'):
         self.removeHandler(self.file_handler)
         self.addHandler(self.no_format_file_handler)
 
@@ -94,7 +118,7 @@ def _switch_to_no_format_loggers(self):
 def _switch_to_default_loggers(self):
     self.removeHandler(self.no_format_console_handler)
     self.addHandler(self.console_handler)
-    if hasattr(self, "file_handler") and hasattr(self, "no_format_file_handler"):
+    if hasattr(self, 'file_handler') and hasattr(self, 'no_format_file_handler'):
         self.removeHandler(self.no_format_file_handler)
         self.addHandler(self.file_handler)
 
@@ -107,60 +131,56 @@ def _get_level_and_log(self, msg, level):
         self.info(msg)
 
 
-def log_red_line(self, amount=60, level="INFO"):
+def log_red_line(self, amount=60, level='INFO'):
     _switch_to_no_format_loggers(self)
-    _get_level_and_log(self, red + ("-" * amount) + end, level)
+    _get_level_and_log(self, red + ('-' * amount) + end, level)
     _switch_to_default_loggers(self)
 
 
-def log_no_format(self, msg="", level="INFO"):
+def log_no_format(self, msg='', level='INFO'):
     _switch_to_no_format_loggers(self)
     _get_level_and_log(self, msg, level)
     _switch_to_default_loggers(self)
 
 
-def log_debug_json(self, msg="", data={}):
+def log_debug_json(self, msg='', data={}):
     if self.isEnabledFor(logging.DEBUG):
         if isinstance(data, dict):
             import json
-
             try:
-                self.debug("{} {}".format(msg, json.dumps(data, indent=2)))
+                self.debug('{} {}'.format(msg, json.dumps(data, indent=2)))
             except TypeError:
-                self.debug("{} {}".format(msg, data))
+                self.debug('{} {}'.format(msg, data))
         else:
-            self.debug("{} {}".format(msg, data))
+            self.debug('{} {}'.format(msg, data))
 
 
-def setup_logger(name="xsstrike"):
+def setup_logger(name='xsstrike'):
     from types import MethodType
-
     logger = logging.getLogger(name)
     logger.setLevel(logging.DEBUG)
     console_handler = CustomStreamHandler(sys.stdout)
-    console_handler.setLevel(log_config[console_log_level]["value"])
-    console_handler.setFormatter(CustomFormatter("%(message)s"))
+    console_handler.setLevel(log_config[console_log_level]['value'])
+    console_handler.setFormatter(CustomFormatter('%(message)s'))
     logger.addHandler(console_handler)
     # Setup blank handler to temporally use to log without format
     no_format_console_handler = CustomStreamHandler(sys.stdout)
-    no_format_console_handler.setLevel((log_config[console_log_level]["value"]))
-    no_format_console_handler.setFormatter(logging.Formatter(fmt=""))
+    no_format_console_handler.setLevel((log_config[console_log_level]['value']))
+    no_format_console_handler.setFormatter(logging.Formatter(fmt=''))
     # Store current handlers
     logger.console_handler = console_handler
     logger.no_format_console_handler = no_format_console_handler
 
     if file_log_level:
-        detailed_formatter = logging.Formatter(
-            "%(asctime)s %(name)s - %(levelname)s - %(message)s"
-        )
+        detailed_formatter = logging.Formatter('%(asctime)s %(name)s - %(levelname)s - %(message)s')
         file_handler = logging.FileHandler(log_file)
-        file_handler.setLevel(log_config[file_log_level]["value"])
+        file_handler.setLevel(log_config[file_log_level]['value'])
         file_handler.setFormatter(detailed_formatter)
         logger.addHandler(file_handler)
         # Setup blank handler to temporally use to log without format
         no_format_file_handler = logging.FileHandler(log_file)
-        no_format_file_handler.setLevel(log_config[file_log_level]["value"])
-        no_format_file_handler.setFormatter(logging.Formatter(fmt=""))
+        no_format_file_handler.setLevel(log_config[file_log_level]['value'])
+        no_format_file_handler.setFormatter(logging.Formatter(fmt=''))
         # Store file handlers
         logger.file_handler = file_handler
         logger.no_format_file_handler = no_format_file_handler

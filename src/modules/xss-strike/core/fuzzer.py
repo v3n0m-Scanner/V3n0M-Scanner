@@ -22,39 +22,32 @@ def fuzzer(url, params, headers, GET, delay, timeout, WAF, encoding):
             if encoding:
                 fuzz = encoding(unquote(fuzz))
             data = replaceValue(params, xsschecker, fuzz, copy.deepcopy)
-            response = requester(url, data, headers, GET, delay / 2, timeout)
+            response = requester(url, data, headers, GET, delay/2, timeout)
         except:
-            logger.error("WAF is dropping suspicious requests.")
+            logger.error('WAF is dropping suspicious requests.')
             if delay == 0:
-                logger.info("Delay has been increased to %s6%s seconds." % (green, end))
+                logger.info('Delay has been increased to %s6%s seconds.' % (green, end))
                 delay += 6
             limit = (delay + 1) * 50
             timer = -1
             while timer < limit:
-                logger.info(
-                    "\rFuzzing will continue after %s%i%s seconds.\t\t\r"
-                    % (green, limit, end)
-                )
+                logger.info('\rFuzzing will continue after %s%i%s seconds.\t\t\r' % (green, limit, end))
                 limit -= 1
                 sleep(1)
             try:
                 requester(url, params, headers, GET, 0, 10)
-                logger.good(
-                    "Pheww! Looks like sleeping for %s%i%s seconds worked!"
-                    % (green, ((delay + 1) * 2), end)
-                )
+                logger.good('Pheww! Looks like sleeping for %s%i%s seconds worked!' % (
+                    green, ((delay + 1) * 2), end))
             except:
-                logger.error("\nLooks like WAF has blocked our IP Address. Sorry!")
+                logger.error('\nLooks like WAF has blocked our IP Address. Sorry!')
                 break
         if encoding:
             fuzz = encoding(fuzz)
-        if (
-            fuzz.lower() in response.text.lower()
-        ):  # if fuzz string is reflected in the response
-            result = "%s[passed]  %s" % (green, end)
+        if fuzz.lower() in response.text.lower():  # if fuzz string is reflected in the response
+            result = ('%s[passed]  %s' % (green, end))
         # if the server returned an error (Maybe WAF blocked it)
-        elif str(response.status_code)[:1] != "2":
-            result = "%s[blocked] %s" % (red, end)
+        elif str(response.status_code)[:1] != '2':
+            result = ('%s[blocked] %s' % (red, end))
         else:  # if the fuzz string was not reflected in the response completely
-            result = "%s[filtered]%s" % (yellow, end)
-        logger.info("%s %s" % (result, fuzz))
+            result = ('%s[filtered]%s' % (yellow, end))
+        logger.info('%s %s' % (result, fuzz))
