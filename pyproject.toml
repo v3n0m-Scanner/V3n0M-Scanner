@@ -16,6 +16,8 @@ dnspython = "^2.2.0"
 tqdm = "^4.62.3"
 requests = "^2.27.1"
 httplib2 = "^0.20.2"
+tld = "^0.12.6"
+fuzzywuzzy = "^0.18.0"
 
 [tool.poetry.dev-dependencies]
 SocksiPy-branch = "^1.01"

@@ -1,0 +1,3 @@
+[submodule "XSStrike"]
+	path = XSStrike
+	url = https://github.com/s0md3v/XSStrike.git
