@@ -951,9 +951,9 @@ def scan_option():
         print(O + "\n" + scan_count + B + " Sites scanned")
         print(
             B
-            + "\r\x1b[ [*] Scan complete, "
+            + "\r\x1b[K [*] Scan complete, "
             + O
-            + str(len(col))
+            + str(len(vuln))
             + B
             + " vuln sites found."
         )
