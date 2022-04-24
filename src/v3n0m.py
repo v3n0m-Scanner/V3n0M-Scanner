@@ -948,7 +948,7 @@ def scan_option():
         sqli_testing()
         scan_count = len(vuln_scan_count)
         scan_count = str(scan_count)
-        print(O + "\n" + scan_count + +B + " Sites scanned")
+        print(O + "\n" + scan_count + B + " Sites scanned")
         print(
             B
             + "\r\x1b[ [*] Scan complete, "

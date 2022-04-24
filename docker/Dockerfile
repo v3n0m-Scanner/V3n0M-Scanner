@@ -39,11 +39,12 @@ RUN curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poet
     && python -m venv $VENV_PATH \
     && rm -rf /var/lib/apt/lists/*
 
-ENV WORKDIR=/opt
+ENV WORKDIR=/opt/scan
 
 # Clone repo & install dependencies
-RUN git clone --recursive https://github.com/vittring/V3n0M-Scanner.git $WORKDIR/scan
-WORKDIR $WORKDIR/scan
+RUN git clone --depth=1 https://github.com/vittring/V3n0M-Scanner.git $WORKDIR
+RUN chown $USER:$USER --recursive $WORKDIR
+WORKDIR $WORKDIR
 
 # Magic
 RUN poetry install
@@ -53,7 +54,7 @@ RUN pip install aiohttp tqdm SocksiPy-branch httplib2 requests bs4
 
 # Switching to non-root user/CHROOT
 USER $USER
-WORKDIR $WORKDIR/scan/src
+WORKDIR $WORKDIR/src
 
 # Run Venom
 ENTRYPOINT ["python3", "v3n0m.py"]
