@@ -18,6 +18,7 @@ requests = "^2.27.1"
 httplib2 = "^0.20.2"
 tld = "^0.12.6"
 fuzzywuzzy = "^0.18.0"
+cleo = "^0.8.1"
 
 [tool.poetry.dev-dependencies]
 SocksiPy-branch = "^1.01"
