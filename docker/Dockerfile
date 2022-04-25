@@ -42,7 +42,7 @@ RUN curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poet
 ENV WORKDIR=/opt/scan
 
 # Clone repo & install dependencies
-RUN git clone --depth=1 https://github.com/vittring/V3n0M-Scanner.git $WORKDIR
+RUN git clone --depth=1 https://github.com/V3n0M-Scanner/V3n0M-Scanner.git $WORKDIR
 RUN chown $USER:$USER --recursive $WORKDIR
 WORKDIR $WORKDIR
 
