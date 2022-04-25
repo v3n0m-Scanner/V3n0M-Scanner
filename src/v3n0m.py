@@ -904,7 +904,6 @@ def cloudflare_resolver():
 
 
 def scan_option():
-    global cctv_log_file
     global endsub
     global lfi_log_file
     global rce_log_file
@@ -912,7 +911,6 @@ def scan_option():
     global sql_log_file
     global misc_log_file
     global vuln
-    cctv_log_file = open("v3n0m-cctv.txt", "a", encoding="utf-8")
     misc_log_file = open("v3n0m-misc.txt", "a", encoding="utf-8")
     lfi_log_file = open("v3n0m-lfi.txt", "a", encoding="utf-8")
     rce_log_file = open("v3n0m-rce.txt", "a", encoding="utf-8")
@@ -1071,6 +1069,8 @@ def scan_option():
 
         print(B + "[*] Scan complete, " + O + str(len(col)) + B + " vuln sites found.")
     elif chce == "11":
+        global cctv_log_file
+        cctv_log_file = open("v3n0m-cctv.txt", "a", encoding="utf-8")
         cctv_testing()
     elif chce == "12":
         print("[1] Vbulletin 5.6.x > 5.6.2")
