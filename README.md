@@ -1,7 +1,9 @@
 # Venom
+
 ![venom](venom.png)
 
 #### Offensive Security Framework for Vulnerability Scanning & Pentesting
+
 ![os](https://img.shields.io/badge/OS-Linux,%20Windows-green.svg)
 [![pythonver](https://img.shields.io/badge/python-3.6%2B-green.svg)](https://www.python.org/downloads/release/python-3614)
 [![License: GPLV3](https://img.shields.io/badge/License-GPLv3-green.svg)](https://www.gnu.org/licenses/gpl-3.0)
@@ -12,6 +14,7 @@
 ### Version 4.3.3 now requires PROXIES/VPN.
 
 ##### Features
+
 - [x] USE PROXIES/VPN [Required]
 - [x] Cloudflare Resolver [Cloudbuster]
 - [x] LFI->RCE and XSS Scanning [LFI to RCE & XSS]
@@ -33,9 +36,9 @@
 
 ![Example of SQLi Dorker](https://github.com/v3n0m-Scanner/V3n0M-Scanner/blob/master/src/AnimatedDemo.gif?raw=true "Example of Dorker Features")
 
-__This is outdated.__
+**This is outdated.**
 
-__NOTE:__ You MUST install these on Ubuntu and Kali.
+**NOTE:** You MUST install these on Ubuntu and Kali.
 
 Ubuntu users:
 Please make sure you `sudo apt-get install python3-bs4` | `apt-get install python3-setuptools`
@@ -43,20 +46,19 @@ Please make sure you `sudo apt-get install python3-bs4` | `apt-get install pytho
 Kali users:
 Please `apt-get install python3-dev` | `apt-get install python-dev`
 
-__NOTE:__ Install Poetry for deps:
+**NOTE:** Install Poetry for deps:
 
-`curl -sSL https://install.python-poetry.org | python3 -
-poetry install # install deps
-poetry update # when you want to check for deps updates`
-
+`curl -sSL https://install.python-poetry.org | python3 - poetry install # install deps poetry update # when you want to check for deps updates`
 
 Docker users:
 Please see [Dockerfile](docker/README.md)
 
 ## Contact Information:
+
     Submit a bug report/pull request with prefix "Query" at the start.
 
 ## Credits to:
+
     - Architect for the initial encouragement and support in V3n0ms early days
     - SageHack for allowing Cloudbuster to be adapted for use within V3n0M
     - D35m0nd142 for allowing Collaboration and the use of LFI Suite within V3n0M
