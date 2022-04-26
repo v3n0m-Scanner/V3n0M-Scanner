@@ -1,3 +1,0 @@
-[submodule "XSStrike"]
-	path = src/modules/xss-strike
-	url = https://github.com/s0md3v/XSStrike.git
