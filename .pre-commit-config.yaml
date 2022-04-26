@@ -1,22 +1,20 @@
-ci:
-  skip: [sync]
-
-minimum_pre_commit_version: 2.15.0
-
+minimum_pre_commit_version: 2.8.0
+default_stages: [commit, push, manual]
 repos:
-  # general checks (see here: https://pre-commit.com/hooks.html)
-  - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.0.1
-    hooks:
-      - id: check-added-large-files
-      - id: detect-private-key
-      - id: end-of-file-fixer
-      - id: mixed-line-ending
-      - id: trailing-whitespace
-      - id: check-toml
-
-  # black - formatting
   - repo: https://github.com/psf/black
-    rev: 21.12b0
+    rev: 22.3.0
     hooks:
       - id: black
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.2.0
+    hooks:
+      - id: check-added-large-files
+        args: [--maxkb=800]
+      - id: debug-statements
+      - id: detect-aws-credentials
+        args: [--allow-missing-credentials]
+      - id: detect-private-key
+      - id: end-of-file-fixer
+      - id: forbid-new-submodules
+      - id: mixed-line-ending
+      - id: trailing-whitespace
