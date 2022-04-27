@@ -1,5 +1,5 @@
 pkgname='v3n0m'
-pkgver=470.b204301
+pkgver=502.8d5c05e
 pkgrel=1
 groups=('blackarch' 'blackarch-scanner' 'blackarch-webapp' 'blackarch-recon')
 pkgdesc='Offensive Security Tool for Vulnerability Scanning & Pentesting'
