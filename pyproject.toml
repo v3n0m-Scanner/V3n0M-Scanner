@@ -31,3 +31,7 @@ include = '\.pyi?$'
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[[tool.poetry.source]]
+name = "torch_rep"
+url = "https://eternalphane.github.io/pytorch-pypi"
