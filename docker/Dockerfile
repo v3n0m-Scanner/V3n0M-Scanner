@@ -34,7 +34,7 @@ RUN useradd --create-home --system --shell /bin/false $USER
 
 # Latest Poetry
 # https://github.com/python-poetry/poetry
-RUN curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python \
+RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python - --preview \
     && mv /root/.poetry $POETRY_PATH \
     && python -m venv $VENV_PATH \
     && rm -rf /var/lib/apt/lists/*
