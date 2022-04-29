@@ -153,9 +153,7 @@ def genGen(
                                 for end in ends:
                                     if tag == "d3v" or tag == "a":
                                         if ">" in ends:
-                                            end = (
-                                                ">"
-                                            )  # we can't use // as > with "a" or "d3v" tag
+                                            end = ">"  # we can't use // as > with "a" or "d3v" tag
                                     breaker = ""
                                     if badTag:
                                         breaker = "</" + r(badTag) + ">"
@@ -179,7 +177,7 @@ def genGen(
 
 def getParams(url, data, GET):
     params = {}
-    if "=" in url:
+    if "?" in url and "=" in url:
         data = url.split("?")[1]
         if data[:1] == "?":
             data = data[1:]

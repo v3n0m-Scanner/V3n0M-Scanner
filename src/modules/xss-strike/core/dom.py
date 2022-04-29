@@ -1,23 +1,26 @@
 import re
 
-from core.colors import red, end, yellow
+from core.colors import end, red, yellow
+
+if len(end) < 1:
+    end = red = yellow = "*"
 
 
 def dom(response):
     highlighted = []
-    sources = r"""document\.(URL|documentURI|URLUnencoded|baseURI|cookie|referrer)|location\.(href|search|hash|pathname)|window\.name|history\.(pushState|replaceState)(local|session)Storage"""
-    sinks = r"""eval|evaluate|execCommand|assign|navigate|getResponseHeaderopen|showModalDialog|Function|set(Timeout|Interval|Immediate)|execScript|crypto.generateCRMFRequest|ScriptElement\.(src|text|textContent|innerText)|.*?\.onEventName|document\.(write|writeln)|.*?\.innerHTML|Range\.createContextualFragment|(document|window)\.location"""
+    sources = r"""\b(?:document\.(URL|documentURI|URLUnencoded|baseURI|cookie|referrer)|location\.(href|search|hash|pathname)|window\.name|history\.(pushState|replaceState)(local|session)Storage)\b"""
+    sinks = r"""\b(?:eval|evaluate|execCommand|assign|navigate|getResponseHeaderopen|showModalDialog|Function|set(Timeout|Interval|Immediate)|execScript|crypto.generateCRMFRequest|ScriptElement\.(src|text|textContent|innerText)|.*?\.onEventName|document\.(write|writeln)|.*?\.innerHTML|Range\.createContextualFragment|(document|window)\.location)\b"""
     scripts = re.findall(r"(?i)(?s)<script[^>]*>(.*?)</script>", response)
     sinkFound, sourceFound = False, False
     for script in scripts:
         script = script.split("\n")
         num = 1
+        allControlledVariables = set()
         try:
             for newLine in script:
                 line = newLine
                 parts = line.split("var ")
                 controlledVariables = set()
-                allControlledVariables = set()
                 if len(parts) > 1:
                     for part in parts:
                         for controlledVariable in allControlledVariables:
@@ -40,7 +43,6 @@ def dom(response):
                                             .group()
                                             .replace("$", "\$")
                                         )
-                                        sourceFound = True
                             line = line.replace(source, yellow + source + end)
                 for controlledVariable in controlledVariables:
                     allControlledVariables.add(controlledVariable)
@@ -49,6 +51,7 @@ def dom(response):
                         filter(None, re.findall(r"\b%s\b" % controlledVariable, line))
                     )
                     if matches:
+                        sourceFound = True
                         line = re.sub(
                             r"\b%s\b" % controlledVariable,
                             yellow + controlledVariable + end,
@@ -66,7 +69,7 @@ def dom(response):
                 num += 1
         except MemoryError:
             pass
-    if sinkFound and sourceFound:
+    if sinkFound or sourceFound:
         return highlighted
     else:
         return []

@@ -59,7 +59,7 @@ def generator(occurences, response):
             found = False
             tag = occurences[i]["details"]["tag"]
             Type = occurences[i]["details"]["type"]
-            quote = occurences[i]["details"]["quote"]
+            quote = occurences[i]["details"]["quote"] or ""
             attributeName = occurences[i]["details"]["name"]
             attributeValue = occurences[i]["details"]["value"]
             quoteEfficiency = (
@@ -238,14 +238,17 @@ def generator(occurences, response):
                         vector = quote + closer + filling + function + suffix
                         vectors[7].add(vector)
             elif breakerEfficiency > 83:
+                prefix = ""
                 suffix = "//"
+                if breakerEfficiency != 100:
+                    prefix = "\\"
                 for filling in jFillings:
                     for function in functions:
                         if "=" in function:
                             function = "(" + function + ")"
                         if quote == "":
                             filling = ""
-                        vector = "\\" + quote + closer + filling + function + suffix
+                        vector = prefix + quote + closer + filling + function + suffix
                         vectors[6].add(vector)
             index += 1
     return vectors

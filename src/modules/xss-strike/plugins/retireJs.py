@@ -160,7 +160,7 @@ def scan_file_content(content, definitions):
 
     if len(result) == 0:
         result = _scanhash(
-            hashlib.sha256(content.encode("utf8")).hexdigest(), definitions
+            hashlib.sha1(content.encode("utf8")).hexdigest(), definitions
         )
 
     return check(result, definitions)

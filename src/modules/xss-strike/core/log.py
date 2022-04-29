@@ -47,14 +47,38 @@ logging.Logger.good = _good
 
 
 log_config = {
-    "DEBUG": {"value": logging.DEBUG, "prefix": "{}[*]{}".format(yellow, end)},
-    "INFO": {"value": logging.INFO, "prefix": info},
-    "RUN": {"value": RUN_LEVEL_NUM, "prefix": run},
-    "GOOD": {"value": GOOD_LEVEL_NUM, "prefix": good},
-    "WARNING": {"value": logging.WARNING, "prefix": "[!!]".format(yellow, end)},
-    "ERROR": {"value": logging.ERROR, "prefix": bad},
-    "CRITICAL": {"value": logging.CRITICAL, "prefix": "{}[--]{}".format(red, end)},
-    "VULN": {"value": VULN_LEVEL_NUM, "prefix": "{}[++]{}".format(green, red)},
+    "DEBUG": {
+        "value": logging.DEBUG,
+        "prefix": "{}[*]{}".format(yellow, end),
+    },
+    "INFO": {
+        "value": logging.INFO,
+        "prefix": info,
+    },
+    "RUN": {
+        "value": RUN_LEVEL_NUM,
+        "prefix": run,
+    },
+    "GOOD": {
+        "value": GOOD_LEVEL_NUM,
+        "prefix": good,
+    },
+    "WARNING": {
+        "value": logging.WARNING,
+        "prefix": "[!!]".format(yellow, end),
+    },
+    "ERROR": {
+        "value": logging.ERROR,
+        "prefix": bad,
+    },
+    "CRITICAL": {
+        "value": logging.CRITICAL,
+        "prefix": "{}[--]{}".format(red, end),
+    },
+    "VULN": {
+        "value": VULN_LEVEL_NUM,
+        "prefix": "{}[++]{}".format(green, red),
+    },
 }
 
 

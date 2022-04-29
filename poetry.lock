@@ -75,11 +75,11 @@ tests_no_zope = ["coverage[toml] (>=5.0.2)", "hypothesis", "pympler", "pytest (>
 
 [[package]]
 name = "beautifulsoup4"
-version = "4.10.0"
+version = "4.11.1"
 description = "Screen-scraping library"
 category = "main"
 optional = false
-python-versions = ">3.0.0"
+python-versions = ">=3.6.0"
 
 [package.dependencies]
 soupsieve = ">1.2"
@@ -161,6 +161,17 @@ description = "A list-like structure which implements collections.abc.MutableSeq
 category = "main"
 optional = false
 python-versions = ">=3.6"
+
+[[package]]
+name = "fuzzywuzzy"
+version = "0.18.0"
+description = "Fuzzy string matching in python"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.extras]
+speedup = ["python-levenshtein (>=0.12)"]
 
 [[package]]
 name = "httplib2"
@@ -262,7 +273,7 @@ python-versions = "*"
 
 [[package]]
 name = "soupsieve"
-version = "2.3.1"
+version = "2.3.2.post1"
 description = "A modern CSS selector implementation for Beautiful Soup."
 category = "main"
 optional = false
@@ -277,8 +288,16 @@ optional = false
 python-versions = "*"
 
 [[package]]
+name = "tld"
+version = "0.12.6"
+description = "Extract the top-level domain (TLD) from the URL given."
+category = "main"
+optional = false
+python-versions = ">=2.7, <4"
+
+[[package]]
 name = "tqdm"
-version = "4.63.1"
+version = "4.64.0"
 description = "Fast, Extensible Progress Meter"
 category = "main"
 optional = false
@@ -291,6 +310,7 @@ importlib-resources = {version = "*", markers = "python_version < \"3.7\""}
 [package.extras]
 dev = ["py-make (>=0.1.0)", "twine", "wheel"]
 notebook = ["ipywidgets (>=6)"]
+slack = ["slack-sdk"]
 telegram = ["requests"]
 
 [[package]]
@@ -355,7 +375,7 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "1.1"
 python-versions = ">3.6,<4.0"
-content-hash = "d40746804fb64fdaff1fd9e21470692f1c36fee87937601d9b66a94cc7e00156"
+content-hash = "4a88bdf6fba2d2d6f547f62e5da4f52a53be1bf4cf422c9f51fe746c3c47b8ba"
 
 [metadata.files]
 aiohttp = [
@@ -455,8 +475,8 @@ attrs = [
     {file = "attrs-21.4.0.tar.gz", hash = "sha256:626ba8234211db98e869df76230a137c4c40a12d72445c45d5f5b716f076e2fd"},
 ]
 beautifulsoup4 = [
-    {file = "beautifulsoup4-4.10.0-py3-none-any.whl", hash = "sha256:9a315ce70049920ea4572a4055bc4bd700c940521d36fc858205ad4fcde149bf"},
-    {file = "beautifulsoup4-4.10.0.tar.gz", hash = "sha256:c23ad23c521d818955a4151a67d81580319d4bf548d3d49f4223ae041ff98891"},
+    {file = "beautifulsoup4-4.11.1-py3-none-any.whl", hash = "sha256:58d5c3d29f5a36ffeb94f02f0d786cd53014cf9b3b3951d42e0080d8a9498d30"},
+    {file = "beautifulsoup4-4.11.1.tar.gz", hash = "sha256:ad9aa55b65ef2808eb405f46cf74df7fcb7044d5cbc26487f96eb2ef2e436693"},
 ]
 bs4 = [
     {file = "bs4-0.0.1.tar.gz", hash = "sha256:36ecea1fd7cc5c0c6e4a1ff075df26d50da647b75376626cc186e2212886dd3a"},
@@ -554,6 +574,10 @@ frozenlist = [
     {file = "frozenlist-1.2.0-cp39-cp39-win32.whl", hash = "sha256:83334e84a290a158c0c4cc4d22e8c7cfe0bba5b76d37f1c2509dabd22acafe15"},
     {file = "frozenlist-1.2.0-cp39-cp39-win_amd64.whl", hash = "sha256:735f386ec522e384f511614c01d2ef9cf799f051353876b4c6fb93ef67a6d1ee"},
     {file = "frozenlist-1.2.0.tar.gz", hash = "sha256:68201be60ac56aff972dc18085800b6ee07973c49103a8aba669dee3d71079de"},
+]
+fuzzywuzzy = [
+    {file = "fuzzywuzzy-0.18.0-py2.py3-none-any.whl", hash = "sha256:928244b28db720d1e0ee7587acf660ea49d7e4c632569cad4f1cd7e68a5f0993"},
+    {file = "fuzzywuzzy-0.18.0.tar.gz", hash = "sha256:45016e92264780e58972dca1b3d939ac864b78437422beecebb3095f8efd00e8"},
 ]
 httplib2 = [
     {file = "httplib2-0.20.4-py3-none-any.whl", hash = "sha256:8b6a905cb1c79eefd03f8669fd993c36dc341f7c558f056cb5a33b5c2f458543"},
@@ -660,15 +684,24 @@ socksipy-branch = [
     {file = "SocksiPy-branch-1.01.tar.gz", hash = "sha256:17a95060e28c3b9038a9b8c1865c54f8c1c5bef15d561bf777c9bbf3c80e8406"},
 ]
 soupsieve = [
-    {file = "soupsieve-2.3.1-py3-none-any.whl", hash = "sha256:1a3cca2617c6b38c0343ed661b1fa5de5637f257d4fe22bd9f1338010a1efefb"},
-    {file = "soupsieve-2.3.1.tar.gz", hash = "sha256:b8d49b1cd4f037c7082a9683dfa1801aa2597fb11c3a1155b7a5b94829b4f1f9"},
+    {file = "soupsieve-2.3.2.post1-py3-none-any.whl", hash = "sha256:3b2503d3c7084a42b1ebd08116e5f81aadfaea95863628c80a3b774a11b7c759"},
+    {file = "soupsieve-2.3.2.post1.tar.gz", hash = "sha256:fc53893b3da2c33de295667a0e19f078c14bf86544af307354de5fcf12a3f30d"},
 ]
 termcolor = [
     {file = "termcolor-1.1.0.tar.gz", hash = "sha256:1d6d69ce66211143803fbc56652b41d73b4a400a2891d7bf7a1cdf4c02de613b"},
 ]
+tld = [
+    {file = "tld-0.12.6-py27-none-any.whl", hash = "sha256:ef5b162d6fa295822dacd4fe4df1b62d8df2550795a97399a8905821b58d3702"},
+    {file = "tld-0.12.6-py35-none-any.whl", hash = "sha256:826bbe61dccc8d63144b51caef83e1373fbaac6f9ada46fca7846021f5d36fef"},
+    {file = "tld-0.12.6-py36-none-any.whl", hash = "sha256:843844e4256c943983d86366b5af3ac9cd1c9a0b6465f04d9f70e3b4c1a7989f"},
+    {file = "tld-0.12.6-py37-none-any.whl", hash = "sha256:a92ac6b84917e7d9e934434b8d37e9be534598f138fbb86b3c0d5426f2621890"},
+    {file = "tld-0.12.6-py38-none-any.whl", hash = "sha256:266106ad9035f54cd5cce5f823911a51f697e7c58cb45bfbd6c53b4c2976ece2"},
+    {file = "tld-0.12.6-py39-none-any.whl", hash = "sha256:b6650f2d5392a49760064bc55d73ce3397a378ef24ded96efb516c6b8ec68c26"},
+    {file = "tld-0.12.6.tar.gz", hash = "sha256:69fed19d26bb3f715366fb4af66fdeace896c55c052b00e8aaba3a7b63f3e7f0"},
+]
 tqdm = [
-    {file = "tqdm-4.63.1-py2.py3-none-any.whl", hash = "sha256:6461b009d6792008d0000e1b0c7ca50195ec78c0e808a3a6b668a56a3236c3a5"},
-    {file = "tqdm-4.63.1.tar.gz", hash = "sha256:4230a49119a416c88cc47d0d2d32d5d90f1a282d5e497d49801950704e49863d"},
+    {file = "tqdm-4.64.0-py2.py3-none-any.whl", hash = "sha256:74a2cdefe14d11442cedf3ba4e21a3b84ff9a2dbdc6cfae2c34addb2a14a5ea6"},
+    {file = "tqdm-4.64.0.tar.gz", hash = "sha256:40be55d30e200777a307a7585aee69e4eabb46b4ec6a4b4a5f2d9f11e7d5408d"},
 ]
 typing-extensions = [
     {file = "typing_extensions-4.1.1-py3-none-any.whl", hash = "sha256:21c85e0fe4b9a155d0799430b0ad741cdce7e359660ccbd8b530613e8df88ce2"},

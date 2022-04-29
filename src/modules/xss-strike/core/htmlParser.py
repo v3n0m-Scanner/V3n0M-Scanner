@@ -1,7 +1,7 @@
 import re
 
 from core.config import badTags, xsschecker
-from core.utils import isBadContext, equalize, escaped
+from core.utils import isBadContext, equalize, escaped, extractScripts
 
 
 def htmlParser(response, encoding):
@@ -14,24 +14,27 @@ def htmlParser(response, encoding):
     environment_details = {}
     clean_response = re.sub(r"<!--[.\s\S]*?-->", "", response)
     script_checkable = clean_response
-    for i in range(reflections):
-        occurence = re.search(
-            r"(?i)(?s)<script[^>]*>.*?(%s).*?</script>" % xsschecker, script_checkable
-        )
-        if occurence:
-            thisPosition = occurence.start(1)
-            position_and_context[thisPosition] = "script"
-            environment_details[thisPosition] = {}
-            environment_details[thisPosition]["details"] = {"quote": ""}
-            for i in range(len(occurence.group())):
-                currentChar = occurence.group()[i]
-                if currentChar in ("'", "`", '"') and not escaped(i, occurence.group()):
-                    environment_details[thisPosition]["details"]["quote"] = currentChar
-                elif currentChar in (")", "]", "}", "}") and not escaped(
-                    i, occurence.group()
-                ):
-                    break
-            script_checkable = script_checkable.replace(xsschecker, "", 1)
+    for script in extractScripts(script_checkable):
+        occurences = re.finditer(r"(%s.*?)$" % xsschecker, script)
+        if occurences:
+            for occurence in occurences:
+                thisPosition = occurence.start(1)
+                position_and_context[thisPosition] = "script"
+                environment_details[thisPosition] = {}
+                environment_details[thisPosition]["details"] = {"quote": ""}
+                for i in range(len(occurence.group())):
+                    currentChar = occurence.group()[i]
+                    if currentChar in ("/", "'", "`", '"') and not escaped(
+                        i, occurence.group()
+                    ):
+                        environment_details[thisPosition]["details"][
+                            "quote"
+                        ] = currentChar
+                    elif currentChar in (")", "]", "}", "}") and not escaped(
+                        i, occurence.group()
+                    ):
+                        break
+                script_checkable = script_checkable.replace(xsschecker, "", 1)
     if len(position_and_context) < reflections:
         attribute_context = re.finditer(
             r"<[^>]*?(%s)[^>]*?>" % xsschecker, clean_response
@@ -46,9 +49,8 @@ def htmlParser(response, encoding):
                     Type, quote, name, value = "", "", "", ""
                     if "=" in part:
                         quote = re.search(r'=([\'`"])?', part).group(1)
-                        name_and_value = (
-                            part.split("=")[0],
-                            "=".join(part.split("=")[1:]),
+                        name_and_value = part.split("=")[0], "=".join(
+                            part.split("=")[1:]
                         )
                         if xsschecker == name_and_value[0]:
                             Type = "name"
@@ -79,7 +81,7 @@ def htmlParser(response, encoding):
                 environment_details[thisPosition]["details"] = {}
     if len(position_and_context) < reflections:
         comment_context = re.finditer(
-            r"<!--(?![.\s\S]*-->)[.\s\S]*(%s)[.\s\S]*?-->" % xsschecker, response
+            r"<!--[\s\S]*?(%s)[\s\S]*?-->" % xsschecker, response
         )
         for occurence in comment_context:
             thisPosition = occurence.start(1)

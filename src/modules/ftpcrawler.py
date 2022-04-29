@@ -10,9 +10,9 @@ try:
 
 except:
     print(
-        " please make sure you have all of the following modules: asyncio, aiohttp, codecs, requests"
+        "please make sure you have all of the following modules: asyncio, aiohttp, codecs, requests"
     )
-    print(" httplib2, signal, itertools")
+    print("httplib2, signal, itertools")
     print(
         "Error a module was not found,  'sudo pip3 install <package name>' to install"
     )
