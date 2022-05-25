@@ -15,7 +15,6 @@
 
 ##### Features
 
-- [x] USE PROXIES/VPN [Required]
 - [x] Cloudflare Resolver [Cloudbuster]
 - [x] LFI->RCE and XSS Scanning [LFI to RCE & XSS]
 - [x] SQL Injection Vuln Scanner [SQLi]
