@@ -18,7 +18,7 @@
 [![Docker Image Size](https://img.shields.io/docker/image-size/vittring/venom.svg?sort=date)](https://hub.docker.com/r/vittring/venom/)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-### Version 4.3.3 now requires PROXIES/VPN.
+> **Warning**: Version 4.3.3 now requires PROXIES/VPN.
 
 ##### Features
 
