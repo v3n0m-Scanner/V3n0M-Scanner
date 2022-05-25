@@ -2,13 +2,6 @@
 
 ![venom](../venom.png)
 
-#### Offensive Security Tool for Vulnerability Scanning & Pentesting
-
-![os](https://img.shields.io/badge/OS-Linux,%20Windows-green.svg)
-[![pythonver](https://img.shields.io/badge/python-3.6%2B-green.svg)](https://www.python.org/downloads/release/python-3614)
-[![License: GPLV3](https://img.shields.io/badge/License-GPLv3-green.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-
 #### Offensive Security Framework for Vulnerability Scanning & Pentesting
 
 ![os](https://img.shields.io/badge/OS-Linux,%20Windows-green.svg)

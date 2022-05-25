@@ -1,4 +1,4 @@
-# Dockerfile to spin up fully functional Venom
+# Venom Dockerfile
 #
 # This file is part of Venom
 # See LICENSE for license details.
@@ -26,7 +26,7 @@ ENV PIP_NO_CACHE_DIR=off \
     PIP_DEFAULT_TIMEOUT=100 \
     POETRY_PATH=/opt/poetry \
     VENV_PATH=/opt/venv \
-    POETRY_VERSION=1.1.12
+    POETRY_VERSION=1.1.13
 ENV PATH="$POETRY_PATH/bin:$VENV_PATH/bin:$PATH"
 
 # Add non-root user for running
