@@ -50,7 +50,7 @@ WORKDIR $WORKDIR
 RUN poetry install
 
 # Use pip for the rest
-RUN pip install aiohttp tqdm SocksiPy-branch httplib2 requests bs4
+RUN pip install aiohttp tqdm SocksiPy-branch httplib2 requests bs4 dnspython
 
 # Switching to non-root user/CHROOT
 USER $USER
