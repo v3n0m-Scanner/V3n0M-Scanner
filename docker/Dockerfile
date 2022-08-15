@@ -32,21 +32,24 @@ ENV PATH="$POETRY_PATH/bin:$VENV_PATH/bin:$PATH"
 # Add non-root user for running
 RUN useradd --create-home --system --shell /bin/false $USER
 
-# Latest Poetry
-# https://github.com/python-poetry/poetry
-RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/install-poetry.py | python - --preview \
-    && mv /root/.poetry $POETRY_PATH \
-    && python -m venv $VENV_PATH \
-    && rm -rf /var/lib/apt/lists/*
+# Latest Poetry https://install.python-poetry.org
+# Set Poetry Version
+ENV POETRY_VERSION=1.1.13
+# Install Poetry
+RUN curl -sSL https://install.python-poetry.org | python3 - --version $POETRY_VERSION
+# Add poetry install location to PATH
+ENV PATH=/root/.local/bin:$PATH
 
-ENV WORKDIR=/opt/scan
+WORKDIR /opt/scan
 
 # Clone repo & install dependencies
+RUN export PATH="/home/$USER/.local/bin:$PATH"
 RUN git clone --depth=1 https://github.com/V3n0M-Scanner/V3n0M-Scanner.git $WORKDIR
-RUN chown $USER:$USER --recursive $WORKDIR
-WORKDIR $WORKDIR
+COPY $WORKDIR/pyproject.toml .
+RUN chown $USER:$USER --recursive ./$WORKDIR
 
 # Magic
+WORKDIR $WORKDIR
 RUN poetry install
 
 # Use pip for the rest
@@ -54,7 +57,7 @@ RUN pip install aiohttp tqdm SocksiPy-branch httplib2 requests bs4 dnspython
 
 # Switching to non-root user/CHROOT
 USER $USER
-WORKDIR $WORKDIR/src
+WORKDIR ./$WORKDIR/V3n0M-Scanner/src
 
 # Run Venom
 ENTRYPOINT ["python3", "v3n0m.py"]

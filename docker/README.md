@@ -61,9 +61,10 @@ images must either have content signatures or explicit content hashes. The comma
 that operate with DCT are [available here](https://docs.docker.com/engine/security/trust/).
 
 Check the integrity of the container by running:
-'''bash
+
+```bash
 docker trust inspect --pretty docker.io/vittring/venom:devel
-'''
+```
 
 That's it!
 
