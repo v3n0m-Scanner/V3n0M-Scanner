@@ -2,13 +2,6 @@
 
 ![venom](../venom.png)
 
-#### Offensive Security Tool for Vulnerability Scanning & Pentesting
-
-![os](https://img.shields.io/badge/OS-Linux,%20Windows-green.svg)
-[![pythonver](https://img.shields.io/badge/python-3.6%2B-green.svg)](https://www.python.org/downloads/release/python-3614)
-[![License: GPLV3](https://img.shields.io/badge/License-GPLv3-green.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-
 #### Offensive Security Framework for Vulnerability Scanning & Pentesting
 
 ![os](https://img.shields.io/badge/OS-Linux,%20Windows-green.svg)
@@ -18,11 +11,10 @@
 [![Docker Image Size](https://img.shields.io/docker/image-size/vittring/venom.svg?sort=date)](https://hub.docker.com/r/vittring/venom/)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-### Version 4.3.3 now requires PROXIES/VPN.
+> **Warning**: Version 4.3.3 now requires PROXIES/VPN.
 
 ##### Features
 
-- [x] USE PROXIES/VPN [Required]
 - [x] Cloudflare Resolver [Cloudbuster]
 - [x] LFI->RCE and XSS Scanning [LFI to RCE & XSS]
 - [x] SQL Injection Vuln Scanner [SQLi]
@@ -69,9 +61,10 @@ images must either have content signatures or explicit content hashes. The comma
 that operate with DCT are [available here](https://docs.docker.com/engine/security/trust/).
 
 Check the integrity of the container by running:
-'''bash
+
+```bash
 docker trust inspect --pretty docker.io/vittring/venom:devel
-'''
+```
 
 That's it!
 
