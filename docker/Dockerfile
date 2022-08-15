@@ -34,7 +34,7 @@ RUN useradd --create-home --system --shell /bin/false $USER
 
 # Latest Poetry https://install.python-poetry.org
 # Set Poetry Version
-ENV POETRY_VERSION=1.1.13
+ENV POETRY_VERSION=1.1.14
 # Install Poetry
 RUN curl -sSL https://install.python-poetry.org | python3 - --version $POETRY_VERSION
 # Add poetry install location to PATH
