@@ -21,13 +21,6 @@ RUN apt-get update && apt-get install -y \
 
 # Environment variables for Poetry
 ENV USER=venom
-ENV PIP_NO_CACHE_DIR=off \
-    PIP_DISABLE_PIP_VERSION_CHECK=on \
-    PIP_DEFAULT_TIMEOUT=100 \
-    POETRY_PATH=/opt/poetry \
-    VENV_PATH=/opt/venv \
-    POETRY_VERSION=1.1.13
-ENV PATH="$POETRY_PATH/bin:$VENV_PATH/bin:$PATH"
 
 # Add non-root user for running
 RUN useradd --create-home --system --shell /bin/false $USER
