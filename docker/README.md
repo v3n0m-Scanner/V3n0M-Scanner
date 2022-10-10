@@ -38,32 +38,14 @@
 Pull it from [Docker Hub](https://hub.docker.com/repository/docker/vittring/venom):
 
 ```bash
-docker pull vittring/venom:devel
+docker pull vittring/venom:yggdrasil
 ```
 
 or build bleeding edge from here:
 
 ```bash
-docker build -t vittring/venom:devel .
-docker run --rm -ti vittring/venom:devel
-```
-
-## Docker Content Trust is enforced
-
-I do not at present have a way to automate the process of signing the image, then
-also signing with my GPG key, but maybe in the future. Content trust is disabled by
-default in the Docker Client. To enable it, set the DOCKER_CONTENT_TRUST environment
-variable to 1. This prevents users from working with tagged images unless they contain
-a signature.
-
-When DCT is enabled in the Docker client, docker CLI commands that operate on tagged
-images must either have content signatures or explicit content hashes. The commands
-that operate with DCT are [available here](https://docs.docker.com/engine/security/trust/).
-
-Check the integrity of the container by running:
-
-```bash
-docker trust inspect --pretty docker.io/vittring/venom:devel
+docker build -t vittring/venom:yggdrasil .
+docker run --rm -ti vittring/venom:yggdrasil
 ```
 
 That's it!
