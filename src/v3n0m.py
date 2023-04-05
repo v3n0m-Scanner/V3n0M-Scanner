@@ -2,7 +2,6 @@
 # -*- coding: UTF-8 -*-
 # This file is part of v3n0m
 # See LICENSE for license details.
-
 import re
 import random
 import threading
@@ -40,10 +39,8 @@ import inspect
 from functools import wraps
 import toxin
 import urllib3
-
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-
-
+proxy = False
 def logo():
     cache_Check()
     sql_list_counter()
@@ -871,7 +868,11 @@ def f_scan():
     print("Dorks           :", len(loaded_Dorks))
     print("Pages           :", pages_pulled_as_one)
     time.sleep(6)
-    loop = asyncio.get_event_loop()
+    try:
+        loop = asyncio.get_running_loop()
+    except RuntimeError:
+        loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
     usearch = loop.run_until_complete(search(pages_pulled_as_one))
     scan_option()
 
@@ -1113,8 +1114,12 @@ def ignoring_get(url):
     headers = {"user-agent": ua}
     try:
         try:
-            response = requests.get(url, headers=headers, timeout=2)
-            response.raise_for_status()
+            if proxy == True:
+                response = requests.get(url, headers=headers,proxies=proxies, timeout=2)
+                response.raise_for_status()
+            if proxy == False:
+                response = requests.get(url, headers=headers, timeout=2)
+                response.raise_for_status()
         except Exception:
             return ""
         return response.text
@@ -1272,10 +1277,12 @@ async def search(pages_pulled_as_one):
 
 def f_menu():
     import time
-
+    global proxy
     global vuln_scan_count
     global vuln
     global customlist
+    global proxy_ip
+    global proxy_port
     vuln_scan_count = []
     vuln = []
     if endsub != 1:
@@ -1288,6 +1295,7 @@ def f_menu():
     print("[5] Cloudflare Resolving")
     print("[6] XSSTRIKE (thx to @s0md3v!)")
     print("[7] Misc Options")
+    print("[8] Enable Proxy")
     print("[0] Exit\n")
     chce = input(":")
 
@@ -1550,7 +1558,19 @@ def f_menu():
         lfisuite = subprocess.Popen("python " "lfisuite.py ", shell=True)
         lfisuite.communicate()
         subprocess._cleanup()
-
+    elif chce == "8":
+        global proxies
+        proxy = True
+        socks_choice = input("socks4 or socks5: ")
+        proxy_ip = input("Enter proxy ip ")
+        proxy_port = input("Enter Proxy Port")
+        if socks_choice == "socks5":
+            proxies = {'http': 'socks5h://' + str(proxy_ip) + ':' + str(proxy_port), 'https': 'socks5h://' + str(proxy_ip) + ':' + str(proxy_port)}
+        if socks_choice == 'socks4':
+            proxies = {'http': 'socks4://' + str(proxy_ip) + ':' + str(proxy_port), 'https': 'socks4://' + str(proxy_ip) + ':' + str(proxy_port)}
+        print("Proxy Enabled \n ...going back to main menu ")
+        time.sleep(3)
+        f_menu()
     elif chce == "0":
         print(R + "\n Exiting cleanly..")
         print(W)
@@ -1663,5 +1683,4 @@ file = "/etc/passwd"
 ProxyEnabled = False
 menu = True
 current_version = str("433  ")
-while True:
-    f_menu()
+f_menu()
