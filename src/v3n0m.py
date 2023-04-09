@@ -42,6 +42,10 @@ import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 proxy = False
 def logo():
+    if proxy == True:
+        proxy_status = G + "Enabled "
+    if proxy == False:
+        proxy_status = R + "Disabled "
     cache_Check()
     sql_list_counter()
     lfi_list_counter()
@@ -51,6 +55,7 @@ def logo():
     print(
         B
         + """
+         
 
                                                    :=*#%%@%%#+-:         :-=+****+=:.
          Venom <  4.3.5  >                      .+%@@@@@@%*==--=+#%#+- :**+--:...::=+#%*-
@@ -84,9 +89,8 @@ def logo():
               .::-::.                     *#-                        :=+#%@@@@@@+
                                            :#@#=:             .:=*#@@@@@@@@@@#-
                                              :*@@@%#*+====+*%@@@@@@@@@@@@@#=
-                 E O F                         -+#@@@@@@@@@@@@@@@@@@%*=:
-                                                                                               \n"""
-    )
+                 E O F                       -+#@@@@@@@@@@@@@@@@@@%*=:
+                                                """ + O + """PROXY STATUS:"""+ proxy_status,"""\n""")
 
 
 class cctvthread(threading.Thread):
@@ -1295,7 +1299,7 @@ def f_menu():
     print("[5] Cloudflare Resolving")
     print("[6] XSSTRIKE (thx to @s0md3v!)")
     print("[7] Misc Options")
-    print("[8] Enable Proxy")
+    print("[8] Proxy Settings")
     print("[0] Exit\n")
     chce = input(":")
 
@@ -1559,18 +1563,29 @@ def f_menu():
         lfisuite.communicate()
         subprocess._cleanup()
     elif chce == "8":
+        print("[1] Setup Proxy ")
+        print("[2] Verify Proxy ")
         global proxies
-        proxy = True
-        socks_choice = input("socks4 or socks5: ")
-        proxy_ip = input("Enter proxy ip ")
-        proxy_port = input("Enter Proxy Port")
-        if socks_choice == "socks5":
-            proxies = {'http': 'socks5h://' + str(proxy_ip) + ':' + str(proxy_port), 'https': 'socks5h://' + str(proxy_ip) + ':' + str(proxy_port)}
-        if socks_choice == 'socks4':
-            proxies = {'http': 'socks4://' + str(proxy_ip) + ':' + str(proxy_port), 'https': 'socks4://' + str(proxy_ip) + ':' + str(proxy_port)}
-        print("Proxy Enabled \n ...going back to main menu ")
-        time.sleep(3)
-        f_menu()
+        proxy_choice = input("Enter choice ")
+        if proxy_choice == '1':
+            proxy = True
+            socks_choice = input("socks4 or socks5: ")
+            proxy_ip = input("Enter proxy ip: ")
+            proxy_port = input("Enter Proxy Port: ")
+            if socks_choice.lower() == "socks5":
+                proxies = {'http': 'socks5h://' + str(proxy_ip) + ':' + str(proxy_port), 'https': 'socks5h://' + str(proxy_ip) + ':' + str(proxy_port)}
+            if socks_choice.lower() == 'socks4':
+                proxies = {'http': 'socks4://' + str(proxy_ip) + ':' + str(proxy_port), 'https': 'socks4://' + str(proxy_ip) + ':' + str(proxy_port)}
+            print(G + "Proxy Enabled" + B + "\n ...Going back to main menu ")
+            time.sleep(3)
+            f_menu()
+        if proxy_choice == '2':
+            response = requests.get('https://api.ipify.org', proxies=proxies)
+            ip_address = response.text
+            print(O + "Your Public IP address is:" + G +  ip_address)
+            print( B + " \n...Going back to main menu ")
+            time.sleep(3)
+            f_menu()
     elif chce == "0":
         print(R + "\n Exiting cleanly..")
         print(W)
