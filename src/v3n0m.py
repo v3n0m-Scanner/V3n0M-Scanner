@@ -90,7 +90,7 @@ def logo():
                                            :#@#=:             .:=*#@@@@@@@@@@#-
                                              :*@@@%#*+====+*%@@@@@@@@@@@@@#=
                  E O F                       -+#@@@@@@@@@@@@@@@@@@%*=:
-                                                """ + O + """PROXY STATUS:"""+ proxy_status,"""\n""")
+                                                """ + O +"""PROXY STATUS:"""+ proxy_status,"""\n""")
 
 
 class cctvthread(threading.Thread):
