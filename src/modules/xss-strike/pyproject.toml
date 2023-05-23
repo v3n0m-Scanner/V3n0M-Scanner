@@ -9,7 +9,7 @@ license = "GPL3"
 python = "^3.9"
 tld = "^0.12.6"
 fuzzywuzzy = "^0.18.0"
-requests = "^2.27.1"
+requests = "^2.31.0"
 
 [tool.poetry.dev-dependencies]
 SocksiPy-branch = "^1.01"
